@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{290e230d-6d2f-4449-998b-31861c83c897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore">
+      <UniqueIdentifier>{9ffc9798-f555-43d9-a523-b70e502d26b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore\XCFont">
+      <UniqueIdentifier>{beb81aae-aa63-4b86-81c8-01dff3d0b01f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore\XCRender">
+      <UniqueIdentifier>{a8f6de0c-85c2-48a5-8add-453a4c4107d3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="util\ConfigManager.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\GameTimer.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\gl3w.c">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\ImageLoader.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="xcstg.cpp" />
+    <ClCompile Include="util\ScriptLoader.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="XCFrame.cpp" />
+    <ClCompile Include="XCCore\XCFont\XCFont.cpp">
+      <Filter>XCCore\XCFont</Filter>
+    </ClCompile>
+    <ClCompile Include="util\ShaderReader.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\XCImageManager.cpp">
+      <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="util\ConfigManager.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\GameTimer.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\ImageLoader.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\ShaderReader.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\stb_image.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\ScriptLoader.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="XCFrame.h" />
+    <ClInclude Include="XCInfo.h" />
+    <ClInclude Include="XCCore\XCCore.h">
+      <Filter>XCCore</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCFont\XCFont.h">
+      <Filter>XCCore\XCFont</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\XCImageManager.h">
+      <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
