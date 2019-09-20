@@ -130,6 +130,8 @@
     <ClCompile Include="util\ScriptLoader.cpp" />
     <ClCompile Include="util\ShaderReader.cpp" />
     <ClCompile Include="XCCore\XCFont\XCFont.cpp" />
+    <ClCompile Include="XCCore\XCInterpreter\XCInterpreter.cpp" />
+    <ClCompile Include="XCCore\XCRender\XCglHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\XCImageManager.cpp" />
     <ClCompile Include="XCFrame.cpp" />
     <ClCompile Include="xcstg.cpp" />
@@ -143,6 +145,8 @@
     <ClInclude Include="util\stb_image.h" />
     <ClInclude Include="XCCore\XCCore.h" />
     <ClInclude Include="XCCore\XCFont\XCFont.h" />
+    <ClInclude Include="XCCore\XCInterpreter\XCInterpreter.h" />
+    <ClInclude Include="XCCore\XCRender\XCglHelper.h" />
     <ClInclude Include="XCCore\XCRender\XCImageManager.h" />
     <ClInclude Include="XCFrame.h" />
     <ClInclude Include="XCInfo.h" />

@@ -6,6 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 using namespace xc_ogl;
 GLuint XCImageManager::ProgramHandle = -1;
+GLuint XCImageManager::ProgramHandleFx = -1;
 bool XCImageManager::haveProgramInit = false;
 std::map<std::string, GLuint> XCImageManager::textureGroup;
 GLfloat vertices[] = {
@@ -17,14 +18,22 @@ GLfloat vertices[] = {
 GLushort indices[] = {
 	0, 1, 2, 2, 3, 0
 };
-XCImageManager::XCImageManager(std::string path)
+XCImageManager::XCImageManager(std::string path, bool isRenderFlexible)
 {
+	isFlexible = isRenderFlexible;
+	imagePath = path;
 	if (!haveProgramInit) {
 		ShaderReader sreader;
 		sreader.loadFromFile("XCCore/Shader/image/image.vert", GL_VERTEX_SHADER);
 		sreader.loadFromFile("XCCore/Shader/image/image.frag", GL_FRAGMENT_SHADER);
 		sreader.linkAllShader();
 		ProgramHandle = sreader.getProgramHandle();
+
+		ShaderReader fxreader;
+		fxreader.loadFromFile("XCCore/Shader/image/image.fx.vert", GL_VERTEX_SHADER);
+		fxreader.loadFromFile("XCCore/Shader/image/image.fx.frag", GL_FRAGMENT_SHADER);
+		fxreader.linkAllShader();
+		ProgramHandleFx = fxreader.getProgramHandle();
 		haveProgramInit = true;
 	}
 	auto iter = textureGroup.find(path);
@@ -45,15 +54,27 @@ XCImageManager::XCImageManager(std::string path)
 
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	if (!isFlexible) {
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+	}
+	else {
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 16, nullptr, GL_DYNAMIC_DRAW);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(0));
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+	}
 
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 	glEnableVertexAttribArray(0);
 }
 
-void XCImageManager::ImageRender(glm::vec3 renderPos, glm::vec4 coverColor, glm::vec3 scaleSize)
+void XCImageManager::ImageRender(glm::vec3 renderPos, glm::vec4 coverColor, glm::vec3 scaleSize, float *texuturePos16xFloat)
 {
-	glUseProgram(ProgramHandle);
+	if (!isFlexible)
+		glUseProgram(ProgramHandle);
+	else
+		glUseProgram(ProgramHandleFx);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindVertexArray(vao);
 	glBindTexture(GL_TEXTURE_2D, tbo);
@@ -61,8 +82,15 @@ void XCImageManager::ImageRender(glm::vec3 renderPos, glm::vec4 coverColor, glm:
 	glm::mat4 mvp_mat;
 	mvp_mat = glm::translate(mvp_mat, renderPos);
 	mvp_mat = glm::scale(mvp_mat, scaleSize);
-	auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
-	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
+	if (!isFlexible) {
+		auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
+		glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
+	}
+	else {
+		auto mvp_location = glGetUniformLocation(ProgramHandleFx, "mvp_mat");
+		glBufferSubData(GL_ARRAY_BUFFER, 0, 16 * sizeof(float), texuturePos16xFloat);
+		glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
+	}
 	glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);
 	glBindVertexArray(0);
 	glUseProgram(0);
@@ -73,4 +101,70 @@ void XCImageManager::ImageRelease()
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
 	glDeleteBuffers(1, &ebo);
+	glDeleteTextures(1,  &tbo);
+
+	textureGroup.erase(imagePath);
+}
+
+
+float* XCImageManager::GetSpecificTexture(int column, int row, int ix, int iy)
+{
+	float x = ix; float y = iy;
+	static float returnArray[16];
+	returnArray[0] = 1.0f;
+	returnArray[1] = 1.0f;
+	returnArray[2] = x / column;
+	returnArray[3] = y / row;
+
+	returnArray[4] = 1.0f;
+	returnArray[5] = -1.0f,
+		returnArray[6] = x / column;
+	returnArray[7] = (y - 1) / row;
+
+	returnArray[8] = -1.0f;
+	returnArray[9] = -1.0f,
+		returnArray[10] = (x - 1) / column;
+	returnArray[11] = (y - 1) / row;
+
+
+	returnArray[12] = -1.0f;
+	returnArray[13] = 1.0f,
+		returnArray[14] = (x - 1) / column;
+	returnArray[15] = y / row;
+	return returnArray;
+}
+float * XCImageManager::GetSpecificTexWithRate(float width_rate, float height_rate, int column, int row, int ix, int iy)
+{
+	float x = ix; float y = iy;
+	static float returnArray[16];
+	returnArray[0] = width_rate;
+	returnArray[1] = height_rate;
+	returnArray[2] = x / column;
+	returnArray[3] = y / row;
+
+	returnArray[4] = width_rate;
+	returnArray[5] = -height_rate,
+	returnArray[6] = x / column;
+	returnArray[7] = (y - 1) / row;
+
+	returnArray[8] = -width_rate;
+	returnArray[9] = -height_rate,
+	returnArray[10] = (x - 1) / column;
+	returnArray[11] = (y - 1) / row;
+
+	returnArray[12] = -width_rate;
+	returnArray[13] = height_rate,
+	returnArray[14] = (x - 1) / column;
+	returnArray[15] = y / row;
+
+	return returnArray;
+}
+float * XCImageManager::GetPointSpriteVertex(float size)
+{
+	static float returnArray[4];
+	returnArray[0] = 0.0f;
+	returnArray[1] = 0.0f;
+	returnArray[2] = 0.0f;
+	returnArray[3] = size;
+	return returnArray;
 }

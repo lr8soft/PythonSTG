@@ -2,7 +2,6 @@
 #include "ImageLoader.h"
 #include <GL3/gl3w.h>
 #include <iostream>
-#include <windows.h>
 xc_ogl::ImageLoader::ImageLoader()
 {
 	texture_type = GL_TEXTURE_2D;
@@ -43,20 +42,17 @@ void xc_ogl::ImageLoader::loadTextureFromFile(const char * path)
 	if (texture_ptr) {
 		if (channel == 3){//三通道rgb 适用于jpg图像
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_ptr);//后面一个是RGBA
-			std::cout << path<< " RGB" << std::endl;
+			std::cout <<"[INFO] load image from" <<path<< " RGB" << std::endl;
 		}
 		else if (channel == 4){//四通道rgba 适用于png图像
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_ptr);//注意，两个都是RGBA
-			std::cout << path << " RGBA" << std::endl;
+			std::cout << "[INFO] load image from" << path << " RGBA" << std::endl;
 		}
 		glGenerateMipmap(texture_type);
 		have_release = false;
 	}
 	else {
-		char *str = new char[256];
-		sprintf_s(str, 256, "[ERROR]无法加载图像 %s",path);
-		MessageBox(NULL, str,"XCSTG ERROR", MB_OKCANCEL|MB_ICONERROR);
-		delete[] str;
+		std::cout << "[ERROR] Can\'t load image " << path << " !" << std::endl;
 	}
 	glBindTexture(texture_type, 0);//Bind nothing.
 	stbi_image_free(texture_ptr);

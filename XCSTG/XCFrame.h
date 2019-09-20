@@ -2,12 +2,12 @@
 #ifndef _XCFRAME_H_
 #define _XCFRAME_H_
 #include <GLFW/glfw3.h>
-#include "util/ScriptLoader.h"
 #include "util/GameTimer.h"
+#include "XCCore/XCInterpreter/XCInterpreter.h"
 class XCFrame {
 private:
 	GLFWwindow* pscreen;
-	ScriptLoader xcscript;
+	XCInterpreter interpreter;
 	XCGameTimer timer;
 
 	static void FrameResize(GLFWwindow* screen, int w, int h);

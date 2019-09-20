@@ -26,6 +26,7 @@ PyObject * ScriptLoader::getAttrib(PyObject * obj, std::string attribName)
 	return attrib;
 }
 
+
 void ScriptLoader::initPythonEvon()
 {
 	if (!have_python_init) {//First time init.

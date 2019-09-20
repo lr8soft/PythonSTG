@@ -3,6 +3,7 @@
 #include "XCFrame.h"
 #include "XCInfo.h"
 #include "XCCore/XCFont/XCFont.h"
+#include "XCCore/XCRender/XCImageManager.h"
 using namespace XCInfo;
 int XCFrame::FrameWidth = defaultWidth;
 int XCFrame::FrameHeight = defaultHeight;
@@ -24,28 +25,25 @@ void XCFrame::FrameInit()
 	glfwSetFramebufferSizeCallback(pscreen, FrameResize);
 	gl3wInit();
 
-	xcscript.initPythonEvon();
-	
 }
 void XCFrame::FrameLoop()
-{
-	PyObject* core = xcscript.importModule("script.XCCore");
-	PyObject* funcPtr = xcscript.getAttrib(core, "coreLauncher");
-	
+{	
 	glfwMakeContextCurrent(pscreen);
 	XCFont font;
 	font.FontASCIIInit();
 	font.FontSetWidthAndHeight(FrameHeight, FrameWidth);
-
+	XCImageManager image("assets/123.png", true);
+	interpreter.ScriptLaunch();
 	while (!glfwWindowShouldClose(pscreen)) {
 		timer.Tick();
 		glClear(GL_COLOR_BUFFER_BIT);
-		PyObject_CallFunction(funcPtr, NULL);
+		image.ImageRender(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec4(1.0f),glm::vec3(0.5f),
+			image.GetSpecificTexture(3,3,0,0));
 		font.FontASCIIRender(std::to_string(timer.getFPS()), 0.0, 0.0, 1.0, glm::vec4(0.1,0.1,0.6,1.0));
 		glfwSwapBuffers(pscreen);
 		glfwPollEvents();
 	}
-	
+	interpreter.ScriptRelease();
 }
 void XCFrame::FrameFinalize()
 {
