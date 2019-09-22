@@ -17,8 +17,8 @@ void XCFont::ShaderInit()
 {
 	if (!have_program_init) {
 		ShaderReader FontShader;
-		FontShader.loadFromFile("XCCore/Shader/Font/defaultFont.vert", GL_VERTEX_SHADER);
-		FontShader.loadFromFile("XCCore/Shader/Font/defaultFont.frag", GL_FRAGMENT_SHADER);
+		FontShader.loadFromFile("assets/Shader/Font/defaultFont.vert", GL_VERTEX_SHADER);
+		FontShader.loadFromFile("assets/Shader/Font/defaultFont.frag", GL_FRAGMENT_SHADER);
 		FontShader.linkAllShader();
 		program = FontShader.getProgramHandle();
 		glUniform1i(glGetUniformLocation(program, "tex"), 0);
@@ -34,8 +34,8 @@ void XCFont::ResourceInit(int end)
 		if (FT_Init_FreeType(&freetype)) {
 			MessageBox(0, "FreeType加载失败！", "ERROR", MB_ICONERROR); return;
 		}
-		if (FT_New_Face(freetype, "XCCore/Font/SourceHanSansCN-Normal.otf", 0, &fontFace)) {
-			MessageBox(0, "无法加载字体Font/SourceHanSansCN-Normal.otf！", "ERROR", MB_ICONERROR); return;
+		if (FT_New_Face(freetype, "assets/Font/SourceHanSansCN-Normal.otf", 0, &fontFace)) {
+			MessageBox(0, "无法加载字体/assets/Font/SourceHanSansCN-Normal.otf！", "ERROR", MB_ICONERROR); return;
 		}
 		FT_Set_Pixel_Sizes(fontFace, 0, 48);
 
@@ -167,8 +167,8 @@ void XCFont::FontUnicodeInit(std::wstring text)
 	if (FT_Init_FreeType(&freetype)) {
 		MessageBox(0, "FreeType加载失败！", "ERROR", MB_ICONERROR); return;
 	}
-	if (FT_New_Face(freetype, "XCCore/Font/SourceHanSansCN-Normal.otf", 0, &fontFace)) {
-		MessageBox(0, "无法加载字体Font/SourceHanSansCN-Normal.otf！", "ERROR", MB_ICONERROR); return;
+	if (FT_New_Face(freetype, "assets/Font/SourceHanSansCN-Normal.otf", 0, &fontFace)) {
+		MessageBox(0, "无法加载字体/assets/Font/SourceHanSansCN-Normal.otf！", "ERROR", MB_ICONERROR); return;
 	}
 	FT_Set_Pixel_Sizes(fontFace, 0, 48);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

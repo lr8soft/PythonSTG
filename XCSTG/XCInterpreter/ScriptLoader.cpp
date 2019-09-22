@@ -26,6 +26,25 @@ PyObject * ScriptLoader::getAttrib(PyObject * obj, std::string attribName)
 	return attrib;
 }
 
+PyObject * ScriptLoader::callFunction(PyObject * module, std::string funcName, const char *format, ...)
+{
+	PyObject* returnValue = nullptr;
+	if (module == nullptr) {
+		std::cout << "[ERROR]Pointer to pyobject is null." << std::endl;
+	}
+	else {
+		PyObject* funcptr = PyObject_GetAttrString(module, funcName.c_str());
+		if (funcptr!=nullptr) {
+			returnValue = PyObject_CallFunction(funcptr, format);
+		}
+		else {
+			std::cout << "[ERROR]Inexistent function named \'" << funcName.c_str() << "\'!" << std::endl;
+		}
+	}
+
+	return returnValue;
+}
+
 
 void ScriptLoader::initPythonEvon()
 {

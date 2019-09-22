@@ -3,11 +3,11 @@
 #define _XCFRAME_H_
 #include <GLFW/glfw3.h>
 #include "util/GameTimer.h"
-#include "XCCore/XCInterpreter/XCInterpreter.h"
+#include "XCInterpreter/XCInterpreter.h"
 class XCFrame {
 private:
 	GLFWwindow* pscreen;
-	XCInterpreter interpreter;
+	XCInterpreter *interpreter;
 	XCGameTimer timer;
 
 	static void FrameResize(GLFWwindow* screen, int w, int h);

@@ -17,7 +17,7 @@
     <Filter Include="XCCore\XCRender">
       <UniqueIdentifier>{a8f6de0c-85c2-48a5-8add-453a4c4107d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XCCore\XCInterpreter">
+    <Filter Include="XCInterpreter">
       <UniqueIdentifier>{42024c11-981e-4b30-99fa-c3231dfb5f1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -35,9 +35,6 @@
       <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="xcstg.cpp" />
-    <ClCompile Include="util\ScriptLoader.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="XCFrame.cpp" />
     <ClCompile Include="XCCore\XCFont\XCFont.cpp">
       <Filter>XCCore\XCFont</Filter>
@@ -51,8 +48,11 @@
     <ClCompile Include="XCCore\XCRender\XCglHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\XCInterpreter\XCInterpreter.cpp">
-      <Filter>XCCore\XCInterpreter</Filter>
+    <ClCompile Include="XCInterpreter\XCInterpreter.cpp">
+      <Filter>XCInterpreter</Filter>
+    </ClCompile>
+    <ClCompile Include="XCInterpreter\ScriptLoader.cpp">
+      <Filter>XCInterpreter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,9 +71,6 @@
     <ClInclude Include="util\stb_image.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="util\ScriptLoader.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="XCFrame.h" />
     <ClInclude Include="XCInfo.h" />
     <ClInclude Include="XCCore\XCCore.h">
@@ -88,8 +85,11 @@
     <ClInclude Include="XCCore\XCRender\XCglHelper.h">
       <Filter>XCCore\XCRender</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\XCInterpreter\XCInterpreter.h">
-      <Filter>XCCore\XCInterpreter</Filter>
+    <ClInclude Include="XCInterpreter\XCInterpreter.h">
+      <Filter>XCInterpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="XCInterpreter\ScriptLoader.h">
+      <Filter>XCInterpreter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

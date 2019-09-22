@@ -24,14 +24,14 @@ XCImageManager::XCImageManager(std::string path, bool isRenderFlexible)
 	imagePath = path;
 	if (!haveProgramInit) {
 		ShaderReader sreader;
-		sreader.loadFromFile("XCCore/Shader/image/image.vert", GL_VERTEX_SHADER);
-		sreader.loadFromFile("XCCore/Shader/image/image.frag", GL_FRAGMENT_SHADER);
+		sreader.loadFromFile("assets/Shader/image/image.vert", GL_VERTEX_SHADER);
+		sreader.loadFromFile("assets/Shader/image/image.frag", GL_FRAGMENT_SHADER);
 		sreader.linkAllShader();
 		ProgramHandle = sreader.getProgramHandle();
 
 		ShaderReader fxreader;
-		fxreader.loadFromFile("XCCore/Shader/image/image.fx.vert", GL_VERTEX_SHADER);
-		fxreader.loadFromFile("XCCore/Shader/image/image.fx.frag", GL_FRAGMENT_SHADER);
+		fxreader.loadFromFile("assets/Shader/image/image.fx.vert", GL_VERTEX_SHADER);
+		fxreader.loadFromFile("assets/Shader/image/image.fx.frag", GL_FRAGMENT_SHADER);
 		fxreader.linkAllShader();
 		ProgramHandleFx = fxreader.getProgramHandle();
 		haveProgramInit = true;

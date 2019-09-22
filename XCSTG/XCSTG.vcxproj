@@ -116,10 +116,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3.lib;freetype.lib;G:\XCSTG_NEW\libs\x64\python36.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -127,10 +129,10 @@
     <ClCompile Include="util\GameTimer.cpp" />
     <ClCompile Include="util\gl3w.c" />
     <ClCompile Include="util\ImageLoader.cpp" />
-    <ClCompile Include="util\ScriptLoader.cpp" />
     <ClCompile Include="util\ShaderReader.cpp" />
     <ClCompile Include="XCCore\XCFont\XCFont.cpp" />
-    <ClCompile Include="XCCore\XCInterpreter\XCInterpreter.cpp" />
+    <ClCompile Include="XCInterpreter\ScriptLoader.cpp" />
+    <ClCompile Include="XCInterpreter\XCInterpreter.cpp" />
     <ClCompile Include="XCCore\XCRender\XCglHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\XCImageManager.cpp" />
     <ClCompile Include="XCFrame.cpp" />
@@ -140,12 +142,12 @@
     <ClInclude Include="util\ConfigManager.h" />
     <ClInclude Include="util\GameTimer.h" />
     <ClInclude Include="util\ImageLoader.h" />
-    <ClInclude Include="util\ScriptLoader.h" />
     <ClInclude Include="util\ShaderReader.h" />
     <ClInclude Include="util\stb_image.h" />
     <ClInclude Include="XCCore\XCCore.h" />
     <ClInclude Include="XCCore\XCFont\XCFont.h" />
-    <ClInclude Include="XCCore\XCInterpreter\XCInterpreter.h" />
+    <ClInclude Include="XCInterpreter\ScriptLoader.h" />
+    <ClInclude Include="XCInterpreter\XCInterpreter.h" />
     <ClInclude Include="XCCore\XCRender\XCglHelper.h" />
     <ClInclude Include="XCCore\XCRender\XCImageManager.h" />
     <ClInclude Include="XCFrame.h" />
