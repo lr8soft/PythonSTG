@@ -7,6 +7,7 @@
 using namespace XCInfo;
 int XCFrame::FrameWidth = defaultWidth;
 int XCFrame::FrameHeight = defaultHeight;
+XCInterpreter *XCFrame::interpreter = nullptr;
 void XCFrame::FrameInit()
 {
 	glfwInit();
@@ -44,6 +45,7 @@ void XCFrame::FrameLoop()
 }
 void XCFrame::FrameFinalize()
 {
+
 }
 void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
 {

@@ -33,15 +33,11 @@ PyObject * ScriptLoader::callFunction(PyObject * module, std::string funcName, c
 		std::cout << "[ERROR]Pointer to pyobject is null." << std::endl;
 	}
 	else {
-		PyObject* funcptr = PyObject_GetAttrString(module, funcName.c_str());
-		if (funcptr!=nullptr) {
-			returnValue = PyObject_CallFunction(funcptr, format);
-		}
-		else {
-			std::cout << "[ERROR]Inexistent function named \'" << funcName.c_str() << "\'!" << std::endl;
+		returnValue = PyObject_CallMethod(module, funcName.c_str(), format);
+		if (returnValue==nullptr) {
+			std::cout << "[INFO] Function " + funcName + " haven't return value!" << std::endl;
 		}
 	}
-
 	return returnValue;
 }
 
