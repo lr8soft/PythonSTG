@@ -51,7 +51,9 @@ void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, glm::
 	mvp_mat = glm::translate(mvp_mat, renderPos);
 	mvp_mat = glm::scale(mvp_mat, scaleSize);
 	auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
+	auto color_location = glGetUniformLocation(ProgramHandle, "color");
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
+	glUniform4fv(color_location, 1, glm::value_ptr(coverColor));
 	glDrawElements(GL_TRIANGLES, sizeof(data::indices) / sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);
 	glBindVertexArray(0);
 	glUseProgram(0);

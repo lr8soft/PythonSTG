@@ -24,8 +24,8 @@ XCImageHelper::XCImageHelper(std::string path, bool isRenderFlexible)
 	imagePath = path;
 	if (!haveProgramInit) {
 		ShaderReader sreader;
-		sreader.loadFromFile("assets/Shader/default/default.vert", GL_VERTEX_SHADER);
-		sreader.loadFromFile("assets/Shader/default/default.frag", GL_FRAGMENT_SHADER);
+		sreader.loadFromFile("assets/Shader/image/image.vert", GL_VERTEX_SHADER);
+		sreader.loadFromFile("assets/Shader/image/image.frag", GL_FRAGMENT_SHADER);
 		sreader.linkAllShader();
 		ProgramHandle = sreader.getProgramHandle();
 

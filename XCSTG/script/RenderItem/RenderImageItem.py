@@ -1,4 +1,4 @@
-from script.Object.TranslateItem  import TranslateItem
+from script.RenderItem.TranslateItem  import TranslateItem
 class RenderImageItem(TranslateItem):
     "The class of the render item. \
     translate is used by the cpp part."

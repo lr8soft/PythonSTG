@@ -1,10 +1,11 @@
 from queue import PriorityQueue
-from script.Object.RenderImageItem import RenderImageItem
-from script.Object.RenderColorItem import RenderColorItem
-from script.Object.TranslateItem import TranslateItem
+from queue import Queue
+from script.RenderItem.TranslateItem import TranslateItem
+from script.RenderItem.DynamicItem import DynamicItem
 __staticRenderQueue = PriorityQueue()
+__dynamicRenderList = Queue()
 
-#Render queue function
+#static render queue function
 def addStaticRenderItem(item):
     __staticRenderQueue.put(item)
 def getStaticRenderItem():
@@ -12,7 +13,22 @@ def getStaticRenderItem():
     if isinstance(item, TranslateItem):
         return item.translate()
     else:
-        print("Item isn't an standard RenderImageItem.")
+        print("[ERROR]Item isn't an standard RenderImageItem.")
         return tuple()
 def getStaticRenderSize():
     return __staticRenderQueue.qsize()
+
+#dynamic render list
+def addDynamicRenderItem(item):
+    __dynamicRenderList.put(item)
+
+def initDynamicRenderItem():
+    item = __dynamicRenderList.get()
+    if isinstance(item, DynamicItem):
+        return item.init()
+    else:
+        print("[ERROR]Item isn't an standard DynamicRenderItem.")
+        return tuple()
+def initDynamicRenderItemSize():
+    return __dynamicRenderList.qsize()
+

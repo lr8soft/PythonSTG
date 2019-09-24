@@ -4,8 +4,10 @@
 #include <vector>
 #include <string>
 #include <mutex>
+#include <map>
 #include "IRenderHelper.h"
-struct RenderItem {
+#include "../XCTransport/XCItemTransport.h"
+struct StaticRenderItem {
 	std::string renderType;
 	std::string imagePath;
 	IRenderHelper *image;
@@ -17,15 +19,22 @@ struct RenderItem {
 	bool flexible = false;
 	bool init = false;
 };
+struct DynamicRenderItem {
+	IRenderHelper *image;
+	XCItemTransport *item;
+};
 class RenderManager {
 private:
-	static std::mutex renderMutex;
-	static std::vector<RenderItem> renderQueue;
+	static std::mutex staticMutex, dynamicMutex;
+	static std::map<std::string, DynamicRenderItem> dynamicRenderGroup;
+	static std::vector<StaticRenderItem> staticQueue;
+
 	static RenderManager* pRManager;
 	RenderManager();
 public:
 	static RenderManager* getInstance();
-	void AddWork(RenderItem work);
+	void AddDynamicWork(std::string uuid, DynamicRenderItem work);
+	void AddStaticWork(StaticRenderItem work);
 	void RenderWork();
 };
 #endif

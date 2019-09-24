@@ -1,12 +1,17 @@
+#include <chrono>
+#include <future>
 #include "RenderManager.h"
 #include "XCImageHelper.h"
 #include "XCColorBlockHelper.h"
-std::mutex RenderManager::renderMutex;
-std::vector<RenderItem> RenderManager::renderQueue;
+#include <GLFW/glfw3.h>
+std::mutex RenderManager::staticMutex, RenderManager::dynamicMutex;
+std::vector<StaticRenderItem> RenderManager::staticQueue;
+std::map<std::string, DynamicRenderItem> RenderManager::dynamicRenderGroup;
 RenderManager* RenderManager::pRManager = nullptr;
 RenderManager::RenderManager()
 {
 }
+
 RenderManager * RenderManager::getInstance()
 {
 	if (pRManager==nullptr) {
@@ -15,24 +20,38 @@ RenderManager * RenderManager::getInstance()
 	return pRManager;
 }
 
-void RenderManager::AddWork(RenderItem work)
+void RenderManager::AddDynamicWork(std::string uuid, DynamicRenderItem work)
 {
-	renderMutex.lock();
-	renderQueue.push_back(work);
-	renderMutex.unlock();
+	dynamicMutex.lock();
+	dynamicRenderGroup.insert(std::make_pair(uuid,work));
+	dynamicMutex.unlock();
 }
 
+void RenderManager::AddStaticWork(StaticRenderItem work)
+{
+	staticMutex.lock();
+	staticQueue.push_back(work);
+	staticMutex.unlock();
+}
 void RenderManager::RenderWork()
 {
-	renderMutex.lock();
-	std::vector<RenderItem>::iterator workBegin = renderQueue.begin();
-	std::vector<RenderItem>::iterator workEnd = renderQueue.end();
+	dynamicMutex.lock();
+	std::map<std::string, DynamicRenderItem>::iterator dyBegin = dynamicRenderGroup.begin();
+	std::map<std::string, DynamicRenderItem>::iterator dyEnd = dynamicRenderGroup.end();
+	for (auto work = dyBegin; work != dyEnd; work++) {
+
+	}
+	dynamicMutex.unlock();
+
+	staticMutex.lock();
+	std::vector<StaticRenderItem>::iterator workBegin = staticQueue.begin();
+	std::vector<StaticRenderItem>::iterator workEnd = staticQueue.end();
 	
-	for (auto work = workBegin; work != workEnd; work++) {
+	for (auto work = workBegin; work != workEnd; work++) {//static render work
 		if (!work->init) {
-			if (std::string("image")._Equal(work->renderType)) {
+			if ("image"==work->renderType) {
 				work->image = new XCImageHelper(work->imagePath, work->flexible);
-			}else if (std::string("colorblock")._Equal(work->renderType)) {
+			}else if ("colorblock" == work->renderType) {
 				work->image = new XCColorBlockHelper;
 			}
 			work->init = true;
@@ -46,5 +65,5 @@ void RenderManager::RenderWork()
 			);
 		}
 	}
-	renderMutex.unlock();
+	staticMutex.unlock();
 }

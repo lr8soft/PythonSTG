@@ -35,6 +35,12 @@ void XCInterpreter::InterpreterThread()
 	pyLoader.unloadPythonEvon();
 }
 
+void XCInterpreter::parseDynamicRenderItem()
+{
+	PyObject * module = pyLoader.importModule("script.XCRender");
+	PyObject* renderCountItem = pyLoader.callFunction(module, "getStaticRenderSize", NULL);
+}
+
 void XCInterpreter::parseStaticRenderItem()
 {
 	PyObject * module = pyLoader.importModule("script.XCRender");
@@ -58,7 +64,7 @@ void XCInterpreter::parseStaticRenderItem()
 			);
 			bool isFlexible = isFlexibleObj;
 
-			RenderItem item;
+			StaticRenderItem item;
 			item.imagePath = imagePath;
 			item.renderType = renderType;
 			item.renderColor = glm::vec4(colorR,colorG,colorB,colorA);
@@ -71,7 +77,7 @@ void XCInterpreter::parseStaticRenderItem()
 			item.divideInfo[3] = divideSelectRow;
 
 			auto renderQueue = RenderManager::getInstance();
-			renderQueue->AddWork(item);
+			renderQueue->AddStaticWork(item);
 #ifndef _DEBUG
 			Py_DECREF(renderItem);
 #else

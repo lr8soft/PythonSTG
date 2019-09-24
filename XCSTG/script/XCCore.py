@@ -1,8 +1,10 @@
 import script.XCRender as XCRender
+from script.RenderItem.RenderImageItem import RenderImageItem
+from script.RenderItem.RenderColorItem import RenderColorItem
 #PySTG Init
 winHeight = 720
 winWidth = 1280
-winTitle = "PyTest v0.4"
+winTitle = "PyTest v0.5"
 __collisionItem = []
 #PySTG default function
 def coreInitializer():
@@ -15,16 +17,16 @@ def coreFinalizer():
 
 #UI Init
 def UiInit():
-    background = XCRender.RenderImageItem()
+    background = RenderImageItem()
     background.IsFlexible = False
-    background.ImagePath = "assets/background/222.jpeg"
+    background.ImagePath = "assets/background/123.jpeg"
     background.renderPos = [0.0,0.0,0.0]
-    background.priority = 3
+    background.priority = 6
     XCRender.addStaticRenderItem(background)
 
-    gameScene = XCRender.RenderColorItem()
+    gameScene = RenderColorItem()
     gameScene.renderPos = [0.0,0.0,0.0]
-    gameScene.renderSize = [0.6,0.8,1.0]
-    gameScene.colorValue = [0.0,0.0,0.0,1.0]
-    background.priority = 1
+    gameScene.renderSize = [0.5,0.95,1.0]
+    gameScene.colorValue = [1.0,1.0,1.0,1.0]
+    background.priority = 7
     XCRender.addStaticRenderItem(gameScene)

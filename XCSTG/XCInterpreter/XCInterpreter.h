@@ -16,6 +16,8 @@ private:
 	std::mutex threadMutex;
 	void setThreadEnd(bool isEnd);
 	bool getThreadEnd();
+
+	void parseDynamicRenderItem();
 	void parseStaticRenderItem();
 public:
 	XCInterpreter(GLFWwindow* pwin);
