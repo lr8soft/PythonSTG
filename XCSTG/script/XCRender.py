@@ -15,10 +15,15 @@ def getRenderItem():
 def getRenderSize():
     return __renderQueue.qsize()
 
+#development test function
+isInit = False
 def abc():
-    item = RenderItem()
-    item.ImagePath = "assets/123.png"
-    addRenderItem(item)
+    global isInit
+    if not isInit:
+        item = RenderItem()
+        item.ImagePath = "assets/123.png"
+        addRenderItem(item)
+        isInit = True
 
 if __name__ == "__main__":
     abc()

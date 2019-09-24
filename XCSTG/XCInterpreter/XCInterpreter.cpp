@@ -1,7 +1,9 @@
 #include "XCInterpreter.h"
+#include "..\XCCore\XCRender\RenderManager.h"
 #include <string>
 #include <GLFW/glfw3.h>
 #include <thread>
+
 using namespace std;
 XCInterpreter::XCInterpreter(GLFWwindow* pwin)
 {
@@ -56,17 +58,31 @@ void XCInterpreter::parseRenderItem()
 				&divideColumn, &divideRow, &divideSelectCol, &divideSelectRow
 			);
 			bool isFlexible = isFlexibleObj;
+
+			RenderItem item;
+			item.imagePath = imagePath;
+			item.renderType = renderType;
+			item.renderColor = glm::vec4(colorR,colorG,colorB,colorA);
+			item.renderPos = glm::vec3(renderX, renderY, renderZ);
+			item.scaleSize = glm::vec3(scaleX, scaleY, scaleZ);
+			item.flexible = isFlexible;
+			item.divideInfo[0] = divideColumn;
+			item.divideInfo[1] = divideRow;
+			item.divideInfo[2] = divideSelectCol;
+			item.divideInfo[3] = divideSelectRow;
+
+			auto renderQueue = RenderManager::getInstance();
+			renderQueue->AddWork(item);
 #ifndef _DEBUG
 			Py_DECREF(renderItem);
 #else
-			std::cout << std::endl;
-			
+			std::cout << "==============================="<<std::endl;
 			std::cout << "TYPE:"<< renderType << " " << imagePath << " FX:"<<std::boolalpha <<isFlexible << std::endl;
 			std::cout <<"RenderPos:"<< renderX << " " << renderY << " " << renderZ << std::endl;
 			std::cout << "RGBA:" << colorR << " " << colorG << " " << colorB << " " << colorA << std::endl;
 			std::cout <<"Scale:"<< scaleX << " " << scaleY << " " << scaleZ <<std::endl;
 			std::cout << "DivideFormat:" << divideColumn << " " << divideRow << " " << divideSelectCol << " " << divideSelectRow << std::endl;
-			std::cout << std::endl;
+			std::cout << "===============================" << std::endl;
 #endif
 		}
 	}

@@ -1,7 +1,7 @@
 #PySTG Init
 winHeight = 720
 winWidth = 1280
-winTitle = "PySTG Test v0.1"
+winTitle = "PyTest v0.4"
 __collisionItem = []
 #PySTG default function
 def coreInitializer():
