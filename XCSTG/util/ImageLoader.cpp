@@ -42,11 +42,11 @@ void xc_ogl::ImageLoader::loadTextureFromFile(const char * path)
 	if (texture_ptr) {
 		if (channel == 3){//三通道rgb 适用于jpg图像
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_ptr);//后面一个是RGBA
-			std::cout <<"[INFO] load image from" <<path<< " RGB" << std::endl;
+			std::cout <<"[INFO] Load image from " <<path<< " format:RGB" << std::endl;
 		}
 		else if (channel == 4){//四通道rgba 适用于png图像
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_ptr);//注意，两个都是RGBA
-			std::cout << "[INFO] load image from" << path << " RGBA" << std::endl;
+			std::cout << "[INFO] Load image from " << path << " format:RGBA" << std::endl;
 		}
 		glGenerateMipmap(texture_type);
 		have_release = false;

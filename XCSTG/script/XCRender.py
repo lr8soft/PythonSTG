@@ -1,29 +1,18 @@
 from queue import PriorityQueue
-from script.Object.RenderItem import RenderItem
-__renderQueue = PriorityQueue()
+from script.Object.RenderImageItem import RenderImageItem
+from script.Object.RenderColorItem import RenderColorItem
+from script.Object.TranslateItem import TranslateItem
+__staticRenderQueue = PriorityQueue()
 
 #Render queue function
-def addRenderItem(item):
-    __renderQueue.put(item)
-def getRenderItem():
-    item = __renderQueue.get()
-    if isinstance(item, RenderItem):
+def addStaticRenderItem(item):
+    __staticRenderQueue.put(item)
+def getStaticRenderItem():
+    item = __staticRenderQueue.get()
+    if isinstance(item, TranslateItem):
         return item.translate()
     else:
-        print("Item isn't an standard RenderItem.")
+        print("Item isn't an standard RenderImageItem.")
         return tuple()
-def getRenderSize():
-    return __renderQueue.qsize()
-
-#development test function
-isInit = False
-def abc():
-    global isInit
-    if not isInit:
-        item = RenderItem()
-        item.ImagePath = "assets/123.png"
-        addRenderItem(item)
-        isInit = True
-
-if __name__ == "__main__":
-    abc()
+def getStaticRenderSize():
+    return __staticRenderQueue.qsize()

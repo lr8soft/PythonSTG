@@ -4,11 +4,11 @@
 #include <vector>
 #include <string>
 #include <mutex>
-#include "XCImageManager.h"
+#include "IRenderHelper.h"
 struct RenderItem {
 	std::string renderType;
 	std::string imagePath;
-	XCImageManager *image;
+	IRenderHelper *image;
 	glm::vec3 renderPos;
 	glm::vec4  renderColor;
 	glm::vec3  scaleSize;

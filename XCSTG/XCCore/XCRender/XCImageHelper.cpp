@@ -1,14 +1,14 @@
-#include "XCImageManager.h"
+#include "XCImageHelper.h"
 #include "..\..\util\ImageLoader.h"
 #include "..\..\util\ShaderReader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 using namespace xc_ogl;
-GLuint XCImageManager::ProgramHandle = -1;
-GLuint XCImageManager::ProgramHandleFx = -1;
-bool XCImageManager::haveProgramInit = false;
-std::map<std::string, GLuint> XCImageManager::textureGroup;
+GLuint XCImageHelper::ProgramHandle = -1;
+GLuint XCImageHelper::ProgramHandleFx = -1;
+bool XCImageHelper::haveProgramInit = false;
+std::map<std::string, GLuint> XCImageHelper::textureGroup;
 GLfloat vertices[] = {
 	 1.0f, 1.0f,
 	 1.0f,-1.0f,
@@ -18,14 +18,14 @@ GLfloat vertices[] = {
 GLushort indices[] = {
 	0, 1, 2, 2, 3, 0
 };
-XCImageManager::XCImageManager(std::string path, bool isRenderFlexible)
+XCImageHelper::XCImageHelper(std::string path, bool isRenderFlexible)
 {
 	isFlexible = isRenderFlexible;
 	imagePath = path;
 	if (!haveProgramInit) {
 		ShaderReader sreader;
-		sreader.loadFromFile("assets/Shader/image/image.vert", GL_VERTEX_SHADER);
-		sreader.loadFromFile("assets/Shader/image/image.frag", GL_FRAGMENT_SHADER);
+		sreader.loadFromFile("assets/Shader/default/default.vert", GL_VERTEX_SHADER);
+		sreader.loadFromFile("assets/Shader/default/default.frag", GL_FRAGMENT_SHADER);
 		sreader.linkAllShader();
 		ProgramHandle = sreader.getProgramHandle();
 
@@ -69,7 +69,7 @@ XCImageManager::XCImageManager(std::string path, bool isRenderFlexible)
 	glEnableVertexAttribArray(0);
 }
 
-void XCImageManager::ImageRender(glm::vec3 renderPos, glm::vec4 coverColor, glm::vec3 scaleSize, float *texuturePos16xFloat)
+void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, glm::vec3 scaleSize, float *texuturePos16xFloat)
 {
 	if (!isFlexible)
 		glUseProgram(ProgramHandle);
@@ -96,7 +96,7 @@ void XCImageManager::ImageRender(glm::vec3 renderPos, glm::vec4 coverColor, glm:
 	glUseProgram(0);
 }
 
-void XCImageManager::ImageRelease()
+void XCImageHelper::Release()
 {
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
@@ -107,7 +107,7 @@ void XCImageManager::ImageRelease()
 }
 
 
-float* XCImageManager::GetSpecificTexture(int column, int row, int ix, int iy)
+float* XCImageHelper::GetSpecificTexture(int column, int row, int ix, int iy)
 {
 	float x = ix; float y = iy;
 	static float returnArray[16];
@@ -133,7 +133,7 @@ float* XCImageManager::GetSpecificTexture(int column, int row, int ix, int iy)
 	returnArray[15] = y / row;
 	return returnArray;
 }
-float * XCImageManager::GetSpecificTexWithRate(float width_rate, float height_rate, int column, int row, int ix, int iy)
+float * XCImageHelper::GetSpecificTexWithRate(float width_rate, float height_rate, int column, int row, int ix, int iy)
 {
 	float x = ix; float y = iy;
 	static float returnArray[16];
@@ -159,7 +159,7 @@ float * XCImageManager::GetSpecificTexWithRate(float width_rate, float height_ra
 
 	return returnArray;
 }
-float * XCImageManager::GetPointSpriteVertex(float size)
+float * XCImageHelper::GetPointSpriteVertex(float size)
 {
 	static float returnArray[4];
 	returnArray[0] = 0.0f;

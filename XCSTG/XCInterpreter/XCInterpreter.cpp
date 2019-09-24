@@ -28,18 +28,17 @@ void XCInterpreter::InterpreterThread()
 	glfwSetWindowTitle(pScreen, t);
 	
 	while (true) {
-		parseRenderItem();
+		parseStaticRenderItem();
 	}
 	
 	pyLoader.callFunction(mainScript, "coreFinalizer", NULL);
 	pyLoader.unloadPythonEvon();
 }
 
-void XCInterpreter::parseRenderItem()
+void XCInterpreter::parseStaticRenderItem()
 {
 	PyObject * module = pyLoader.importModule("script.XCRender");
-	PyObject* renderCountItem = pyLoader.callFunction(module, "getRenderSize", NULL);
-	pyLoader.callFunction(module, "abc", NULL);
+	PyObject* renderCountItem = pyLoader.callFunction(module, "getStaticRenderSize", NULL);
 	int itemSize = 0;
 	PyArg_Parse(renderCountItem, "i", &itemSize);
 	if (itemSize > 0) {
@@ -48,7 +47,7 @@ void XCInterpreter::parseRenderItem()
 			float renderX = 0.0f, renderY = 0.0f, renderZ = 0.0f, scaleX = 0.0f, scaleY = 0.0f, scaleZ = 0.0f;
 			float colorR = 0, colorG = 0, colorB = 0, colorA = 0;
 			int divideColumn = 0, divideRow = 0, divideSelectCol = 0, divideSelectRow = 0, isFlexibleObj = 0;
-			PyObject* renderItem = pyLoader.callFunction(module, "getRenderItem", NULL);
+			PyObject* renderItem = pyLoader.callFunction(module, "getStaticRenderItem", NULL);
 			PyArg_ParseTuple(
 				renderItem,"ssp(fff)(ffff)(fff)(iiii)", 
 				&renderType, &imagePath, &isFlexibleObj,
@@ -76,13 +75,13 @@ void XCInterpreter::parseRenderItem()
 #ifndef _DEBUG
 			Py_DECREF(renderItem);
 #else
-			std::cout << "==============================="<<std::endl;
+			std::cout << "=======STATIC RENDER ITEM====="<<std::endl;
 			std::cout << "TYPE:"<< renderType << " " << imagePath << " FX:"<<std::boolalpha <<isFlexible << std::endl;
 			std::cout <<"RenderPos:"<< renderX << " " << renderY << " " << renderZ << std::endl;
 			std::cout << "RGBA:" << colorR << " " << colorG << " " << colorB << " " << colorA << std::endl;
 			std::cout <<"Scale:"<< scaleX << " " << scaleY << " " << scaleZ <<std::endl;
 			std::cout << "DivideFormat:" << divideColumn << " " << divideRow << " " << divideSelectCol << " " << divideSelectRow << std::endl;
-			std::cout << "===============================" << std::endl;
+			std::cout << "===============================\n" << std::endl;
 #endif
 		}
 	}

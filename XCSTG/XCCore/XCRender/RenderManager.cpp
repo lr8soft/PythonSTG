@@ -1,4 +1,6 @@
 #include "RenderManager.h"
+#include "XCImageHelper.h"
+#include "XCColorBlockHelper.h"
 std::mutex RenderManager::renderMutex;
 std::vector<RenderItem> RenderManager::renderQueue;
 RenderManager* RenderManager::pRManager = nullptr;
@@ -28,15 +30,19 @@ void RenderManager::RenderWork()
 	
 	for (auto work = workBegin; work != workEnd; work++) {
 		if (!work->init) {
-			work->image = new XCImageManager(work->imagePath, work->flexible);
+			if (std::string("image")._Equal(work->renderType)) {
+				work->image = new XCImageHelper(work->imagePath, work->flexible);
+			}else if (std::string("colorblock")._Equal(work->renderType)) {
+				work->image = new XCColorBlockHelper;
+			}
 			work->init = true;
 		}
 		if (work->init && work->visible) {
-			work->image->ImageRender(
+			work->image->Render(
 				work->renderPos,
 				work->renderColor, 
 				work->scaleSize,
-				work->image->GetSpecificTexture(work->divideInfo[0], work->divideInfo[1], work->divideInfo[2], work->divideInfo[3])
+				XCImageHelper::GetSpecificTexture(work->divideInfo[0], work->divideInfo[1], work->divideInfo[2], work->divideInfo[3])
 			);
 		}
 	}

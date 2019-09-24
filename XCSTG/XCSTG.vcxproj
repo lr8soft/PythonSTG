@@ -132,10 +132,10 @@
     <ClCompile Include="util\ShaderReader.cpp" />
     <ClCompile Include="XCCore\XCFont\XCFont.cpp" />
     <ClCompile Include="XCCore\XCRender\RenderManager.cpp" />
+    <ClCompile Include="XCCore\XCRender\XCColorBlockHelper.cpp" />
     <ClCompile Include="XCInterpreter\ScriptLoader.cpp" />
     <ClCompile Include="XCInterpreter\XCInterpreter.cpp" />
-    <ClCompile Include="XCCore\XCRender\XCglHelper.cpp" />
-    <ClCompile Include="XCCore\XCRender\XCImageManager.cpp" />
+    <ClCompile Include="XCCore\XCRender\XCImageHelper.cpp" />
     <ClCompile Include="XCFrame.cpp" />
     <ClCompile Include="xcstg.cpp" />
   </ItemGroup>
@@ -147,11 +147,12 @@
     <ClInclude Include="util\stb_image.h" />
     <ClInclude Include="XCCore\XCCore.h" />
     <ClInclude Include="XCCore\XCFont\XCFont.h" />
+    <ClInclude Include="XCCore\XCRender\IRenderHelper.h" />
     <ClInclude Include="XCCore\XCRender\RenderManager.h" />
+    <ClInclude Include="XCCore\XCRender\XCColorBlockHelper.h" />
     <ClInclude Include="XCInterpreter\ScriptLoader.h" />
     <ClInclude Include="XCInterpreter\XCInterpreter.h" />
-    <ClInclude Include="XCCore\XCRender\XCglHelper.h" />
-    <ClInclude Include="XCCore\XCRender\XCImageManager.h" />
+    <ClInclude Include="XCCore\XCRender\XCImageHelper.h" />
     <ClInclude Include="XCFrame.h" />
     <ClInclude Include="XCInfo.h" />
   </ItemGroup>

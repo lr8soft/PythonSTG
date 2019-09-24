@@ -42,12 +42,6 @@
     <ClCompile Include="util\ShaderReader.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\XCRender\XCImageManager.cpp">
-      <Filter>XCCore\XCRender</Filter>
-    </ClCompile>
-    <ClCompile Include="XCCore\XCRender\XCglHelper.cpp">
-      <Filter>XCCore\XCRender</Filter>
-    </ClCompile>
     <ClCompile Include="XCInterpreter\XCInterpreter.cpp">
       <Filter>XCInterpreter</Filter>
     </ClCompile>
@@ -55,6 +49,12 @@
       <Filter>XCInterpreter</Filter>
     </ClCompile>
     <ClCompile Include="XCCore\XCRender\RenderManager.cpp">
+      <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\XCImageHelper.cpp">
+      <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\XCColorBlockHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,12 +82,6 @@
     <ClInclude Include="XCCore\XCFont\XCFont.h">
       <Filter>XCCore\XCFont</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\XCRender\XCImageManager.h">
-      <Filter>XCCore\XCRender</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\XCRender\XCglHelper.h">
-      <Filter>XCCore\XCRender</Filter>
-    </ClInclude>
     <ClInclude Include="XCInterpreter\XCInterpreter.h">
       <Filter>XCInterpreter</Filter>
     </ClInclude>
@@ -95,6 +89,15 @@
       <Filter>XCInterpreter</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\XCRender\RenderManager.h">
+      <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\IRenderHelper.h">
+      <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\XCImageHelper.h">
+      <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\XCColorBlockHelper.h">
       <Filter>XCCore\XCRender</Filter>
     </ClInclude>
   </ItemGroup>

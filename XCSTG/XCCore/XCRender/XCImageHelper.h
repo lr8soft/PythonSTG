@@ -3,8 +3,8 @@
 #define _XCIMAGE_MANAGER_H_
 #include <GL/glcorearb.h>
 #include <map>
-#include <glm/glm.hpp>
-class XCImageManager {
+#include "IRenderHelper.h"
+class XCImageHelper:public IRenderHelper {
 private:
 	bool isFlexible;
 	GLuint vao, vbo, ebo, tbo;
@@ -13,14 +13,14 @@ private:
 	static bool haveProgramInit;
 	static std::map<std::string,GLuint> textureGroup;
 public:
-	XCImageManager() = delete;
+	XCImageHelper() = delete;
 	/*isRenderFlexible=true下，渲染时请给texuturePos16xFloat赋值*/
-	XCImageManager(std::string path, bool isRenderFlexible = false);
+	XCImageHelper(std::string path, bool isRenderFlexible = false);
 
 	/*在flexible状态下，texuturePos16xFloat指针应该为GetSpecificTexture或者GetSpecificTexWithWidthAndHeight的返回值*/
-	void ImageRender(glm::vec3 renderPos,glm::vec4 coverColor, 
-		glm::vec3 scaleSize=glm::vec3(1.0f, 1.0f, 1.0f), float *texuturePos16xFloat=nullptr);
-	void ImageRelease();
+	virtual void Render(glm::vec3 renderPos,glm::vec4 coverColor, 
+		glm::vec3 scaleSize=glm::vec3(1.0f, 1.0f, 1.0f), float *texuturePos16xFloat=nullptr) override;
+	virtual void Release() override;
 
 	/*共column列，row行；取第x列 第y行（以该子纹理右上角坐标为准）*/
 	static float* GetSpecificTexture(int column, int row, int x, int y);

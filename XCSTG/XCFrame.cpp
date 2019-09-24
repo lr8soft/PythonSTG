@@ -27,13 +27,14 @@ void XCFrame::FrameInit()
 	gl3wInit();
 
 	interpreter = new XCInterpreter(pscreen);
+	interpreter->ScriptLaunch();
 }
 void XCFrame::FrameLoop()
 {	
 	XCFont font;
 	font.FontASCIIInit();
 	font.FontSetWidthAndHeight(FrameHeight, FrameWidth);
-	interpreter->ScriptLaunch();
+	
 	while (!glfwWindowShouldClose(pscreen)) {
 		timer.Tick();
 		glClear(GL_COLOR_BUFFER_BIT);
