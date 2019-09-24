@@ -18,7 +18,6 @@ def getRenderSize():
 def abc():
     item = RenderItem()
     item.ImagePath = "assets/123.png"
-    item.IsFlexible = True
     addRenderItem(item)
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ import ctypes
 class RenderItem(TranslateItem):
     "The class of the render item. \
     translate is used by the cpp part."
-    IsFlexible = False
+    IsFlexible = True
     ImagePath = "assets/123.png"
     renderPos = [0.5, -0.3, 1.0]
     colorValue = [0.0, 0.1, 0.2, 1.0] #RGBA

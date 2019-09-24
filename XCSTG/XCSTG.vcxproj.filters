@@ -54,6 +54,9 @@
     <ClCompile Include="XCInterpreter\ScriptLoader.cpp">
       <Filter>XCInterpreter</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\XCRender\RenderManager.cpp">
+      <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -90,6 +93,9 @@
     </ClInclude>
     <ClInclude Include="XCInterpreter\ScriptLoader.h">
       <Filter>XCInterpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\RenderManager.h">
+      <Filter>XCCore\XCRender</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
