@@ -7,6 +7,7 @@
 #include <map>
 #include "IRenderHelper.h"
 #include "../XCTransport/XCItemTransport.h"
+#include <Python.h>
 struct StaticRenderItem {
 	std::string renderType;
 	std::string imagePath;
@@ -20,7 +21,7 @@ struct StaticRenderItem {
 	bool init = false;
 };
 struct DynamicRenderItem {
-	IRenderHelper *image;
+	PyObject* pObject;
 	XCItemTransport *item;
 };
 class RenderManager {

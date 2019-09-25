@@ -26,16 +26,31 @@ PyObject * ScriptLoader::getAttrib(PyObject * obj, std::string attribName)
 	return attrib;
 }
 
-PyObject * ScriptLoader::callFunction(PyObject * module, std::string funcName, const char *format, ...)
+PyObject * ScriptLoader::callObjectMethod(PyObject * object, std::string funcName, const char *format)
+{
+	PyObject* returnValue = nullptr;
+	if (object == nullptr) {
+		std::cout << "[ERROR]Pointer to pyobject is null." << std::endl;
+	}
+	else {
+		returnValue = PyObject_CallMethod(object, funcName.c_str(), format);
+		if (returnValue==nullptr) {
+			;//std::cout << "[INFO] Function " + funcName + " haven't return value!" << std::endl;
+		}
+	}
+	return returnValue;
+}
+
+PyObject * ScriptLoader::callFunction(PyObject * module, std::string funcName, const char * format)
 {
 	PyObject* returnValue = nullptr;
 	if (module == nullptr) {
 		std::cout << "[ERROR]Pointer to pyobject is null." << std::endl;
 	}
 	else {
-		returnValue = PyObject_CallMethod(module, funcName.c_str(), format);
-		if (returnValue==nullptr) {
-			std::cout << "[INFO] Function " + funcName + " haven't return value!" << std::endl;
+		returnValue = PyEval_CallFunction(module, funcName.c_str(), format);
+		if (returnValue == nullptr) {
+			;//std::cout << "[INFO] Function " + funcName + " haven't return value!" << std::endl;
 		}
 	}
 	return returnValue;

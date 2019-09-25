@@ -1,6 +1,7 @@
 from queue import PriorityQueue
 from queue import Queue
 from script.RenderItem.TranslateItem import TranslateItem
+from script.Object.XCItem import XCItem
 from script.RenderItem.DynamicItem import DynamicItem
 __staticRenderQueue = PriorityQueue()
 __dynamicRenderList = Queue()
@@ -23,12 +24,10 @@ def addDynamicRenderItem(item):
     __dynamicRenderList.put(item)
 
 def initDynamicRenderItem():
-    item = __dynamicRenderList.get()
-    if isinstance(item, DynamicItem):
-        return item.init()
-    else:
-        print("[ERROR]Item isn't an standard DynamicRenderItem.")
-        return tuple()
+    return __dynamicRenderList.get()
 def initDynamicRenderItemSize():
     return __dynamicRenderList.qsize()
 
+def dynamicTFunc():
+    item = XCItem()
+    addDynamicRenderItem(item)

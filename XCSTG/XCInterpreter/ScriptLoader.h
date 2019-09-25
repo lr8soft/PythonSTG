@@ -4,13 +4,15 @@
 #include <iostream>
 #include <Python.h>
 #include <string>
+#include <initializer_list>
 class ScriptLoader {
 private:
 	static bool have_python_init;
 public:
 	PyObject* importModule(std::string name);
 	PyObject* getAttrib(PyObject* obj, std::string attribName);
-	PyObject* callFunction(PyObject * module, std::string funcName, const char *format, ...);
+	PyObject* callObjectMethod(PyObject * object, std::string funcName, const char *format);//const char *format, ...);
+	PyObject* callFunction(PyObject* module, std::string funcName, const char *format);
 	static void initPythonEvon();
 	static void unloadPythonEvon();
 	static void appendModuleToEvon(std::string path);

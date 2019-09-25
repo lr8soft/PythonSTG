@@ -15,7 +15,7 @@ void XCInterpreter::InterpreterThread()
 {
 	pyLoader.initPythonEvon();
 	PyObject* mainScript = pyLoader.importModule("script.XCCore");
-	pyLoader.callFunction(mainScript, "coreInitializer", NULL);
+	pyLoader.callObjectMethod(mainScript, "coreInitializer", NULL);
 
 	PyObject* height = pyLoader.getAttrib(mainScript, "winHeight");
 	PyObject* width = pyLoader.getAttrib(mainScript, "winWidth");
@@ -28,23 +28,59 @@ void XCInterpreter::InterpreterThread()
 	glfwSetWindowTitle(pScreen, t);
 	
 	while (true) {
+		parseDynamicRenderItem();
 		parseStaticRenderItem();
 	}
 	
-	pyLoader.callFunction(mainScript, "coreFinalizer", NULL);
+	pyLoader.callObjectMethod(mainScript, "coreFinalizer", NULL);
 	pyLoader.unloadPythonEvon();
 }
 
 void XCInterpreter::parseDynamicRenderItem()
 {
 	PyObject * module = pyLoader.importModule("script.XCRender");
-	PyObject* renderCountItem = pyLoader.callFunction(module, "getStaticRenderSize", NULL);
+	pyLoader.callObjectMethod(module, "dynamicTFunc", NULL);
+	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "initDynamicRenderItemSize", NULL);
+	
+	int itemSize = 0;
+	PyArg_Parse(renderCountItem, "i", &itemSize);
+	if (itemSize>0) {
+		for (int i = 0; i < itemSize; i++) {
+			PyObject *pObject;
+			PyObject *retValue = pyLoader.callObjectMethod(module, "initDynamicRenderItem", NULL);
+			PyArg_Parse(retValue, "O", &pObject);
+
+			if (pObject!=nullptr) {
+				const char* uuid;
+				auto uuidObj = PyObject_CallMethod(pObject, "getUUID", NULL);
+				PyArg_Parse(uuidObj, "s", &uuid);
+
+				DynamicRenderItem item;
+				item.pObject = pObject;
+				item.item = nullptr;
+				auto renderQueue = RenderManager::getInstance();
+				renderQueue->AddDynamicWork(uuid, item);
+#ifndef _DEBUG
+				Py_INCREF(retObj);
+#else
+				std::cout << "Item UUID: " << uuid << std::endl;
+#endif
+
+			}
+		}
+	}
+/*	PyObject* obj = pyLoader.callObjectMethod(module, "getObj", NULL);
+
+	PyObject *theObj, *theArgs;
+	PyArg_Parse(obj, "O", &theObj);
+	double i = 66;
+	PyObject_CallMethod(theObj, "funcPrint", "(f)", i);*/
 }
 
 void XCInterpreter::parseStaticRenderItem()
 {
 	PyObject * module = pyLoader.importModule("script.XCRender");
-	PyObject* renderCountItem = pyLoader.callFunction(module, "getStaticRenderSize", NULL);
+	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "getStaticRenderSize", NULL);
 	int itemSize = 0;
 	PyArg_Parse(renderCountItem, "i", &itemSize);
 	if (itemSize > 0) {
@@ -53,7 +89,7 @@ void XCInterpreter::parseStaticRenderItem()
 			float renderX = 0.0f, renderY = 0.0f, renderZ = 0.0f, scaleX = 0.0f, scaleY = 0.0f, scaleZ = 0.0f;
 			float colorR = 0, colorG = 0, colorB = 0, colorA = 0;
 			int divideColumn = 0, divideRow = 0, divideSelectCol = 0, divideSelectRow = 0, isFlexibleObj = 0;
-			PyObject* renderItem = pyLoader.callFunction(module, "getStaticRenderItem", NULL);
+			PyObject* renderItem = pyLoader.callObjectMethod(module, "getStaticRenderItem", NULL);
 			PyArg_ParseTuple(
 				renderItem,"ssp(fff)(ffff)(fff)(iiii)", 
 				&renderType, &imagePath, &isFlexibleObj,

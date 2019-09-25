@@ -30,3 +30,4 @@ def UiInit():
     gameScene.colorValue = [1.0,1.0,1.0,1.0]
     background.priority = 7
     XCRender.addStaticRenderItem(gameScene)
+
