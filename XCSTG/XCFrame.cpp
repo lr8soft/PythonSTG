@@ -10,6 +10,7 @@ int XCFrame::FrameHeight = defaultHeight;
 XCInterpreter *XCFrame::interpreter = nullptr;
 void XCFrame::FrameInit()
 {
+	ScriptLoader::initPythonEvon();
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);//OpenGL 4.2 Core Mode
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -34,7 +35,6 @@ void XCFrame::FrameLoop()
 	XCFont font;
 	font.FontASCIIInit();
 	font.FontSetWidthAndHeight(FrameHeight, FrameWidth);
-	
 	while (!glfwWindowShouldClose(pscreen)) {
 		timer.Tick();
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -44,6 +44,7 @@ void XCFrame::FrameLoop()
 		glfwSwapBuffers(pscreen);
 		glfwPollEvents();
 	}
+	ScriptLoader::unloadPythonEvon();
 }
 void XCFrame::FrameFinalize()
 {

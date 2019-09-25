@@ -61,12 +61,22 @@ void ScriptLoader::initPythonEvon()
 {
 	if (!have_python_init) {//First time init.
 		Py_Initialize();
+
 		PyRun_SimpleString("import sys");
 		PyRun_SimpleString("sys.path.append('./')");//Load all script
 		if (Py_IsInitialized()) {
 			have_python_init = true;
 		}
 		else {
+			PyEval_InitThreads();
+			int nInit = PyEval_ThreadsInitialized();
+			if (nInit)
+			{
+				PyEval_SaveThread();
+			}
+			else {
+				std::cout << "[ERROR]Failed to init multi-thread." << std::endl;
+			}
 			std::cout << "[ERROR]Failed to init python environment." << std::endl;
 		}
 	}
@@ -75,6 +85,7 @@ void ScriptLoader::initPythonEvon()
 void ScriptLoader::unloadPythonEvon()
 {
 	if (have_python_init) {
+		PyGILState_Ensure();
 		Py_Finalize();
 		have_python_init = false;
 	}
@@ -86,3 +97,5 @@ void ScriptLoader::appendModuleToEvon(std::string path)
 		PyRun_SimpleString(("sys.path.append('" + path + "./')").c_str());
 	}
 }
+
+

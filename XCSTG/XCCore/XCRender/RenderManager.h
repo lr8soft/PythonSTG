@@ -4,10 +4,8 @@
 #include <vector>
 #include <string>
 #include <mutex>
-#include <map>
 #include "IRenderHelper.h"
 #include "../XCTransport/XCItemTransport.h"
-#include <Python.h>
 struct StaticRenderItem {
 	std::string renderType;
 	std::string imagePath;
@@ -21,20 +19,19 @@ struct StaticRenderItem {
 	bool init = false;
 };
 struct DynamicRenderItem {
-	PyObject* pObject;
 	XCItemTransport *item;
 };
 class RenderManager {
 private:
 	static std::mutex staticMutex, dynamicMutex;
-	static std::map<std::string, DynamicRenderItem> dynamicRenderGroup;
+	static std::vector<DynamicRenderItem> dynamicRenderGroup;
 	static std::vector<StaticRenderItem> staticQueue;
 
 	static RenderManager* pRManager;
 	RenderManager();
 public:
 	static RenderManager* getInstance();
-	void AddDynamicWork(std::string uuid, DynamicRenderItem work);
+	void AddDynamicWork(DynamicRenderItem work);
 	void AddStaticWork(StaticRenderItem work);
 	void RenderWork();
 };

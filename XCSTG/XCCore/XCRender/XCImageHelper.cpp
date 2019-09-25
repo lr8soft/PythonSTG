@@ -62,7 +62,6 @@ XCImageHelper::XCImageHelper(std::string path, bool isRenderFlexible)
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 16, nullptr, GL_DYNAMIC_DRAW);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(0));
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 	}
 
@@ -85,6 +84,7 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, glm::vec3 
 	if (!isFlexible) {
 		auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
 		glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
+
 	}
 	else {
 		auto mvp_location = glGetUniformLocation(ProgramHandleFx, "mvp_mat");
@@ -92,7 +92,9 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, glm::vec3 
 		glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
 	}
 	glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);
+	
 	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
 }
 
@@ -101,9 +103,9 @@ void XCImageHelper::Release()
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
 	glDeleteBuffers(1, &ebo);
-	glDeleteTextures(1,  &tbo);
+//	glDeleteTextures(1,  &tbo);
 
-	textureGroup.erase(imagePath);
+//	textureGroup.erase(imagePath);
 }
 
 

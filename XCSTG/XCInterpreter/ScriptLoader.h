@@ -16,6 +16,7 @@ public:
 	static void initPythonEvon();
 	static void unloadPythonEvon();
 	static void appendModuleToEvon(std::string path);
+
 	template <typename _Ty>
 	static _Ty getSingleArg(PyObject* ret) {
 		static _Ty returnValue;
@@ -51,5 +52,24 @@ public:
 		return returnValue;
 	}
 };
+#define MultiThreadDefine \
+int nHold = PyGILState_Check(); \
+PyGILState_STATE gstate; \
+if (!nHold) \
+{ \
+gstate = PyGILState_Ensure(); \
+} \
+Py_BEGIN_ALLOW_THREADS;\
+Py_BLOCK_THREADS;\
+
+
+#define MultiThreadDefineEnd \
+Py_UNBLOCK_THREADS;\
+Py_END_ALLOW_THREADS;\
+if (!nHold)\
+{\
+	PyGILState_Release(gstate);\
+}\
+
 #endif
 

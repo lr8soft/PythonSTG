@@ -31,7 +31,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.XCRender">
+  <component name="RunManager" selected="Python.XCCore">
     <configuration name="XCCore" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="XCSTG_NEW" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -78,8 +78,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.XCRender" />
         <item itemvalue="Python.XCCore" />
+        <item itemvalue="Python.XCRender" />
       </list>
     </recent_temporary>
   </component>
@@ -112,6 +112,8 @@
       <workItem from="1569333707765" duration="438000" />
       <workItem from="1569377421178" duration="3828000" />
       <workItem from="1569383360341" duration="1543000" />
+      <workItem from="1569411215996" duration="10789000" />
+      <workItem from="1569423113290" duration="1284000" />
     </task>
     <servers />
   </component>
@@ -120,6 +122,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/XCSTG_NEW$XCRender.coverage" NAME="XCRender Coverage Results" MODIFIED="1569384375995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/XCSTG/script" />
-    <SUITE FILE_PATH="coverage/XCSTG_NEW$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1569249290741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/XCSTG/script" />
+    <SUITE FILE_PATH="coverage/XCSTG_NEW$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1569416309098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/XCSTG/script" />
   </component>
 </project>

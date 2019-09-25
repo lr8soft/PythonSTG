@@ -13,68 +13,61 @@ XCInterpreter::XCInterpreter(GLFWwindow* pwin)
 
 void XCInterpreter::InterpreterThread()
 {
-	pyLoader.initPythonEvon();
+	MultiThreadDefine
 	PyObject* mainScript = pyLoader.importModule("script.XCCore");
 	pyLoader.callObjectMethod(mainScript, "coreInitializer", NULL);
 
 	PyObject* height = pyLoader.getAttrib(mainScript, "winHeight");
 	PyObject* width = pyLoader.getAttrib(mainScript, "winWidth");
 	PyObject* title = pyLoader.getAttrib(mainScript, "winTitle");
+
+
+
 	
 	//int h = pyLoader.getSingleArg<int>(height);
 	//int w = pyLoader.getSingleArg<int>(width);
 	//glfwSetWindowSize(pScreen, w, h);
 	const char* t = pyLoader.getSingleArg<const char*>(title);
 	glfwSetWindowTitle(pScreen, t);
-	
+	MultiThreadDefineEnd
+
 	while (true) {
+		MultiThreadDefine
 		parseDynamicRenderItem();
 		parseStaticRenderItem();
+		MultiThreadDefineEnd
 	}
 	
-	pyLoader.callObjectMethod(mainScript, "coreFinalizer", NULL);
-	pyLoader.unloadPythonEvon();
-}
 
+}
+;
 void XCInterpreter::parseDynamicRenderItem()
 {
 	PyObject * module = pyLoader.importModule("script.XCRender");
-	pyLoader.callObjectMethod(module, "dynamicTFunc", NULL);
-	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "initDynamicRenderItemSize", NULL);
+	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "getInitDynamicRenderItemSize", NULL);
 	
 	int itemSize = 0;
 	PyArg_Parse(renderCountItem, "i", &itemSize);
 	if (itemSize>0) {
 		for (int i = 0; i < itemSize; i++) {
 			PyObject *pObject;
-			PyObject *retValue = pyLoader.callObjectMethod(module, "initDynamicRenderItem", NULL);
+			PyObject *retValue = pyLoader.callObjectMethod(module, "getInitDynamicRenderItem", NULL);
 			PyArg_Parse(retValue, "O", &pObject);
 
 			if (pObject!=nullptr) {
-				const char* uuid;
-				auto uuidObj = PyObject_CallMethod(pObject, "getUUID", NULL);
-				PyArg_Parse(uuidObj, "s", &uuid);
-
 				DynamicRenderItem item;
-				item.pObject = pObject;
-				item.item = nullptr;
+				item.item = new XCItemTransport(pObject);
 				auto renderQueue = RenderManager::getInstance();
-				renderQueue->AddDynamicWork(uuid, item);
+				renderQueue->AddDynamicWork(item);
 #ifndef _DEBUG
-				Py_INCREF(retObj);
+				Py_INCREF(retValue);
 #else
-				std::cout << "Item UUID: " << uuid << std::endl;
+				Py_IncRef(retValue);
 #endif
 
 			}
 		}
 	}
-/*	PyObject* obj = pyLoader.callObjectMethod(module, "getObj", NULL);
-
-	PyObject *theObj, *theArgs;
-	PyArg_Parse(obj, "O", &theObj);
-	double i = 66;
-	PyObject_CallMethod(theObj, "funcPrint", "(f)", i);*/
 }
 
 void XCInterpreter::parseStaticRenderItem()

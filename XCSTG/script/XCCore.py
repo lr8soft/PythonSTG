@@ -1,14 +1,16 @@
 import script.XCRender as XCRender
 from script.RenderItem.RenderImageItem import RenderImageItem
 from script.RenderItem.RenderColorItem import RenderColorItem
+from script.Object.XCItem import XCItem
 #PySTG Init
 winHeight = 720
 winWidth = 1280
 winTitle = "PyTest v0.5"
-__collisionItem = []
+
 #PySTG default function
 def coreInitializer():
     UiInit()
+    TestInit()
     print("[XCCore]Now basic ui init.")
     return True
 def coreFinalizer():
@@ -31,3 +33,8 @@ def UiInit():
     background.priority = 7
     XCRender.addStaticRenderItem(gameScene)
 
+
+def TestInit():
+    item  = XCItem()
+    item.setImage("assets/Item/fairy.png",[1,1,0,0],[0.065,0.1,1.0],False)
+    XCRender.addInitDynamicRenderItem(item)
