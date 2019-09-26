@@ -35,7 +35,7 @@ void XCItemTransport::ItemInit()
 			MultiThreadDefineEnd
 		}
 		isRenderFlexible = isFlexible ? true : false;
-		imageHelper = new XCImageHelper(imagePath);
+		imageHelper = new XCImageHelper(imagePath, isRenderFlexible);
 		
 #ifdef _DEBUG
 		std::cout << "=======DYNAMIC RENDER ITEM=====" << std::endl;
@@ -52,44 +52,81 @@ void XCItemTransport::ItemInit()
 void XCItemTransport::ItemRender()
 {
 //Just for test
-#ifdef _DEBUG
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-#endif
 	if (isRenderFlexible) {
 		if (imageHelper!=nullptr) {
 			int divCol, divRow, divSCol, divSRow, rotateWorkX, rotateWorkY, rotateWorkZ;
+			int useBlend, colorFunc, alphaFunc;
 			float *coord, scaleX, scaleY, scaleZ, rotateAngle;
 			MultiThreadDefine
 			coord = getPosition();
 			PyObject* scaleInfo = PyObject_CallMethod(itemPointer, "_cpp_getScaleSize", NULL);
 			PyObject* renderInfo = PyObject_CallMethod(itemPointer, "_cpp_getImageDivideFormat", NULL);
 			PyObject* rotateInfo = PyObject_CallMethod(itemPointer, "_cpp_getRotateInfo", NULL);
+			PyObject* blendInfo = PyObject_CallMethod(itemPointer, "_cpp_getBlendInfo", NULL);
 			PyArg_ParseTuple(renderInfo, "iiii", &divCol, &divRow, &divSCol, &divSRow);
 			PyArg_ParseTuple(scaleInfo, "fff", &scaleX, &scaleY, &scaleZ);
 			PyArg_ParseTuple(rotateInfo, "f(iii)",&rotateAngle, &rotateWorkX, &rotateWorkY, &rotateWorkZ);
+			PyArg_ParseTuple(blendInfo, "p(ii)", &useBlend, &colorFunc,&alphaFunc);
 			MultiThreadDefineEnd
+				
+			if (useBlend) {
+				glEnable(GL_BLEND);
+				switch (alphaFunc) {
+				case 4:
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); break;
+				case 5:
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE); break;
+				}
+				switch (colorFunc) {
+				case 1:
+					glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR); break;
+				case 2:
+					glBlendFunc(GL_SRC_COLOR, GL_ONE); break;
+				}
+			}
 			imageHelper->Render(glm::vec3(coord[0], coord[1], coord[2]), glm::vec4(1.0f), 
 				rotateAngle, glm::vec3(rotateWorkX, rotateWorkY, rotateWorkZ),glm::vec3(scaleX, scaleY, scaleZ),
 				XCImageHelper::GetSpecificTexture(divCol, divRow, divSCol, divSRow));
-			
+			if (useBlend) {
+				glDisable(GL_BLEND);
+			}
 		}
 	}
 	else {
 		if (imageHelper != nullptr) {
 			float *coord ,scaleX, scaleY, scaleZ, rotateAngle;
 			int  rotateWorkX, rotateWorkY, rotateWorkZ;
+			int useBlend, colorFunc, alphaFunc;
 			MultiThreadDefine
 			coord = getPosition();
 			PyObject* scaleInfo = PyObject_CallMethod(itemPointer, "_cpp_getScaleSize", NULL);
 			PyObject* rotateInfo = PyObject_CallMethod(itemPointer, "_cpp_getRotateInfo", NULL);
+			PyObject* blendInfo = PyObject_CallMethod(itemPointer, "_cpp_getBlendInfo", NULL);
 			PyArg_ParseTuple(scaleInfo, "fff", &scaleX, &scaleY, &scaleZ);
 			PyArg_ParseTuple(rotateInfo, "f(iii)", &rotateAngle, &rotateWorkX, &rotateWorkY, &rotateWorkZ);
+			PyArg_ParseTuple(blendInfo, "p(ii)", &useBlend, &colorFunc, &alphaFunc);
 			MultiThreadDefineEnd
+			if (useBlend) {
+				glEnable(GL_BLEND);
+				switch (alphaFunc) {
+				case 4:
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); break;
+				case 5:
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE); break;
+				}
+				switch (colorFunc) {
+				case 1:
+					glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR); break;
+				case 2:
+					glBlendFunc(GL_SRC_COLOR, GL_ONE); break;
+				}
+			}
 			imageHelper->Render(glm::vec3(coord[0], coord[1], coord[2]), glm::vec4(1.0f), 
 				rotateAngle, glm::vec3(rotateWorkX, rotateWorkY, rotateWorkZ), glm::vec3(scaleX, scaleY, scaleZ),
 				nullptr);
-			
+			if (useBlend) {
+				glDisable(GL_BLEND);
+			}
 		}
 	}
 	
