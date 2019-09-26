@@ -9,12 +9,18 @@ class XCItem(DynamicItem):
         self.__divideInfo = [1, 1, 0, 0]
         self.__scaleSize = [1.0, 1.0, 1.0]
         self.__isFlexible = False
+        self.__rotateAngle = 0.0
+        self.__rotateWork = [ 1, 0, 0]
 
     def setImage(self, imagePath, divideFormat = [1, 1, 0, 0], scaleSize = [1.0, 1.0, 1.0], isFlexible = False):
         self.__imagePath = imagePath
         self.__divideInfo = divideFormat
         self.__isFlexible = isFlexible
         self.__scaleSize = scaleSize
+
+    def setAngle(self, angle = 0.0, angleWork = [1, 0, 0]):
+        self.__rotateAngle = angle
+        self.__rotateWork = angleWork
 
     def getPos(self):
         return tuple(self.__pos)
@@ -35,6 +41,9 @@ class XCItem(DynamicItem):
 
     def _cpp_getScaleSize(self):
         return tuple(self.__scaleSize)
+
+    def _cpp_getRotateInfo(self):
+        return (self.__rotateAngle, tuple(self.__rotateWork))
 
     def _cpp_doRenderWork(self):
         pass

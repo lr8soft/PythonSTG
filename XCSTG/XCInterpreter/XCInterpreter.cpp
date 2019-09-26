@@ -3,14 +3,20 @@
 #include <string>
 #include <GLFW/glfw3.h>
 #include <thread>
-
+PyObject* XCInterpreter::keyCallback = nullptr;
 using namespace std;
 XCInterpreter::XCInterpreter(GLFWwindow* pwin)
 {
 	pScreen = pwin;
 	
 }
-
+void pythonKeyFuncCallBack(GLFWwindow * p, int key, int scancode, int action, int mods)
+{
+	MultiThreadDefine
+	PyObject* args = Py_BuildValue("(iiii)", key, scancode, action, mods);
+	PyObject_CallObject(XCInterpreter::keyCallback, args);
+	MultiThreadDefineEnd
+}
 void XCInterpreter::InterpreterThread()
 {
 	MultiThreadDefine
@@ -20,7 +26,7 @@ void XCInterpreter::InterpreterThread()
 	PyObject* height = pyLoader.getAttrib(mainScript, "winHeight");
 	PyObject* width = pyLoader.getAttrib(mainScript, "winWidth");
 	PyObject* title = pyLoader.getAttrib(mainScript, "winTitle");
-
+	keyCallback = pyLoader.getAttrib(mainScript, "coreKeyCallback");
 
 
 	
@@ -29,6 +35,7 @@ void XCInterpreter::InterpreterThread()
 	//glfwSetWindowSize(pScreen, w, h);
 	const char* t = pyLoader.getSingleArg<const char*>(title);
 	glfwSetWindowTitle(pScreen, t);
+	glfwSetKeyCallback(pScreen, pythonKeyFuncCallBack);
 	MultiThreadDefineEnd
 
 	while (true) {
@@ -79,10 +86,12 @@ void XCInterpreter::parseStaticRenderItem()
 	if (itemSize > 0) {
 		for (int i = 0; i < itemSize; i++) { 
 			const char *renderType, *imagePath; 
-			float renderX = 0.0f, renderY = 0.0f, renderZ = 0.0f, scaleX = 0.0f, scaleY = 0.0f, scaleZ = 0.0f;
+			float renderX = 0.0f, renderY = 0.0f, renderZ = 0.0f, scaleX = 0.0f, scaleY = 0.0f, scaleZ = 0.0f, rotateAngle = 0.0f;
 			float colorR = 0, colorG = 0, colorB = 0, colorA = 0;
 			int divideColumn = 0, divideRow = 0, divideSelectCol = 0, divideSelectRow = 0, isFlexibleObj = 0;
-			PyObject* renderItem = pyLoader.callObjectMethod(module, "getStaticRenderItem", NULL);
+			int rotateWorkX = 0, rotateWorkY = 0, rotateWorkZ = 0;
+			PyObject* pObject = pyLoader.callObjectMethod(module, "getStaticRenderItem", NULL);
+			PyObject* renderItem = PyObject_CallMethod(pObject, "translate", NULL);
 			PyArg_ParseTuple(
 				renderItem,"ssp(fff)(ffff)(fff)(iiii)", 
 				&renderType, &imagePath, &isFlexibleObj,
@@ -91,7 +100,7 @@ void XCInterpreter::parseStaticRenderItem()
 				&scaleX, &scaleY, &scaleZ,
 				&divideColumn, &divideRow, &divideSelectCol, &divideSelectRow
 			);
-			bool isFlexible = isFlexibleObj;
+			bool isFlexible = isFlexibleObj ? true : false;
 
 			StaticRenderItem item;
 			item.imagePath = imagePath;
@@ -121,6 +130,7 @@ void XCInterpreter::parseStaticRenderItem()
 		}
 	}
 }
+
 void XCInterpreter::ScriptLaunch()
 {
 	std::cout << "[INFO] Now pyInterpreter detach." << std::endl;

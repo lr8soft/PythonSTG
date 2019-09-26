@@ -68,7 +68,7 @@ XCImageHelper::XCImageHelper(std::string path, bool isRenderFlexible)
 	glEnableVertexAttribArray(0);
 }
 
-void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, glm::vec3 scaleSize, float *texuturePos16xFloat)
+void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle, glm::vec3 rorateWorkCoord,glm::vec3 scaleSize, float *texuturePos16xFloat)
 {
 	if (!isFlexible)
 		glUseProgram(ProgramHandle);
@@ -80,6 +80,7 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, glm::vec3 
 
 	glm::mat4 mvp_mat;
 	mvp_mat = glm::translate(mvp_mat, renderPos);
+	mvp_mat = glm::rotate(mvp_mat, glm::degrees(rotateAngle), rorateWorkCoord);
 	mvp_mat = glm::scale(mvp_mat, scaleSize);
 	if (!isFlexible) {
 		auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");

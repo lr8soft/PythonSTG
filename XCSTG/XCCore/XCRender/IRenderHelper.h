@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 class IRenderHelper {
 public:
-	virtual void Render(glm::vec3 renderPos, glm::vec4 coverColor,
+	virtual void Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle = 0.0f, glm::vec3 rotateWork = glm::vec3(0, 0, 0),
 		glm::vec3 scaleSize = glm::vec3(1.0f, 1.0f, 1.0f), float *dataPointer = nullptr) = 0;
 	virtual void Release() = 0;
 };

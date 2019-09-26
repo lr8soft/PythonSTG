@@ -4,7 +4,7 @@
 #include "../XCRender/XCImageHelper.h"
 #include <Python.h>
 class XCItemTransport {
-private:
+protected:
 	bool isInit = false;
 	bool isRenderFlexible = false;
 	PyObject* itemPointer;

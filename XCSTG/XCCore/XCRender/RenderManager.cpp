@@ -54,6 +54,8 @@ void RenderManager::RenderWork()
 			work->image->Render(
 				work->renderPos,
 				work->renderColor,
+				0.0f,
+				glm::vec3(1),
 				work->scaleSize,
 				XCImageHelper::GetSpecificTexture(work->divideInfo[0], work->divideInfo[1], work->divideInfo[2], work->divideInfo[3])
 			);

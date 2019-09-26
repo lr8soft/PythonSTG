@@ -14,6 +14,7 @@ struct StaticRenderItem {
 	glm::vec4  renderColor;
 	glm::vec3  scaleSize;
 	int divideInfo[4];//col row scol srow
+	
 	bool visible = true;
 	bool flexible = false;
 	bool init = false;

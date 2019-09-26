@@ -58,29 +58,36 @@ void XCItemTransport::ItemRender()
 #endif
 	if (isRenderFlexible) {
 		if (imageHelper!=nullptr) {
-			int divCol, divRow, divSCol, divSRow;
-			float *coord, scaleX, scaleY, scaleZ;
+			int divCol, divRow, divSCol, divSRow, rotateWorkX, rotateWorkY, rotateWorkZ;
+			float *coord, scaleX, scaleY, scaleZ, rotateAngle;
 			MultiThreadDefine
 			coord = getPosition();
 			PyObject* scaleInfo = PyObject_CallMethod(itemPointer, "_cpp_getScaleSize", NULL);
 			PyObject* renderInfo = PyObject_CallMethod(itemPointer, "_cpp_getImageDivideFormat", NULL);
+			PyObject* rotateInfo = PyObject_CallMethod(itemPointer, "_cpp_getRotateInfo", NULL);
 			PyArg_ParseTuple(renderInfo, "iiii", &divCol, &divRow, &divSCol, &divSRow);
 			PyArg_ParseTuple(scaleInfo, "fff", &scaleX, &scaleY, &scaleZ);
+			PyArg_ParseTuple(rotateInfo, "f(iii)",&rotateAngle, &rotateWorkX, &rotateWorkY, &rotateWorkZ);
 			MultiThreadDefineEnd
-			imageHelper->Render(glm::vec3(coord[0], coord[1], coord[2]), glm::vec4(1.0f), glm::vec3(scaleX, scaleY, scaleZ),
+			imageHelper->Render(glm::vec3(coord[0], coord[1], coord[2]), glm::vec4(1.0f), 
+				rotateAngle, glm::vec3(rotateWorkX, rotateWorkY, rotateWorkZ),glm::vec3(scaleX, scaleY, scaleZ),
 				XCImageHelper::GetSpecificTexture(divCol, divRow, divSCol, divSRow));
 			
 		}
 	}
 	else {
 		if (imageHelper != nullptr) {
-			float *coord ,scaleX, scaleY, scaleZ;
+			float *coord ,scaleX, scaleY, scaleZ, rotateAngle;
+			int  rotateWorkX, rotateWorkY, rotateWorkZ;
 			MultiThreadDefine
 			coord = getPosition();
 			PyObject* scaleInfo = PyObject_CallMethod(itemPointer, "_cpp_getScaleSize", NULL);
+			PyObject* rotateInfo = PyObject_CallMethod(itemPointer, "_cpp_getRotateInfo", NULL);
 			PyArg_ParseTuple(scaleInfo, "fff", &scaleX, &scaleY, &scaleZ);
+			PyArg_ParseTuple(rotateInfo, "f(iii)", &rotateAngle, &rotateWorkX, &rotateWorkY, &rotateWorkZ);
 			MultiThreadDefineEnd
-			imageHelper->Render(glm::vec3(coord[0], coord[1], coord[2]), glm::vec4(1.0f), glm::vec3(scaleX, scaleY, scaleZ),
+			imageHelper->Render(glm::vec3(coord[0], coord[1], coord[2]), glm::vec4(1.0f), 
+				rotateAngle, glm::vec3(rotateWorkX, rotateWorkY, rotateWorkZ), glm::vec3(scaleX, scaleY, scaleZ),
 				nullptr);
 			
 		}

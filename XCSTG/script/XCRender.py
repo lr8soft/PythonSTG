@@ -11,11 +11,8 @@ def addStaticRenderItem(item):
     __staticRenderQueue.put(item)
 def getStaticRenderItem():
     item = __staticRenderQueue.get()
-    if isinstance(item, TranslateItem):
-        return item.translate()
-    else:
-        print("[ERROR]Item isn't an standard RenderImageItem.")
-        return tuple()
+    return item
+
 def getStaticRenderSize():
     return __staticRenderQueue.qsize()
 

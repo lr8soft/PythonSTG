@@ -13,6 +13,10 @@ def coreInitializer():
     TestInit()
     print("[XCCore]Now basic ui init.")
     return True
+
+def coreKeyCallback(key, scancode, action, mods):
+    print("Now key:", key, " Now action:", action)
+
 def coreFinalizer():
     print("[XCCore]Now End.")
 

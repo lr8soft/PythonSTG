@@ -42,13 +42,14 @@ XCColorBlockHelper::XCColorBlockHelper()
 	glEnableVertexAttribArray(0);
 }
 
-void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, glm::vec3 scaleSize, float * dataPointer)
+void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle, glm::vec3 rotateWork, glm::vec3 scaleSize, float * dataPointer)
 {
 	glUseProgram(ProgramHandle);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindVertexArray(vao);
 	glm::mat4 mvp_mat;
 	mvp_mat = glm::translate(mvp_mat, renderPos);
+	mvp_mat = glm::rotate(mvp_mat, glm::degrees(rotateAngle), rotateWork);
 	mvp_mat = glm::scale(mvp_mat, scaleSize);
 	auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
 	auto color_location = glGetUniformLocation(ProgramHandle, "color");
