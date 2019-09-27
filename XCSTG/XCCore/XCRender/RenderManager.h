@@ -5,7 +5,6 @@
 #include <string>
 #include <mutex>
 #include "IRenderHelper.h"
-#include "../XCTransport/XCItemTransport.h"
 struct StaticRenderItem {
 	std::string renderType;
 	std::string imagePath;
@@ -19,20 +18,15 @@ struct StaticRenderItem {
 	bool flexible = false;
 	bool init = false;
 };
-struct DynamicRenderItem {
-	XCItemTransport *item;
-};
 class RenderManager {
 private:
-	static std::mutex staticMutex, dynamicMutex;
-	static std::vector<DynamicRenderItem> dynamicRenderGroup;
+
 	static std::vector<StaticRenderItem> staticQueue;
 
 	static RenderManager* pRManager;
 	RenderManager();
 public:
 	static RenderManager* getInstance();
-	void AddDynamicWork(DynamicRenderItem work);
 	void AddStaticWork(StaticRenderItem work);
 	void RenderWork();
 };

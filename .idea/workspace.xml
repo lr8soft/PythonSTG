@@ -67,7 +67,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/XCSTG/script/XCRender.py" />
+      <option name="SCRIPT_NAME" value="G:\XCSTG_NEW\XCSTG\script\XCInit.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -118,6 +118,7 @@
       <workItem from="1569477737671" duration="5847000" />
       <workItem from="1569498812070" duration="1421000" />
       <workItem from="1569508021274" duration="3069000" />
+      <workItem from="1569566455349" duration="5131000" />
     </task>
     <servers />
   </component>

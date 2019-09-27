@@ -1,8 +1,6 @@
-from abc import abstractmethod
-from script.RenderItem.DynamicItem import DynamicItem
-from multiprocessing import Lock
 from enum import  Enum
 import uuid
+from script.RenderItem.TranslateItem import TranslateItem
 class BlendType(Enum):
     COLOR_NONE = 0
     COLOR_ONE_MINUS_SRC = 1
@@ -10,8 +8,9 @@ class BlendType(Enum):
     ALPHA_NONE = 3
     ALPHA_ONE_MINUS_SRC = 4
     ALPHA_ONE = 5
-class XCItem(DynamicItem):
+class XCItem(TranslateItem):
     def __init__(self):
+        super().__init__()
         self._pos = [0.0, 0.0, 0.0]
         self._uuid = str(uuid.uuid1())
         self._imagePath = "assets/Item/fairy.png"
@@ -23,7 +22,6 @@ class XCItem(DynamicItem):
         self._divideInfo = [1, 1, 0, 0]
         self._useBlend = True
         self._blendFunc = [BlendType.COLOR_NONE.value, BlendType.ALPHA_ONE_MINUS_SRC.value]
-        self._lock = Lock()
 
     def setImage(self, imagePath, divideFormat = [1, 1, 0, 0], scaleSize = [1.0, 1.0, 1.0], isFlexible = False):
         self._imagePath = imagePath
@@ -39,21 +37,9 @@ class XCItem(DynamicItem):
         self._rotateAngle = angle
         self._rotateWork = angleWork
 
-    def getPos(self):
-        self._lock.acquire()
-        t = tuple(self._pos)
-        self._lock.release()
-        return t
+    def setInitPos(self, pos = [0.0, 0.0, 0.0]):
+        self._pos = pos
 
-    def setPos(self, x, y, z):
-        self._lock.acquire()
-        self._pos[0] = x
-        self._pos[1] = y
-        self._pos[2] = z
-        self._lock.release()
-
-    def collide(self):
-        pass
     #callback function for cpp
     def _cpp_getInitRenderInfo(self):
         return (self._imagePath, tuple(self._divideInfo), self._isFlexible)
@@ -70,11 +56,11 @@ class XCItem(DynamicItem):
     def _cpp_getBlendInfo(self):
         return (self._useBlend, tuple(self._blendFunc))
 
-    def _cpp_doRenderWork(self):
-        pass
-
     def _cpp_getUUID(self):
         return self._uuid
+
+    def _cpp_getInitCoord(self):
+        return tuple(self._pos)
 
 
 

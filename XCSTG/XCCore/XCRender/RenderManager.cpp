@@ -5,9 +5,8 @@
 #include "XCColorBlockHelper.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
-std::mutex RenderManager::staticMutex, RenderManager::dynamicMutex;
+#include "../../XCFrame.h"
 std::vector<StaticRenderItem> RenderManager::staticQueue;
-std::vector<DynamicRenderItem> RenderManager::dynamicRenderGroup;
 RenderManager* RenderManager::pRManager = nullptr;
 RenderManager::RenderManager()
 {
@@ -21,22 +20,12 @@ RenderManager * RenderManager::getInstance()
 	return pRManager;
 }
 
-void RenderManager::AddDynamicWork(DynamicRenderItem work)
-{
-	dynamicMutex.lock();
-	dynamicRenderGroup.push_back(work);
-	dynamicMutex.unlock();
-}
-
 void RenderManager::AddStaticWork(StaticRenderItem work)
 {
-	staticMutex.lock();
 	staticQueue.push_back(work);
-	staticMutex.unlock();
 }
 void RenderManager::RenderWork()
 {
-	staticMutex.lock();
 	std::vector<StaticRenderItem>::iterator workBegin = staticQueue.begin();
 	std::vector<StaticRenderItem>::iterator workEnd = staticQueue.end();
 
@@ -57,26 +46,11 @@ void RenderManager::RenderWork()
 				0.0f,
 				glm::vec3(1),
 				work->scaleSize,
-				XCImageHelper::GetSpecificTexture(work->divideInfo[0], work->divideInfo[1], work->divideInfo[2], work->divideInfo[3])
+				IRenderHelper::GetSpecificTexWithRate(
+					XCFrame::FrameRight, XCFrame::FrameTop,
+					work->divideInfo[0], work->divideInfo[1], work->divideInfo[2], work->divideInfo[3])
 			);
 		}
 	}
-	staticMutex.unlock();
-
-
-	dynamicMutex.lock();
-	std::vector<DynamicRenderItem>::iterator dyBegin = dynamicRenderGroup.begin();
-	std::vector<DynamicRenderItem>::iterator dyEnd = dynamicRenderGroup.end();
-	for (auto work = dyBegin; work != dyEnd; work++) {
-		auto pItem = work->item;
-		if (!pItem->getIsInit()) {
-			pItem->ItemInit();//need gl environmenet
-		}
-		if (pItem->getIsInit()) {
-			pItem->ItemRender();
-		}
-	}
-	dynamicMutex.unlock();
-
 
 }

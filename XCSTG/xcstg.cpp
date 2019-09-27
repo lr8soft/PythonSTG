@@ -4,4 +4,5 @@ int main() {
 	XCFrame frame;
 	frame.FrameInit();
 	frame.FrameLoop();
+	frame.FrameFinalize();
 }

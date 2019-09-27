@@ -20,8 +20,8 @@
     <Filter Include="XCInterpreter">
       <UniqueIdentifier>{42024c11-981e-4b30-99fa-c3231dfb5f1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XCCore\XCTransport">
-      <UniqueIdentifier>{05e3f6ad-c1e9-4d2a-b07a-05af8fde4335}</UniqueIdentifier>
+    <Filter Include="XCCore\XCItem">
+      <UniqueIdentifier>{43fd9bff-7c18-403e-a0c5-5ca4cf4aaad0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +60,7 @@
     <ClCompile Include="XCCore\XCRender\XCColorBlockHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\XCTransport\XCItemTransport.cpp">
-      <Filter>XCCore\XCTransport</Filter>
-    </ClCompile>
+    <ClCompile Include="XCCore\XCItem\XCItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -81,7 +79,6 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="XCFrame.h" />
-    <ClInclude Include="XCInfo.h" />
     <ClInclude Include="XCCore\XCFont\XCFont.h">
       <Filter>XCCore\XCFont</Filter>
     </ClInclude>
@@ -103,8 +100,8 @@
     <ClInclude Include="XCCore\XCRender\XCColorBlockHelper.h">
       <Filter>XCCore\XCRender</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\XCTransport\XCItemTransport.h">
-      <Filter>XCCore\XCTransport</Filter>
+    <ClInclude Include="XCCore\XCItem\XCItem.h">
+      <Filter>XCCore\XCItem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

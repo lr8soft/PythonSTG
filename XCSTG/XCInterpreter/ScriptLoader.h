@@ -21,7 +21,7 @@ public:
 	static _Ty getSingleArg(PyObject* ret) {
 		static _Ty returnValue;
 		std::string format;
-		if (std::is_same<int,_Ty>::value || std::is_same<bool, _Ty>::value) {
+		if (std::is_same<int,_Ty>::value) {
 			format = "i";
 		}
 		else if (std::is_same<char, _Ty>::value) {

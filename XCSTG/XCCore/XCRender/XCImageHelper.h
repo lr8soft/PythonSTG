@@ -22,11 +22,7 @@ public:
 		glm::vec3 scaleSize=glm::vec3(1.0f, 1.0f, 1.0f), float *texuturePos16xFloat=nullptr) override;
 	virtual void Release() override;
 
-	/*共column列，row行；取第x列 第y行（以该子纹理右上角坐标为准）*/
-	static float* GetSpecificTexture(int column, int row, int x, int y);
-	/*共column列，row行；取第x列 第y行（以该子纹理右上角坐标为准）*/
-	static float* GetSpecificTexWithRate(float width_rate, float height_rate, int column, int row, int x, int y);
-	static float* GetPointSpriteVertex(float size);
+
 };
 
 #endif

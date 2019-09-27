@@ -11,8 +11,9 @@ private:
 
 	static XCInterpreter *interpreter;
 	static void FrameResize(GLFWwindow* screen, int w, int h);
-	static int FrameWidth, FrameHeight;
 public:
+	static int FrameWidth, FrameHeight;
+	static float FrameLeft, FrameRight, FrameTop, FrameBottom;
 	void FrameInit();
 	void FrameLoop();
 	void FrameFinalize();

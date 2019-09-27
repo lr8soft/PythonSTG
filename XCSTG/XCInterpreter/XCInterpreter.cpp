@@ -1,24 +1,17 @@
 #include "XCInterpreter.h"
 #include "..\XCCore\XCRender\RenderManager.h"
 #include <string>
-#include <GLFW/glfw3.h>
-#include <thread>
-PyObject* XCInterpreter::keyCallback = nullptr;
+#include <chrono>
+#include <future>
 using namespace std;
-XCInterpreter::XCInterpreter(GLFWwindow* pwin)
+XCInterpreter::XCInterpreter()
 {
-	pScreen = pwin;
+
 	
 }
-void pythonKeyFuncCallBack(GLFWwindow * p, int key, int scancode, int action, int mods)
+InitInfo XCInterpreter::InterpreterThread()
 {
-	MultiThreadDefine
-	PyObject* args = Py_BuildValue("(iiii)", key, scancode, action, mods);
-	PyObject_CallObject(XCInterpreter::keyCallback, args);
-	MultiThreadDefineEnd
-}
-void XCInterpreter::InterpreterThread()
-{
+	InitInfo info;
 	MultiThreadDefine
 	PyObject* mainScript = pyLoader.importModule("script.XCCore");
 	pyLoader.callObjectMethod(mainScript, "coreInitializer", NULL);
@@ -26,46 +19,50 @@ void XCInterpreter::InterpreterThread()
 	PyObject* height = pyLoader.getAttrib(mainScript, "winHeight");
 	PyObject* width = pyLoader.getAttrib(mainScript, "winWidth");
 	PyObject* title = pyLoader.getAttrib(mainScript, "winTitle");
-	keyCallback = pyLoader.getAttrib(mainScript, "coreKeyCallback");
+	PyObject* resize = pyLoader.getAttrib(mainScript, "winResize");
+	PyObject* scale  = pyLoader.getAttrib(mainScript, "winScaleToMonitor");
+	info.winHeight = pyLoader.getSingleArg<int>(height);
+	info.winWidth = pyLoader.getSingleArg<int>(width);
+	info.winTitle = pyLoader.getSingleArg<const char*>(title);
+
+	int intValue;
+	PyArg_Parse(resize, "p", &intValue);
+	info.winResize = intValue;
+	PyArg_Parse(scale, "p", &intValue);
+	info.winScale = intValue;
+#ifdef _DEBUG
+	std::cout << "=======INIT INFO=======" << std::endl;
+	std::cout << "width:" << info.winWidth << " height:" << info.winHeight << std::endl;
+	std::cout << "resize:" << std::boolalpha << info.winResize << " scale:" << info.winScale << std::endl;
+	std::cout << "title:" << info.winTitle << std::endl;
+	std::cout << "=====================" << std::endl;
+#endif
 
 
-	
-	//int h = pyLoader.getSingleArg<int>(height);
-	//int w = pyLoader.getSingleArg<int>(width);
-	//glfwSetWindowSize(pScreen, w, h);
-	const char* t = pyLoader.getSingleArg<const char*>(title);
-	glfwSetWindowTitle(pScreen, t);
-	glfwSetKeyCallback(pScreen, pythonKeyFuncCallBack);
+	//parseDynamicRenderItem();
+	parseStaticRenderItem();
 	MultiThreadDefineEnd
-
-	while (true) {
-		MultiThreadDefine
-		parseDynamicRenderItem();
-		parseStaticRenderItem();
-		MultiThreadDefineEnd
-	}
-	
-
+	return info;
 }
 ;
 void XCInterpreter::parseDynamicRenderItem()
 {
-	PyObject * module = pyLoader.importModule("script.XCRender");
-	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "getInitDynamicRenderItemSize", NULL);
+	PyObject * module = pyLoader.importModule("script.XCInit");
+	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "getInitItemSize", NULL);
 	
 	int itemSize = 0;
 	PyArg_Parse(renderCountItem, "i", &itemSize);
 	if (itemSize>0) {
 		for (int i = 0; i < itemSize; i++) {
 			PyObject *pObject;
-			PyObject *retValue = pyLoader.callObjectMethod(module, "getInitDynamicRenderItem", NULL);
+			PyObject *retValue = pyLoader.callObjectMethod(module, "getInitItem", NULL);
 			PyArg_Parse(retValue, "O", &pObject);
 
 			if (pObject!=nullptr) {
-				DynamicRenderItem item;
-				item.item = new XCItemTransport(pObject);
-				auto renderQueue = RenderManager::getInstance();
-				renderQueue->AddDynamicWork(item);
+	//			DynamicRenderItem item;
+	//			item.item = new XCItemTransport(pObject);
+	//			auto renderQueue = RenderManager::getInstance();
+	//			renderQueue->AddDynamicWork(item);
 #ifndef _DEBUG
 				Py_INCREF(retValue);
 #else
@@ -79,7 +76,7 @@ void XCInterpreter::parseDynamicRenderItem()
 
 void XCInterpreter::parseStaticRenderItem()
 {
-	PyObject * module = pyLoader.importModule("script.XCRender");
+	PyObject * module = pyLoader.importModule("script.XCInit");
 	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "getStaticRenderSize", NULL);
 	int itemSize = 0;
 	PyArg_Parse(renderCountItem, "i", &itemSize);
@@ -131,26 +128,11 @@ void XCInterpreter::parseStaticRenderItem()
 	}
 }
 
-void XCInterpreter::ScriptLaunch()
+InitInfo XCInterpreter::ScriptLaunch()
 {
-	std::cout << "[INFO] Now pyInterpreter detach." << std::endl;
-	thread PyScriptThread(&XCInterpreter::InterpreterThread, this);
-
-	PyScriptThread.detach();
-}
-void XCInterpreter::setThreadEnd(bool isEnd)
-{
-	threadMutex.lock();
-	shouldThreadEnd = isEnd;
-	threadMutex.unlock();
-}
-bool XCInterpreter::getThreadEnd()
-{
-	bool shouldEnd = false;
-	threadMutex.lock();
-	shouldEnd = shouldThreadEnd;
-	threadMutex.unlock();
-	return shouldEnd;
+	std::cout << "[INFO] Now pyInterpreter start." << std::endl;
+	std::future<InitInfo> retFuture = std::async(&XCInterpreter::InterpreterThread, this);
+	return retFuture.get();
 }
 XCInterpreter::~XCInterpreter()
 {
