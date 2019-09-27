@@ -59,9 +59,6 @@ class XCItem(TranslateItem):
     def _cpp_getInitCoord(self):
         return tuple(self._pos)
 
-    def _cpp_work(self):
-        print("work")
-
 
 
 

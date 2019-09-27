@@ -7,11 +7,13 @@
 class XCFrame {
 private:
 	GLFWwindow* pscreen;
-	
-
+	static XCFrame* pInstance;
 	static XCInterpreter *interpreter;
 	static void FrameResize(GLFWwindow* screen, int w, int h);
+	XCFrame();
 public:
+	GLFWwindow* getScreen();
+	static XCFrame* getInstance();
 	static XCGameTimer timer;
 	static int FrameWidth, FrameHeight;
 	static float FrameLeft, FrameRight, FrameTop, FrameBottom;

@@ -1,6 +1,7 @@
 #include "XCStage.h"
 #include "../../XCInterpreter/ScriptLoader.h"
 #include "../../XCCore/XCRender/XCImageHelper.h"
+#include "../../XCCore/XCItem/XCPlayer.h"
 #include <GL3/gl3w.h>
 GLenum XCStage::parseAlphaFunc(int src)
 {
@@ -71,7 +72,7 @@ void XCStage::stageInit()
 
 					XCImageHelper* image = new XCImageHelper(imagePath, isFlexible);
 					XCItem* pItem = new XCItem(uuid, image, glm::vec4(divideFormat[0], divideFormat[1], divideFormat[2], divideFormat[3]),
-						glm::vec4(1.0f), glm::vec3(scaleSize[0], scaleSize[1], scaleSize[2]), glm::vec3(rotateWork[0], rotateWork[1], rotateWork[2]), rotateAngle);
+							glm::vec4(1.0f), glm::vec3(scaleSize[0], scaleSize[1], scaleSize[2]), glm::vec3(rotateWork[0], rotateWork[1], rotateWork[2]), rotateAngle);
 					itemStruct renderItem;
 					renderItem.item = pItem;
 					renderItem.useBlend = useBlend;
@@ -84,8 +85,8 @@ void XCStage::stageInit()
 					std::cout << "path: " << imagePath << " format:" << divideFormat[0] << " " << divideFormat[1] << " " << divideFormat[2] << " " << divideFormat[3] <<" fx:" <<isFlexible << std::endl;
 					std::cout << "scale: " << scaleSize[0] << " " << scaleSize[1] << " " << scaleSize[2] << std::endl;
 					std::cout << "rotate: " << rotateAngle << " rotatework:" << rotateWork[0] << " " << rotateWork[1] << " " << rotateWork[2] << std::endl;
-					std::cout << "useblend: " << useBlend << " colorfunc" << blendColorFunc << " alphafunc" << blendAlphaFunc << std::endl;
-					std::cout << "initcoord: " << initCoord[0] << " " << initCoord[1] << " " << initCoord[2] << std::endl;
+					std::cout << "useBlend: " << useBlend << " colorFunc:" << blendColorFunc << " alphaFunc:" << blendAlphaFunc << std::endl;
+					std::cout << "initCoord: " << initCoord[0] << " " << initCoord[1] << " " << initCoord[2] << std::endl;
 					std::cout << "uuid: " << uuid << std::endl;
 					std::cout << "**********************"<< std::endl;
 #endif
