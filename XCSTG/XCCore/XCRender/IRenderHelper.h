@@ -64,6 +64,16 @@ public:
 
 		return returnArray;
 	}
+	static float *GetSquareVertices(float widthRate, float heightRate) {
+		static float vertices[] = {
+			 widthRate, heightRate,
+			 widthRate,-heightRate,
+			-widthRate,-heightRate,
+			-widthRate, heightRate
+		};
+		return vertices;
+
+	}
 	static float * GetPointSpriteVertex(float size)
 	{
 		static float returnArray[4];

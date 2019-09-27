@@ -3,13 +3,14 @@
 #include "XCFrame.h"
 #include "XCCore/XCFont/XCFont.h"
 #include "XCCore/XCRender/RenderManager.h"
+XCGameTimer XCFrame::timer;
 int XCFrame::FrameWidth = 640, XCFrame::FrameHeight = 480;
 float XCFrame::FrameBottom = -1.0f, XCFrame::FrameTop = 1.0f, XCFrame::FrameRight = 1.0f, XCFrame::FrameLeft = -1.0f;
 XCInterpreter *XCFrame::interpreter = nullptr;
 void XCFrame::FrameInit()
 {
 	ScriptLoader::initPythonEvon();
-	interpreter = new XCInterpreter();
+	interpreter = new XCInterpreter;
 	InitInfo info = interpreter->ScriptLaunch();
 	FrameWidth = info.winWidth;
 	FrameHeight = info.winHeight;

@@ -18,7 +18,7 @@ private:
 	PyObject* scriptCore;
 	InitInfo InterpreterThread();
 
-	void parseDynamicRenderItem();
+	void parseStageItem();
 	void parseStaticRenderItem();
 	
 public:

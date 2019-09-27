@@ -31,7 +31,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.XCCore">
+  <component name="RunManager">
     <configuration name="XCCore" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="XCSTG_NEW" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -54,32 +54,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="XCRender" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="XCSTG_NEW" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/XCSTG/script" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="G:\XCSTG_NEW\XCSTG\script\XCInit.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.XCCore" />
-        <item itemvalue="Python.XCRender" />
       </list>
     </recent_temporary>
   </component>
@@ -100,25 +77,6 @@
       <workItem from="1568772790551" duration="2479000" />
       <workItem from="1568795051322" duration="1002000" />
       <workItem from="1568895695442" duration="4313000" />
-      <workItem from="1568966071756" duration="304000" />
-      <workItem from="1568966487087" duration="181000" />
-      <workItem from="1569144043245" duration="582000" />
-      <workItem from="1569151593530" duration="14539000" />
-      <workItem from="1569243303139" duration="8902000" />
-      <workItem from="1569289783229" duration="3332000" />
-      <workItem from="1569296584881" duration="1521000" />
-      <workItem from="1569306590751" duration="4841000" />
-      <workItem from="1569324448837" duration="6367000" />
-      <workItem from="1569333707765" duration="438000" />
-      <workItem from="1569377421178" duration="3828000" />
-      <workItem from="1569383360341" duration="1543000" />
-      <workItem from="1569411215996" duration="10789000" />
-      <workItem from="1569423113290" duration="1284000" />
-      <workItem from="1569425576762" duration="26000" />
-      <workItem from="1569477737671" duration="5847000" />
-      <workItem from="1569498812070" duration="1421000" />
-      <workItem from="1569508021274" duration="3069000" />
-      <workItem from="1569566455349" duration="5131000" />
     </task>
     <servers />
   </component>
@@ -126,7 +84,6 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/XCSTG_NEW$XCRender.coverage" NAME="XCRender Coverage Results" MODIFIED="1569384375995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/XCSTG/script" />
-    <SUITE FILE_PATH="coverage/XCSTG_NEW$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1569511082306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/XCSTG/script" />
+    <SUITE FILE_PATH="coverage/XCSTG_NEW$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1568899250299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/XCSTG/script" />
   </component>
 </project>

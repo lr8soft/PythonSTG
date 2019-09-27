@@ -13,12 +13,12 @@ winScaleToMonitor = True
 #PySTG default function
 def coreInitializer():
     UiInit()
-    print("[XCCore]Now basic ui init.")
-    return True
+    StageInit()
+    print("[XCCore]Now basic system init.")
 
 
 def coreFinalizer():
-    print("[XCCore]Now End.")
+    print("[XCCore]Now interpreter stop.")
 
 #UI Init
 def UiInit():
@@ -38,8 +38,9 @@ def UiInit():
 
 def StageInit():
     stage0 = XCStage("Stage TEST")
-
     itemTest = XCItem()
+    itemTest.setImage("assets/Item/fairy.png",[1,1,0,0],[0.08,0.1,1],True)
+    itemTest.setBlend()
     stage0.addItem(itemTest)
-    XCInit.addStageItem(stage0)
 
+    XCInit.addStageItem(stage0)

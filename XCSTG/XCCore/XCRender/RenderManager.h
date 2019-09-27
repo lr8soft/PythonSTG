@@ -5,6 +5,7 @@
 #include <string>
 #include <mutex>
 #include "IRenderHelper.h"
+#include "../XCStage/XCStage.h"
 struct StaticRenderItem {
 	std::string renderType;
 	std::string imagePath;
@@ -20,14 +21,15 @@ struct StaticRenderItem {
 };
 class RenderManager {
 private:
-
-	static std::vector<StaticRenderItem> staticQueue;
+	std::vector<XCStage*> stageQueue;
+	std::vector<StaticRenderItem> staticQueue;
 
 	static RenderManager* pRManager;
 	RenderManager();
 public:
 	static RenderManager* getInstance();
 	void AddStaticWork(StaticRenderItem work);
+	void AddStageItem(XCStage* stage);
 	void RenderWork();
 };
 #endif

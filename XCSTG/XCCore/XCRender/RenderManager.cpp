@@ -6,7 +6,6 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "../../XCFrame.h"
-std::vector<StaticRenderItem> RenderManager::staticQueue;
 RenderManager* RenderManager::pRManager = nullptr;
 RenderManager::RenderManager()
 {
@@ -23,6 +22,10 @@ RenderManager * RenderManager::getInstance()
 void RenderManager::AddStaticWork(StaticRenderItem work)
 {
 	staticQueue.push_back(work);
+}
+void RenderManager::AddStageItem(XCStage * stage)
+{
+	stageQueue.push_back(stage);
 }
 void RenderManager::RenderWork()
 {
@@ -53,4 +56,20 @@ void RenderManager::RenderWork()
 		}
 	}
 
+	std::vector<XCStage*>::iterator stageBegin = stageQueue.begin();
+	std::vector<XCStage*>::iterator stageEnd = stageQueue.end();
+	if (stageBegin != stageEnd) {
+		XCStage* stageItem = (*stageBegin);
+		if (!stageItem->getStageInit()) {
+			stageItem->stageInit();
+		}
+		if (stageItem->getStageFinish()) {
+			stageQueue.erase(stageBegin);
+			delete stageItem;
+			return;
+		}
+		if (stageItem->getStageInit()) {
+			stageItem->stageWork();
+		}
+	}
 }

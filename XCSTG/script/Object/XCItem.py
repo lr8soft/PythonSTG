@@ -5,9 +5,9 @@ class BlendType(Enum):
     COLOR_NONE = 0
     COLOR_ONE_MINUS_SRC = 1
     COLOR_ONE = 2
-    ALPHA_NONE = 3
-    ALPHA_ONE_MINUS_SRC = 4
-    ALPHA_ONE = 5
+    ALPHA_NONE = 0
+    ALPHA_ONE_MINUS_SRC = 1
+    ALPHA_ONE = 2
 class XCItem(TranslateItem):
     def __init__(self):
         super().__init__()
@@ -16,14 +16,14 @@ class XCItem(TranslateItem):
         self._imagePath = "assets/Item/fairy.png"
         self._divideInfo = [1, 1, 0, 0]
         self._scaleSize = [1.0, 1.0, 1.0]
-        self._isFlexible = False
+        self._isFlexible = True
         self._rotateAngle = 0.0
         self._rotateWork = [ 1, 0, 0]
         self._divideInfo = [1, 1, 0, 0]
         self._useBlend = True
         self._blendFunc = [BlendType.COLOR_NONE.value, BlendType.ALPHA_ONE_MINUS_SRC.value]
 
-    def setImage(self, imagePath, divideFormat = [1, 1, 0, 0], scaleSize = [1.0, 1.0, 1.0], isFlexible = False):
+    def setImage(self, imagePath, divideFormat = [1, 1, 0, 0], scaleSize = [1.0, 1.0, 1.0], isFlexible = True):
         self._imagePath = imagePath
         self._divideInfo = divideFormat
         self._isFlexible = isFlexible
@@ -44,9 +44,6 @@ class XCItem(TranslateItem):
     def _cpp_getInitRenderInfo(self):
         return (self._imagePath, tuple(self._divideInfo), self._isFlexible)
 
-    def _cpp_getImageDivideFormat(self):
-        return tuple(self._divideInfo);
-
     def _cpp_getScaleSize(self):
         return tuple(self._scaleSize)
 
@@ -61,6 +58,9 @@ class XCItem(TranslateItem):
 
     def _cpp_getInitCoord(self):
         return tuple(self._pos)
+
+    def _cpp_work(self):
+        print("work")
 
 
 

@@ -18,6 +18,7 @@ void XCItem::ItemInit()
 void XCItem::ItemRender()
 {
 	if (renderHelper != nullptr) {
+		itemTimer.Tick();
 		renderHelper->Render(
 			glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]),
 			coverColor,

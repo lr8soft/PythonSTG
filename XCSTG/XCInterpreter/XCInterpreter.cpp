@@ -1,5 +1,6 @@
 #include "XCInterpreter.h"
-#include "..\XCCore\XCRender\RenderManager.h"
+#include "../XCCore/XCRender/RenderManager.h"
+#include "../XCCore/XCStage/XCStage.h"
 #include <string>
 #include <chrono>
 #include <future>
@@ -35,37 +36,40 @@ InitInfo XCInterpreter::InterpreterThread()
 	std::cout << "width:" << info.winWidth << " height:" << info.winHeight << std::endl;
 	std::cout << "resize:" << std::boolalpha << info.winResize << " scale:" << info.winScale << std::endl;
 	std::cout << "title:" << info.winTitle << std::endl;
-	std::cout << "=====================" << std::endl;
+	std::cout << "=====================" << std::endl << std::endl;
 #endif
-
-
-	//parseDynamicRenderItem();
+	
 	parseStaticRenderItem();
+	parseStageItem();
 	MultiThreadDefineEnd
 	return info;
 }
-;
-void XCInterpreter::parseDynamicRenderItem()
+
+void XCInterpreter::parseStageItem()
 {
 	PyObject * module = pyLoader.importModule("script.XCInit");
-	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "getInitItemSize", NULL);
+	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "getStageItemSize", NULL);
 	
 	int itemSize = 0;
 	PyArg_Parse(renderCountItem, "i", &itemSize);
 	if (itemSize>0) {
 		for (int i = 0; i < itemSize; i++) {
 			PyObject *pObject;
-			PyObject *retValue = pyLoader.callObjectMethod(module, "getInitItem", NULL);
+			PyObject *retValue = pyLoader.callObjectMethod(module, "getStageItem", NULL);
 			PyArg_Parse(retValue, "O", &pObject);
-
+			
 			if (pObject!=nullptr) {
-	//			DynamicRenderItem item;
-	//			item.item = new XCItemTransport(pObject);
-	//			auto renderQueue = RenderManager::getInstance();
-	//			renderQueue->AddDynamicWork(item);
+				const char* uuid;
+				PyObject *uuidValue = pyLoader.callObjectMethod(pObject, "_cpp_getUuid", NULL);
+				PyArg_Parse(uuidValue, "s", &uuid);
+
+				XCStage *stage = new XCStage(uuid, pObject);
+				auto renderQueue = RenderManager::getInstance();
+				renderQueue->AddStageItem(stage);
 #ifndef _DEBUG
 				Py_INCREF(retValue);
 #else
+				std::cout << "Stage Uuid:"<< uuid <<  std::endl;
 				Py_IncRef(retValue);
 #endif
 

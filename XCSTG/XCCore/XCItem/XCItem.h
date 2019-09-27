@@ -2,12 +2,14 @@
 #ifndef _XCItem_
 #define _XCItem_
 #include "../XCRender/IRenderHelper.h"
+#include "../../util/GameTimer.h"
 #include <glm/glm.hpp>
 #include <string>
 class XCItem {
 protected:
 	std::string itemUuid;
 	bool itemWorkFinish = false;
+	XCGameTimer itemTimer;
 
 	IRenderHelper* renderHelper;
 	glm::vec4 divideInfo;

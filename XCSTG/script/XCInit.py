@@ -21,5 +21,5 @@ def getStageItem():
     item =__stageInitList.get()
     return item
 
-def getStageSize():
+def getStageItemSize():
     return __stageInitList.qsize()
