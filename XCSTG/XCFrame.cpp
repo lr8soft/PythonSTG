@@ -4,6 +4,7 @@
 #include "XCCore/XCFont/XCFont.h"
 #include "XCCore/XCRender/RenderManager.h"
 XCGameTimer XCFrame::timer;
+XCFrame* XCFrame::pInstance = nullptr;
 int XCFrame::FrameWidth = 640, XCFrame::FrameHeight = 480;
 float XCFrame::FrameBottom = -1.0f, XCFrame::FrameTop = 1.0f, XCFrame::FrameRight = 1.0f, XCFrame::FrameLeft = -1.0f;
 XCInterpreter *XCFrame::interpreter = nullptr;
@@ -60,6 +61,7 @@ void XCFrame::FrameLoop()
 void XCFrame::FrameFinalize()
 {
 	ScriptLoader::unloadPythonEvon();
+	delete pInstance;
 }
 void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
 {
@@ -74,4 +76,19 @@ void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
 		FrameBottom = -480 * 1.0f / (float)FrameHeight;
 	}
 	glViewport(0, 0, FrameWidth, FrameHeight);
+}
+
+XCFrame * XCFrame::getInstance()
+{
+	if (pInstance==nullptr) {
+		pInstance = new XCFrame;
+	}
+	return pInstance;
+}
+
+GLFWwindow * XCFrame::getScreen()
+{
+	return pscreen;
+}
+XCFrame::XCFrame() {
 }

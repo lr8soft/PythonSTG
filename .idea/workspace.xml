@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90b08d49-5431-4f5f-8c72-0f6dfe43699c" name="Default Changelist" comment="" />
+    <list default="true" id="90b08d49-5431-4f5f-8c72-0f6dfe43699c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCItem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCStage/XCStage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCStage/XCStage.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCFrame.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCFrame.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCFrame.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCSTG.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCSTG.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCSTG.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCSTG.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/script/Object/XCItem.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/Object/XCItem.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/xcstg.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/xcstg.cpp" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +24,9 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1QxFuDsElUHFusRC7iOJxDUroQl" />
   <component name="PropertiesComponent">
@@ -82,6 +95,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/XCSTG_NEW$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1568899250299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/XCSTG/script" />

@@ -69,6 +69,9 @@
     <ClCompile Include="XCCore\XCStage\XCStage.cpp">
       <Filter>XCCore\XCStage</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\XCItem\XCPlayer.cpp">
+      <Filter>XCCore\XCItem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\XCStage\XCStage.h">
       <Filter>XCCore\XCStage</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCItem\XCPlayer.h">
+      <Filter>XCCore\XCItem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

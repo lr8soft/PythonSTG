@@ -33,6 +33,7 @@ void XCItem::ItemRender()
 
 void XCItem::ItemRelease()
 {
+	delete renderHelper;
 }
 
 bool XCItem::getIsFinish()
