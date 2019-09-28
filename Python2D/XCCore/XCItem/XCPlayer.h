@@ -3,6 +3,7 @@
 #define _XCPlayer_H_
 #include "XCItem.h"
 #include <map>
+#include "../XCRender/DecisionPointSE.h"
 class XCPlayer:public XCItem {
 private:
 	/*
@@ -19,8 +20,9 @@ private:
 
 	float NowPosition[3] = {0.0f, 0.0f, 0.0f};
 	*/
-	bool isInit = false;
+	DecisionPointSpecialEffect* specialEffectDecision;
 
+	bool isInit = false, renderDecisionPoint = false;
 	const char* playerFrameName, *playerImage;
 	float basePower = 1.0f;
 	float baseSpeed = 1.45f;
@@ -43,5 +45,6 @@ public:
 	bool getIsInit();
 	virtual void ItemInit() override;
 	virtual void ItemRender() override;
+	virtual void ItemRelease() override;
 };
 #endif

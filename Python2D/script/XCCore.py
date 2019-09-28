@@ -46,7 +46,7 @@ def UiInit():
 def StageInit():
     stage0 = XCStage("Stage TEST")
     itemTest = XCItem()
-    itemTest.setImage("assets/Item/fairy.png", [1, 1, 0, 0], [0.08, 0.08, 1])
+    itemTest.setImage("assets/Item/fairy.png", [1, 1, 0, 0], [0.06, 0.06, 1])
     itemTest.setBlend()
     itemTest.setInitPos([0.0, 0.6, 0.0])
     stage0.addItem(itemTest)
