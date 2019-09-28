@@ -2,6 +2,7 @@ from queue import PriorityQueue
 from queue import Queue
 __staticRenderQueue = PriorityQueue()
 __stageInitList = Queue()
+__playerList = Queue()
 
 #static render queue function
 def addStaticRenderItem(item):
@@ -23,3 +24,13 @@ def getStageItem():
 
 def getStageItemSize():
     return __stageInitList.qsize()
+
+#player item list
+def addPlayerItem(item):
+    __playerList.put(item)
+
+def getPlayerItem():
+    return __playerList.get()
+
+def getPlayerItemSize():
+    return __playerList.qsize()

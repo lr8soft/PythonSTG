@@ -20,7 +20,7 @@ private:
 
 	void parseStageItem();
 	void parseStaticRenderItem();
-	
+	void parsePlayerEntity();
 public:
 	XCInterpreter();
 	~XCInterpreter();

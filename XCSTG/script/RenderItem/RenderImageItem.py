@@ -3,6 +3,7 @@ class RenderImageItem(TranslateItem):
     "The class of the render item. \
     translate is used by the cpp part."
     def __init__(self):
+        super().__init__()
         self.IsFlexible = False
         self.ImagePath = "assets/123.png"
         self.renderPos = [0.0, 0.0, 0.0]

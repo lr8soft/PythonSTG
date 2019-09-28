@@ -1,13 +1,47 @@
+#include <GL3/gl3w.h>
 #include "XCPlayer.h"
 #include "../../XCFrame.h"
-XCPlayer::XCPlayer(std::string uuid, IRenderHelper* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle):XCItem(uuid, image, dInfo, color, sSize, rWork, rAngle)
+#include "../../XCCore/XCRender/XCImageHelper.h"
+std::map<std::string, XCPlayer*> XCPlayer::playerInstanceGroup;
+void XCPlayer::addPlayerInstance(std::string name, XCPlayer *instance)
 {
-	
+	playerInstanceGroup.insert(std::make_pair(name, instance));
+}
+std::map<std::string, XCPlayer*>* XCPlayer::getPlayerGroup()
+{
+	return &playerInstanceGroup;
+}
+XCPlayer::XCPlayer(std::string uuid, const char* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle,
+	 float mSpeed, float isInterval, float bPower, int sbyRow, int tLeftRow, int tRightRow):XCItem(uuid, nullptr, dInfo, color, sSize, rWork, rAngle)
+{
+	playerImage = image;
+
+	baseSpeed = mSpeed;
+	imageSwapTime = isInterval;
+	basePower = bPower;
+
+	standByRow = sbyRow;
+	turnLeftRow = tLeftRow;
+	turnRightRow = tRightRow;
+}
+bool XCPlayer::getIsInit()
+{
+	return isInit;
+}
+void XCPlayer::ItemInit()
+{
+	if (!isInit) {
+		renderHelper = new XCImageHelper(playerImage, true);
+		isInit = true;
+	}
 }
 void XCPlayer::ItemRender()
 {
-	if (renderHelper != nullptr) {
-		itemTimer.Tick();
+	if (isInit) {
+		playerKeyCheck();
+		
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		switch (playerNowState) {
 		case PLAYER_STANDBY:
 			renderHelper->Render(
@@ -17,7 +51,7 @@ void XCPlayer::ItemRender()
 				rotateWork,
 				scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
-					XCFrame::FrameRight, XCFrame::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, 3)
+					XCFrame::FrameRight, XCFrame::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, standByRow)
 			);
 			break;
 		case PLAYER_TURNRIGHT:
@@ -28,7 +62,7 @@ void XCPlayer::ItemRender()
 				rotateWork,
 				scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
-					XCFrame::FrameRight, XCFrame::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, 1)
+					XCFrame::FrameRight, XCFrame::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, turnRightRow)
 			);
 			break;
 		case PLAYER_TURNLEFT:
@@ -39,11 +73,12 @@ void XCPlayer::ItemRender()
 				rotateWork,
 				scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
-					XCFrame::FrameRight, XCFrame::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, 2)
+					XCFrame::FrameRight, XCFrame::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, turnLeftRow)
 			);
 			break;
 		}
-		playerKeyCheck();
+		glDisable(GL_BLEND);
+		itemTimer.Tick();
 	}
 }
 
@@ -104,8 +139,9 @@ void XCPlayer::setPlayerDirection(int direction)
 {
 	playerNowState = direction;
 	if (playerNowState == playerLastState) {
-		if (playerSameStateTime < 7.9) {
-			playerSameStateTime += 0.08;
+		float interval = divideInfo[0] - 0.1f;
+		if (playerSameStateTime < interval) {
+			playerSameStateTime += imageSwapTime;
 		}
 		else {
 			playerSameStateTime = 0;

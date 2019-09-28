@@ -3,8 +3,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "../../XCFrame.h"
 using namespace xc_ogl;
-GLuint XCColorBlockHelper::ProgramHandle = -1;
+GLuint XCColorBlockHelper::ProgramHandle = -1, XCColorBlockHelper::ProgramHandleFx = -1;
 bool XCColorBlockHelper::haveProgramInit = false;
 namespace data {
 GLfloat vertices[] = {
@@ -18,14 +19,21 @@ GLushort indices[] = {
 };
 }
 
-XCColorBlockHelper::XCColorBlockHelper()
+XCColorBlockHelper::XCColorBlockHelper(bool fx)
 {
+	isFlexible = fx;
 	if (!haveProgramInit) {
 		ShaderReader sreader;
 		sreader.loadFromFile("assets/Shader/default/default.vert", GL_VERTEX_SHADER);
 		sreader.loadFromFile("assets/Shader/default/default.frag", GL_FRAGMENT_SHADER);
 		sreader.linkAllShader();
 		ProgramHandle = sreader.getProgramHandle();
+
+		ShaderReader fxreader;
+		fxreader.loadFromFile("assets/Shader/image/image.fx.vert", GL_VERTEX_SHADER);
+		fxreader.loadFromFile("assets/Shader/image/image.fx.frag", GL_FRAGMENT_SHADER);
+		fxreader.linkAllShader();
+		ProgramHandleFx = fxreader.getProgramHandle();
 		haveProgramInit = true;
 	}
 	glGenVertexArrays(1, &vao);
@@ -37,7 +45,12 @@ XCColorBlockHelper::XCColorBlockHelper()
 
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(data::vertices), data::vertices, GL_STATIC_DRAW);
+	if (!isFlexible) {
+		glBufferData(GL_ARRAY_BUFFER, sizeof(data::vertices), data::vertices, GL_STATIC_DRAW);
+	}
+	else {
+		glBufferData(GL_ARRAY_BUFFER, sizeof(data::vertices), nullptr, GL_DYNAMIC_DRAW);
+	}
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 	glEnableVertexAttribArray(0);
 }
@@ -47,6 +60,10 @@ void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float
 	glUseProgram(ProgramHandle);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindVertexArray(vao);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	if (isFlexible) {
+		glBufferSubData(GL_ARRAY_BUFFER, 0,  sizeof(data::vertices), IRenderHelper::GetSquareVertices(XCFrame::FrameRight, XCFrame::FrameTop));
+	}
 	glm::mat4 mvp_mat;
 	mvp_mat = glm::translate(mvp_mat, renderPos);
 	mvp_mat = glm::rotate(mvp_mat, glm::degrees(rotateAngle), rotateWork);
@@ -56,6 +73,7 @@ void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
 	glUniform4fv(color_location, 1, glm::value_ptr(coverColor));
 	glDrawElements(GL_TRIANGLES, sizeof(data::indices) / sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);
+
 	glBindVertexArray(0);
 	glUseProgram(0);
 }

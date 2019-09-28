@@ -3,14 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="90b08d49-5431-4f5f-8c72-0f6dfe43699c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCItem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCStage/XCStage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCStage/XCStage.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCPlayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCPlayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCPlayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCPlayer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/RenderManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/RenderManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/RenderManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/RenderManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCColorBlockHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCColorBlockHelper.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCColorBlockHelper.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCColorBlockHelper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCImageHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCImageHelper.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/XCSTG/XCFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCFrame.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/XCSTG/XCFrame.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCFrame.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCSTG.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCSTG.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCSTG.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCSTG.vcxproj.filters" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/script/Object/XCItem.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/Object/XCItem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/xcstg.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/xcstg.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCInterpreter/XCInterpreter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCInterpreter/XCInterpreter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/XCInterpreter/XCInterpreter.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCInterpreter/XCInterpreter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/script/Object/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/Object/Player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/script/RenderItem/RenderColorItem.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/RenderItem/RenderColorItem.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/script/RenderItem/RenderImageItem.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/RenderItem/RenderImageItem.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/script/XCCore.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/XCCore.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XCSTG/script/XCInit.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/XCInit.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +109,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
