@@ -16,6 +16,13 @@ RenderManager * RenderManager::getInstance()
 	if (pRManager==nullptr) {
 		pRManager = new RenderManager;
 	}
+	if (pRManager->getPlayerP1() == nullptr)
+	{
+		auto group = XCPlayer::getPlayerGroup();
+		if (!group->empty()) {
+			pRManager->setPlayerP1(group->begin()->second);
+		}
+	}
 	return pRManager;
 }
 
@@ -38,7 +45,7 @@ void RenderManager::RenderWork()
 				work->image = new XCImageHelper(work->imagePath, work->flexible);
 			}
 			else if ("colorblock" == work->renderType) {
-				work->image = new XCColorBlockHelper;
+				work->image = new XCColorBlockHelper(work->flexible);
 			}
 			work->init = true;
 		}
@@ -55,7 +62,15 @@ void RenderManager::RenderWork()
 			);
 		}
 	}
-
+	if (playerP1!=nullptr) {
+		if (!playerP1->getIsInit()) {
+			playerP1->ItemInit();
+		}
+		if (playerP1->getIsInit()) {
+			playerP1->ItemRender();
+		}
+		
+	}
 	std::vector<XCStage*>::iterator stageBegin = stageQueue.begin();
 	std::vector<XCStage*>::iterator stageEnd = stageQueue.end();
 	if (stageBegin != stageEnd) {
@@ -72,4 +87,14 @@ void RenderManager::RenderWork()
 			stageItem->stageWork();
 		}
 	}
+}
+
+XCPlayer * RenderManager::getPlayerP1()
+{
+	return playerP1;
+}
+
+void RenderManager::setPlayerP1(XCPlayer * p1)
+{
+	playerP1 = p1;
 }

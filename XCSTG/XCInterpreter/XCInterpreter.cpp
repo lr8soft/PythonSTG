@@ -1,6 +1,7 @@
 #include "XCInterpreter.h"
 #include "../XCCore/XCRender/RenderManager.h"
 #include "../XCCore/XCStage/XCStage.h"
+#include "../XCCore/XCItem/XCPlayer.h"
 #include <string>
 #include <chrono>
 #include <future>
@@ -41,6 +42,7 @@ InitInfo XCInterpreter::InterpreterThread()
 	
 	parseStaticRenderItem();
 	parseStageItem();
+	parsePlayerEntity();
 	MultiThreadDefineEnd
 	return info;
 }
@@ -128,6 +130,57 @@ void XCInterpreter::parseStaticRenderItem()
 			std::cout << "DivideFormat:" << divideColumn << " " << divideRow << " " << divideSelectCol << " " << divideSelectRow << std::endl;
 			std::cout << "===============================\n" << std::endl;
 #endif
+		}
+	}
+}
+
+void XCInterpreter::parsePlayerEntity()
+{
+	PyObject * module = pyLoader.importModule("script.XCInit");
+	PyObject* renderCountItem = pyLoader.callObjectMethod(module, "getPlayerItemSize", NULL);
+
+	int itemSize = 0;
+	PyArg_Parse(renderCountItem, "i", &itemSize);
+	if (itemSize > 0) {
+		for (int i = 0; i < itemSize; i++) {
+			PyObject *pObject;
+			PyObject *retValue = pyLoader.callObjectMethod(module, "getPlayerItem", NULL);
+			PyArg_Parse(retValue, "O", &pObject);
+
+			if (pObject != nullptr) {
+				PyObject* imageData = PyObject_CallMethod(pObject, "_cpp_getInitRenderInfo", NULL);
+				PyObject* playerData = PyObject_CallMethod(pObject, "_cpp_getPlayerData", NULL);
+				PyObject* uuidData = PyObject_CallMethod(pObject, "_cpp_getUUID", NULL);
+
+				const char* imagePath;
+				float scaleX, scaleY, scaleZ;
+				int imageCol, imageRow, standByRow, turnLeftRow, turnRightRow;
+				PyArg_ParseTuple(imageData, "s(ii)(fff)(iii)", &imagePath, &imageCol, &imageRow, &scaleX, &scaleY, &scaleZ,&standByRow, &turnLeftRow, &turnRightRow);
+
+				const char* frameName;
+				float moveSpeed, imageSwapInterval, basePower;
+				PyArg_ParseTuple(playerData, "sfff", &frameName, &moveSpeed, &imageSwapInterval ,&basePower);
+				
+				const char* uuid;
+				PyArg_Parse(uuidData, "s", &uuid);
+				XCPlayer* player = new XCPlayer(uuid, imagePath, glm::vec4(imageCol, imageRow, 0, 0), glm::vec4(1.0f), glm::vec3(scaleX, scaleY, scaleZ),
+					glm::vec3(1,0,0), 0.0f, moveSpeed, imageSwapInterval, basePower, standByRow, turnLeftRow, turnRightRow);
+
+				XCPlayer::addPlayerInstance(frameName, player);
+#ifndef _DEBUG
+				Py_INCREF(retValue);
+#else
+				std::cout << "-------player entity item-------" << std::endl;
+				std::cout << "entityName:" << frameName << " speed:" << moveSpeed << " swapInterval:" << imageSwapInterval << " basePower:" << basePower << std::endl;
+				std::cout << "path:" << imagePath << " col:"<< imageCol << " row:"<< imageRow
+					<< " standbyRow:"<< standByRow << " tLeftRow:"<< turnLeftRow <<" tRightRow:"<< turnRightRow << std::endl;
+				
+				std::cout  <<"scale:" << scaleX << " " << scaleY << " " << scaleZ<< " uuid:"<< uuid << std::endl;
+				std::cout << "----------------------------\n" << std::endl;
+				Py_IncRef(retValue);
+#endif
+
+			}
 		}
 	}
 }

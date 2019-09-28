@@ -57,15 +57,15 @@ XCImageHelper::XCImageHelper(std::string path, bool isRenderFlexible)
 	if (!isFlexible) {
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+		glEnableVertexAttribArray(0);
 	}
 	else {
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 16, nullptr, GL_DYNAMIC_DRAW);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(0));
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 	}
-
-	glEnableVertexAttribArray(0);
 }
 
 void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle, glm::vec3 rorateWorkCoord,glm::vec3 scaleSize, float *texuturePos16xFloat)
@@ -76,6 +76,7 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rota
 		glUseProgram(ProgramHandleFx);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindVertexArray(vao);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBindTexture(GL_TEXTURE_2D, tbo);
 
 	glm::mat4 mvp_mat;

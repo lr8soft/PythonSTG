@@ -5,7 +5,9 @@
 #include "XCCore/XCRender/RenderManager.h"
 XCGameTimer XCFrame::timer;
 XCFrame* XCFrame::pInstance = nullptr;
-int XCFrame::FrameWidth = 640, XCFrame::FrameHeight = 480;
+int XCFrame::FrameWidth, XCFrame::FrameHeight;
+/*3£º4*/
+int XCFrame::gameWidth = 640, XCFrame::gameHeight = 720;
 float XCFrame::FrameBottom = -1.0f, XCFrame::FrameTop = 1.0f, XCFrame::FrameRight = 1.0f, XCFrame::FrameLeft = -1.0f;
 XCInterpreter *XCFrame::interpreter = nullptr;
 void XCFrame::FrameInit()
@@ -15,13 +17,13 @@ void XCFrame::FrameInit()
 	InitInfo info = interpreter->ScriptLaunch();
 	FrameWidth = info.winWidth;
 	FrameHeight = info.winHeight;
-	if (FrameWidth >= 640) {
-		FrameRight = 640 * 1.0f / (float)FrameWidth;
-		FrameLeft = -640 * 1.0f / (float)FrameWidth;
+	if (FrameWidth >= gameWidth) {
+		FrameRight = gameWidth * 1.0f / (float)FrameWidth;
+		FrameLeft = -gameWidth * 1.0f / (float)FrameWidth;
 	}
-	if (FrameHeight >= 480) {
-		FrameTop = 480 * 1.0f / (float)FrameHeight;
-		FrameBottom = -480 * 1.0f / (float)FrameHeight;
+	if (FrameHeight >= gameHeight) {
+		FrameTop = gameHeight * 1.0f / (float)FrameHeight;
+		FrameBottom = -gameHeight * 1.0f / (float)FrameHeight;
 	}
 
 	glfwInit();
@@ -67,13 +69,13 @@ void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
 {
 	FrameWidth = w;
 	FrameHeight = h;
-	if (FrameWidth >= 640) {
-		FrameRight = 640 * 1.0f / (float)FrameWidth;
-		FrameLeft = -640 * 1.0f / (float)FrameWidth;
+	if (FrameWidth >= gameWidth) {
+		FrameRight = gameWidth * 1.0f / (float)FrameWidth;
+		FrameLeft = -gameWidth * 1.0f / (float)FrameWidth;
 	}
-	if (FrameHeight >= 480) {
-		FrameTop = 480 * 1.0f / (float)FrameHeight;
-		FrameBottom = -480 * 1.0f / (float)FrameHeight;
+	if (FrameHeight >= gameHeight) {
+		FrameTop = gameHeight * 1.0f / (float)FrameHeight;
+		FrameBottom = -gameHeight * 1.0f / (float)FrameHeight;
 	}
 	glViewport(0, 0, FrameWidth, FrameHeight);
 }

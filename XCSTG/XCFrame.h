@@ -10,6 +10,7 @@ private:
 	static XCFrame* pInstance;
 	static XCInterpreter *interpreter;
 	static void FrameResize(GLFWwindow* screen, int w, int h);
+	static int gameWidth, gameHeight;
 	XCFrame();
 public:
 	GLFWwindow* getScreen();
