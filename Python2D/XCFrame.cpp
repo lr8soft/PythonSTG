@@ -4,6 +4,7 @@
 #include "XCCore/XCFont/XCFont.h"
 #include "XCCore/XCRender/RenderManager.h"
 #include "XCFrameInfo.h"
+#include "util/ConfigManager.h"
 XCGameTimer XCFrame::timer;
 XCFrame* XCFrame::pInstance = nullptr;
 int XCFrame::FrameWidth, XCFrame::FrameHeight;
@@ -51,13 +52,14 @@ void XCFrame::FrameLoop()
 	while (!glfwWindowShouldClose(pscreen)) {
 		timer.Tick();
 		glClear(GL_COLOR_BUFFER_BIT);
-		font.FontASCIIRender(std::to_string(timer.getFPS()), 0.0, 0.0, 1.0, glm::vec4(0.1,0.1,0.6,1.0));
+		font.FontASCIIRender(std::to_string((int)timer.getFPS()), 0.0, 0.0, 1.0, glm::vec4(0.1,0.1,0.6,1.0));
 
 		RenderManager::getInstance()->RenderWork();
 		glfwSwapBuffers(pscreen);
 		glfwPollEvents();
 	}
-	
+	glfwDestroyWindow(pscreen);
+	glfwTerminate();
 }
 void XCFrame::FrameFinalize()
 {
@@ -76,6 +78,7 @@ void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
 		XCFrameInfo::FrameTop = XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
 		XCFrameInfo::FrameBottom = -XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
 	}
+	XCFont::FontSetWidthAndHeight(h, w);
 	glViewport(0, 0, FrameWidth, FrameHeight);
 }
 
@@ -92,4 +95,21 @@ GLFWwindow * XCFrame::getScreen()
 	return pscreen;
 }
 XCFrame::XCFrame() {
+	xcstd::ConfigManager cfg("p2d.cfg");
+	if (cfg.IsFirstRun()) {
+		cfg.AddNewInfo("p1_up", std::to_string(GLFW_KEY_UP));
+		cfg.AddNewInfo("p1_down", std::to_string(GLFW_KEY_DOWN));
+		cfg.AddNewInfo("p1_left", std::to_string(GLFW_KEY_LEFT));
+		cfg.AddNewInfo("p1_right", std::to_string(GLFW_KEY_RIGHT));
+		cfg.AddNewInfo("p1_shoot", std::to_string(GLFW_KEY_Z));
+		cfg.AddNewInfo("p1_slow", std::to_string(GLFW_KEY_LEFT_SHIFT));
+	}
+	else {
+		XCFrameInfo::p1_keyUp = atoi(cfg.GetValue("p1_up").c_str());
+		XCFrameInfo::p1_keyDown = atoi(cfg.GetValue("p1_down").c_str());
+		XCFrameInfo::p1_keyLeft = atoi(cfg.GetValue("p1_left").c_str());
+		XCFrameInfo::p1_keyRight = atoi(cfg.GetValue("p1_right").c_str());
+		XCFrameInfo::p1_keyShoot = atoi(cfg.GetValue("p1_shoot").c_str());
+		XCFrameInfo::p1_keySlow = atoi(cfg.GetValue("p1_slow").c_str());
+	}
 }

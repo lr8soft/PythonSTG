@@ -1,42 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90b08d49-5431-4f5f-8c72-0f6dfe43699c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCPlayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCPlayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCPlayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCItem/XCPlayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/RenderManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/RenderManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/RenderManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/RenderManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCColorBlockHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCColorBlockHelper.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCColorBlockHelper.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCColorBlockHelper.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCImageHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCCore/XCRender/XCImageHelper.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCFrame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCFrame.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCFrame.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCInterpreter/XCInterpreter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCInterpreter/XCInterpreter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/XCInterpreter/XCInterpreter.h" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/XCInterpreter/XCInterpreter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/script/Object/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/Object/Player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/script/RenderItem/RenderColorItem.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/RenderItem/RenderColorItem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/script/RenderItem/RenderImageItem.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/RenderItem/RenderImageItem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/script/XCCore.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/XCCore.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XCSTG/script/XCInit.py" beforeDir="false" afterPath="$PROJECT_DIR$/XCSTG/script/XCInit.py" afterDir="false" />
-    </list>
+    <list default="true" id="7e5e419c-fa07-405a-8b82-0fe439d18051" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1QxFuDsElUHFusRC7iOJxDUroQl" />
+  <component name="ProjectId" id="1RSmB7qzMUj4W63hKB6yVbjIFdF" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
@@ -54,19 +29,19 @@
   </component>
   <component name="RunManager">
     <configuration name="XCCore" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="XCSTG_NEW" />
+      <module name="PySTG" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/XCSTG/script" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python2D/script" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/XCSTG/script/XCCore.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python2D/script/XCCore.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -86,19 +61,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="90b08d49-5431-4f5f-8c72-0f6dfe43699c" name="Default Changelist" comment="" />
-      <created>1568704561026</created>
+      <changelist id="7e5e419c-fa07-405a-8b82-0fe439d18051" name="Default Changelist" comment="" />
+      <created>1569668733532</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1568704561026</updated>
-      <workItem from="1568704571591" duration="4930000" />
-      <workItem from="1568717683132" duration="2904000" />
-      <workItem from="1568722425771" duration="3706000" />
-      <workItem from="1568730340445" duration="832000" />
-      <workItem from="1568772790551" duration="2479000" />
-      <workItem from="1568795051322" duration="1002000" />
-      <workItem from="1568895695442" duration="4313000" />
-      <workItem from="1569660124613" duration="1626000" />
+      <updated>1569668733532</updated>
+      <workItem from="1569668746782" duration="1497000" />
     </task>
     <servers />
   </component>
@@ -110,15 +78,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/XCSTG_NEW$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1568899250299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/XCSTG/script" />
+    <SUITE FILE_PATH="coverage/PySTG$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1569668857707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python2D/script" />
   </component>
 </project>

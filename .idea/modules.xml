@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/XCSTG_NEW.iml" filepath="$PROJECT_DIR$/.idea/XCSTG_NEW.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PySTG.iml" filepath="$PROJECT_DIR$/.idea/PySTG.iml" />
     </modules>
   </component>
 </project>

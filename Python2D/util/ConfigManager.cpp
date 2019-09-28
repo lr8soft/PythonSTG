@@ -7,20 +7,20 @@
 #include <fstream>
 #include <sstream>
 using namespace std;
-xc_std::ConfigManager::ConfigManager(string file_path):info_path(file_path){
+xcstd::ConfigManager::ConfigManager(string file_path):info_path(file_path){
 	loadFromFile();
 }
-bool xc_std::ConfigManager::AddNewInfo(string key, string value){
+bool xcstd::ConfigManager::AddNewInfo(string key, string value){
 	auto ret=map_info.emplace(key,value);
 	saveToFile();
 	return ret.second;
 }
-bool xc_std::ConfigManager::DeleteOldInfo(string key) {
+bool xcstd::ConfigManager::DeleteOldInfo(string key) {
 	auto ret=map_info.erase(key) ? true : false;
 	saveToFile();
 	return ret;
 }
-bool xc_std::ConfigManager::ReplaceOldInfo(string key, string value){
+bool xcstd::ConfigManager::ReplaceOldInfo(string key, string value){
 	if(!findKeyExist(key))
 		return false;
 	else {
@@ -29,19 +29,22 @@ bool xc_std::ConfigManager::ReplaceOldInfo(string key, string value){
 		return true;
 	}
 }
-stringstream xc_std::ConfigManager::GetValue(string key){
+string xcstd::ConfigManager::GetValue(string key){
 	stringstream ret;
 	if(findKeyExist(key)){
 		auto t_pair=map_info.find(key);
 		ret<<t_pair->second;
 	}
-	return ret;
+	string value;
+	ret >> value;
+
+	return value;
 }
-bool xc_std::ConfigManager::IsFirstRun()
+bool xcstd::ConfigManager::IsFirstRun()
 {
 	return isFirstRun;
 }
-bool xc_std::ConfigManager::loadFromFile(){
+bool xcstd::ConfigManager::loadFromFile(){
 	ifstream file_io(info_path, ios::in);
 	if (!file_io) {
 		ofstream file_init(info_path, ios::out);
@@ -56,7 +59,7 @@ bool xc_std::ConfigManager::loadFromFile(){
 		return true;
 	}
 }
-bool xc_std::ConfigManager::saveToFile(){
+bool xcstd::ConfigManager::saveToFile(){
 	ofstream file_io(info_path,ios::out);
 	if (!file_io) 
 		return false;
@@ -72,10 +75,10 @@ bool xc_std::ConfigManager::saveToFile(){
 	}
 
 }
-bool xc_std::ConfigManager::findKeyExist(string key){
+bool xcstd::ConfigManager::findKeyExist(string key){
 	return !(map_info.find(key)==map_info.end());
 }
-void xc_std::ConfigManager::loadToPair(ifstream& input_io){
+void xcstd::ConfigManager::loadToPair(ifstream& input_io){
 	string file_info,io_temp;
 	while (getline(input_io, io_temp))
 		file_info += io_temp;

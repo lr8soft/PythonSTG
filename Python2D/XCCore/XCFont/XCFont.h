@@ -30,7 +30,7 @@ private:
 	void ResourceInit(int end);
 	void BufferInit();
 public:
-	void FontSetWidthAndHeight(float h,float w);
+	static void FontSetWidthAndHeight(float h,float w);
 	void FontASCIIInit(int endchar=128);
 	void FontASCIIRender(std::string text, float x, float y, float scale, glm::vec4 color);
 	void FontUnicodeInit(std::wstring text);
