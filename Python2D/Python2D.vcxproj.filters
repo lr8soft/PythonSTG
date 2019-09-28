@@ -69,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="XCFrameInfo.cpp" />
     <ClCompile Include="python2d.cpp" />
+    <ClCompile Include="XCCore\XCRender\DecisionPointSE.cpp">
+      <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -118,5 +121,11 @@
       <Filter>XCCore\XCItem</Filter>
     </ClInclude>
     <ClInclude Include="XCFrameInfo.h" />
+    <ClInclude Include="XCCore\XCRender\ISpecialEffect.h">
+      <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\DecisionPointSE.h">
+      <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

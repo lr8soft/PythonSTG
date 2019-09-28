@@ -34,6 +34,8 @@ void XCPlayer::ItemInit()
 {
 	if (!isInit) {
 		renderHelper = new XCImageHelper(playerImage, true);
+		specialEffectDecision = new DecisionPointSpecialEffect;
+		specialEffectDecision->SpecialEffectInit();
 		isInit = true;
 	}
 }
@@ -80,12 +82,24 @@ void XCPlayer::ItemRender()
 			break;
 		}
 		glDisable(GL_BLEND);
+		if (renderDecisionPoint) {
+			specialEffectDecision->SpecialEffectRender(NowPosition[0], NowPosition[1], NowPosition[2]);
+		}
 		itemTimer.Tick();
 	}
 }
 
+void XCPlayer::ItemRelease()
+{
+	renderHelper->Release();
+	specialEffectDecision->SpecialEffectRelease();
+	delete renderHelper, specialEffectDecision;
+	isInit = false;
+}
+
 void XCPlayer::playerKeyCheck()
 {
+	renderDecisionPoint = false;
 	bool have_player_change_state = false;
 	auto screen = XCFrame::getInstance()->getScreen();
 	if (glfwGetKey(screen, GLFW_KEY_ESCAPE)) {
@@ -95,7 +109,7 @@ void XCPlayer::playerKeyCheck()
 	if (glfwGetKey(screen, XCFrameInfo::p1_keySlow) == GLFW_PRESS) {
 		moveSpeed = moveSpeed / 1.5f * 0.40f;
 		//have_player_change_state = false;
-		//RenderDecisionPoint = true;
+		renderDecisionPoint = true;
 	}
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyUp) == GLFW_PRESS) {
 		if (NowPosition[1] + moveSpeed < XCFrameInfo::FrameTop)//·ÀÖ¹Ô½½ç
