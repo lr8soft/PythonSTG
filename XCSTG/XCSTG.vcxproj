@@ -23,6 +23,7 @@
     <ProjectGuid>{197FF324-7103-4D11-906C-5B318BDB99F0}</ProjectGuid>
     <RootNamespace>XCSTG</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <ProjectName>Python2D</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -136,6 +137,7 @@
     <ClCompile Include="XCCore\XCRender\RenderManager.cpp" />
     <ClCompile Include="XCCore\XCRender\XCColorBlockHelper.cpp" />
     <ClCompile Include="XCCore\XCStage\XCStage.cpp" />
+    <ClCompile Include="XCFrameInfo.cpp" />
     <ClCompile Include="XCInterpreter\ScriptLoader.cpp" />
     <ClCompile Include="XCInterpreter\XCInterpreter.cpp" />
     <ClCompile Include="XCCore\XCRender\XCImageHelper.cpp" />
@@ -155,6 +157,7 @@
     <ClInclude Include="XCCore\XCRender\RenderManager.h" />
     <ClInclude Include="XCCore\XCRender\XCColorBlockHelper.h" />
     <ClInclude Include="XCCore\XCStage\XCStage.h" />
+    <ClInclude Include="XCFrameInfo.h" />
     <ClInclude Include="XCInterpreter\ScriptLoader.h" />
     <ClInclude Include="XCInterpreter\XCInterpreter.h" />
     <ClInclude Include="XCCore\XCRender\XCImageHelper.h" />

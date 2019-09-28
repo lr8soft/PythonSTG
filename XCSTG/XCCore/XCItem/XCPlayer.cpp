@@ -1,7 +1,9 @@
 #include <GL3/gl3w.h>
 #include "XCPlayer.h"
+#include "../../XCFrameInfo.h"
 #include "../../XCFrame.h"
 #include "../../XCCore/XCRender/XCImageHelper.h"
+#include <GLFW/glfw3.h>
 std::map<std::string, XCPlayer*> XCPlayer::playerInstanceGroup;
 void XCPlayer::addPlayerInstance(std::string name, XCPlayer *instance)
 {
@@ -51,7 +53,7 @@ void XCPlayer::ItemRender()
 				rotateWork,
 				scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
-					XCFrame::FrameRight, XCFrame::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, standByRow)
+					XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, standByRow)
 			);
 			break;
 		case PLAYER_TURNRIGHT:
@@ -62,7 +64,7 @@ void XCPlayer::ItemRender()
 				rotateWork,
 				scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
-					XCFrame::FrameRight, XCFrame::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, turnRightRow)
+					XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, turnRightRow)
 			);
 			break;
 		case PLAYER_TURNLEFT:
@@ -73,7 +75,7 @@ void XCPlayer::ItemRender()
 				rotateWork,
 				scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
-					XCFrame::FrameRight, XCFrame::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, turnLeftRow)
+					XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, turnLeftRow)
 			);
 			break;
 		}
@@ -90,38 +92,39 @@ void XCPlayer::playerKeyCheck()
 		glfwSetWindowShouldClose(screen, true);
 	}
 	float moveSpeed = baseSpeed * itemTimer.getDeltaFrame(); // adjust accordingly
-	if (glfwGetKey(screen, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+	if (glfwGetKey(screen, XCFrameInfo::p1_keySlow) == GLFW_PRESS) {
 		moveSpeed = moveSpeed / 1.5f * 0.40f;
+		//have_player_change_state = false;
 		//RenderDecisionPoint = true;
 	}
-	if (glfwGetKey(screen, GLFW_KEY_UP) == GLFW_PRESS) {
-		if (NowPosition[1] + moveSpeed < XCFrame::FrameTop)//防止越界
-			NowPosition[1] += moveSpeed * XCFrame::FrameTop;
+	if (glfwGetKey(screen, XCFrameInfo::p1_keyUp) == GLFW_PRESS) {
+		if (NowPosition[1] + moveSpeed < XCFrameInfo::FrameTop)//防止越界
+			NowPosition[1] += moveSpeed * XCFrameInfo::FrameTop;
 		setPlayerDirection(PLAYER_STANDBY);
 		have_player_change_state = true;
 	}
 
-	if (glfwGetKey(screen, GLFW_KEY_DOWN) == GLFW_PRESS) {
-		if (NowPosition[1] - moveSpeed > XCFrame::FrameBottom)
-			NowPosition[1] -= moveSpeed * XCFrame::FrameTop;
+	if (glfwGetKey(screen, XCFrameInfo::p1_keyDown) == GLFW_PRESS) {
+		if (NowPosition[1] - moveSpeed > XCFrameInfo::FrameBottom)
+			NowPosition[1] -= moveSpeed * XCFrameInfo::FrameTop;
 		setPlayerDirection(PLAYER_STANDBY);
 		have_player_change_state = true;
 	}
-	if (glfwGetKey(screen, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-		if (NowPosition[0] + moveSpeed < XCFrame::FrameRight)
-			NowPosition[0] += moveSpeed * XCFrame::FrameRight;
+	if (glfwGetKey(screen, XCFrameInfo::p1_keyRight) == GLFW_PRESS) {
+		if (NowPosition[0] + moveSpeed < XCFrameInfo::FrameRight)
+			NowPosition[0] += moveSpeed * XCFrameInfo::FrameRight;
 		setPlayerDirection(PLAYER_TURNRIGHT);
 		have_player_change_state = true;
 	}
 
-	if (glfwGetKey(screen, GLFW_KEY_LEFT) == GLFW_PRESS) {
-		if (NowPosition[0] - moveSpeed > XCFrame::FrameLeft)
-			NowPosition[0] -= moveSpeed * XCFrame::FrameRight;
+	if (glfwGetKey(screen, XCFrameInfo::p1_keyLeft) == GLFW_PRESS) {
+		if (NowPosition[0] - moveSpeed > XCFrameInfo::FrameLeft)
+			NowPosition[0] -= moveSpeed * XCFrameInfo::FrameRight;
 		setPlayerDirection(PLAYER_TURNLEFT);
 		have_player_change_state = true;
 	}
 
-	if (glfwGetKey(screen, GLFW_KEY_Z) == GLFW_PRESS) {
+	if (glfwGetKey(screen, XCFrameInfo::p1_keyShoot) == GLFW_PRESS) {
 	
 	}
 	/*if (glfwGetKey(screen, keyitem) == GLFW_PRESS) {

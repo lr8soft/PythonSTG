@@ -13,8 +13,10 @@ class Player(XCItem):
         self._imageSwapInterval = 0.08
         self._basePower = 1.0
 
+        self._scaleSize = [0.06,0.08, 1.0] #3:4 img
 
-    def setPlayerImage(self, imagePath, imageColsAndRows = [8, 3], scaleSize = [1.0, 1.0, 1.0], standByRow = 1, turnLeftRow = 2, turnRightRow = 3):
+
+    def setPlayerImage(self, imagePath, imageColsAndRows = [8, 3], scaleSize = [0.06,0.08, 1.0], standByRow = 1, turnLeftRow = 2, turnRightRow = 3):
         super().setImage(imagePath,imageColsAndRows,scaleSize,True)
         self._playerStandByRow = standByRow
         self._playerTurnLeftRow = turnLeftRow

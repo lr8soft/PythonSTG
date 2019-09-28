@@ -5,7 +5,7 @@
 #include "XCColorBlockHelper.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "../../XCFrame.h"
+#include "../../XCFrameInfo.h"
 RenderManager* RenderManager::pRManager = nullptr;
 RenderManager::RenderManager()
 {
@@ -57,7 +57,7 @@ void RenderManager::RenderWork()
 				glm::vec3(1),
 				work->scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
-					XCFrame::FrameRight, XCFrame::FrameTop,
+					XCFrameInfo::FrameRight, XCFrameInfo::FrameTop,
 					work->divideInfo[0], work->divideInfo[1], work->divideInfo[2], work->divideInfo[3])
 			);
 		}

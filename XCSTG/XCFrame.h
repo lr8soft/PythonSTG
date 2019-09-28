@@ -9,15 +9,14 @@ private:
 	GLFWwindow* pscreen;
 	static XCFrame* pInstance;
 	static XCInterpreter *interpreter;
+	static int FrameWidth, FrameHeight;
 	static void FrameResize(GLFWwindow* screen, int w, int h);
-	static int gameWidth, gameHeight;
 	XCFrame();
 public:
 	GLFWwindow* getScreen();
 	static XCFrame* getInstance();
 	static XCGameTimer timer;
-	static int FrameWidth, FrameHeight;
-	static float FrameLeft, FrameRight, FrameTop, FrameBottom;
+	
 	void FrameInit();
 	void FrameLoop();
 	void FrameFinalize();
