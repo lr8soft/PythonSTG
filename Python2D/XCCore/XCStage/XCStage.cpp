@@ -73,6 +73,7 @@ void XCStage::stageInit()
 					XCImageHelper* image = new XCImageHelper(imagePath, isFlexible);
 					XCItem* pItem = new XCItem(uuid, image, glm::vec4(divideFormat[0], divideFormat[1], divideFormat[2], divideFormat[3]),
 							glm::vec4(1.0f), glm::vec3(scaleSize[0], scaleSize[1], scaleSize[2]), glm::vec3(rotateWork[0], rotateWork[1], rotateWork[2]), rotateAngle);
+					pItem->setPosition(initCoord[0], initCoord[1], initCoord[2]);
 					itemStruct renderItem;
 					renderItem.item = pItem;
 					renderItem.useBlend = useBlend;

@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="util">
       <UniqueIdentifier>{290e230d-6d2f-4449-998b-31861c83c897}</UniqueIdentifier>
     </Filter>
@@ -40,7 +36,6 @@
     <ClCompile Include="util\ImageLoader.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="xcstg.cpp" />
     <ClCompile Include="XCFrame.cpp" />
     <ClCompile Include="XCCore\XCFont\XCFont.cpp">
       <Filter>XCCore\XCFont</Filter>
@@ -73,6 +68,7 @@
       <Filter>XCCore\XCItem</Filter>
     </ClCompile>
     <ClCompile Include="XCFrameInfo.cpp" />
+    <ClCompile Include="python2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">

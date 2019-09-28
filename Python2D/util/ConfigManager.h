@@ -7,16 +7,16 @@ using std::map;
 using std::string;
 using std::ifstream;
 using std::stringstream;
-namespace xc_std {
+namespace xcstd {
 	class ConfigManager {
 	public:
 		ConfigManager() = delete;
-		explicit ConfigManager(string);
+		ConfigManager(string);
 		~ConfigManager()=default;
 		bool AddNewInfo(string,string);
 		bool DeleteOldInfo(string);
 		bool ReplaceOldInfo(string,string);
-		stringstream GetValue(string);
+		string GetValue(string);
 		bool IsFirstRun();
 	private:
 		bool isFirstRun = false;
