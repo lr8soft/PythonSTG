@@ -1,5 +1,5 @@
 #include "XCItem.h"
-#include "../../XCFrame.h"
+#include "../../XCFrameInfo.h"
 XCItem::XCItem(std::string uuid, IRenderHelper* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle)
 {
 	renderHelper = image;
@@ -26,7 +26,7 @@ void XCItem::ItemRender()
 			rotateWork,
 			scaleSize,
 			IRenderHelper::GetSpecificTexWithRate(
-				XCFrame::FrameRight,XCFrame::FrameTop,divideInfo[0], divideInfo[1], divideInfo[2], divideInfo[3])
+				XCFrameInfo::FrameRight, XCFrameInfo::FrameTop,divideInfo[0], divideInfo[1], divideInfo[2], divideInfo[3])
 		);
 	}
 }

@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "../../XCFrame.h"
+#include "../../XCFrameInfo.h"
 using namespace xc_ogl;
 GLuint XCColorBlockHelper::ProgramHandle = -1, XCColorBlockHelper::ProgramHandleFx = -1;
 bool XCColorBlockHelper::haveProgramInit = false;
@@ -57,12 +57,15 @@ XCColorBlockHelper::XCColorBlockHelper(bool fx)
 
 void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle, glm::vec3 rotateWork, glm::vec3 scaleSize, float * dataPointer)
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glUseProgram(ProgramHandle);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	if (isFlexible) {
-		glBufferSubData(GL_ARRAY_BUFFER, 0,  sizeof(data::vertices), IRenderHelper::GetSquareVertices(XCFrame::FrameRight, XCFrame::FrameTop));
+		glBufferSubData(GL_ARRAY_BUFFER, 0,  sizeof(data::vertices), IRenderHelper::GetSquareVertices(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop));
 	}
 	glm::mat4 mvp_mat;
 	mvp_mat = glm::translate(mvp_mat, renderPos);
@@ -74,6 +77,7 @@ void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float
 	glUniform4fv(color_location, 1, glm::value_ptr(coverColor));
 	glDrawElements(GL_TRIANGLES, sizeof(data::indices) / sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);
 
+	glDisable(GL_BLEND);
 	glBindVertexArray(0);
 	glUseProgram(0);
 }

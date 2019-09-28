@@ -3,12 +3,11 @@
 #include "XCFrame.h"
 #include "XCCore/XCFont/XCFont.h"
 #include "XCCore/XCRender/RenderManager.h"
+#include "XCFrameInfo.h"
 XCGameTimer XCFrame::timer;
 XCFrame* XCFrame::pInstance = nullptr;
 int XCFrame::FrameWidth, XCFrame::FrameHeight;
-/*3£º4*/
-int XCFrame::gameWidth = 640, XCFrame::gameHeight = 720;
-float XCFrame::FrameBottom = -1.0f, XCFrame::FrameTop = 1.0f, XCFrame::FrameRight = 1.0f, XCFrame::FrameLeft = -1.0f;
+
 XCInterpreter *XCFrame::interpreter = nullptr;
 void XCFrame::FrameInit()
 {
@@ -17,13 +16,13 @@ void XCFrame::FrameInit()
 	InitInfo info = interpreter->ScriptLaunch();
 	FrameWidth = info.winWidth;
 	FrameHeight = info.winHeight;
-	if (FrameWidth >= gameWidth) {
-		FrameRight = gameWidth * 1.0f / (float)FrameWidth;
-		FrameLeft = -gameWidth * 1.0f / (float)FrameWidth;
+	if (FrameWidth >= XCFrameInfo::gameWidth) {
+		XCFrameInfo::FrameRight = XCFrameInfo::gameWidth * 1.0f / (float)FrameWidth;
+		XCFrameInfo::FrameLeft = -XCFrameInfo::gameWidth * 1.0f / (float)FrameWidth;
 	}
-	if (FrameHeight >= gameHeight) {
-		FrameTop = gameHeight * 1.0f / (float)FrameHeight;
-		FrameBottom = -gameHeight * 1.0f / (float)FrameHeight;
+	if (FrameHeight >= XCFrameInfo::gameHeight) {
+		XCFrameInfo::FrameTop = XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
+		XCFrameInfo::FrameBottom = -XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
 	}
 
 	glfwInit();
@@ -69,13 +68,13 @@ void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
 {
 	FrameWidth = w;
 	FrameHeight = h;
-	if (FrameWidth >= gameWidth) {
-		FrameRight = gameWidth * 1.0f / (float)FrameWidth;
-		FrameLeft = -gameWidth * 1.0f / (float)FrameWidth;
+	if (FrameWidth >= XCFrameInfo::gameWidth) {
+		XCFrameInfo::FrameRight = XCFrameInfo::gameWidth * 1.0f / (float)FrameWidth;
+		XCFrameInfo::FrameLeft = -XCFrameInfo::gameWidth * 1.0f / (float)FrameWidth;
 	}
-	if (FrameHeight >= gameHeight) {
-		FrameTop = gameHeight * 1.0f / (float)FrameHeight;
-		FrameBottom = -gameHeight * 1.0f / (float)FrameHeight;
+	if (FrameHeight >= XCFrameInfo::gameHeight) {
+		XCFrameInfo::FrameTop = XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
+		XCFrameInfo::FrameBottom = -XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
 	}
 	glViewport(0, 0, FrameWidth, FrameHeight);
 }

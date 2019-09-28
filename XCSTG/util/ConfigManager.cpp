@@ -8,30 +8,30 @@
 #include <sstream>
 using namespace std;
 xc_std::ConfigManager::ConfigManager(string file_path):info_path(file_path){
-	load_from_file();
+	loadFromFile();
 }
 bool xc_std::ConfigManager::AddNewInfo(string key, string value){
 	auto ret=map_info.emplace(key,value);
-	save_to_file();
+	saveToFile();
 	return ret.second;
 }
 bool xc_std::ConfigManager::DeleteOldInfo(string key) {
 	auto ret=map_info.erase(key) ? true : false;
-	save_to_file();
+	saveToFile();
 	return ret;
 }
 bool xc_std::ConfigManager::ReplaceOldInfo(string key, string value){
-	if(!find_key_exist(key))
+	if(!findKeyExist(key))
 		return false;
 	else {
 		map_info[key] = value;
-		save_to_file();
+		saveToFile();
 		return true;
 	}
 }
 stringstream xc_std::ConfigManager::GetValue(string key){
 	stringstream ret;
-	if(find_key_exist(key)){
+	if(findKeyExist(key)){
 		auto t_pair=map_info.find(key);
 		ret<<t_pair->second;
 	}
@@ -41,7 +41,7 @@ bool xc_std::ConfigManager::IsFirstRun()
 {
 	return isFirstRun;
 }
-bool xc_std::ConfigManager::load_from_file(){
+bool xc_std::ConfigManager::loadFromFile(){
 	ifstream file_io(info_path, ios::in);
 	if (!file_io) {
 		ofstream file_init(info_path, ios::out);
@@ -51,12 +51,12 @@ bool xc_std::ConfigManager::load_from_file(){
 		return false;
 	}
 	else {
-		load_to_pair(file_io);
+		loadToPair(file_io);
 		file_io.close();
 		return true;
 	}
 }
-bool xc_std::ConfigManager::save_to_file(){
+bool xc_std::ConfigManager::saveToFile(){
 	ofstream file_io(info_path,ios::out);
 	if (!file_io) 
 		return false;
@@ -72,10 +72,10 @@ bool xc_std::ConfigManager::save_to_file(){
 	}
 
 }
-bool xc_std::ConfigManager::find_key_exist(string key){
+bool xc_std::ConfigManager::findKeyExist(string key){
 	return !(map_info.find(key)==map_info.end());
 }
-void xc_std::ConfigManager::load_to_pair(ifstream& input_io){
+void xc_std::ConfigManager::loadToPair(ifstream& input_io){
 	string file_info,io_temp;
 	while (getline(input_io, io_temp))
 		file_info += io_temp;

@@ -22,10 +22,10 @@ namespace xc_std {
 		bool isFirstRun = false;
 		map<string, string> map_info;
 		string info_path;
-		bool load_from_file();
-		bool save_to_file();
-		bool find_key_exist(string);
-		void load_to_pair(ifstream&);
+		bool loadFromFile();
+		bool saveToFile();
+		bool findKeyExist(string);
+		void loadToPair(ifstream&);
 	};
 }
 #endif
