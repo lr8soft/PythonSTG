@@ -7,7 +7,6 @@
 #include <string>
 class XCItem {
 protected:
-	std::string itemUuid;
 	bool itemWorkFinish = false;
 	XCGameTimer itemTimer;
 
@@ -15,13 +14,13 @@ protected:
 	glm::vec4 divideInfo;
 	glm::vec4 coverColor;
 	glm::vec3 scaleSize;
-	glm::vec3 rotateWork;
+	glm::vec3 renderRotateWork;
 	float rotateAngle = 0.0f;
 
 	float NowPosition[3] = {0.0f, 0.0f, 0.0f};
 public:
-	XCItem(std::string uuid, IRenderHelper* image, glm::vec4 divideInfo, glm::vec4 coverColor ,glm::vec3 scaleSize, 
-		glm::vec3 rotateWork ,float rotateAngle);
+	XCItem(IRenderHelper* image, glm::vec4 divideInfo, glm::vec4 coverColor ,glm::vec3 scaleSize, 
+		glm::vec3 renderRotateWork ,float renderRotateAngle);
 
 	virtual void ItemInit();
 	virtual void ItemRender();
@@ -30,6 +29,5 @@ public:
 	bool getIsFinish();
 	float* getPosition();
 	void setPosition(float x, float y, float z);
-	std::string getUuid();
 };
 #endif

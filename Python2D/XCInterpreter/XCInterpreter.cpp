@@ -163,7 +163,7 @@ void XCInterpreter::parsePlayerEntity()
 				
 				const char* uuid;
 				PyArg_Parse(uuidData, "s", &uuid);
-				XCPlayer* player = new XCPlayer(uuid, imagePath, glm::vec4(imageCol, imageRow, 0, 0), glm::vec4(1.0f), glm::vec3(scaleX, scaleY, scaleZ),
+				XCPlayer* player = new XCPlayer(imagePath, glm::vec4(imageCol, imageRow, 0, 0), glm::vec4(1.0f), glm::vec3(scaleX, scaleY, scaleZ),
 					glm::vec3(1,0,0), 0.0f, moveSpeed, imageSwapInterval, basePower, standByRow, turnLeftRow, turnRightRow);
 
 				XCPlayer::addPlayerInstance(frameName, player);

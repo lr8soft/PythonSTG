@@ -13,8 +13,8 @@ std::map<std::string, XCPlayer*>* XCPlayer::getPlayerGroup()
 {
 	return &playerInstanceGroup;
 }
-XCPlayer::XCPlayer(std::string uuid, const char* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle,
-	 float mSpeed, float isInterval, float bPower, int sbyRow, int tLeftRow, int tRightRow):XCItem(uuid, nullptr, dInfo, color, sSize, rWork, rAngle)
+XCPlayer::XCPlayer( const char* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle,
+	 float mSpeed, float isInterval, float bPower, int sbyRow, int tLeftRow, int tRightRow):XCItem(nullptr, dInfo, color, sSize, rWork, rAngle)
 {
 	playerImage = image;
 
@@ -52,7 +52,7 @@ void XCPlayer::ItemRender()
 				glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]),
 				coverColor,
 				rotateAngle,
-				rotateWork,
+				renderRotateWork,
 				scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
 					XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, standByRow)
@@ -63,7 +63,7 @@ void XCPlayer::ItemRender()
 				glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]),
 				coverColor,
 				rotateAngle,
-				rotateWork,
+				renderRotateWork,
 				scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
 					XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, turnRightRow)
@@ -74,7 +74,7 @@ void XCPlayer::ItemRender()
 				glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]),
 				coverColor,
 				rotateAngle,
-				rotateWork,
+				renderRotateWork,
 				scaleSize,
 				IRenderHelper::GetSpecificTexWithRate(
 					XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1], 1 + (size_t)playerSameStateTime, turnLeftRow)
@@ -105,7 +105,7 @@ void XCPlayer::playerKeyCheck()
 	if (glfwGetKey(screen, GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(screen, true);
 	}
-	float moveSpeed = baseSpeed * itemTimer.getDeltaFrame(); // adjust accordingly
+	float moveSpeed = baseSpeed * itemTimer.getDeltaFrame();
 	if (glfwGetKey(screen, XCFrameInfo::p1_keySlow) == GLFW_PRESS) {
 		moveSpeed = moveSpeed / 1.5f * 0.40f;
 		//have_player_change_state = false;

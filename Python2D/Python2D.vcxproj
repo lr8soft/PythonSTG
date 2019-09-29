@@ -152,6 +152,7 @@
     <ClInclude Include="util\ShaderReader.h" />
     <ClInclude Include="util\stb_image.h" />
     <ClInclude Include="XCCore\XCFont\XCFont.h" />
+    <ClInclude Include="XCCore\XCItem\XCBullet.h" />
     <ClInclude Include="XCCore\XCItem\XCItem.h" />
     <ClInclude Include="XCCore\XCItem\XCPlayer.h" />
     <ClInclude Include="XCCore\XCRender\DecisionPointSE.h" />

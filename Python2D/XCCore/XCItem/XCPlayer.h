@@ -15,7 +15,7 @@ private:
 	glm::vec4 divideInfo;
 	glm::vec4 coverColor;
 	glm::vec3 scaleSize;
-	glm::vec3 rotateWork;
+	glm::vec3 renderRotateWork;
 	float rotateAngle = 0.0f;
 
 	float NowPosition[3] = {0.0f, 0.0f, 0.0f};
@@ -39,8 +39,8 @@ protected:
 public:
 	static void addPlayerInstance(std::string, XCPlayer*);
 	static std::map<std::string, XCPlayer*>* getPlayerGroup();
-	XCPlayer(std::string uuid, const char* image, glm::vec4 divideInfo, glm::vec4 coverColor, glm::vec3 scaleSize,
-		glm::vec3 rotateWork, float rotateAngle, float moveSpeed, float imgSwapInterval, float basePower, int standByRow, int turnLeftRow, int turnRightRow);
+	XCPlayer(const char* image, glm::vec4 divideInfo, glm::vec4 coverColor, glm::vec3 scaleSize,
+		glm::vec3 renderRotateWork, float rotateAngle, float moveSpeed, float imgSwapInterval, float basePower, int standByRow, int turnLeftRow, int turnRightRow);
 
 	bool getIsInit();
 	virtual void ItemInit() override;

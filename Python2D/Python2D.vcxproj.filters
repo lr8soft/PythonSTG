@@ -127,5 +127,8 @@
     <ClInclude Include="XCCore\XCRender\DecisionPointSE.h">
       <Filter>XCCore\XCRender</Filter>
     </ClInclude>
+    <ClInclude Include="XCCore\XCItem\XCBullet.h">
+      <Filter>XCCore\XCItem</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

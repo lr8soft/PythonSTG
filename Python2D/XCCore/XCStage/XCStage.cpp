@@ -49,7 +49,7 @@ void XCStage::stageInit()
 					auto scaleInfo = PyObject_CallMethod(pItem, "_cpp_getScaleSize", NULL);
 					auto rotateInfo = PyObject_CallMethod(pItem, "_cpp_getRotateInfo", NULL);
 					auto blendInfo = PyObject_CallMethod(pItem, "_cpp_getBlendInfo", NULL);
-					auto uuidInfo = PyObject_CallMethod(pItem, "_cpp_getUUID", NULL);
+					//auto uuidInfo = PyObject_CallMethod(pItem, "_cpp_getUUID", NULL);
 					auto initCoordInfo = PyObject_CallMethod(pItem, "_cpp_getInitCoord", NULL);
 
 					const char* imagePath; int divideFormat[4], isFlexible;
@@ -64,16 +64,17 @@ void XCStage::stageInit()
 					int useBlend, blendColorFunc, blendAlphaFunc;
 					PyArg_ParseTuple(blendInfo, "i(ii)", &useBlend, &blendColorFunc, &blendAlphaFunc);
 
-					const char* uuid;
-					PyArg_Parse(uuidInfo, "s", &uuid);
+					//const char* uuid;
+					//PyArg_Parse(uuidInfo, "s", &uuid);
 
 					float initCoord[3];
 					PyArg_ParseTuple(initCoordInfo, "fff", &initCoord[0], &initCoord[1], &initCoord[2]);
 
 					XCImageHelper* image = new XCImageHelper(imagePath, isFlexible);
-					XCItem* pItem = new XCItem(uuid, image, glm::vec4(divideFormat[0], divideFormat[1], divideFormat[2], divideFormat[3]),
+					XCItem* pItem = new XCItem( image, glm::vec4(divideFormat[0], divideFormat[1], divideFormat[2], divideFormat[3]),
 							glm::vec4(1.0f), glm::vec3(scaleSize[0], scaleSize[1], scaleSize[2]), glm::vec3(rotateWork[0], rotateWork[1], rotateWork[2]), rotateAngle);
 					pItem->setPosition(initCoord[0], initCoord[1], initCoord[2]);
+					pItem->ItemInit();
 					itemStruct renderItem;
 					renderItem.item = pItem;
 					renderItem.useBlend = useBlend;
@@ -88,7 +89,7 @@ void XCStage::stageInit()
 					std::cout << "rotate: " << rotateAngle << " rotatework:" << rotateWork[0] << " " << rotateWork[1] << " " << rotateWork[2] << std::endl;
 					std::cout << "useBlend: " << useBlend << " colorFunc:" << blendColorFunc << " alphaFunc:" << blendAlphaFunc << std::endl;
 					std::cout << "initCoord: " << initCoord[0] << " " << initCoord[1] << " " << initCoord[2] << std::endl;
-					std::cout << "uuid: " << uuid << std::endl;
+					//std::cout << "uuid: " << uuid << std::endl;
 					std::cout << "**********************"<< std::endl;
 #endif
 
@@ -107,14 +108,26 @@ void XCStage::stageWork()
 	std::vector<itemStruct>::iterator itemBegin = stageItemGroup.begin();
 	std::vector<itemStruct>::iterator itemEnd = stageItemGroup.end();
 	for (auto item = itemBegin; item != itemEnd; item++) {
-		if (item->useBlend) {
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_COLOR, item->colorFunc);
-			glBlendFunc(GL_SRC_ALPHA, item->alphaFunc);
+		if (!item->item->getIsFinish()) {
+			if (item->useBlend) {
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_COLOR, item->colorFunc);
+				glBlendFunc(GL_SRC_ALPHA, item->alphaFunc);
+			}
+			item->item->ItemRender();
+			if (item->useBlend) {
+				glDisable(GL_BLEND);
+			}
 		}
-		item->item->ItemRender();
-		if (item->useBlend) {
-			glDisable(GL_BLEND);
+		if (item->item->getIsFinish()) {
+			if (std::next(item) == stageItemGroup.end()) {
+				stageItemGroup.erase(item);
+				break;
+			}
+			else {
+				item = stageItemGroup.erase(item);
+				itemEnd = stageItemGroup.end();
+			}
 		}
 	}
 }
