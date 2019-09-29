@@ -1,7 +1,7 @@
 #include "XCInterpreter.h"
 #include "../XCCore/XCRender/RenderManager.h"
-#include "../XCCore/XCStage/XCStage.h"
-#include "../XCCore/XCItem/XCPlayer.h"
+#include "../XCCore/Stage/Stage.h"
+#include "../XCCore/Item/Player.h"
 #include <string>
 #include <chrono>
 #include <future>
@@ -65,7 +65,7 @@ void XCInterpreter::parseStageItem()
 				PyObject *uuidValue = pyLoader.callObjectMethod(pObject, "_cpp_getUuid", NULL);
 				PyArg_Parse(uuidValue, "s", &uuid);
 
-				XCStage *stage = new XCStage(uuid, pObject);
+				Stage *stage = new Stage(uuid, pObject);
 				auto renderQueue = RenderManager::getInstance();
 				renderQueue->AddStageItem(stage);
 #ifndef _DEBUG
@@ -163,10 +163,10 @@ void XCInterpreter::parsePlayerEntity()
 				
 				const char* uuid;
 				PyArg_Parse(uuidData, "s", &uuid);
-				XCPlayer* player = new XCPlayer(imagePath, glm::vec4(imageCol, imageRow, 0, 0), glm::vec4(1.0f), glm::vec3(scaleX, scaleY, scaleZ),
+				Player* player = new Player(imagePath, glm::vec4(imageCol, imageRow, 0, 0), glm::vec4(1.0f), glm::vec3(scaleX, scaleY, scaleZ),
 					glm::vec3(1,0,0), 0.0f, moveSpeed, imageSwapInterval, basePower, standByRow, turnLeftRow, turnRightRow);
 
-				XCPlayer::addPlayerInstance(frameName, player);
+				Player::addPlayerInstance(frameName, player);
 #ifndef _DEBUG
 				Py_INCREF(retValue);
 #else

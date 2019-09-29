@@ -7,19 +7,22 @@
     <Filter Include="XCCore">
       <UniqueIdentifier>{9ffc9798-f555-43d9-a523-b70e502d26b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XCCore\XCFont">
-      <UniqueIdentifier>{beb81aae-aa63-4b86-81c8-01dff3d0b01f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="XCCore\XCRender">
       <UniqueIdentifier>{a8f6de0c-85c2-48a5-8add-453a4c4107d3}</UniqueIdentifier>
     </Filter>
     <Filter Include="XCInterpreter">
       <UniqueIdentifier>{42024c11-981e-4b30-99fa-c3231dfb5f1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XCCore\XCItem">
+    <Filter Include="XCCore\Bullet">
+      <UniqueIdentifier>{6cd208d4-5bef-491f-8964-9c237709af33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore\Item">
       <UniqueIdentifier>{43fd9bff-7c18-403e-a0c5-5ca4cf4aaad0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XCCore\XCStage">
+    <Filter Include="XCCore\XCFont">
+      <UniqueIdentifier>{beb81aae-aa63-4b86-81c8-01dff3d0b01f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore\Stage">
       <UniqueIdentifier>{ac940bd2-e2a1-4200-bd83-f5234c0035c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -58,19 +61,25 @@
     <ClCompile Include="XCCore\XCRender\XCColorBlockHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\XCItem\XCItem.cpp">
-      <Filter>XCCore\XCItem</Filter>
-    </ClCompile>
-    <ClCompile Include="XCCore\XCStage\XCStage.cpp">
-      <Filter>XCCore\XCStage</Filter>
-    </ClCompile>
-    <ClCompile Include="XCCore\XCItem\XCPlayer.cpp">
-      <Filter>XCCore\XCItem</Filter>
-    </ClCompile>
     <ClCompile Include="XCFrameInfo.cpp" />
     <ClCompile Include="python2d.cpp" />
     <ClCompile Include="XCCore\XCRender\DecisionPointSE.cpp">
       <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Item\Item.cpp">
+      <Filter>XCCore\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Item\Player.cpp">
+      <Filter>XCCore\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Stage\Stage.cpp">
+      <Filter>XCCore\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Bullet\BulletHelper.cpp">
+      <Filter>XCCore\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Bullet\CircleBullet.cpp">
+      <Filter>XCCore\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -111,15 +120,6 @@
     <ClInclude Include="XCCore\XCRender\XCColorBlockHelper.h">
       <Filter>XCCore\XCRender</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\XCItem\XCItem.h">
-      <Filter>XCCore\XCItem</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\XCStage\XCStage.h">
-      <Filter>XCCore\XCStage</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\XCItem\XCPlayer.h">
-      <Filter>XCCore\XCItem</Filter>
-    </ClInclude>
     <ClInclude Include="XCFrameInfo.h" />
     <ClInclude Include="XCCore\XCRender\ISpecialEffect.h">
       <Filter>XCCore\XCRender</Filter>
@@ -127,8 +127,23 @@
     <ClInclude Include="XCCore\XCRender\DecisionPointSE.h">
       <Filter>XCCore\XCRender</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\XCItem\XCBullet.h">
-      <Filter>XCCore\XCItem</Filter>
+    <ClInclude Include="XCCore\Bullet\Bullet.h">
+      <Filter>XCCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Item\Item.h">
+      <Filter>XCCore\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Item\Player.h">
+      <Filter>XCCore\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Stage\Stage.h">
+      <Filter>XCCore\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Bullet\BulletHelper.h">
+      <Filter>XCCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Bullet\CircleBullet.h">
+      <Filter>XCCore\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
-#include "XCStage.h"
+#include "Stage.h"
 #include "../../XCInterpreter/ScriptLoader.h"
 #include "../../XCCore/XCRender/XCImageHelper.h"
-#include "../../XCCore/XCItem/XCPlayer.h"
+#include "../../XCCore/Item/Player.h"
+
+#include "../../XCCore/Bullet/BulletHelper.h"
 #include <GL3/gl3w.h>
-GLenum XCStage::parseAlphaFunc(int src)
+GLenum Stage::parseAlphaFunc(int src)
 {
 	switch (src)
 	{
@@ -15,7 +17,7 @@ GLenum XCStage::parseAlphaFunc(int src)
 		return GL_NONE;
 	}
 }
-GLenum XCStage::parseColorFunc(int src)
+GLenum Stage::parseColorFunc(int src)
 {
 	switch (src)
 	{
@@ -27,13 +29,13 @@ GLenum XCStage::parseColorFunc(int src)
 		return GL_NONE;
 	}
 }
-XCStage::XCStage(std::string uuid, PyObject* item)
+Stage::Stage(std::string uuid, PyObject* item)
 {
 	itemStage = item;
 	stageUuid = uuid;
 }
 
-void XCStage::stageInit()
+void Stage::stageInit()
 {
 	if (!getStageInit()) {
 		MultiThreadDefine
@@ -49,7 +51,6 @@ void XCStage::stageInit()
 					auto scaleInfo = PyObject_CallMethod(pItem, "_cpp_getScaleSize", NULL);
 					auto rotateInfo = PyObject_CallMethod(pItem, "_cpp_getRotateInfo", NULL);
 					auto blendInfo = PyObject_CallMethod(pItem, "_cpp_getBlendInfo", NULL);
-					//auto uuidInfo = PyObject_CallMethod(pItem, "_cpp_getUUID", NULL);
 					auto initCoordInfo = PyObject_CallMethod(pItem, "_cpp_getInitCoord", NULL);
 
 					const char* imagePath; int divideFormat[4], isFlexible;
@@ -64,14 +65,12 @@ void XCStage::stageInit()
 					int useBlend, blendColorFunc, blendAlphaFunc;
 					PyArg_ParseTuple(blendInfo, "i(ii)", &useBlend, &blendColorFunc, &blendAlphaFunc);
 
-					//const char* uuid;
-					//PyArg_Parse(uuidInfo, "s", &uuid);
 
 					float initCoord[3];
 					PyArg_ParseTuple(initCoordInfo, "fff", &initCoord[0], &initCoord[1], &initCoord[2]);
 
 					XCImageHelper* image = new XCImageHelper(imagePath, isFlexible);
-					XCItem* pItem = new XCItem( image, glm::vec4(divideFormat[0], divideFormat[1], divideFormat[2], divideFormat[3]),
+					Item* pItem = new Item( image, glm::vec4(divideFormat[0], divideFormat[1], divideFormat[2], divideFormat[3]),
 							glm::vec4(1.0f), glm::vec3(scaleSize[0], scaleSize[1], scaleSize[2]), glm::vec3(rotateWork[0], rotateWork[1], rotateWork[2]), rotateAngle);
 					pItem->setPosition(initCoord[0], initCoord[1], initCoord[2]);
 					pItem->ItemInit();
@@ -81,18 +80,39 @@ void XCStage::stageInit()
 					renderItem.colorFunc = parseColorFunc(blendColorFunc);
 					renderItem.alphaFunc = parseAlphaFunc(blendAlphaFunc);
 					stageItemGroup.push_back(renderItem);
-#ifdef _DEBUG
-					std::cout << "*******stage item*******" << std::endl;
-					std::cout << "index: " << i << std::endl;
-					std::cout << "path: " << imagePath << " format:" << divideFormat[0] << " " << divideFormat[1] << " " << divideFormat[2] << " " << divideFormat[3] <<" fx:" <<isFlexible << std::endl;
-					std::cout << "scale: " << scaleSize[0] << " " << scaleSize[1] << " " << scaleSize[2] << std::endl;
-					std::cout << "rotate: " << rotateAngle << " rotatework:" << rotateWork[0] << " " << rotateWork[1] << " " << rotateWork[2] << std::endl;
-					std::cout << "useBlend: " << useBlend << " colorFunc:" << blendColorFunc << " alphaFunc:" << blendAlphaFunc << std::endl;
-					std::cout << "initCoord: " << initCoord[0] << " " << initCoord[1] << " " << initCoord[2] << std::endl;
-					//std::cout << "uuid: " << uuid << std::endl;
-					std::cout << "**********************"<< std::endl;
-#endif
+				}
+			}
+		}
+		PyObject* bulletSizeObj = PyObject_CallMethod(itemStage, "_cpp_getBulletSize", NULL);
+		int bulletSize = ScriptLoader::getSingleArg<int>(bulletSizeObj);
+		if (bulletSize > 0) {
+			for (int i = 0; i < bulletSize; i++) {
+				PyObject* pBullet, *bulletObject = PyObject_CallMethod(itemStage, "_cpp_getBullet", NULL);
+				PyArg_Parse(bulletObject, "O", &pBullet);
+				if (pBullet!=nullptr) {
+					auto imageInfo = PyObject_CallMethod(pBullet, "_cpp_getInitRenderInfo", NULL);
+					auto bulletColorInfo = PyObject_CallMethod(pBullet, "_cpp_getBulletColor", NULL);
+					auto bulletGenerateInfo = PyObject_CallMethod(pBullet, "_cpp_getGenerateInfo", NULL);
+					auto bulletCoordInfo = PyObject_CallMethod(pBullet, "_cpp_getInitCoord", NULL);
 
+					const char* bulletType; int divideInfo[4]; float scaleInfo[3];
+					PyArg_ParseTuple(imageInfo, "s(iiii)(fff)", &bulletType, &divideInfo[0], &divideInfo[1], &divideInfo[2], &divideInfo[3], &scaleInfo[0], &scaleInfo[1], &scaleInfo[2]);
+
+					int bulletColor;
+					PyArg_Parse(bulletColorInfo, "i", &bulletColor);
+
+					float velocity, acceleration, angle, increaseAngle; int aimPlayer;
+					PyArg_ParseTuple(bulletGenerateInfo, "ffffp", &velocity, &acceleration, &angle, &increaseAngle, &aimPlayer);
+
+					float initCoord[3];
+					PyArg_ParseTuple(bulletCoordInfo, "fff", &initCoord[0], &initCoord[1], &initCoord[2]);
+
+					Bullet* bullet = BulletHelper::getNewBulletObject(bulletType,bulletColor, glm::vec4(divideInfo[0], divideInfo[1], divideInfo[2], divideInfo[3])
+						, glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec3(initCoord[0], initCoord[1], initCoord[2]), velocity, acceleration, angle, increaseAngle, aimPlayer);
+					if (bullet!=nullptr) {
+						bullet->BulletInit();
+						stageBulletGroup.push_back(bullet);
+					}
 				}
 			}
 		}
@@ -102,7 +122,7 @@ void XCStage::stageInit()
 	}
 }
 
-void XCStage::stageWork()
+void Stage::stageWork()
 {
 	timer.Tick();
 	std::vector<itemStruct>::iterator itemBegin = stageItemGroup.begin();
@@ -120,6 +140,7 @@ void XCStage::stageWork()
 			}
 		}
 		if (item->item->getIsFinish()) {
+			item->item->ItemRelease();
 			if (std::next(item) == stageItemGroup.end()) {
 				stageItemGroup.erase(item);
 				break;
@@ -130,23 +151,41 @@ void XCStage::stageWork()
 			}
 		}
 	}
+	std::vector<Bullet*>::iterator bulletBegin = stageBulletGroup.begin();
+	std::vector<Bullet*>::iterator bulletEnd = stageBulletGroup.end();
+	for (auto bullet = bulletBegin; bullet != bulletEnd; bullet++) {
+		if (!(*bullet)->getIsFinish()) {
+			(*bullet)->BulletRender();
+		}
+		if ((*bullet)->getIsFinish()) {
+			(*bullet)->BulletRelease();
+			if (std::next(bullet) == stageBulletGroup.end()) {
+				stageBulletGroup.erase(bullet);
+				break;
+			}
+			else {
+				bullet = stageBulletGroup.erase(bullet);
+				bulletEnd = stageBulletGroup.end();
+			}
+		}
+	}
 }
 
-void XCStage::stageRelease()
+void Stage::stageRelease()
 {
 }
 
-bool XCStage::getStageInit()
+bool Stage::getStageInit()
 {
 	return isStageInit;
 }
 
-bool XCStage::getStageFinish()
+bool Stage::getStageFinish()
 {
 	return stageFinish;
 }
 
-std::string XCStage::getUuid()
+std::string Stage::getUuid()
 {
 	return stageUuid;
 }

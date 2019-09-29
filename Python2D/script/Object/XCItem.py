@@ -29,13 +29,13 @@ class XCItem(TranslateItem):
         self._isFlexible = isFlexible
         self._scaleSize = scaleSize
 
-    def setBlend(self, useBlend=True, colorFunc = BlendType.COLOR_NONE.value, alphaFunc = BlendType.ALPHA_ONE_MINUS_SRC.value):
+    def setBlend(self, useBlend=True, colorFunc = BlendType.COLOR_NONE, alphaFunc = BlendType.ALPHA_ONE_MINUS_SRC):
         self._useBlend = useBlend
-        self._blendFunc = [colorFunc, alphaFunc]
+        self._blendFunc = [colorFunc.value, alphaFunc.value]
 
-    def setAngle(self, angle = 0.0, angleWork = [1, 0, 0]):
-        self._rotateAngle = angle
-        self._rotateWork = angleWork
+    def setRotate(self, rotateAngle = 0.0, rotateWork = [1, 0, 0]):
+        self._rotateAngle = rotateAngle
+        self._rotateWork = rotateWork
 
     def setInitPos(self, pos = [0.0, 0.0, 0.0]):
         self._pos = pos

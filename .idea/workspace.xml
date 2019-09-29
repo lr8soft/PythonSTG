@@ -22,6 +22,11 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\PySTG\PySTG\Python2D\script\bullet" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -76,6 +81,7 @@
       <workItem from="1569668746782" duration="1497000" />
       <workItem from="1569681356683" duration="768000" />
       <workItem from="1569740115517" duration="3529000" />
+      <workItem from="1569757115724" duration="11124000" />
     </task>
     <servers />
   </component>
