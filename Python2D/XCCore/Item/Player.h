@@ -1,10 +1,10 @@
 #pragma once
 #ifndef _XCPlayer_H_
 #define _XCPlayer_H_
-#include "XCItem.h"
+#include "Item.h"
 #include <map>
 #include "../XCRender/DecisionPointSE.h"
-class XCPlayer:public XCItem {
+class Player:public Item {
 private:
 	/*
 	std::string itemUuid;
@@ -29,17 +29,17 @@ private:
 	float imageSwapTime = 0.08;
 	enum playerState { PLAYER_STANDBY, PLAYER_TURNRIGHT, PLAYER_TURNLEFT };
 	int playerLastState = PLAYER_STANDBY, playerNowState = PLAYER_STANDBY;
-	int standByRow = 0, turnLeftRow = 1, turnRightRow = 2;
+	int standByRow = 3, turnLeftRow = 2, turnRightRow = 1;
 	float playerSameStateTime = 0.0f;
 
 	void playerKeyCheck(); 
 	void setPlayerDirection(int direction);
 protected:
-	static std::map<std::string, XCPlayer*> playerInstanceGroup;
+	static std::map<std::string, Player*> playerInstanceGroup;
 public:
-	static void addPlayerInstance(std::string, XCPlayer*);
-	static std::map<std::string, XCPlayer*>* getPlayerGroup();
-	XCPlayer(std::string uuid, const char* image, glm::vec4 divideInfo, glm::vec4 coverColor, glm::vec3 scaleSize,
+	static void addPlayerInstance(std::string, Player*);
+	static std::map<std::string, Player*>* getPlayerGroup();
+	Player(const char* image, glm::vec4 divideInfo, glm::vec4 coverColor, glm::vec3 scaleSize,
 		glm::vec3 rotateWork, float rotateAngle, float moveSpeed, float imgSwapInterval, float basePower, int standByRow, int turnLeftRow, int turnRightRow);
 
 	bool getIsInit();

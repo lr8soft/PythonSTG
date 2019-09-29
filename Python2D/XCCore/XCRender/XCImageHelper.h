@@ -11,7 +11,6 @@ private:
 	std::string imagePath;
 	static GLuint ProgramHandle, ProgramHandleFx;
 	static bool haveProgramInit;
-	static std::map<std::string,GLuint> textureGroup;
 public:
 	XCImageHelper() = delete;
 	/*isRenderFlexible=true下，渲染时请给texuturePos16xFloat赋值*/

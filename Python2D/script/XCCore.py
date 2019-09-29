@@ -4,12 +4,13 @@ from script.RenderItem.RenderColorItem import RenderColorItem
 from script.Object.XCItem import XCItem
 from script.Stage.XCStage import XCStage
 from script.Object.Player import Player
-
+from script.Bullet.CircleBullet import CircleBullet
+from script.Bullet.Bullet import BulletColor
 # PySTG Init
 winHeight = 720
 winWidth = 1280
-winTitle = "Python2D v0.6"
-winResize = False
+winTitle = "Python2D v0.14"
+winResize = True
 winScaleToMonitor = True
 
 
@@ -46,10 +47,25 @@ def UiInit():
 def StageInit():
     stage0 = XCStage("Stage TEST")
     itemTest = XCItem()
-    itemTest.setImage("assets/Item/fairy.png", [1, 1, 0, 0], [0.06, 0.06, 1])
+    itemTest.setImage("assets/Item/point.png", [1, 1, 0, 0], [0.04, 0.04, 0.04])
     itemTest.setBlend()
-    itemTest.setInitPos([0.0, 0.6, 0.0])
-    stage0.addItem(itemTest)
+    itemTest.setInitPos([0.0, 0.0, 0.0])
+    for i in range(0,10):
+        stage0.addItem(itemTest)
+
+    for i in range(0,50):
+        bullet = CircleBullet([0.0,0.0,0.0],0.01)
+        if i % 2 == 0:
+            bullet.setAcceleration(0.0001)
+            bullet.setAngle(0.0, i / 50.0)
+            bullet.setBulletColor(BulletColor.LIGHTBLUE)
+        else:
+            bullet.setAcceleration(-0.0001)
+            bullet.setAngle(0.0, -i /50.0)
+            bullet.setBulletColor(BulletColor.LIGHTGREEN)
+        stage0.addBullet(bullet)
+
+
     XCInit.addStageItem(stage0)
 
 

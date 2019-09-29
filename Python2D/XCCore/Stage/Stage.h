@@ -5,18 +5,20 @@
 #include <GL/glcorearb.h>
 #include <string>
 #include <vector>
-#include "../XCItem/XCItem.h"
+#include "../Item/Item.h"
+#include "../Bullet/Bullet.h"
 #include "../../util/GameTimer.h"
 struct itemStruct {
-	XCItem* item;
+	Item* item;
 	bool useBlend;
 	GLenum colorFunc;
 	GLenum alphaFunc;
 };
-class XCStage {
+class Stage {
 private:
 	std::string stageUuid;
 	std::vector<itemStruct> stageItemGroup;
+	std::vector<Bullet*> stageBulletGroup;
 
 	XCGameTimer timer;
 	PyObject* itemStage;
@@ -24,8 +26,8 @@ private:
 	GLenum parseAlphaFunc(int src);
 	GLenum parseColorFunc(int src);
 public:
-	XCStage() = delete;
-	XCStage(std::string uuid, PyObject* item);
+	Stage() = delete;
+	Stage(std::string uuid, PyObject* item);
 	void stageInit();
 	void stageWork();
 	void stageRelease();

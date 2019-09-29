@@ -7,5 +7,6 @@ public:
 	static int gameWidth, gameHeight;/*3:4*/
 
 	static int p1_keyUp, p1_keyDown, p1_keyLeft, p1_keyRight, p1_keyShoot, p1_keyItem, p1_keySlow;
+	static float defaultGravity;
 };
 #endif

@@ -1,20 +1,20 @@
 #include <GL3/gl3w.h>
-#include "XCPlayer.h"
+#include "Player.h"
 #include "../../XCFrameInfo.h"
 #include "../../XCFrame.h"
 #include "../../XCCore/XCRender/XCImageHelper.h"
 #include <GLFW/glfw3.h>
-std::map<std::string, XCPlayer*> XCPlayer::playerInstanceGroup;
-void XCPlayer::addPlayerInstance(std::string name, XCPlayer *instance)
+std::map<std::string, Player*> Player::playerInstanceGroup;
+void Player::addPlayerInstance(std::string name, Player *instance)
 {
 	playerInstanceGroup.insert(std::make_pair(name, instance));
 }
-std::map<std::string, XCPlayer*>* XCPlayer::getPlayerGroup()
+std::map<std::string, Player*>* Player::getPlayerGroup()
 {
 	return &playerInstanceGroup;
 }
-XCPlayer::XCPlayer(std::string uuid, const char* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle,
-	 float mSpeed, float isInterval, float bPower, int sbyRow, int tLeftRow, int tRightRow):XCItem(uuid, nullptr, dInfo, color, sSize, rWork, rAngle)
+Player::Player( const char* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle,
+	 float mSpeed, float isInterval, float bPower, int sbyRow, int tLeftRow, int tRightRow):Item(nullptr, dInfo, color, sSize, rWork, rAngle)
 {
 	playerImage = image;
 
@@ -26,11 +26,11 @@ XCPlayer::XCPlayer(std::string uuid, const char* image, glm::vec4 dInfo, glm::ve
 	turnLeftRow = tLeftRow;
 	turnRightRow = tRightRow;
 }
-bool XCPlayer::getIsInit()
+bool Player::getIsInit()
 {
 	return isInit;
 }
-void XCPlayer::ItemInit()
+void Player::ItemInit()
 {
 	if (!isInit) {
 		renderHelper = new XCImageHelper(playerImage, true);
@@ -39,7 +39,7 @@ void XCPlayer::ItemInit()
 		isInit = true;
 	}
 }
-void XCPlayer::ItemRender()
+void Player::ItemRender()
 {
 	if (isInit) {
 		playerKeyCheck();
@@ -89,7 +89,7 @@ void XCPlayer::ItemRender()
 	}
 }
 
-void XCPlayer::ItemRelease()
+void Player::ItemRelease()
 {
 	renderHelper->Release();
 	specialEffectDecision->SpecialEffectRelease();
@@ -97,7 +97,7 @@ void XCPlayer::ItemRelease()
 	isInit = false;
 }
 
-void XCPlayer::playerKeyCheck()
+void Player::playerKeyCheck()
 {
 	renderDecisionPoint = false;
 	bool have_player_change_state = false;
@@ -105,7 +105,7 @@ void XCPlayer::playerKeyCheck()
 	if (glfwGetKey(screen, GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(screen, true);
 	}
-	float moveSpeed = baseSpeed * itemTimer.getDeltaFrame(); // adjust accordingly
+	float moveSpeed = baseSpeed * itemTimer.getDeltaFrame();
 	if (glfwGetKey(screen, XCFrameInfo::p1_keySlow) == GLFW_PRESS) {
 		moveSpeed = moveSpeed / 1.5f * 0.40f;
 		//have_player_change_state = false;
@@ -152,7 +152,7 @@ void XCPlayer::playerKeyCheck()
 	}
 }
 
-void XCPlayer::setPlayerDirection(int direction)
+void Player::setPlayerDirection(int direction)
 {
 	playerNowState = direction;
 	if (playerNowState == playerLastState) {

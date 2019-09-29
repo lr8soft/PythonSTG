@@ -18,7 +18,7 @@ RenderManager * RenderManager::getInstance()
 	}
 	if (pRManager->getPlayerP1() == nullptr)
 	{
-		auto group = XCPlayer::getPlayerGroup();
+		auto group = Player::getPlayerGroup();
 		if (!group->empty()) {
 			pRManager->setPlayerP1(group->begin()->second);
 		}
@@ -30,7 +30,7 @@ void RenderManager::AddStaticWork(StaticRenderItem work)
 {
 	staticQueue.push_back(work);
 }
-void RenderManager::AddStageItem(XCStage * stage)
+void RenderManager::AddStageItem(Stage * stage)
 {
 	stageQueue.push_back(stage);
 }
@@ -71,10 +71,10 @@ void RenderManager::RenderWork()
 		}
 		
 	}
-	std::vector<XCStage*>::iterator stageBegin = stageQueue.begin();
-	std::vector<XCStage*>::iterator stageEnd = stageQueue.end();
+	std::vector<Stage*>::iterator stageBegin = stageQueue.begin();
+	std::vector<Stage*>::iterator stageEnd = stageQueue.end();
 	if (stageBegin != stageEnd) {
-		XCStage* stageItem = (*stageBegin);
+		Stage* stageItem = (*stageBegin);
 		if (!stageItem->getStageInit()) {
 			stageItem->stageInit();
 		}
@@ -89,12 +89,12 @@ void RenderManager::RenderWork()
 	}
 }
 
-XCPlayer * RenderManager::getPlayerP1()
+Player * RenderManager::getPlayerP1()
 {
 	return playerP1;
 }
 
-void RenderManager::setPlayerP1(XCPlayer * p1)
+void RenderManager::setPlayerP1(Player * p1)
 {
 	playerP1 = p1;
 }

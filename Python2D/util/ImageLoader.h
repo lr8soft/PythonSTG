@@ -3,10 +3,13 @@
 #define _image_loader_
 #include "stb_image.h"
 #include <gl/glcorearb.h>
+#include <map>
 namespace xc_ogl {
 	class ImageLoader
 	{
 	private:
+		static std::map<std::string, GLuint> textureGroup;
+
 		GLuint tbo=-1; GLenum texture_type;
 		int width, height, channel;
 		bool have_release;

@@ -8,7 +8,6 @@ using namespace xc_ogl;
 GLuint XCImageHelper::ProgramHandle = -1;
 GLuint XCImageHelper::ProgramHandleFx = -1;
 bool XCImageHelper::haveProgramInit = false;
-std::map<std::string, GLuint> XCImageHelper::textureGroup;
 GLfloat vertices[] = {
 	 1.0f, 1.0f,
 	 1.0f,-1.0f,
@@ -36,15 +35,11 @@ XCImageHelper::XCImageHelper(std::string path, bool isRenderFlexible)
 		ProgramHandleFx = fxreader.getProgramHandle();
 		haveProgramInit = true;
 	}
-	auto iter = textureGroup.find(path);
-	if (iter ==textureGroup.end()) {
-		ImageLoader imgLoader;
-		imgLoader.loadTextureFromFile(path.c_str());
-		tbo = imgLoader.getTextureBufferObjectHandle();
-	}
-	else {
-		tbo = iter->second;
-	}
+
+	ImageLoader imgLoader;
+	imgLoader.loadTextureFromFile(path.c_str());
+	tbo = imgLoader.getTextureBufferObjectHandle();
+
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ebo);

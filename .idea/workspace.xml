@@ -8,12 +8,24 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1RSmB7qzMUj4W63hKB6yVbjIFdF" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\PySTG\PySTG\Python2D\script\bullet" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -68,6 +80,8 @@
       <updated>1569668733532</updated>
       <workItem from="1569668746782" duration="1497000" />
       <workItem from="1569681356683" duration="768000" />
+      <workItem from="1569740115517" duration="3529000" />
+      <workItem from="1569757115724" duration="11124000" />
     </task>
     <servers />
   </component>
