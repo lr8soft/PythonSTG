@@ -101,14 +101,15 @@ void Stage::stageInit()
 					int bulletColor;
 					PyArg_Parse(bulletColorInfo, "i", &bulletColor);
 
-					float velocity, acceleration, angle, increaseAngle; int aimPlayer;
-					PyArg_ParseTuple(bulletGenerateInfo, "ffffp", &velocity, &acceleration, &angle, &increaseAngle, &aimPlayer);
+					float velocity, acceleration, angle, increaseAngle; int aimPlayer, reboundTime;
+					PyArg_ParseTuple(bulletGenerateInfo, "ffffip", &velocity, &acceleration, &angle, &increaseAngle, &reboundTime, &aimPlayer);
 
 					float initCoord[3];
 					PyArg_ParseTuple(bulletCoordInfo, "fff", &initCoord[0], &initCoord[1], &initCoord[2]);
 
 					Bullet* bullet = BulletHelper::getNewBulletObject(bulletType,bulletColor, glm::vec4(divideInfo[0], divideInfo[1], divideInfo[2], divideInfo[3])
-						, glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec3(initCoord[0], initCoord[1], initCoord[2]), velocity, acceleration, angle, increaseAngle, aimPlayer);
+						, glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec3(initCoord[0], initCoord[1], initCoord[2])
+						, velocity, acceleration, angle, increaseAngle, reboundTime,aimPlayer);
 					if (bullet!=nullptr) {
 						bullet->BulletInit();
 						stageBulletGroup.push_back(bullet);

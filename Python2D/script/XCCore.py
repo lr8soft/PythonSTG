@@ -9,9 +9,9 @@ from script.Bullet.Bullet import BulletColor
 # PySTG Init
 winHeight = 720
 winWidth = 1280
-winTitle = "Python2D v0.14"
-winResize = True
-winScaleToMonitor = True
+winTitle = "Python2D v0.15"
+winResize = False
+winScaleToMonitor = False
 
 
 # PySTG default function
@@ -52,7 +52,6 @@ def StageInit():
     itemTest.setInitPos([0.0, 0.0, 0.0])
     for i in range(0,10):
         stage0.addItem(itemTest)
-
     for i in range(0,50):
         bullet = CircleBullet([0.0,0.0,0.0],0.01)
         if i % 2 == 0:
@@ -64,8 +63,19 @@ def StageInit():
             bullet.setAngle(0.0, -i /50.0)
             bullet.setBulletColor(BulletColor.LIGHTGREEN)
         stage0.addBullet(bullet)
-
-
+    for j in range(0, 18):
+        if j % 2 == 0:
+            bullet = CircleBullet([0.0,j / 18.0,0.0])
+            bullet.setAngle(0, -0.01)
+            bullet.setBulletColor(BulletColor.YELLOW)
+            bullet.setRebound(-1)
+            stage0.addBullet(bullet)
+        else:
+            bullet = CircleBullet([0.0, -j / 18.0, 0.0])
+            bullet.setAngle(180, -0.01)
+            bullet.setBulletColor(BulletColor.ORANGE)
+            bullet.setRebound(-1)
+            stage0.addBullet(bullet)
     XCInit.addStageItem(stage0)
 
 
