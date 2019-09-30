@@ -9,7 +9,7 @@ protected:
 
 	bool isWorkFinish = false;
 
-	
+	virtual void checkOutOfScreen() = 0;
 public:
 	virtual void BulletInit() = 0;
 	virtual void BulletRender() = 0;

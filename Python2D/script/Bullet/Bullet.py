@@ -24,6 +24,7 @@ class Bullet:
         self.rotateAngle = 0.0
         self.rotateWork = [0, 0, 1]
         self.aimToPlayer = False
+        self.reboundCount = 0
 
     def setAcceleration(self, a):
         self.acceleration = a
@@ -31,7 +32,11 @@ class Bullet:
     def setVelocity(self, v):
         self.velocity = v
 
-    def setAngle(self, angle, increaseAngle = 0.0):
+    def setAngle(self, angle, increaseAngle=0.0):
+        if angle >= 360:
+            angle -= 360
+        elif angle < 0:
+            angle += 360
         self.angle = angle
         self.incAngle = increaseAngle
 
@@ -41,12 +46,15 @@ class Bullet:
     def setBulletColor(self, color=BulletColor.BLUE):
         self.bulletColor = color
 
-    #recall function for cpp init
+    def setRebound(self, rebound=0):
+        self.reboundCount = rebound
+
+    # recall function for cpp init
     def _cpp_getInitCoord(self):
         return tuple(self.position)
 
     def _cpp_getGenerateInfo(self):
-        return self.velocity, self.acceleration, self.angle, self.incAngle, self.aimToPlayer
+        return self.velocity, self.acceleration, self.angle, self.incAngle, self.reboundCount, self.aimToPlayer
 
     def _cpp_getBulletColor(self):
         return self.bulletColor.value
@@ -55,4 +63,3 @@ class Bullet:
     def _cpp_getInitRenderInfo(self):
         pass
     # return self.bulletType, tuple(self.divideInfo), tuple(self.scaleSize)
-
