@@ -17,14 +17,15 @@ void XCFrame::FrameInit()
 	InitInfo info = interpreter->ScriptLaunch();
 	FrameWidth = info.winWidth;
 	FrameHeight = info.winHeight;
-	if (FrameWidth >= XCFrameInfo::gameWidth) {
-		XCFrameInfo::FrameRight = XCFrameInfo::gameWidth * 1.0f / (float)FrameWidth;
-		XCFrameInfo::FrameLeft = -XCFrameInfo::gameWidth * 1.0f / (float)FrameWidth;
-	}
-	if (FrameHeight >= XCFrameInfo::gameHeight) {
-		XCFrameInfo::FrameTop = XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
-		XCFrameInfo::FrameBottom = -XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
-	}
+
+	float smallSize = FrameWidth > FrameHeight ? FrameHeight : FrameWidth;
+	float absWidth = smallSize / (float)FrameWidth;
+	float absHeight = smallSize / (float)FrameHeight;
+
+	XCFrameInfo::FrameRight = absWidth;
+	XCFrameInfo::FrameLeft = -absWidth;
+	XCFrameInfo::FrameTop = absHeight;
+	XCFrameInfo::FrameBottom = -absHeight;
 
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);//OpenGL 4.2 Core Mode
@@ -68,18 +69,21 @@ void XCFrame::FrameFinalize()
 }
 void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
 {
+	glViewport(0, 0, w, h);
 	FrameWidth = w;
 	FrameHeight = h;
-	if (FrameWidth >= XCFrameInfo::gameWidth) {
-		XCFrameInfo::FrameRight = XCFrameInfo::gameWidth * 1.0f / (float)FrameWidth;
-		XCFrameInfo::FrameLeft = -XCFrameInfo::gameWidth * 1.0f / (float)FrameWidth;
-	}
-	if (FrameHeight >= XCFrameInfo::gameHeight) {
-		XCFrameInfo::FrameTop = XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
-		XCFrameInfo::FrameBottom = -XCFrameInfo::gameHeight * 1.0f / (float)FrameHeight;
-	}
+
+	float smallSize = FrameWidth > FrameHeight ? FrameHeight : FrameWidth;
+	float absWidth = smallSize / (float)FrameWidth;
+	float absHeight = smallSize / (float)FrameHeight;
+
+	XCFrameInfo::FrameRight = absWidth;
+	XCFrameInfo::FrameLeft = -absWidth;
+	XCFrameInfo::FrameTop = absHeight;
+	XCFrameInfo::FrameBottom = -absHeight;
+
 	XCFont::FontSetWidthAndHeight(h, w);
-	glViewport(0, 0, FrameWidth, FrameHeight);
+	
 }
 
 XCFrame * XCFrame::getInstance()

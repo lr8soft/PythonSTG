@@ -1,4 +1,5 @@
 #include "XCImageHelper.h"
+#include "../../XCFrameInfo.h"
 #include "..\..\util\ImageLoader.h"
 #include "..\..\util\ShaderReader.h"
 #include <glm/glm.hpp>
@@ -75,18 +76,19 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rota
 	glBindTexture(GL_TEXTURE_2D, tbo);
 
 	glm::mat4 mvp_mat;
-	mvp_mat = glm::translate(mvp_mat, renderPos);
-	mvp_mat = glm::scale(mvp_mat, scaleSize);
-	mvp_mat = glm::rotate(mvp_mat, glm::degrees(rotateAngle), rorateWorkCoord);
 	if (!isFlexible) {
-		auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
-		glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
-
+		mvp_mat = glm::translate(mvp_mat, renderPos);
 	}
 	else {
-		auto mvp_location = glGetUniformLocation(ProgramHandleFx, "mvp_mat");
+		mvp_mat = glm::translate(mvp_mat, renderPos * glm::vec3(XCFrameInfo::FrameRight,XCFrameInfo::FrameTop,1.0f));
+	}
+	mvp_mat = glm::scale(mvp_mat, scaleSize);
+	mvp_mat = glm::rotate(mvp_mat, glm::degrees(rotateAngle), rorateWorkCoord);
+	auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
+	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
+
+	if (isFlexible) {
 		glBufferSubData(GL_ARRAY_BUFFER, 0, 16 * sizeof(float), texuturePos16xFloat);
-		glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
 	}
 	glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);
 	

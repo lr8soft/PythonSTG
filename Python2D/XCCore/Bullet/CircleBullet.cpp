@@ -12,7 +12,7 @@ CircleBullet::CircleBullet(int bColor, glm::vec4 dInfo, glm::vec3 sInfo, glm::ve
 	NowPosition[2] = initCoord[2];
 	velocity = v;
 	acceleration = a;
-	angle = agl / 180.0f * 3.1415926f;
+	angle = agl;
 	increaseAngle = incA;
 	reBoundTime = rbTime;
 	aimToPlayer = ap;
@@ -31,8 +31,9 @@ void CircleBullet::BulletRender()
 {
 	if (isInit) {
 		timer.Tick();
-		NowPosition[0] += velocity * cos(angle);
-		NowPosition[1] += velocity * sin(angle);
+
+		NowPosition[0] += velocity * cos(angle / 180.0f * 3.1415926f);
+		NowPosition[1] += velocity * sin(angle / 180.0f * 3.1415926f);
 		angle += increaseAngle;
 		velocity += acceleration;
 		checkOutOfScreen();
@@ -47,45 +48,46 @@ void CircleBullet::BulletRender()
 }
 void CircleBullet::checkOutOfScreen()
 {
-	if (NowPosition[1] > XCFrameInfo::FrameTop || NowPosition[1] < -( XCFrameInfo::FrameTop)
-		|| NowPosition[0] > XCFrameInfo::FrameRight || NowPosition[0] < -(XCFrameInfo::FrameRight)) {
+	float renderX = NowPosition[0] * XCFrameInfo::FrameRight;
+	float renderY = NowPosition[1] * XCFrameInfo::FrameTop;
+	if (renderY > XCFrameInfo::FrameTop || renderY < -( XCFrameInfo::FrameTop)
+		|| renderX > XCFrameInfo::FrameRight || renderX < -(XCFrameInfo::FrameRight)) {
 		if (reBoundTime > 0 || reBoundTime < 0) {// reBoundTime <0 ---> always rebound.
-			float pi = 3.1415926f;
-			if (NowPosition[0] > XCFrameInfo::FrameRight) {//right border
-				if (angle > (3 * pi / 2)) {// angle > 270*
-					float delta = (pi / 2) - (2 * pi - angle);
+			if (renderX > XCFrameInfo::FrameRight) {//right border
+				if (angle > 270.0f) {// angle > 270*
+					float delta = 90.0f - (180.0f - angle);
 					angle -= 2 * delta;
 				}
 				else {
-					float delta = pi / 2 - angle;
+					float delta = 90.0f - angle;
 					angle += 2 * delta;
 				}
 			}
-			else if(NowPosition[0] < -(XCFrameInfo::FrameRight)){//left border
-				if (angle > pi) {
-					float delta = (3 * pi / 2) - angle;
+			else if(renderX < -(XCFrameInfo::FrameRight)){//left border
+				if (angle > 180.0f) {
+					float delta = 270.0f - angle;
 					angle += 2 * delta;
 				}
 				else {
-					float delta = (3 * pi / 2) - (pi - angle) - pi;
+					float delta = 270.0f - (180.0f - angle) - 180.0f;
 					angle -= 2 * delta;
 				}
 			}
-			else if(NowPosition[1] > XCFrameInfo::FrameTop){// top boreder
-				if (angle  < (pi /2)) {
-					float delta = 2 * pi - angle;
-					angle += delta;
+			else if(renderY > XCFrameInfo::FrameTop){// top boreder
+				if (angle  < 90.0f) {
+					float delta = 360.0f - angle;
+					angle = delta;
 				}
 				else {
-					angle += 2 * (pi - angle);
+					angle += 2 * (180.0f - angle);
 				}
 			}
-			else if(NowPosition[1] < -(XCFrameInfo::FrameTop)){
-				if (angle > (3 * pi / 2)) {
-					angle = 2 * pi - angle;
+			else if(renderY < -(XCFrameInfo::FrameTop)){
+				if (angle > 270.0f) {
+					angle = 360.0f - angle;
 				}
 				else {
-					angle = pi - (angle - pi);
+					angle = 180.0f - (angle - 180.0f);
 				}
 			}
 			reBoundTime--;

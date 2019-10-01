@@ -15,7 +15,7 @@ private:
 	glm::vec4 divideInfo;
 	glm::vec3 scaleInfo;
 	int bulletColor, reBoundTime = 0;
-	float velocity = 0.0f, acceleration = 0.0f, angle = 0.0f, increaseAngle = 0.0f;
+	float velocity = 0.0f, acceleration = 0.0f, angle = 0.0f, increaseAngle = 0.0f, angleRadius = 0.0f;
 
 	XCGameTimer timer;
 	XCImageHelper* image;

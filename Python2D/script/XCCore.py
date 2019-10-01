@@ -9,10 +9,8 @@ from script.Bullet.Bullet import BulletColor
 # PySTG Init
 winHeight = 720
 winWidth = 1280
-winTitle = "Python2D v0.15"
-winResize = False
-winScaleToMonitor = False
-
+winTitle = "Python2D v0.16"
+winScaleToMonitor = True
 
 # PySTG default function
 def coreInitializer():
@@ -52,30 +50,14 @@ def StageInit():
     itemTest.setInitPos([0.0, 0.0, 0.0])
     for i in range(0,10):
         stage0.addItem(itemTest)
-    for i in range(0,50):
-        bullet = CircleBullet([0.0,0.0,0.0],0.01)
-        if i % 2 == 0:
-            bullet.setAcceleration(0.0001)
-            bullet.setAngle(0.0, i / 50.0)
-            bullet.setBulletColor(BulletColor.LIGHTBLUE)
-        else:
-            bullet.setAcceleration(-0.0001)
-            bullet.setAngle(0.0, -i /50.0)
-            bullet.setBulletColor(BulletColor.LIGHTGREEN)
+
+    for j in range(0, 1800):
+        bullet = CircleBullet([0.0,0.0,0.0])
+        bullet.setAngle(j, j / 1800)
+        bullet.setBulletColor(BulletColor.YELLOW)
+        bullet.setRebound(5)
         stage0.addBullet(bullet)
-    for j in range(0, 18):
-        if j % 2 == 0:
-            bullet = CircleBullet([0.0,j / 18.0,0.0])
-            bullet.setAngle(0, -0.01)
-            bullet.setBulletColor(BulletColor.YELLOW)
-            bullet.setRebound(-1)
-            stage0.addBullet(bullet)
-        else:
-            bullet = CircleBullet([0.0, -j / 18.0, 0.0])
-            bullet.setAngle(180, -0.01)
-            bullet.setBulletColor(BulletColor.ORANGE)
-            bullet.setRebound(-1)
-            stage0.addBullet(bullet)
+
     XCInit.addStageItem(stage0)
 
 

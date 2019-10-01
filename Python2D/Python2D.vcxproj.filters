@@ -25,6 +25,9 @@
     <Filter Include="XCCore\Stage">
       <UniqueIdentifier>{ac940bd2-e2a1-4200-bd83-f5234c0035c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\Task">
+      <UniqueIdentifier>{303b8fc6-942a-443b-85e0-f81bdcf099af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="XCCore\Bullet\CircleBullet.cpp">
       <Filter>XCCore\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Task\Task.cpp">
+      <Filter>XCCore\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +150,12 @@
     </ClInclude>
     <ClInclude Include="XCCore\Bullet\CircleBullet.h">
       <Filter>XCCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Task\Task.h">
+      <Filter>XCCore\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Task\TaskInsideUnit.h">
+      <Filter>XCCore\Task</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
