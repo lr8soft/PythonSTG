@@ -36,7 +36,7 @@ void CircleBullet::BulletRender()
 		NowPosition[1] += velocity * sin(angle / 180.0f * 3.1415926f);
 		angle += increaseAngle;
 		velocity += acceleration;
-		checkOutOfScreen();
+		Bullet::checkReboundOrOverflow(&reBoundTime, &angle);
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -44,57 +44,6 @@ void CircleBullet::BulletRender()
 			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight,XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1],bulletColor, divideInfo[3]));
 		glDisable(GL_BLEND);
 		
-	}
-}
-void CircleBullet::checkOutOfScreen()
-{
-	float renderX = NowPosition[0] * XCFrameInfo::FrameRight;
-	float renderY = NowPosition[1] * XCFrameInfo::FrameTop;
-	if (renderY > XCFrameInfo::FrameTop || renderY < -( XCFrameInfo::FrameTop)
-		|| renderX > XCFrameInfo::FrameRight || renderX < -(XCFrameInfo::FrameRight)) {
-		if (reBoundTime > 0 || reBoundTime < 0) {// reBoundTime <0 ---> always rebound.
-			if (renderX > XCFrameInfo::FrameRight) {//right border
-				if (angle > 270.0f) {// angle > 270*
-					float delta = 90.0f - (180.0f - angle);
-					angle -= 2 * delta;
-				}
-				else {
-					float delta = 90.0f - angle;
-					angle += 2 * delta;
-				}
-			}
-			else if(renderX < -(XCFrameInfo::FrameRight)){//left border
-				if (angle > 180.0f) {
-					float delta = 270.0f - angle;
-					angle += 2 * delta;
-				}
-				else {
-					float delta = 270.0f - (180.0f - angle) - 180.0f;
-					angle -= 2 * delta;
-				}
-			}
-			else if(renderY > XCFrameInfo::FrameTop){// top boreder
-				if (angle  < 90.0f) {
-					float delta = 360.0f - angle;
-					angle = delta;
-				}
-				else {
-					angle += 2 * (180.0f - angle);
-				}
-			}
-			else if(renderY < -(XCFrameInfo::FrameTop)){
-				if (angle > 270.0f) {
-					angle = 360.0f - angle;
-				}
-				else {
-					angle = 180.0f - (angle - 180.0f);
-				}
-			}
-			reBoundTime--;
-		}
-		else {
-			isWorkFinish = true;
-		}
 	}
 }
 void CircleBullet::BulletRelease()

@@ -54,7 +54,7 @@ def StageInit():
     for j in range(0, 1800):
         bullet = CircleBullet([0.0,0.0,0.0])
         bullet.setAngle(j, j / 1800)
-        bullet.setBulletColor(BulletColor.YELLOW)
+        bullet.setBulletColor(BulletColor.LIGHTBLUE)
         bullet.setRebound(5)
         stage0.addBullet(bullet)
 

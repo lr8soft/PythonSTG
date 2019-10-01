@@ -3,20 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7e5e419c-fa07-405a-8b82-0fe439d18051" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/Python2D.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/Python2D.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/Python2D.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/Python2D.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Bullet/Bullet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Bullet/Bullet.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Bullet/CircleBullet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Bullet/CircleBullet.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Bullet/CircleBullet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Bullet/CircleBullet.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Item/Player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Item/Player.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/XCRender/IRenderHelper.h" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/XCRender/IRenderHelper.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/XCRender/XCColorBlockHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/XCRender/XCColorBlockHelper.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/XCRender/XCImageHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/XCRender/XCImageHelper.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCFrame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCFrameInfo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCFrameInfo.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCFrameInfo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCFrameInfo.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Python2D/script/XCCore.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/XCCore.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/util/GameTimer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/util/GameTimer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/util/GameTimer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/util/GameTimer.h" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
