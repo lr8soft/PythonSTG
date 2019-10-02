@@ -171,6 +171,9 @@ void Stage::stageWork()
 			}
 		}
 	}
+	if (stageBulletGroup.empty()) {
+		stageBulletGroup.clear();
+	}
 }
 
 void Stage::stageRelease()

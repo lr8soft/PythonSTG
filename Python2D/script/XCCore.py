@@ -51,8 +51,8 @@ def StageInit():
     for i in range(0,10):
         stage0.addItem(itemTest)
 
-    for j in range(0, 3600):
-        bullet = CircleBullet([0.0,0.0,0.0])
+    for j in range(0, 960):
+        bullet = CircleBullet([0.0,0.0,0.0],0.01)
         bullet.setAngle(j,1)
         if j % 3 == 0:
             bullet.setBulletColor(BulletColor.LIGHTBLUE)
@@ -64,7 +64,7 @@ def StageInit():
             bullet.setBulletColor(BulletColor.WHITE)
         else:
             bullet.setBulletColor(BulletColor.RED)
-        bullet.setRebound(-1)
+        bullet.setRebound(1)
         stage0.addBullet(bullet)
 
     XCInit.addStageItem(stage0)

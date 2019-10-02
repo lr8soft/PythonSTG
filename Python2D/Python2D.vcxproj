@@ -134,6 +134,8 @@
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp" />
     <ClCompile Include="XCCore\Bullet\CircleBullet.cpp" />
     <ClCompile Include="XCCore\Task\Task.cpp" />
+    <ClCompile Include="XCCore\Task\TaskDispatcher.cpp" />
+    <ClCompile Include="XCCore\Task\TaskInsideUnit.cpp" />
     <ClCompile Include="XCCore\XCFont\XCFont.cpp" />
     <ClCompile Include="XCCore\Item\Item.cpp" />
     <ClCompile Include="XCCore\Item\Player.cpp" />
@@ -158,6 +160,7 @@
     <ClInclude Include="XCCore\Bullet\BulletHelper.h" />
     <ClInclude Include="XCCore\Bullet\CircleBullet.h" />
     <ClInclude Include="XCCore\Task\Task.h" />
+    <ClInclude Include="XCCore\Task\TaskDispatcher.h" />
     <ClInclude Include="XCCore\Task\TaskInsideUnit.h" />
     <ClInclude Include="XCCore\XCFont\XCFont.h" />
     <ClInclude Include="XCCore\Item\Item.h" />
