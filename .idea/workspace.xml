@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7e5e419c-fa07-405a-8b82-0fe439d18051" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Bullet/CircleBullet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Bullet/CircleBullet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Stage/Stage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Stage/Stage.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/script/XCCore.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/XCCore.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
