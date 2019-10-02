@@ -51,6 +51,7 @@ void CircleBullet::BulletRelease()
 	if (isInit) {
 		image->Release();
 		delete image;
+
 		isInit = false;
 	}
 }

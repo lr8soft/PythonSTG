@@ -160,6 +160,7 @@ void Stage::stageWork()
 		}
 		if ((*bullet)->getIsFinish()) {
 			(*bullet)->BulletRelease();
+			delete *bullet;
 			if (std::next(bullet) == stageBulletGroup.end()) {
 				stageBulletGroup.erase(bullet);
 				break;

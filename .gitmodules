@@ -1,0 +1,3 @@
+[submodule "Python2D/util/XMath"]
+	path = Python2D/util/XMath
+	url = https://github.com/Xrysnow/lstgx_Math.git

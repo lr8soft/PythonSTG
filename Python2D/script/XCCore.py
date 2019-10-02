@@ -7,8 +7,8 @@ from script.Object.Player import Player
 from script.Bullet.CircleBullet import CircleBullet
 from script.Bullet.Bullet import BulletColor
 # PySTG Init
-winHeight = 720
-winWidth = 1280
+winHeight = 800
+winWidth = 1440
 winTitle = "Python2D v0.16"
 winScaleToMonitor = True
 
@@ -51,11 +51,20 @@ def StageInit():
     for i in range(0,10):
         stage0.addItem(itemTest)
 
-    for j in range(0, 1800):
+    for j in range(0, 3600):
         bullet = CircleBullet([0.0,0.0,0.0])
-        bullet.setAngle(j, j / 1800)
-        bullet.setBulletColor(BulletColor.LIGHTBLUE)
-        bullet.setRebound(5)
+        bullet.setAngle(j,1)
+        if j % 3 == 0:
+            bullet.setBulletColor(BulletColor.LIGHTBLUE)
+        elif j % 5 == 0:
+            bullet.setBulletColor(BulletColor.ORANGE)
+        elif j % 7 == 0:
+            bullet.setBulletColor(BulletColor.PURPLE)
+        elif j % 8 ==0:
+            bullet.setBulletColor(BulletColor.WHITE)
+        else:
+            bullet.setBulletColor(BulletColor.RED)
+        bullet.setRebound(-1)
         stage0.addBullet(bullet)
 
     XCInit.addStageItem(stage0)
