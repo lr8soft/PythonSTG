@@ -85,6 +85,7 @@ void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float
 
 	glDisable(GL_BLEND);
 	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glUseProgram(0);
 }
 

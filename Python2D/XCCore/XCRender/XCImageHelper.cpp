@@ -70,8 +70,8 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rota
 		glUseProgram(ProgramHandle);
 	else
 		glUseProgram(ProgramHandleFx);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindVertexArray(vao);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBindTexture(GL_TEXTURE_2D, tbo);
 
@@ -99,12 +99,10 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rota
 
 void XCImageHelper::Release()
 {
+	glDeleteBuffers(1, &ebo);
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
-	glDeleteBuffers(1, &ebo);
-//	glDeleteTextures(1,  &tbo);
-
-//	textureGroup.erase(imagePath);
+	
 }
 
 

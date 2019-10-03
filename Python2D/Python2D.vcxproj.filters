@@ -93,7 +93,9 @@
     <ClCompile Include="XCCore\Task\TaskInsideUnit.cpp">
       <Filter>XCCore\Task</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\Task\TaskHelper.cpp" />
+    <ClCompile Include="XCCore\Task\TaskHelper.cpp">
+      <Filter>XCCore\Task</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">

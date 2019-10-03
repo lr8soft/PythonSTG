@@ -38,10 +38,10 @@ class TaskUnit:
             return NotImplemented
 
 class Task:
-    def __init__(self, repeatTime=0, intervalFrame=0, targetUuid=""):
+    def __init__(self, durationFrame=0, intervalFrame=0, targetUuid=""):
         self.taskUnitQueue = PriorityQueue()
         self.uuid = str(uuid.uuid1())
-        self.repeatTime = repeatTime
+        self.duration = durationFrame
         self.intervalFrame = intervalFrame
         self.targetUuid = targetUuid
 
@@ -68,5 +68,5 @@ class Task:
         return self.taskUnitQueue.get()
 
     def _cpp_getTaskInfo(self):
-        return self.uuid, self.targetUuid, self.repeatTime, self.intervalFrame
+        return self.uuid, self.targetUuid, self.duration, self.intervalFrame
 

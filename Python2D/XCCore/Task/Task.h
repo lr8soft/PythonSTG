@@ -7,8 +7,8 @@
 class Task {
 protected:
 	std::string taskUUID, targetUUID;
-	int taskRepeatTime = -1, taskIntervalFrame = 0;
-	int taskNowRepeatTime = 0, taskAccumlateTime = 0;
+	int taskDurationFrame = -1, taskIntervalFrame = 0;
+	int taskNowDurationFrame = 0, taskAccumlateTime = 0;
 	bool taskFinish = false, taskIsInit = false;
 
 	std::vector<TaskInsideUnit*> subUnitGroup;

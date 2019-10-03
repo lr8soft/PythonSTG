@@ -6,7 +6,7 @@ Task::Task(std::string taskUuid, std::string uuidForWaitTask, int repeatTime, in
 	taskUUID = taskUuid;
 	targetUUID = uuidForWaitTask;
 
-	taskRepeatTime = repeatTime;
+	taskDurationFrame = repeatTime;
 	taskIntervalFrame = intervalFrame;
 }
 
@@ -26,14 +26,15 @@ void Task::TaskInit()
 
 void Task::taskSubWork()
 {
-	if (taskNowRepeatTime < taskRepeatTime || taskRepeatTime < 0) {
+	if (taskNowDurationFrame < taskDurationFrame || taskDurationFrame < 0) {
 		if (taskAccumlateTime >= taskIntervalFrame) {
 			auto iterBegin = subUnitGroup.begin();
 			auto iterEnd = subUnitGroup.end();
 			for (auto unit = iterBegin; unit != iterEnd; unit++) {
-				if(!(*unit)->getIsEmpty())
+				if (!(*unit)->getIsEmpty()) {
 					(*unit)->UnitWork();
-				else {//release here
+				}
+				if ((*unit)->getIsEmpty()) {//release here
 					(*unit)->UnitRelease();
 					if (std::next(unit) == subUnitGroup.end()) {
 						subUnitGroup.erase(unit);
@@ -46,7 +47,7 @@ void Task::taskSubWork()
 					}
 				}
 			}
-			taskNowRepeatTime++;
+			taskNowDurationFrame++;
 		}
 		taskAccumlateTime++;
 	}
@@ -57,13 +58,15 @@ void Task::taskSubWork()
 
 void Task::TaskWork()
 {
-	if (targetUUID.empty()) {
-		taskSubWork();
-	}
-	else {
-		if (TaskDispatcher::getTaskFinish(targetUUID)) {
+	if (taskIsInit) {
+		if (targetUUID.empty()) {
 			taskSubWork();
 		}
+		else {
+			if (TaskDispatcher::getTaskFinish(targetUUID)) {
+				taskSubWork();
+			}
+		}	
 	}
 }
 
@@ -73,10 +76,11 @@ void Task::TaskRelease()
 	auto iterBegin = subUnitGroup.begin();
 	auto iterEnd = subUnitGroup.end();
 	for (auto unit = iterBegin; unit != iterEnd; unit++) {
-		(*unit)->UnitRelease();
+		//(*unit)->UnitRelease();
 		delete (*unit);
 	}
 	subUnitGroup.clear();
+	taskIsInit = false;
 }
 
 bool Task::getTaskFinish()

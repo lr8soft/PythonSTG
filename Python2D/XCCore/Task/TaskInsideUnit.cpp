@@ -20,11 +20,13 @@ void TaskInsideUnit::UnitWork()
 		for (auto bullet = iterBegin; bullet != iterEnd;bullet++) {
 			if (!(*bullet)->getIsFinish()) {
 				(*bullet)->BulletRender();
-			}else{
+			}
+			if ((*bullet)->getIsFinish()) {
 				(*bullet)->BulletRelease();
+				delete *bullet;
 				if (std::next(bullet) == bulletGroup.end()) {
 					bulletGroup.erase(bullet);
-					break;
+					return;
 				}
 				else {
 					bullet = bulletGroup.erase(bullet);
@@ -39,9 +41,11 @@ void TaskInsideUnit::UnitRelease()
 {
 	auto iterBegin = bulletGroup.begin();
 	auto iterEnd = bulletGroup.end();
-	for (auto iter = iterBegin; iter != iterEnd; iter++) {
-		(*iter)->BulletRelease();
-		delete *iter;
+	if (!bulletGroup.empty()) {
+		for (auto iter = iterBegin; iter != iterEnd; iter++) {
+			(*iter)->BulletRelease();
+			delete *iter;
+		}
 	}
 	bulletGroup.clear();
 }
