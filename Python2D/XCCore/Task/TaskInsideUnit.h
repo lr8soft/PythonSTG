@@ -17,5 +17,6 @@ public:
 	void UnitRelease();
 
 	void addBullet(Bullet* pBullet);
+	bool getIsEmpty();
 };
 #endif

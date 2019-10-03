@@ -2,11 +2,9 @@
 #ifndef _TASK_DISPATCHER_H_
 #define _TASK_DISPATCHER_H_
 #include <map>
-#include <mutex>
 #include <string>
 class TaskDispatcher {
 private:
-	static std::mutex taskMutex;
 	static std::map<std::string, bool> StageTaskGroup;
 public:
 	static void addTask(std::string uuid);

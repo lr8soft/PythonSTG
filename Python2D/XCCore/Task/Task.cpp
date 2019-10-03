@@ -31,7 +31,20 @@ void Task::taskSubWork()
 			auto iterBegin = subUnitGroup.begin();
 			auto iterEnd = subUnitGroup.end();
 			for (auto unit = iterBegin; unit != iterEnd; unit++) {
-				(*unit)->UnitWork();
+				if(!(*unit)->getIsEmpty())
+					(*unit)->UnitWork();
+				else {//release here
+					(*unit)->UnitRelease();
+					if (std::next(unit) == subUnitGroup.end()) {
+						subUnitGroup.erase(unit);
+						taskFinish = true;
+						break;
+					}
+					else {
+						unit = subUnitGroup.erase(unit);
+						iterEnd = subUnitGroup.end();
+					}
+				}
 			}
 			taskNowRepeatTime++;
 		}
@@ -69,6 +82,11 @@ void Task::TaskRelease()
 bool Task::getTaskFinish()
 {
 	return taskFinish;
+}
+
+bool Task::getTaskInit()
+{
+	return taskIsInit;
 }
 
 std::string Task::getTaskUUID()

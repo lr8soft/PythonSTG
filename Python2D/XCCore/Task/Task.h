@@ -25,6 +25,7 @@ public:
 	void TaskRelease();	
 
 	bool getTaskFinish();
+	bool getTaskInit();
 	std::string getTaskUUID();
 };
 #endif

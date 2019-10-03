@@ -49,7 +49,9 @@ void Stage::stageInit()
 				PyArg_Parse(itemObj, "O", &pItem);
 				
 				Task* task = TaskHelper::parseTaskFromObject(pItem);
-				stageTaskGroup.push_back(task);
+				if (task!=nullptr) {
+					stageTaskGroup.push_back(task);
+				}
 			}
 		}
 
@@ -61,7 +63,26 @@ void Stage::stageInit()
 void Stage::stageWork()
 {
 	timer.Tick();
+	std::vector<Task*>::iterator stageBegin = stageTaskGroup.begin();
+	std::vector<Task*>::iterator stageEnd = stageTaskGroup.end();
+	for (auto task = stageBegin; task != stageEnd; task++) {
+		if (!(*task)->getTaskInit())
+			(*task)->TaskInit();
 
+		if(!(*task)->getTaskFinish())
+			(*task)->TaskWork();
+		else {
+			(*task)->TaskRelease();
+			if (std::next(task) == stageTaskGroup.end()) {
+				stageTaskGroup.erase(task);
+				break;
+			}
+			else {
+				task = stageTaskGroup.erase(task);
+				stageEnd = stageTaskGroup.end();
+			}
+		}
+	}
 }
 
 void Stage::stageRelease()

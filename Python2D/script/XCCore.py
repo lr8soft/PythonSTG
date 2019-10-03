@@ -4,13 +4,15 @@ from script.RenderItem.RenderColorItem import RenderColorItem
 from script.Object.XCItem import XCItem
 from script.Stage.XCStage import XCStage
 from script.Object.Player import Player
+
+from script.Stage.Task import Task, TaskUnit
 from script.Bullet.CircleBullet import CircleBullet
 from script.Bullet.Bullet import BulletColor
 
 # PySTG Init
 winHeight = 800
 winWidth = 1440
-winTitle = "Python2D v0.16"
+winTitle = "Python2D v0.18"
 winScaleToMonitor = True
 
 
@@ -46,6 +48,43 @@ def UiInit():
 
 def StageInit():
     stage0 = XCStage("Stage TEST")
+    #task 0
+    taskTest = Task(repeatTime=-1,intervalFrame=0)
+    #bullet group 0
+    unit0 = TaskUnit()
+    for j in range(0, 36):
+        bullet = CircleBullet([0.0,0.0,0.0],0.006)
+        bullet.setAngle(j*10, 0.001)
+        unit0.addBullet(bullet)
+
+    taskTest.addUnit(unit0)
+    #bullet group 1
+    unit1 = TaskUnit(waitFrame=120)
+    for i in range(0,36):
+        if i % 2==0:
+            bullet = CircleBullet([0.5, 0.5, 0.0], 0.01)
+            bullet.setBulletColor(BulletColor.ORANGE)
+            bullet.setAngle(i*10)
+            unit1.addBullet(bullet)
+        else:
+            bullet = CircleBullet([-0.5, -0.5, 0.0], 0.01)
+            bullet.setBulletColor(BulletColor.PURPLE)
+            bullet.setAngle(i*10)
+            unit1.addBullet(bullet)
+    taskTest.addUnit(unit1)
+    stage0.addTask(taskTest)
+
+    #task 2
+    taskAfter = Task(repeatTime=-1, intervalFrame=0,targetUuid=taskTest.getUuid())
+    unit2_0 = TaskUnit()
+    for j in range(0, 360):
+        bullet = CircleBullet([0.0, 0.0, 0.0], 0.006)
+        bullet.setAngle(j, 2)
+        bullet.setRebound(-1)
+        bullet.setBulletColor(BulletColor.LIGHTBLUE)
+        unit2_0.addBullet(bullet)
+    taskAfter.addUnit(unit2_0)
+    stage0.addTask(taskAfter)
     XCInit.addStageItem(stage0)
     print("[XCCore]Stage info init.")
 
