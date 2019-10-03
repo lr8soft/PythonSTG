@@ -43,7 +43,6 @@ void Player::ItemRender()
 {
 	if (isInit) {
 		playerKeyCheck();
-		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		switch (playerNowState) {
@@ -102,6 +101,9 @@ void Player::playerKeyCheck()
 	renderDecisionPoint = false;
 	bool have_player_change_state = false;
 	auto screen = XCFrame::getInstance()->getScreen();
+
+	float renderX = NowPosition[0] * XCFrameInfo::FrameRight;
+	float renderY = NowPosition[1] * XCFrameInfo::FrameTop;
 	if (glfwGetKey(screen, GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(screen, true);
 	}
@@ -112,28 +114,28 @@ void Player::playerKeyCheck()
 		renderDecisionPoint = true;
 	}
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyUp) == GLFW_PRESS) {
-		if (NowPosition[1] + moveSpeed < XCFrameInfo::FrameTop)//防止越界
-			NowPosition[1] += moveSpeed * XCFrameInfo::FrameTop;
+		if ( (NowPosition[1] + moveSpeed)*XCFrameInfo::FrameTop < XCFrameInfo::FrameTop)//防止越界
+			NowPosition[1] += moveSpeed;
 		setPlayerDirection(PLAYER_STANDBY);
 		have_player_change_state = true;
 	}
 
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyDown) == GLFW_PRESS) {
-		if (NowPosition[1] - moveSpeed > XCFrameInfo::FrameBottom)
-			NowPosition[1] -= moveSpeed * XCFrameInfo::FrameTop;
+		if ( (NowPosition[1] - moveSpeed)*XCFrameInfo::FrameTop > XCFrameInfo::FrameBottom)
+			NowPosition[1] -= moveSpeed;
 		setPlayerDirection(PLAYER_STANDBY);
 		have_player_change_state = true;
 	}
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyRight) == GLFW_PRESS) {
-		if (NowPosition[0] + moveSpeed < XCFrameInfo::FrameRight)
-			NowPosition[0] += moveSpeed * XCFrameInfo::FrameRight;
+		if ( (NowPosition[0] + moveSpeed)*XCFrameInfo::FrameRight < XCFrameInfo::FrameRight)
+			NowPosition[0] += moveSpeed;
 		setPlayerDirection(PLAYER_TURNRIGHT);
 		have_player_change_state = true;
 	}
 
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyLeft) == GLFW_PRESS) {
-		if (NowPosition[0] - moveSpeed > XCFrameInfo::FrameLeft)
-			NowPosition[0] -= moveSpeed * XCFrameInfo::FrameRight;
+		if ( (NowPosition[0] - moveSpeed)*XCFrameInfo::FrameRight > XCFrameInfo::FrameLeft)
+			NowPosition[0] -= moveSpeed;
 		setPlayerDirection(PLAYER_TURNLEFT);
 		have_player_change_state = true;
 	}

@@ -128,3 +128,8 @@ double XCGameTimer::getAccumlateTime()
 {
 	return accumulateTime;
 }
+
+bool XCGameTimer::getIsPause()
+{
+	return IsPause;
+}

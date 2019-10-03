@@ -21,5 +21,7 @@ public:
 	float getLastFrame();
 	float getFPS();
 	double getAccumlateTime();
+
+	static bool getIsPause();
 };
 #endif

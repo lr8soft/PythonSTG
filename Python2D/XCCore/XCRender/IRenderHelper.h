@@ -65,7 +65,7 @@ public:
 		return returnArray;
 	}
 	static float *GetSquareVertices(float widthRate, float heightRate) {
-		static float vertices[] = {
+		static float vertices[8] = {
 			 widthRate, heightRate,
 			 widthRate,-heightRate,
 			-widthRate,-heightRate,

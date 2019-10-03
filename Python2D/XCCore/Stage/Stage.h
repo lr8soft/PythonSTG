@@ -5,20 +5,13 @@
 #include <GL/glcorearb.h>
 #include <string>
 #include <vector>
-#include "../Item/Item.h"
-#include "../Bullet/Bullet.h"
+#include "../Task/Task.h"
 #include "../../util/GameTimer.h"
-struct itemStruct {
-	Item* item;
-	bool useBlend;
-	GLenum colorFunc;
-	GLenum alphaFunc;
-};
+
 class Stage {
 private:
 	std::string stageUuid;
-	std::vector<itemStruct> stageItemGroup;
-	std::vector<Bullet*> stageBulletGroup;
+	std::vector<Task*> stageTaskGroup;
 
 	XCGameTimer timer;
 	PyObject* itemStage;

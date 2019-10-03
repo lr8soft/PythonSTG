@@ -68,9 +68,15 @@ void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float
 		glBufferSubData(GL_ARRAY_BUFFER, 0,  sizeof(data::vertices), IRenderHelper::GetSquareVertices(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop));
 	}
 	glm::mat4 mvp_mat;
-	mvp_mat = glm::translate(mvp_mat, renderPos);
-	mvp_mat = glm::rotate(mvp_mat, glm::degrees(rotateAngle), rotateWork);
+	if (!isFlexible) {
+		mvp_mat = glm::translate(mvp_mat, renderPos);
+	}
+	else {
+		mvp_mat = glm::translate(mvp_mat, renderPos * glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f));
+	}
 	mvp_mat = glm::scale(mvp_mat, scaleSize);
+	mvp_mat = glm::rotate(mvp_mat, glm::degrees(rotateAngle), rotateWork);
+	
 	auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
 	auto color_location = glGetUniformLocation(ProgramHandle, "color");
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
