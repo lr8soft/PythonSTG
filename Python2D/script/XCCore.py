@@ -10,7 +10,7 @@ from script.Bullet.CircleBullet import CircleBullet
 from script.Bullet.Bullet import BulletColor
 
 # PySTG Init
-winHeight = 800
+winHeight = 720
 winWidth = 1440
 winTitle = "Python2D v0.18"
 winScaleToMonitor = True
@@ -49,9 +49,9 @@ def UiInit():
 def StageInit():
     stage0 = XCStage("Stage TEST")
     #task 0
-    taskTest = Task(repeatTime=-1,intervalFrame=0)
+    taskTest = Task(durationFrame=-1,intervalFrame=0)
     #bullet group 0
-    unit0 = TaskUnit()
+    unit0 = TaskUnit(waitFrame=60)
     for j in range(0, 36):
         bullet = CircleBullet([0.0,0.0,0.0],0.006)
         bullet.setAngle(j*10, 0.001)
@@ -75,12 +75,11 @@ def StageInit():
     stage0.addTask(taskTest)
 
     #task 2
-    taskAfter = Task(repeatTime=-1, intervalFrame=0,targetUuid=taskTest.getUuid())
+    taskAfter = Task(durationFrame=-1, intervalFrame=0,targetUuid=taskTest.getUuid())
     unit2_0 = TaskUnit()
     for j in range(0, 360):
         bullet = CircleBullet([0.0, 0.0, 0.0], 0.006)
-        bullet.setAngle(j, 2)
-        bullet.setRebound(-1)
+        bullet.setAngle(j)
         bullet.setBulletColor(BulletColor.LIGHTBLUE)
         unit2_0.addBullet(bullet)
     taskAfter.addUnit(unit2_0)

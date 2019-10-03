@@ -71,7 +71,8 @@ void Stage::stageWork()
 
 		if(!(*task)->getTaskFinish())
 			(*task)->TaskWork();
-		else {
+
+		if((*task)->getTaskFinish()) {
 			(*task)->TaskRelease();
 			if (std::next(task) == stageTaskGroup.end()) {
 				stageTaskGroup.erase(task);
