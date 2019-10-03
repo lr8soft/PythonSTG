@@ -93,6 +93,7 @@
     <ClCompile Include="XCCore\Task\TaskInsideUnit.cpp">
       <Filter>XCCore\Task</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\Task\TaskHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -164,6 +165,9 @@
       <Filter>XCCore\Task</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\Task\TaskDispatcher.h">
+      <Filter>XCCore\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Task\TaskHelper.h">
       <Filter>XCCore\Task</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,7 +10,7 @@ private:
 
 	std::vector<Bullet*> bulletGroup;
 public:
-	TaskInsideUnit(int waitFrame = 0, int workInterval = 0, int repeatTime = 1);
+	TaskInsideUnit(int waitFrame, int workInterval, int repeatTime);
 
 	void UnitInit();
 	void UnitWork();
