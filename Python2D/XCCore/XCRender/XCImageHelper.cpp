@@ -45,10 +45,12 @@ XCImageHelper::XCImageHelper(std::string path, bool isRenderFlexible)
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ebo);
 
+	glBindVertexArray(vao);
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glBindVertexArray(vao);
+	
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	if (!isFlexible) {
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -71,7 +73,7 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rota
 	else
 		glUseProgram(ProgramHandleFx);
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBindTexture(GL_TEXTURE_2D, tbo);
 

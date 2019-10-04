@@ -40,10 +40,10 @@ XCColorBlockHelper::XCColorBlockHelper(bool fx)
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ebo);
 
+	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(data::indices), data::indices, GL_STATIC_DRAW);
 
-	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	if (!isFlexible) {
 		glBufferData(GL_ARRAY_BUFFER, sizeof(data::vertices), data::vertices, GL_STATIC_DRAW);
@@ -61,7 +61,7 @@ void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glUseProgram(ProgramHandle);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	if (isFlexible) {
