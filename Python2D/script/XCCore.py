@@ -11,7 +11,7 @@ from script.Bullet.Bullet import BulletColor
 
 # PySTG Init
 winHeight = 720
-winWidth = 1440
+winWidth = 1280
 winTitle = "Python2D v0.18"
 winScaleToMonitor = True
 
@@ -51,15 +51,14 @@ def StageInit():
     #task 0
     taskTest = Task(durationFrame=-1,intervalFrame=0)
     #bullet group 0
-    unit0 = TaskUnit(waitFrame=60)
+    unit0 = TaskUnit(waitFrame=240)
     for j in range(0, 36):
         bullet = CircleBullet([0.0,0.0,0.0],0.006)
         bullet.setAngle(j*10, 0.001)
         unit0.addBullet(bullet)
-
     taskTest.addUnit(unit0)
     #bullet group 1
-    unit1 = TaskUnit(waitFrame=120)
+    unit1 = TaskUnit(waitFrame=300)
     for i in range(0,36):
         if i % 2==0:
             bullet = CircleBullet([0.5, 0.5, 0.0], 0.01)
@@ -81,6 +80,7 @@ def StageInit():
         bullet = CircleBullet([0.0, 0.0, 0.0], 0.006)
         bullet.setAngle(j)
         bullet.setBulletColor(BulletColor.LIGHTBLUE)
+        bullet.setRebound(1)
         unit2_0.addBullet(bullet)
     taskAfter.addUnit(unit2_0)
     stage0.addTask(taskAfter)

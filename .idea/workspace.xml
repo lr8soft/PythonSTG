@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7e5e419c-fa07-405a-8b82-0fe439d18051" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/Python2D.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/Python2D.vcxproj.filters" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Stage/Stage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Stage/Stage.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Task/Task.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Task/Task.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskInsideUnit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskInsideUnit.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Python2D/XCCore/XCRender/XCColorBlockHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/XCRender/XCColorBlockHelper.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Python2D/XCCore/XCRender/XCImageHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/XCRender/XCImageHelper.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/script/Stage/Task.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/Stage/Task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/XCFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCFrame.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Python2D/script/XCCore.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/XCCore.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
