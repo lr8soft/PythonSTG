@@ -7,9 +7,12 @@
 #include <vector>
 #include "../Task/Task.h"
 #include "../../util/GameTimer.h"
-
+#include "../Background/BackgroundHelper.h"
 class Stage {
 private:
+	int stageBackgroundID;
+	Background* stageBackground;
+
 	std::string stageUuid;
 	std::vector<Task*> stageTaskGroup;
 
@@ -20,13 +23,15 @@ private:
 	GLenum parseColorFunc(int src);
 public:
 	Stage() = delete;
-	Stage(std::string uuid, PyObject* item);
+	Stage(std::string uuid, PyObject* item,int backgroundID = 0);
 	void stageInit();
 	void stageWork();
 	void stageRelease();
 	bool getStageInit();
 	bool getStageFinish();
 	std::string getUuid();
+	Background* getBackgroundPointer();
+
 
 };
 #endif

@@ -7,6 +7,7 @@
 #include "IRenderHelper.h"
 #include "../Stage/Stage.h"
 #include "../Item/Player.h"
+#include "../Background/Background.h"
 struct StaticRenderItem {
 	std::string renderType;
 	std::string imagePath;
@@ -24,6 +25,8 @@ class RenderManager {
 private:
 	std::vector<Stage*> stageQueue;
 	std::vector<StaticRenderItem> staticQueue;
+
+	Background *renderBackground = nullptr;
 	Player* playerP1;
 
 	static RenderManager* pRManager;

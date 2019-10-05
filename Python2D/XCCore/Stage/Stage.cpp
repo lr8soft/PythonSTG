@@ -30,10 +30,12 @@ GLenum Stage::parseColorFunc(int src)
 		return GL_NONE;
 	}
 }
-Stage::Stage(std::string uuid, PyObject* item)
+Stage::Stage(std::string uuid, PyObject* item, int backgroundID)
 {
 	itemStage = item;
 	stageUuid = uuid;
+
+	stageBackgroundID = backgroundID;
 }
 
 void Stage::stageInit()
@@ -56,6 +58,8 @@ void Stage::stageInit()
 		}
 
 		MultiThreadDefineEnd
+		stageBackground = BackgroundHelper::getBackgroundByID(stageBackgroundID);
+		stageBackground->BackgroundInit();
 		isStageInit = true;
 	}
 }
@@ -88,6 +92,10 @@ void Stage::stageWork()
 
 void Stage::stageRelease()
 {
+	if (stageBackground != nullptr) {
+		stageBackground->BackgroundRelease();
+		delete stageBackground;
+	}
 }
 
 bool Stage::getStageInit()
@@ -103,4 +111,9 @@ bool Stage::getStageFinish()
 std::string Stage::getUuid()
 {
 	return stageUuid;
+}
+
+Background * Stage::getBackgroundPointer()
+{
+	return stageBackground;
 }

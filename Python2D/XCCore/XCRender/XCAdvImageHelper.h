@@ -1,0 +1,27 @@
+#pragma once
+#ifndef _XCADVIMAGE_HELPER_H_
+#define _XCADVIMAGE_HELPER_H_
+#include <GL/glcorearb.h>
+#include "IRenderHelper.h"
+#include <iostream>
+class XCAdvImageHelper :public IRenderHelper {
+private:
+	GLushort indices[6] = {0, 1, 2, 2, 3, 0};
+	glm::mat4 mvp_matrix;
+	GLuint vao, vbo, ebo, tbo;
+	std::string imagePath;
+	static GLuint ProgramHandle;
+	static bool haveProgramInit;
+public:
+	XCAdvImageHelper() = delete;
+	XCAdvImageHelper(std::string path);
+
+	void setMvpMatrix(glm::mat4 mvp_mat);
+	/*…Ë÷√mvpæÿ’Û«ÎsetMvpMatrix*/
+	virtual void Render(glm::vec3 placeholderVec3, glm::vec4 coverColor, float placeholder = 0.0f, glm::vec3 PlaceholderVec3_2 = glm::vec3(0, 0, 0),
+		glm::vec3 placeholderVec3_3 = glm::vec3(1.0f, 1.0f, 1.0f), float *texuturePos16xFloat = nullptr) override;
+	virtual void Release() override;
+
+	static GLuint getProgramHandle();
+};
+#endif

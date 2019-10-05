@@ -28,6 +28,9 @@
     <Filter Include="XCCore\Task">
       <UniqueIdentifier>{303b8fc6-942a-443b-85e0-f81bdcf099af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\Background">
+      <UniqueIdentifier>{f2bb86c8-b3aa-4e55-9427-8633fcd22128}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -95,6 +98,15 @@
     </ClCompile>
     <ClCompile Include="XCCore\Task\TaskHelper.cpp">
       <Filter>XCCore\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Background\Lake.cpp">
+      <Filter>XCCore\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Background\BackgroundHelper.cpp">
+      <Filter>XCCore\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\XCAdvImageHelper.cpp">
+      <Filter>XCCore\XCRender</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +183,18 @@
     </ClInclude>
     <ClInclude Include="XCCore\Task\TaskHelper.h">
       <Filter>XCCore\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Background\Background.h">
+      <Filter>XCCore\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Background\Lake.h">
+      <Filter>XCCore\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Background\BackgroundHelper.h">
+      <Filter>XCCore\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\XCAdvImageHelper.h">
+      <Filter>XCCore\XCRender</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

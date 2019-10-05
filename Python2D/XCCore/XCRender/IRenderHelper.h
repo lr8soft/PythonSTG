@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 class IRenderHelper {
 public:
-	virtual void Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle = 0.0f, glm::vec3 rotateWork = glm::vec3(0, 0, 0),
+	virtual void Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngleRadians = 0.0f, glm::vec3 rotateWork = glm::vec3(0, 0, 0),
 		glm::vec3 scaleSize = glm::vec3(1.0f, 1.0f, 1.0f), float *dataPointer = nullptr) = 0;
 	virtual void Release() = 0;
 
@@ -61,6 +61,32 @@ public:
 		returnArray[13] = height_rate,
 			returnArray[14] = (x - 1) / column;
 		returnArray[15] = y / row;
+
+		return returnArray;
+	}
+
+	static float * GetSpecificTexWithRatef(float width_rate, float height_rate, int column, int row, float xcoord, float ycoord)
+	{
+		static float returnArray[16];
+		returnArray[0] = width_rate;
+		returnArray[1] = height_rate;
+		returnArray[2] = xcoord / column;
+		returnArray[3] = ycoord / row;
+
+		returnArray[4] = width_rate;
+		returnArray[5] = -height_rate,
+			returnArray[6] = xcoord / column;
+		returnArray[7] = (ycoord - 1) / row;
+
+		returnArray[8] = -width_rate;
+		returnArray[9] = -height_rate,
+			returnArray[10] = (xcoord - 1) / column;
+		returnArray[11] = (ycoord - 1) / row;
+
+		returnArray[12] = -width_rate;
+		returnArray[13] = height_rate,
+			returnArray[14] = (xcoord - 1) / column;
+		returnArray[15] = ycoord / row;
 
 		return returnArray;
 	}
