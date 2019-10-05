@@ -59,8 +59,10 @@ void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glUseProgram(ProgramHandle);
+	if (!isFlexible) 
+		glUseProgram(ProgramHandle);
+	else
+		glUseProgram(ProgramHandleFx);
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -78,9 +80,16 @@ void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float
 	mvp_mat = glm::rotate(mvp_mat, glm::degrees(rotateAngle), rotateWork);
 	
 	auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
-	auto color_location = glGetUniformLocation(ProgramHandle, "color");
+	if (isFlexible) {
+		auto color_location = glGetUniformLocation(ProgramHandleFx, "diffuse_color");
+		glUniform4fv(color_location, 1, glm::value_ptr(coverColor));
+	}
+	else{
+		auto color_location = glGetUniformLocation(ProgramHandle, "font_color");
+		glUniform4fv(color_location, 1, glm::value_ptr(coverColor));
+	}
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
-	glUniform4fv(color_location, 1, glm::value_ptr(coverColor));
+	
 	glDrawElements(GL_TRIANGLES, sizeof(data::indices) / sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);
 
 	glDisable(GL_BLEND);

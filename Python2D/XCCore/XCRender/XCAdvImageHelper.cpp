@@ -59,7 +59,7 @@ void XCAdvImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float r
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBindTexture(GL_TEXTURE_2D, tbo);
 
-	auto color_location = glGetUniformLocation(ProgramHandle, "render_color");
+	auto color_location = glGetUniformLocation(ProgramHandle, "diffuse_color");
 	glUniform4fv(color_location, 1, glm::value_ptr(coverColor));
 
 	auto mvp_fx_location = glGetUniformLocation(ProgramHandle, "mvp_mat");

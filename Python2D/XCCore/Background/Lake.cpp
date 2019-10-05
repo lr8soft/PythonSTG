@@ -53,7 +53,7 @@ void LakeBackground::renderLakeImage()
 		model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.0f)*reshape);
 		model = glm::scale(model, glm::vec3(0.5f));
 		lake->setMvpMatrix(model);
-		lake->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
+		lake->Render(glm::vec3(0.0f), lakeColor, 0.0f, glm::vec3(0), glm::vec3(0.0f),
 			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop,1, 1, renderX, renderY));
 	}
 	{
@@ -61,7 +61,7 @@ void LakeBackground::renderLakeImage()
 		model = glm::translate(model, glm::vec3(0.5f, -0.5f, 0.0f)*reshape);
 		model = glm::scale(model, glm::vec3(0.5f));
 		lake->setMvpMatrix(model);
-		lake->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
+		lake->Render(glm::vec3(0.0f), lakeColor, 0.0f, glm::vec3(0), glm::vec3(0.0f),
 			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
 	}
 	{
@@ -69,7 +69,7 @@ void LakeBackground::renderLakeImage()
 		model = glm::translate(model, glm::vec3(-0.5f, -0.5f, 0.0f)*reshape);
 		model = glm::scale(model, glm::vec3(0.5f));
 		lake->setMvpMatrix(model);
-		lake->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
+		lake->Render(glm::vec3(0.0f), lakeColor, 0.0f, glm::vec3(0), glm::vec3(0.0f),
 			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
 	}
 	{
@@ -77,7 +77,7 @@ void LakeBackground::renderLakeImage()
 		model = glm::translate(model, glm::vec3(-0.5f, 0.5f, 0.0f)*reshape);
 		model = glm::scale(model, glm::vec3(0.5f));
 		lake->setMvpMatrix(model);
-		lake->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
+		lake->Render(glm::vec3(0.0f), lakeColor, 0.0f, glm::vec3(0), glm::vec3(0.0f),
 			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
 	}
 }
@@ -85,40 +85,25 @@ void LakeBackground::renderLakeImage()
 void LakeBackground::renderWaterImage()
 {
 	glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);//GL_ONE_MINUS_SRC_ALPHA
 	//glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);
 	{
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.0f)*reshape);
-		model = glm::scale(model, glm::vec3(0.5f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.5f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.5f,1.0f));
 		water->setMvpMatrix(model);
 		water->Render(glm::vec3(0.0f), waterColor, 0.0f, glm::vec3(0), glm::vec3(0.0f),
 			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 2, waterX, waterY));
 	}
 	{
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.5f, -0.5f, 0.0f)*reshape);
-		model = glm::scale(model, glm::vec3(0.5f));
+		model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.5f, 1.0f));
 		water->setMvpMatrix(model);
 		water->Render(glm::vec3(0.0f), waterColor, 0.0f, glm::vec3(0), glm::vec3(0.0f),
 			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 2, waterX, waterY));
 	}
-	{
-		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(-0.5f, -0.5f, 0.0f)*reshape);
-		model = glm::scale(model, glm::vec3(0.5f));
-		water->setMvpMatrix(model);
-		water->Render(glm::vec3(0.0f), waterColor, 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 2, waterX, waterY));
-	}
-	{
-		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(-0.5f, 0.5f, 0.0f)*reshape);
-		model = glm::scale(model, glm::vec3(0.5f));
-		water->setMvpMatrix(model);
-		water->Render(glm::vec3(0.0f), waterColor, 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 2, waterX, waterY));
-	}
+	
 }
 
 void LakeBackground::renderLeafImage()

@@ -90,11 +90,11 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rota
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
 
 	if (isFlexible) {
-		auto color_location = glGetUniformLocation(ProgramHandleFx, "render_color");
+		auto color_location = glGetUniformLocation(ProgramHandleFx, "diffuse_color");
 		glUniform4fv(color_location,1,glm::value_ptr(coverColor));
 
 		auto mvp_fx_location = glGetUniformLocation(ProgramHandleFx, "mvp_mat");
-		glUniformMatrix4fv(ProgramHandleFx, 1, GL_FALSE, glm::value_ptr(mvp_mat));
+		glUniformMatrix4fv(mvp_fx_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
 		glBufferSubData(GL_ARRAY_BUFFER, 0, 16 * sizeof(float), texturePos16xFloat);
 	}
 	glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);

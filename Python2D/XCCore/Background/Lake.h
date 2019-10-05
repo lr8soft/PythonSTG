@@ -12,7 +12,8 @@ private:
 	XCAdvImageHelper *lake, *leef, *water;
 	float renderX = 0.0f, renderY = 0.0f, waterX = 1.0f, waterY = 1.0f;
 
-	glm::vec4 waterColor = glm::vec4(0.37f, 1.0f, 1.0f, 0.57f);
+	glm::vec4 lakeColor = glm::vec4(1.0f, 1.0f,1.0f,1.0f);
+	glm::vec4 waterColor = glm::vec4(0.6f, 0.6f, 1.0f, 0.4f);
 
 	bool isInit = false;
 	void renderLakeImage();
