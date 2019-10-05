@@ -62,14 +62,17 @@ void RenderManager::RenderWork()
 			);
 		}
 	}
-	if (playerP1!=nullptr) {
+	if (renderBackground != nullptr) {
+		renderBackground->BackgroundRender();
+	}
+	if (playerP1 != nullptr) {
 		if (!playerP1->getIsInit()) {
 			playerP1->ItemInit();
 		}
 		if (playerP1->getIsInit()) {
 			playerP1->ItemRender();
 		}
-		
+
 	}
 	std::vector<Stage*>::iterator stageBegin = stageQueue.begin();
 	std::vector<Stage*>::iterator stageEnd = stageQueue.end();
@@ -77,9 +80,11 @@ void RenderManager::RenderWork()
 		Stage* stageItem = (*stageBegin);
 		if (!stageItem->getStageInit()) {
 			stageItem->stageInit();
+			renderBackground = stageItem->getBackgroundPointer();
 		}
 		if (stageItem->getStageFinish()) {
 			stageQueue.erase(stageBegin);
+			renderBackground = nullptr;
 			delete stageItem;
 			return;
 		}
@@ -87,6 +92,7 @@ void RenderManager::RenderWork()
 			stageItem->stageWork();
 		}
 	}
+
 }
 
 Player * RenderManager::getPlayerP1()

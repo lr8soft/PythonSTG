@@ -17,6 +17,8 @@ void XCFrame::FrameInit()
 	InitInfo info = interpreter->ScriptLaunch();
 	FrameWidth = info.winWidth;
 	FrameHeight = info.winHeight;
+	XCFrameInfo::ScreenHeight = info.winHeight;
+	XCFrameInfo::ScreenWidth = info.winWidth;
 
 	float smallSize = FrameWidth > FrameHeight ? FrameHeight : FrameWidth;
 	float absWidth = smallSize / (float)FrameWidth;
@@ -74,21 +76,25 @@ void XCFrame::FrameFinalize()
 }
 void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
 {
-	glViewport(0, 0, w, h);
-	FrameWidth = w;
-	FrameHeight = h;
+	if (w > 0 && h > 0) {
+		glViewport(0, 0, w, h);
+		FrameWidth = w;
+		FrameHeight = h;
 
-	float smallSize = FrameWidth > FrameHeight ? FrameHeight : FrameWidth;
-	float absWidth = smallSize / (float)FrameWidth;
-	float absHeight = smallSize / (float)FrameHeight;
+		float smallSize = FrameWidth > FrameHeight ? FrameHeight : FrameWidth;
+		float absWidth = smallSize / (float)FrameWidth;
+		float absHeight = smallSize / (float)FrameHeight;
 
-	XCFrameInfo::FrameRight = absWidth;
-	XCFrameInfo::FrameLeft = -absWidth;
-	XCFrameInfo::FrameTop = absHeight;
-	XCFrameInfo::FrameBottom = -absHeight;
+		XCFrameInfo::FrameRight = absWidth;
+		XCFrameInfo::FrameLeft = -absWidth;
+		XCFrameInfo::FrameTop = absHeight;
+		XCFrameInfo::FrameBottom = -absHeight;
 
-	XCFont::FontSetWidthAndHeight(h, w);
-	
+		XCFrameInfo::ScreenHeight = h;
+		XCFrameInfo::ScreenWidth = w;
+
+		XCFont::FontSetWidthAndHeight(h, w);
+	}
 }
 
 XCFrame * XCFrame::getInstance()
@@ -111,6 +117,8 @@ XCFrame::XCFrame() {
 		cfg.AddNewInfo("p1_left", std::to_string(GLFW_KEY_LEFT));
 		cfg.AddNewInfo("p1_right", std::to_string(GLFW_KEY_RIGHT));
 		cfg.AddNewInfo("p1_shoot", std::to_string(GLFW_KEY_Z));
+		cfg.AddNewInfo("p1_special", std::to_string(GLFW_KEY_X));
+		cfg.AddNewInfo("p1_item", std::to_string(GLFW_KEY_C));
 		cfg.AddNewInfo("p1_slow", std::to_string(GLFW_KEY_LEFT_SHIFT));
 	}
 	else {

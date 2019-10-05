@@ -66,7 +66,7 @@ XCImageHelper::XCImageHelper(std::string path, bool isRenderFlexible)
 	}
 }
 
-void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle, glm::vec3 rorateWorkCoord,glm::vec3 scaleSize, float *texuturePos16xFloat)
+void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle, glm::vec3 rorateWorkCoord,glm::vec3 scaleSize, float *texturePos16xFloat)
 {
 	if (!isFlexible)
 		glUseProgram(ProgramHandle);
@@ -85,12 +85,17 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rota
 		mvp_mat = glm::translate(mvp_mat, renderPos * glm::vec3(XCFrameInfo::FrameRight,XCFrameInfo::FrameTop,1.0f));
 	}
 	mvp_mat = glm::scale(mvp_mat, scaleSize);
-	mvp_mat = glm::rotate(mvp_mat, glm::degrees(rotateAngle), rorateWorkCoord);
+	mvp_mat = glm::rotate(mvp_mat, rotateAngle, rorateWorkCoord);
 	auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
 	glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
 
 	if (isFlexible) {
-		glBufferSubData(GL_ARRAY_BUFFER, 0, 16 * sizeof(float), texuturePos16xFloat);
+		auto color_location = glGetUniformLocation(ProgramHandleFx, "diffuse_color");
+		glUniform4fv(color_location,1,glm::value_ptr(coverColor));
+
+		auto mvp_fx_location = glGetUniformLocation(ProgramHandleFx, "mvp_mat");
+		glUniformMatrix4fv(mvp_fx_location, 1, GL_FALSE, glm::value_ptr(mvp_mat));
+		glBufferSubData(GL_ARRAY_BUFFER, 0, 16 * sizeof(float), texturePos16xFloat);
 	}
 	glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);
 	
