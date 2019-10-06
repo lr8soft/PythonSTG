@@ -74,6 +74,7 @@ void GameInfoInterface::UserInterfaceRender()
 			playerInfoImage2->setMvpMatrix(nowScoreMat);
 			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 2, 2));
+
 			BlendEnd
 
 			//font start render
