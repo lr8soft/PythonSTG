@@ -52,7 +52,7 @@ void GameInfoInterface::UserInterfaceRender()
 			//hightscore render start
 			float highScoreWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
 			float highScoreHeight = highScoreWidth / 3.0f;
-			float highScoreX = XCFrameInfo::FrameRight + highScoreWidth / 1.8f;
+			float highScoreX = XCFrameInfo::FrameRight + highScoreWidth / 1.6f;
 			float highScoreY = rankY - rankHeight - highScoreHeight * 2.0f;
 			glm::mat4 highScoreMat;
 			highScoreMat = glm::translate(highScoreMat, glm::vec3(highScoreX, highScoreY, 0.0f));
@@ -65,7 +65,7 @@ void GameInfoInterface::UserInterfaceRender()
 			//nowscore render start
 			float nowScoreWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
 			float nowScoreHeight = nowScoreWidth / 3.0f;
-			float nowScoreX = XCFrameInfo::FrameRight + nowScoreWidth / 1.8f;
+			float nowScoreX = XCFrameInfo::FrameRight + nowScoreWidth / 1.6f;
 			float nowScoreY = highScoreY  - nowScoreWidth ;
 			glm::mat4 nowScoreMat;
 			nowScoreMat = glm::translate(nowScoreMat, glm::vec3(nowScoreX, nowScoreY, 0.0f));
@@ -79,21 +79,21 @@ void GameInfoInterface::UserInterfaceRender()
 			//font start render
 			
 			float hsFontX = XCFrameInfo::FrameRight + (1.0f - XCFrameInfo::FrameRight) / 2 + highScoreWidth / 1.4f;
-			float hsFontY = rankY;
+			float hsFontY = rankY - nowScoreHeight/2.6f;
 			fontHelper.FontSetWidthAndHeight(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
 			static std::stringstream ss; ss.str(""); 
 			ss << std::setfill('0') << std::setw(10) << highScore << std::endl;
 			std::string highscoreStr;  ss >> highscoreStr;
-			fontHelper.FontASCIIRender(highscoreStr, hsFontX, hsFontY, 0.5f, glm::vec4(0.3f,0.3f,0.3f,0.6f));
+			fontHelper.FontASCIIRender(highscoreStr, hsFontX, hsFontY, 0.5f, glm::vec4(0.8f,0.8f,0.8f, 0.6f));
 
 			float nsFontX = hsFontX;
-			float nsFontY = hsFontY - highScoreHeight * 1.5f;
+			float nsFontY = hsFontY - highScoreHeight * 1.3f;
 			ss.str("");
 			ss << std::setfill('0') << std::setw(10) << nowScore++ << std::endl;//////////test
 			std::string nowscoreStr; ss >> nowscoreStr;
-			fontHelper.FontASCIIRender(nowscoreStr, nsFontX, nsFontY, 0.5f, glm::vec4(0.3f, 0.3f, 0.3f, 1.0f));
+			fontHelper.FontASCIIRender(nowscoreStr, nsFontX, nsFontY, 0.5f, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
 
-			fontHelper.FontASCIIRender(std::to_string((int)infoTimer.getFramePerSecond()), 0.0f, 0.0f, 1.0f, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));//fps render
+			fontHelper.FontASCIIRender(std::to_string((int)infoTimer.getFramePerSecond()), 0.0f, 0.0f, 1.0f, glm::vec4(0.0f, 0.0f, 0.8f, 1.0f));//fps render
 
 		}
 

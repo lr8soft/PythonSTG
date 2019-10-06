@@ -83,7 +83,7 @@ def StageInit():
         bullet = HugeBullet([0.0, 0.0, 0.0], 0.009)
         bullet.setAngle(j*10 , 1)
         bullet.setBulletColor(BulletColor.LIGHTBLUE)
-        bullet.setRebound(-1)
+        bullet.setRebound(3)
         unit2_0.addBullet(bullet)
 
     unit2_1 = TaskUnit(waitFrame=360)
