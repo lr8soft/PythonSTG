@@ -4,7 +4,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <GL3/gl3w.h>
+#include "../XCRender/BlendHelper.h"
 
 void LakeBackground::BackgroundInit()
 {
@@ -20,13 +20,11 @@ void LakeBackground::BackgroundInit()
 void LakeBackground::BackgroundRender()
 {
 	if (isInit) {
-		timer.Tick();
-
-		glEnable(GL_BLEND);
+		BlendNormalStart
 		renderLakeImage();
 		renderWaterImage();
 		renderLeafImage();
-		glDisable(GL_BLEND);
+		BlendEnd
 		if (renderX < 1.0f && renderY < 1.0f) {
 			renderX += 0.0006f;
 			renderY += 0.0006f;
@@ -85,7 +83,8 @@ void LakeBackground::renderLakeImage()
 void LakeBackground::renderWaterImage()
 {
 	glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);//GL_ONE_MINUS_SRC_ALPHA
+	BlendAlphaOneStart
+	//GL_ONE_MINUS_SRC_ALPHA
 	//glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);
 	{
 		glm::mat4 model;
@@ -109,8 +108,7 @@ void LakeBackground::renderWaterImage()
 void LakeBackground::renderLeafImage()
 {
 	glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f);	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);
+	BlendOneMinusAlphaColorStart
 	{
 		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.0f)*reshape);

@@ -2,7 +2,6 @@
 #ifndef _XCFRAME_H_
 #define _XCFRAME_H_
 #include <GLFW/glfw3.h>
-#include "util/GameTimer.h"
 #include "XCInterpreter/XCInterpreter.h"
 class XCFrame {
 private:
@@ -11,11 +10,11 @@ private:
 	static XCInterpreter *interpreter;
 	static int FrameWidth, FrameHeight;
 	static void FrameResize(GLFWwindow* screen, int w, int h);
+	static void FramePos(GLFWwindow* screen, int x, int y);
 	XCFrame();
 public:
 	GLFWwindow* getScreen();
 	static XCFrame* getInstance();
-	static XCGameTimer timer;
 	
 	void FrameInit();
 	void FrameLoop();

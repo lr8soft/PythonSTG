@@ -1,11 +1,9 @@
 #include <sstream>
 #include <GL3/gl3w.h>
 #include "XCFrame.h"
-#include "XCCore/XCFont/XCFont.h"
 #include "XCCore/XCRender/RenderManager.h"
 #include "XCFrameInfo.h"
 #include "util/ConfigManager.h"
-XCGameTimer XCFrame::timer;
 XCFrame* XCFrame::pInstance = nullptr;
 int XCFrame::FrameWidth, XCFrame::FrameHeight;
 
@@ -48,20 +46,14 @@ void XCFrame::FrameInit()
 	glfwMakeContextCurrent(pscreen);
 	glfwSwapInterval(1);
 	glfwSetFramebufferSizeCallback(pscreen, FrameResize);
+	glfwSetWindowPosCallback(pscreen, FramePos);
 	gl3wInit();
 
 	
 }
 void XCFrame::FrameLoop()
 {	
-	XCFont font;
-	font.FontASCIIInit();
-	font.FontSetWidthAndHeight(FrameHeight, FrameWidth);
 	while (!glfwWindowShouldClose(pscreen)) {
-		timer.Tick();
-		glClear(GL_COLOR_BUFFER_BIT);
-		font.FontASCIIRender(std::to_string((int)timer.getFPS()), 0.0, 0.0, 1.0, glm::vec4(0.1,0.1,0.6,1.0));
-
 		RenderManager::getInstance()->RenderWork();
 		glfwSwapBuffers(pscreen);
 		glfwPollEvents();
@@ -93,8 +85,12 @@ void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
 		XCFrameInfo::ScreenHeight = h;
 		XCFrameInfo::ScreenWidth = w;
 
-		XCFont::FontSetWidthAndHeight(h, w);
 	}
+}
+
+void XCFrame::FramePos(GLFWwindow * screen, int x, int y)
+{
+	
 }
 
 XCFrame * XCFrame::getInstance()
