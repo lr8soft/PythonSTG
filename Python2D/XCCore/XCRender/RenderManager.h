@@ -4,7 +4,9 @@
 #include <vector>
 #include <string>
 #include <mutex>
+#include <map>
 #include "IRenderHelper.h"
+#include "../UserInterface/IUserInterface.h"
 #include "../Stage/Stage.h"
 #include "../Item/Player.h"
 #include "../Background/Background.h"
@@ -25,7 +27,9 @@ class RenderManager {
 private:
 	std::vector<Stage*> stageQueue;
 	std::vector<StaticRenderItem> staticQueue;
+	std::map<std::string, IUserInterface*> uiGroup;
 
+	bool shouldGamePause = false;
 	Background *renderBackground = nullptr;
 	Player* playerP1;
 
@@ -35,6 +39,8 @@ public:
 	static RenderManager* getInstance();
 	void AddStaticWork(StaticRenderItem work);
 	void AddStageItem(Stage* stage);
+	void AddUserInterface(std::string uiName, IUserInterface* ui);
+
 	void RenderWork();
 
 	Player* getPlayerP1();

@@ -31,6 +31,9 @@
     <Filter Include="XCCore\Background">
       <UniqueIdentifier>{f2bb86c8-b3aa-4e55-9427-8633fcd22128}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\UserInterface">
+      <UniqueIdentifier>{c8b2abf1-a953-43b3-8388-b6e26ad868b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -107,6 +110,18 @@
     </ClCompile>
     <ClCompile Include="XCCore\XCRender\XCAdvImageHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\IRenderHelper.cpp">
+      <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Bullet\RiceBullet.cpp">
+      <Filter>XCCore\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Bullet\HugeBullet.cpp">
+      <Filter>XCCore\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\UserInterface\GameInfoInterface.cpp">
+      <Filter>XCCore\UserInterface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +213,18 @@
     </ClInclude>
     <ClInclude Include="XCCore\XCRender\BlendHelper.h">
       <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\UserInterface\IUserInterface.h">
+      <Filter>XCCore\UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\UserInterface\GameInfoInterface.h">
+      <Filter>XCCore\UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Bullet\RiceBullet.h">
+      <Filter>XCCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Bullet\HugeBullet.h">
+      <Filter>XCCore\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

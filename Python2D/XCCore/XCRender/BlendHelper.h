@@ -10,6 +10,11 @@
 	glEnable(GL_BLEND); \
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);\
 
+
+#define BlendOneMinusColorStart \
+	glEnable(GL_BLEND); \
+	glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);\
+
 #define BlendOneMinusAlphaColorStart \
 	glEnable(GL_BLEND); \
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);\
@@ -18,6 +23,11 @@
 #define BlendAlphaOneStart \
 	glEnable(GL_BLEND); \
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);\
+
+
+#define BlendColorOneStart \
+	glEnable(GL_BLEND); \
+	glBlendFunc(GL_SRC_COLOR, GL_ONE);\
 
 
 #define BlendAlphaColorOneStart \

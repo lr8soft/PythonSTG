@@ -1,5 +1,7 @@
 #include "BulletHelper.h"
+#include "HugeBullet.h"
 #include "CircleBullet.h"
+#include "RiceBullet.h"
 #include "../../XCInterpreter/ScriptLoader.h"
 Bullet * BulletHelper::getNewBulletObject(std::string bulletType, int bulletColor, glm::vec4 divideInfo, glm::vec3 scaleInfo, glm::vec3 initCoord
 	, float velocity, float acceleration, float angle, float increateAngle, int reboundTime, bool aimPlayer)
@@ -7,6 +9,12 @@ Bullet * BulletHelper::getNewBulletObject(std::string bulletType, int bulletColo
 	Bullet *bullet = nullptr;
 	if (bulletType == "circleBullet") {
 		bullet = new CircleBullet(bulletColor, divideInfo, scaleInfo, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer);
+	}
+	else if (bulletType == "riceBullet") {
+		bullet = new RiceBullet(bulletColor, divideInfo, scaleInfo, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer);
+	}
+	else if (bulletType == "hugeBullet") {
+		bullet = new HugeBullet(bulletColor, divideInfo, scaleInfo, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer);
 	}
 	return bullet;
 }
