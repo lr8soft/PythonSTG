@@ -173,6 +173,7 @@
     <ClInclude Include="XCCore\XCFont\XCFont.h" />
     <ClInclude Include="XCCore\Item\Item.h" />
     <ClInclude Include="XCCore\Item\Player.h" />
+    <ClInclude Include="XCCore\XCRender\BlendHelper.h" />
     <ClInclude Include="XCCore\XCRender\DecisionPointSE.h" />
     <ClInclude Include="XCCore\XCRender\IRenderHelper.h" />
     <ClInclude Include="XCCore\XCRender\ISpecialEffect.h" />

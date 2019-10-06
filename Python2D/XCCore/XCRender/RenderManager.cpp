@@ -4,6 +4,7 @@
 #include "XCImageHelper.h"
 #include "XCColorBlockHelper.h"
 #include <GLFW/glfw3.h>
+
 #include <iostream>
 #include "../../XCFrameInfo.h"
 RenderManager* RenderManager::pRManager = nullptr;
@@ -80,7 +81,6 @@ void RenderManager::RenderWork()
 		Stage* stageItem = (*stageBegin);
 		if (!stageItem->getStageInit()) {
 			stageItem->stageInit();
-			renderBackground = stageItem->getBackgroundPointer();
 		}
 		if (stageItem->getStageFinish()) {
 			stageQueue.erase(stageBegin);
@@ -90,6 +90,7 @@ void RenderManager::RenderWork()
 		}
 		if (stageItem->getStageInit()) {
 			stageItem->stageWork();
+			renderBackground = stageItem->getBackgroundPointer();
 		}
 	}
 

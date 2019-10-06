@@ -30,8 +30,8 @@ XCColorBlockHelper::XCColorBlockHelper(bool fx)
 		ProgramHandle = sreader.getProgramHandle();
 
 		ShaderReader fxreader;
-		fxreader.loadFromFile("assets/Shader/image/image.fx.vert", GL_VERTEX_SHADER);
-		fxreader.loadFromFile("assets/Shader/image/image.fx.frag", GL_FRAGMENT_SHADER);
+		fxreader.loadFromFile("assets/Shader/default/default.fx.vert", GL_VERTEX_SHADER);
+		fxreader.loadFromFile("assets/Shader/default/default.fx.frag", GL_FRAGMENT_SHADER);
 		fxreader.linkAllShader();
 		ProgramHandleFx = fxreader.getProgramHandle();
 		haveProgramInit = true;
