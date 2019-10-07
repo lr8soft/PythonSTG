@@ -11,7 +11,6 @@ private:
 	bool itemWorkFinish = false;
 	XCGameTimer itemTimer;
 
-
 	IRenderHelper* renderHelper;
 	IRenderHelper* hitHelper;
 	int hitTime = 0;
