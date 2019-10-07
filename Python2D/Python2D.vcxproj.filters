@@ -19,9 +19,6 @@
     <Filter Include="XCCore\Item">
       <UniqueIdentifier>{43fd9bff-7c18-403e-a0c5-5ca4cf4aaad0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XCCore\XCFont">
-      <UniqueIdentifier>{beb81aae-aa63-4b86-81c8-01dff3d0b01f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="XCCore\Stage">
       <UniqueIdentifier>{ac940bd2-e2a1-4200-bd83-f5234c0035c6}</UniqueIdentifier>
     </Filter>
@@ -33,6 +30,12 @@
     </Filter>
     <Filter Include="XCCore\UserInterface">
       <UniqueIdentifier>{c8b2abf1-a953-43b3-8388-b6e26ad868b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore\XCCollide">
+      <UniqueIdentifier>{fd61ee80-385b-46d4-8ae2-7fb9175b62b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore\XCRender\SpecialEffect">
+      <UniqueIdentifier>{45914d97-27d5-4885-8ac8-35dc9da4f6f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,9 +52,6 @@
       <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="XCFrame.cpp" />
-    <ClCompile Include="XCCore\XCFont\XCFont.cpp">
-      <Filter>XCCore\XCFont</Filter>
-    </ClCompile>
     <ClCompile Include="util\ShaderReader.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -72,9 +72,6 @@
     </ClCompile>
     <ClCompile Include="XCFrameInfo.cpp" />
     <ClCompile Include="python2d.cpp" />
-    <ClCompile Include="XCCore\XCRender\DecisionPointSE.cpp">
-      <Filter>XCCore\XCRender</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\Item\Item.cpp">
       <Filter>XCCore\Item</Filter>
     </ClCompile>
@@ -117,6 +114,21 @@
     <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp">
       <Filter>XCCore\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp">
+      <Filter>XCCore\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\XCFont.cpp">
+      <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\DecisionPointSE.cpp">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCCollide\CollideHelper.cpp">
+      <Filter>XCCore\XCCollide</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCCollide\CollideInfo.cpp">
+      <Filter>XCCore\XCCollide</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -135,9 +147,6 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="XCFrame.h" />
-    <ClInclude Include="XCCore\XCFont\XCFont.h">
-      <Filter>XCCore\XCFont</Filter>
-    </ClInclude>
     <ClInclude Include="XCInterpreter\XCInterpreter.h">
       <Filter>XCInterpreter</Filter>
     </ClInclude>
@@ -157,12 +166,6 @@
       <Filter>XCCore\XCRender</Filter>
     </ClInclude>
     <ClInclude Include="XCFrameInfo.h" />
-    <ClInclude Include="XCCore\XCRender\ISpecialEffect.h">
-      <Filter>XCCore\XCRender</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\XCRender\DecisionPointSE.h">
-      <Filter>XCCore\XCRender</Filter>
-    </ClInclude>
     <ClInclude Include="XCCore\Bullet\Bullet.h">
       <Filter>XCCore\Bullet</Filter>
     </ClInclude>
@@ -213,6 +216,24 @@
     </ClInclude>
     <ClInclude Include="XCCore\Bullet\CircleTypeBullet.h">
       <Filter>XCCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Bullet\RectangleTypeBullet.h">
+      <Filter>XCCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\XCFont.h">
+      <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCCollide\CollideHelper.h">
+      <Filter>XCCore\XCCollide</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\ISpecialEffect.h">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\DecisionPointSE.h">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCCollide\CollideInfo.h">
+      <Filter>XCCore\XCCollide</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

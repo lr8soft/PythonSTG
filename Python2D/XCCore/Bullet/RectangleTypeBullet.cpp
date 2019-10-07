@@ -1,8 +1,8 @@
-#include "CircleTypeBullet.h"
+#include "RectangleTypeBullet.h"
 #include "../../XCFrameInfo.h"
 #include <GL3/gl3w.h>
 #include <iostream>
-CircleTypeBullet::CircleTypeBullet(std::string bulletImagePath, glm::vec4 dInfo, glm::vec3 sInfo, glm::vec3 initCoord, float v, float a, float agl, float incA, int rbTime,bool ap)
+RectangleTypeBullet::RectangleTypeBullet(std::string bulletImagePath, glm::vec4 dInfo, glm::vec3 sInfo, glm::vec3 initCoord, float v, float a, float agl, float incA, int rbTime, bool ap)
 {
 	imagePath = bulletImagePath;
 
@@ -11,6 +11,7 @@ CircleTypeBullet::CircleTypeBullet(std::string bulletImagePath, glm::vec4 dInfo,
 	NowPosition[0] = initCoord[0];
 	NowPosition[1] = initCoord[1];
 	NowPosition[2] = initCoord[2];
+
 	velocity = v;
 	acceleration = a;
 	angle = agl;
@@ -20,7 +21,7 @@ CircleTypeBullet::CircleTypeBullet(std::string bulletImagePath, glm::vec4 dInfo,
 
 }
 
-void CircleTypeBullet::BulletInit()
+void RectangleTypeBullet::BulletInit()
 {
 	if (!isInit) {
 		image = new XCImageHelper(imagePath, true);
@@ -28,7 +29,7 @@ void CircleTypeBullet::BulletInit()
 	}
 }
 
-void CircleTypeBullet::BulletRender()
+void RectangleTypeBullet::BulletRender()
 {
 	if (isInit) {
 		timer.Tick();
@@ -41,13 +42,13 @@ void CircleTypeBullet::BulletRender()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		image->Render(glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]), glm::vec4(1.0f), glm::radians(angle), glm::vec3(0, 0, 1),
-			scaleInfo * glm::vec3(XCFrameInfo::FrameRight,XCFrameInfo::FrameTop,1.0f),
+			scaleInfo * glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f),
 			IRenderHelper::GetSpecificTexture(divideInfo[0], divideInfo[1], divideInfo[2], divideInfo[3]));
 		glDisable(GL_BLEND);
 		Bullet::checkReboundOrOverflow(&reBoundTime, &angle, scaleInfo[0], scaleInfo[1]);
 	}
 }
-void CircleTypeBullet::BulletRelease()
+void RectangleTypeBullet::BulletRelease()
 {
 	if (isInit) {
 		image->Release();
@@ -57,8 +58,7 @@ void CircleTypeBullet::BulletRelease()
 	}
 }
 
-bool CircleTypeBullet::BulletCollideWithPoint(float x, float y)
+bool RectangleTypeBullet::BulletCollideWithPoint(float x, float y)
 {
-	float value = pow(x - NowPosition[0], 2) + pow(y - NowPosition[1], 2);
-	return value < pow(scaleInfo[0],2);
+	return false;
 }

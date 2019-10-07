@@ -9,6 +9,14 @@ class RiceBullet(CircleTypeBullet):
         self.isLight = False
         super().setBulletImage("assets/Bullet/riceBullet.png")
 
+    # RED = 1
+    # PURPLE = 2
+    # BLUE = 3
+    # LIGHTBLUE = 4
+    # LIGHTGREEN = 5
+    # YELLOW = 6
+    # ORANGE = 7
+    # WHITE = 8
     def setBulletColor(self, color=BulletColor.BLUE):
         if self.isLight:
             self.divideInfo[3] = color.value * 2
@@ -16,7 +24,14 @@ class RiceBullet(CircleTypeBullet):
             self.divideInfo[3] = color.value * 2 + 1
 
     def setBulletColorLight(self, isLight):
+        lastValue = self.isLight
         self.isLight = isLight
+        if (not lastValue) and self.isLight:
+            self.divideInfo[3] += 1
+        elif lastValue and (not self.isLight):
+            self.divideInfo[3] -= 1
+
+
 
 
 

@@ -10,7 +10,7 @@ protected:
 
 	bool isWorkFinish = false;
 
-	void checkReboundOrOverflow(int *reBoundTimePointer, float *angle)
+	void checkReboundOrOverflow(int *reBoundTimePointer, float *angle, float scaleX, float scaleY)
 	{
 		float frameWidth = XCFrameInfo::FrameRight;
 		float frameHeight = XCFrameInfo::FrameTop;
@@ -62,7 +62,13 @@ protected:
 				(*reBoundTimePointer)--;
 			}
 			else {
-				isWorkFinish = true;
+				float renderWidth = scaleX * XCFrameInfo::FrameRight;
+				float renderHeight = scaleY * XCFrameInfo::FrameTop;
+				if (renderY + renderHeight > frameHeight || renderY + renderHeight< -frameHeight
+					|| renderX + renderWidth > frameWidth || renderX + renderWidth < -frameWidth) {
+					isWorkFinish = true;
+				}
+				
 			}
 		}
 	}
@@ -71,6 +77,7 @@ public:
 	virtual void BulletRender() = 0;
 	virtual void BulletRelease() = 0;
 
+	virtual bool BulletCollideWithPoint(float x, float y) = 0;
 	bool getIsFinish() {
 		return isWorkFinish;
 	}

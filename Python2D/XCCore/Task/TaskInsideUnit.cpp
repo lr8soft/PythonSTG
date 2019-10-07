@@ -1,5 +1,5 @@
 #include "TaskInsideUnit.h"
-
+#include "../XCCollide/CollideInfo.h"
 TaskInsideUnit::TaskInsideUnit(int wFrame, int wInterval, int rTime): waitFrame(wFrame), workInterval(wInterval), repeatTime(rTime)
 {
 	;
@@ -20,13 +20,16 @@ void TaskInsideUnit::UnitWork()
 		for (auto bullet = iterBegin; bullet != iterEnd;bullet++) {
 			if (!(*bullet)->getIsFinish()) {
 				(*bullet)->BulletRender();
+				if (CollideInfo::collideHelperP1 != nullptr) {
+					CollideInfo::collideHelperP1->checkCollisionWithBullet((*bullet));
+				}
 			}
 			if ((*bullet)->getIsFinish()) {
 				(*bullet)->BulletRelease();
 				delete *bullet;
 				if (std::next(bullet) == bulletGroup.end()) {
 					bulletGroup.erase(bullet);
-					return;
+					break;
 				}
 				else {
 					bullet = bulletGroup.erase(bullet);

@@ -15,7 +15,7 @@ from script.Bullet.Bullet import BulletColor
 winWidth = 1280
 winHeight = 720
 
-winTitle = "Python2D v0.18"
+winTitle = "Python2D v0.20x"
 winScaleToMonitor = False
 winResize = False
 
@@ -57,8 +57,8 @@ def StageInit():
     # bullet group 0
     unit0 = TaskUnit(waitFrame=60)
     for j in range(0, 36):
-        bullet = CircleBullet([0.0, 0.0, 0.0], 0.006)
-        bullet.setAngle(j * 10, 0.001)
+        bullet = CircleBullet([0.0, 0.0, 0.0], 0.6)
+        bullet.setAngle(j * 10)
         bullet.setBulletColor(BulletColor.BLUE)
         unit0.addBullet(bullet)
     taskTest.addUnit(unit0)
@@ -66,14 +66,14 @@ def StageInit():
     unit1 = TaskUnit(waitFrame=300)
     for i in range(0, 72):
         if i % 2 == 0:
-            bullet = CircleBullet([0.5, 0.5, 0.0], 0.01)
+            bullet = CircleBullet([0.5, 0.5, 0.0], 0.6)
             bullet.setBulletColor(BulletColor.ORANGE)
-            bullet.setAngle(i * 5)
+            bullet.setAngle(i * 5,20)
             unit1.addBullet(bullet)
         else:
-            bullet = CircleBullet([-0.5, -0.5, 0.0], 0.01)
+            bullet = CircleBullet([-0.5, -0.5, 0.0], 0.6)
             bullet.setBulletColor(BulletColor.PURPLE)
-            bullet.setAngle(i * 10)
+            bullet.setAngle(i * 10,20)
             unit1.addBullet(bullet)
     taskTest.addUnit(unit1)
     stage0.addTask(taskTest)
@@ -82,28 +82,31 @@ def StageInit():
     taskAfter = Task(durationFrame=-1, intervalFrame=0, targetUuid=taskTest.getUuid())
     unit2_0 = TaskUnit()
     for j in range(0, 36):
-        bullet = HugeBullet([0.0, 0.0, 0.0], 0.009)
-        bullet.setAngle(j * 10, 1)
+        bullet = HugeBullet([0.0, 0.0, 0.0], 0.9)
+        bullet.setAngle(j * 10, 75)
         bullet.setBulletColor(BulletColor.LIGHTBLUE)
         bullet.setRebound(3)
         unit2_0.addBullet(bullet)
 
     unit2_1 = TaskUnit(waitFrame=360)
     for k in range(0, 360):
-        bullet = RiceBullet([0.0, 0.0, 0.0], 0.012)
-        bullet.setAngle(k, -1)
-        if k % 2 == 0:
-            bullet.setBulletColor(BulletColor.BLUE)
-            bullet.setAcceleration(0.0001)
-        else:
-            bullet.setBulletColor(BulletColor.LIGHTBLUE)
-            bullet.setAcceleration(-0.0001)
+        bullet = RiceBullet([0.0, 0.0, 0.0], 0.9)
+        bullet.setAngle(k, -5)
         if k % 4 == 0 or k % 6 == 0:
             bullet.setBulletColorLight(True)
-        bullet.setRebound(3)
+        if k % 2 == 0:
+            bullet.setBulletColor(BulletColor.LIGHTBLUE)
+            bullet.setAcceleration(0.1)
+            bullet.setRebound(3)
+        else:
+            bullet.setBulletColor(BulletColor.LIGHTGREEN)
+            bullet.setAcceleration(-0.1)
+            bullet.setRebound(10)
+
         unit2_1.addBullet(bullet)
-    taskAfter.addUnit(unit2_1)
+
     taskAfter.addUnit(unit2_0)
+    taskAfter.addUnit(unit2_1)
     stage0.addTask(taskAfter)
     XCInit.addStageItem(stage0)
     print("[XCCore]Stage info init.")

@@ -1,11 +1,13 @@
+#include <iostream>
 #include <chrono>
 #include <future>
-#include "RenderManager.h"
-#include <GLFW/glfw3.h>
 #include <GL3/gl3w.h>
-#include <iostream>
+#include <GLFW/glfw3.h>
+
+#include "RenderManager.h"
 #include "../../XCFrameInfo.h"
 #include "../UserInterface/GameInfoInterface.h"
+#include "../XCCollide/CollideInfo.h"
 RenderManager* RenderManager::pRManager = nullptr;
 RenderManager::RenderManager()
 {
@@ -70,10 +72,10 @@ void RenderManager::RenderWork()
 		}
 		if (playerP1 != nullptr) {
 			if (!playerP1->getIsInit()) {
-				playerP1->ItemInit();
+				playerP1->PlayerInit();
 			}
 			if (playerP1->getIsInit()) {
-				playerP1->ItemRender();
+				playerP1->PlayerRender();
 			}
 
 		}
@@ -132,4 +134,5 @@ Player * RenderManager::getPlayerP1()
 void RenderManager::setPlayerP1(Player * p1)
 {
 	playerP1 = p1;
+	CollideInfo::collideHelperP1 = new CollideHelper(p1);
 }

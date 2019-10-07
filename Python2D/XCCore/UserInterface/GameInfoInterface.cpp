@@ -52,7 +52,7 @@ void GameInfoInterface::UserInterfaceRender()
 			//hightscore render start
 			float highScoreWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
 			float highScoreHeight = highScoreWidth / 3.0f;
-			float highScoreX = XCFrameInfo::FrameRight + highScoreWidth / 1.6f;
+			float highScoreX = XCFrameInfo::FrameRight + highScoreWidth / 1.4f;
 			float highScoreY = rankY - rankHeight - highScoreHeight * 2.0f;
 			glm::mat4 highScoreMat;
 			highScoreMat = glm::translate(highScoreMat, glm::vec3(highScoreX, highScoreY, 0.0f));
@@ -65,7 +65,7 @@ void GameInfoInterface::UserInterfaceRender()
 			//nowscore render start
 			float nowScoreWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
 			float nowScoreHeight = nowScoreWidth / 3.0f;
-			float nowScoreX = XCFrameInfo::FrameRight + nowScoreWidth / 1.6f;
+			float nowScoreX = highScoreX;
 			float nowScoreY = highScoreY  - nowScoreWidth ;
 			glm::mat4 nowScoreMat;
 			nowScoreMat = glm::translate(nowScoreMat, glm::vec3(nowScoreX, nowScoreY, 0.0f));
@@ -74,7 +74,6 @@ void GameInfoInterface::UserInterfaceRender()
 			playerInfoImage2->setMvpMatrix(nowScoreMat);
 			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 2, 2));
-
 			BlendEnd
 
 			//font start render

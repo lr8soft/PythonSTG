@@ -1,25 +1,29 @@
 #pragma once
 #ifndef _XCPlayer_H_
 #define _XCPlayer_H_
-#include "Item.h"
+#include <atomic>
 #include <map>
 #include "../XCRender/DecisionPointSE.h"
-class Player:public Item {
+#include "../XCRender/XCImageHelper.h"
+class Player {
 private:
-	/*
 	std::string itemUuid;
 	bool itemWorkFinish = false;
 	XCGameTimer itemTimer;
 
+
 	IRenderHelper* renderHelper;
+	IRenderHelper* hitHelper;
+	int hitTime = 0;
+
 	glm::vec4 divideInfo;
 	glm::vec4 coverColor;
 	glm::vec3 scaleSize;
 	glm::vec3 rotateWork;
 	float rotateAngle = 0.0f;
 
-	float NowPosition[3] = {0.0f, 0.0f, 0.0f};
-	*/
+	float NowPosition[3] = { 0.0f ,0.0f ,0.0f };
+
 	DecisionPointSpecialEffect* specialEffectDecision;
 
 	bool isInit = false, renderDecisionPoint = false;
@@ -43,8 +47,11 @@ public:
 		glm::vec3 rotateWork, float rotateAngle, float moveSpeed, float imgSwapInterval, float basePower, int standByRow, int turnLeftRow, int turnRightRow);
 
 	bool getIsInit();
-	virtual void ItemInit() override;
-	virtual void ItemRender() override;
-	virtual void ItemRelease() override;
+	void PlayerInit();
+	void PlayerRender();
+	void PlayerRelease();
+
+	float* getPosition();
+	void hurtPlayer();
 };
 #endif
