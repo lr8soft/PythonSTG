@@ -32,6 +32,5 @@ public:
 	std::string getUuid();
 	Background* getBackgroundPointer();
 
-
 };
 #endif

@@ -1,4 +1,4 @@
-#include <GL3/gl3w.h>
+ï»¿#include <GL3/gl3w.h>
 #include "Player.h"
 #include "../../XCFrameInfo.h"
 #include "../../XCFrame.h"
@@ -13,9 +13,16 @@ std::map<std::string, Player*>* Player::getPlayerGroup()
 {
 	return &playerInstanceGroup;
 }
-Player::Player( const char* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle,
-	 float mSpeed, float isInterval, float bPower, int sbyRow, int tLeftRow, int tRightRow):Item(nullptr, dInfo, color, sSize, rWork, rAngle)
+Player::Player( const char* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle,float mSpeed, float isInterval,
+	float bPower, int sbyRow, int tLeftRow, int tRightRow)
 {
+	divideInfo = dInfo;
+	scaleSize = sSize;
+	rotateWork = rWork;
+	rotateAngle = rAngle;
+	coverColor = color;
+
+
 	playerImage = image;
 
 	baseSpeed = mSpeed;
@@ -30,16 +37,18 @@ bool Player::getIsInit()
 {
 	return isInit;
 }
-void Player::ItemInit()
+void Player::PlayerInit()
 {
 	if (!isInit) {
 		renderHelper = new XCImageHelper(playerImage, true);
 		specialEffectDecision = new DecisionPointSpecialEffect;
 		specialEffectDecision->SpecialEffectInit();
+
+		hitHelper = new XCImageHelper("assets/Item/hit.png", true);
 		isInit = true;
 	}
 }
-void Player::ItemRender()
+void Player::PlayerRender()
 {
 	if (isInit) {
 		playerKeyCheck();
@@ -85,15 +94,39 @@ void Player::ItemRender()
 			specialEffectDecision->SpecialEffectRender(NowPosition[0], NowPosition[1], NowPosition[2]);
 		}
 		itemTimer.Tick();
+
+		//////////test
+
+		if (hitTime > 0) {
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			hitHelper->Render(glm::vec3(NowPosition[0], NowPosition[1] + 0.1f, NowPosition[2]), glm::vec4(1.0f),0.0f,glm::vec3(0,0,1),glm::vec3(0.1f),
+				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight,XCFrameInfo::FrameTop,1,1,1,1));
+			glDisable(GL_BLEND);
+			hitTime--;
+		}
+			
+		///////////test
 	}
 }
 
-void Player::ItemRelease()
+void Player::PlayerRelease()
 {
 	renderHelper->Release();
 	specialEffectDecision->SpecialEffectRelease();
 	delete renderHelper, specialEffectDecision;
 	isInit = false;
+}
+
+float * Player::getPosition()
+{
+	return NowPosition;
+}
+
+void Player::hurtPlayer()
+{
+	if(hitTime==0)
+		hitTime += 10;
 }
 
 void Player::playerKeyCheck()
@@ -114,27 +147,27 @@ void Player::playerKeyCheck()
 		renderDecisionPoint = true;
 	}
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyUp) == GLFW_PRESS) {
-		if ( (NowPosition[1] + moveSpeed)*XCFrameInfo::FrameTop < XCFrameInfo::FrameTop)//·ÀÖ¹Ô½½ç
+		if ((NowPosition[1] + moveSpeed)*XCFrameInfo::FrameTop < XCFrameInfo::FrameTop)//
 			NowPosition[1] += moveSpeed;
 		setPlayerDirection(PLAYER_STANDBY);
 		have_player_change_state = true;
 	}
 
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyDown) == GLFW_PRESS) {
-		if ( (NowPosition[1] - moveSpeed)*XCFrameInfo::FrameTop > XCFrameInfo::FrameBottom)
+		if ((NowPosition[1] - moveSpeed)*XCFrameInfo::FrameTop > XCFrameInfo::FrameBottom)
 			NowPosition[1] -= moveSpeed;
 		setPlayerDirection(PLAYER_STANDBY);
 		have_player_change_state = true;
 	}
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyRight) == GLFW_PRESS) {
-		if ( (NowPosition[0] + moveSpeed)*XCFrameInfo::FrameRight < XCFrameInfo::FrameRight)
+		if ((NowPosition[0] + moveSpeed)*XCFrameInfo::FrameRight < XCFrameInfo::FrameRight)
 			NowPosition[0] += moveSpeed;
 		setPlayerDirection(PLAYER_TURNRIGHT);
 		have_player_change_state = true;
 	}
 
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyLeft) == GLFW_PRESS) {
-		if ( (NowPosition[0] - moveSpeed)*XCFrameInfo::FrameRight > XCFrameInfo::FrameLeft)
+		if ((NowPosition[0] - moveSpeed)*XCFrameInfo::FrameRight > XCFrameInfo::FrameLeft)
 			NowPosition[0] -= moveSpeed;
 		setPlayerDirection(PLAYER_TURNLEFT);
 		have_player_change_state = true;

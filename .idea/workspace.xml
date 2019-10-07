@@ -90,6 +90,9 @@
       <workItem from="1569740115517" duration="3529000" />
       <workItem from="1569757115724" duration="11489000" />
       <workItem from="1569802964756" duration="5048000" />
+      <workItem from="1570412407465" duration="72000" />
+      <workItem from="1570439442669" duration="2341000" />
+      <workItem from="1570447287857" duration="6839000" />
     </task>
     <servers />
   </component>
@@ -110,6 +113,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/PySTG$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1569668857707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python2D/script" />
+    <SUITE FILE_PATH="coverage/PySTG$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1570441633500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python2D/script" />
   </component>
 </project>

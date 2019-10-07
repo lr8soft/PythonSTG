@@ -3,7 +3,7 @@
 #define _GAME_INFO_INTERFACE_H_
 #include "IUserInterface.h"
 #include "../XCRender/XCAdvImageHelper.h"
-#include "../XCFont/XCFont.h"
+#include "../XCRender/XCFont.h"
 #include "../../util/GameTimer.h"
 class GameInfoInterface :public IUserInterface{
 protected:

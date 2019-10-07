@@ -38,7 +38,8 @@ void Task::taskSubWork()
 					(*unit)->UnitRelease();
 					if (std::next(unit) == subUnitGroup.end()) {
 						subUnitGroup.erase(unit);
-						taskFinish = true;
+						if(subUnitGroup.empty())
+							taskFinish = true;
 						break;
 					}
 					else {
@@ -76,7 +77,7 @@ void Task::TaskRelease()
 	auto iterBegin = subUnitGroup.begin();
 	auto iterEnd = subUnitGroup.end();
 	for (auto unit = iterBegin; unit != iterEnd; unit++) {
-		//(*unit)->UnitRelease();
+		(*unit)->UnitRelease();
 		delete (*unit);
 	}
 	subUnitGroup.clear();

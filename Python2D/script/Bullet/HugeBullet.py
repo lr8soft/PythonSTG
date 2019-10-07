@@ -1,10 +1,12 @@
-from script.Bullet.Bullet import Bullet, BulletColor
-class HugeBullet(Bullet):
-    def __init__(self, position = [0.0,0.0,0.0],velocity = 0.01, angle = 0.0):
+from script.Bullet.CircleTypeBullet import CircleTypeBullet, BulletColor
+
+
+class HugeBullet(CircleTypeBullet):
+    def __init__(self, position=[0.0, 0.0, 0.0], velocity=0.01, angle=0.0):
         super().__init__(position, velocity, angle)
-        self.divideInfo = [4,2,1,2]
-        self.scaleSize = [0.16,0.16,0.16]
-        self.bulletType = "hugeBullet"
+        self.divideInfo = [4, 2, 1, 2]
+        self.scaleSize = [0.16, 0.16, 0.16]
+        super().setBulletImage("assets/Bullet/hugeBullet.png")
 
     def setBulletColor(self, color=BulletColor.BLUE):
         if color == BulletColor.RED:
@@ -23,13 +25,3 @@ class HugeBullet(Bullet):
             self.divideInfo = [4, 2, 3, 1]
         elif color == BulletColor.WHITE:
             self.divideInfo = [4, 2, 4, 1]
-
-    def _cpp_getInitRenderInfo(self):
-        return (self.bulletType, tuple(self.divideInfo), tuple(self.scaleSize))
-
-
-
-
-
-
-
