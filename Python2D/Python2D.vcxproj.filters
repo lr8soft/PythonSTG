@@ -87,9 +87,6 @@
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp">
       <Filter>XCCore\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\Bullet\CircleBullet.cpp">
-      <Filter>XCCore\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\Task\Task.cpp">
       <Filter>XCCore\Task</Filter>
     </ClCompile>
@@ -114,14 +111,11 @@
     <ClCompile Include="XCCore\XCRender\IRenderHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\Bullet\RiceBullet.cpp">
-      <Filter>XCCore\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="XCCore\Bullet\HugeBullet.cpp">
-      <Filter>XCCore\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\UserInterface\GameInfoInterface.cpp">
       <Filter>XCCore\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp">
+      <Filter>XCCore\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,9 +178,6 @@
     <ClInclude Include="XCCore\Bullet\BulletHelper.h">
       <Filter>XCCore\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\Bullet\CircleBullet.h">
-      <Filter>XCCore\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="XCCore\Task\Task.h">
       <Filter>XCCore\Task</Filter>
     </ClInclude>
@@ -220,10 +211,7 @@
     <ClInclude Include="XCCore\UserInterface\GameInfoInterface.h">
       <Filter>XCCore\UserInterface</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\Bullet\RiceBullet.h">
-      <Filter>XCCore\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\Bullet\HugeBullet.h">
+    <ClInclude Include="XCCore\Bullet\CircleTypeBullet.h">
       <Filter>XCCore\Bullet</Filter>
     </ClInclude>
   </ItemGroup>

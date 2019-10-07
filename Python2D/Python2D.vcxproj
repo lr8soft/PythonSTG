@@ -134,9 +134,7 @@
     <ClCompile Include="XCCore\Background\BackgroundHelper.cpp" />
     <ClCompile Include="XCCore\Background\Lake.cpp" />
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp" />
-    <ClCompile Include="XCCore\Bullet\CircleBullet.cpp" />
-    <ClCompile Include="XCCore\Bullet\HugeBullet.cpp" />
-    <ClCompile Include="XCCore\Bullet\RiceBullet.cpp" />
+    <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Task\Task.cpp" />
     <ClCompile Include="XCCore\Task\TaskDispatcher.cpp" />
     <ClCompile Include="XCCore\Task\TaskHelper.cpp" />
@@ -169,9 +167,7 @@
     <ClInclude Include="XCCore\Background\Lake.h" />
     <ClInclude Include="XCCore\Bullet\Bullet.h" />
     <ClInclude Include="XCCore\Bullet\BulletHelper.h" />
-    <ClInclude Include="XCCore\Bullet\CircleBullet.h" />
-    <ClInclude Include="XCCore\Bullet\HugeBullet.h" />
-    <ClInclude Include="XCCore\Bullet\RiceBullet.h" />
+    <ClInclude Include="XCCore\Bullet\CircleTypeBullet.h" />
     <ClInclude Include="XCCore\Task\Task.h" />
     <ClInclude Include="XCCore\Task\TaskDispatcher.h" />
     <ClInclude Include="XCCore\Task\TaskHelper.h" />

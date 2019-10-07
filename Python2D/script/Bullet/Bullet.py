@@ -43,8 +43,9 @@ class Bullet:
     def setAimToPlayer(self, aimToPlayer):
         self.aimToPlayer = aimToPlayer
 
+    @abstractmethod
     def setBulletColor(self, color=BulletColor.BLUE):
-        self.bulletColor = color
+        pass
 
     def setRebound(self, rebound=0):
         self.reboundCount = rebound
@@ -55,9 +56,6 @@ class Bullet:
 
     def _cpp_getGenerateInfo(self):
         return self.velocity, self.acceleration, self.angle, self.incAngle, self.reboundCount, self.aimToPlayer
-
-    def _cpp_getBulletColor(self):
-        return self.bulletColor.value
 
     @abstractmethod
     def _cpp_getInitRenderInfo(self):
