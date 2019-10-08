@@ -30,7 +30,7 @@ void ExplodeParticleSpecialEffect::SpecialEffectCoordInit(glm::vec3 initCoord)
 void ExplodeParticleSpecialEffect::SpecialEffectGLInit()
 {
 	for (int i = 0; i < groupDensity; i++) {
-		XCParticle* particle = new XCParticle(groupLifeTime);
+		XCParticle* particle = new XCParticle(groupLifeTime * rand()/ (RAND_MAX + 1.0));
 		particle->particleInit();
 	
 		ParticleInfo info;

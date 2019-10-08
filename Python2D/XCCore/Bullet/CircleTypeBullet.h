@@ -12,6 +12,7 @@ private:
 	float velocity = 0.0f, acceleration = 0.0f, angle = 0.0f;
 	float NowPosition[3] = { 0.0f,  0.0f, 0.0f };
 	bool isWorkFinish = false;
+	bool isFinishTime = false;
 	*/
 	std::string imagePath;
 	glm::vec4 divideInfo;
@@ -30,8 +31,7 @@ private:
 
 	XCGameTimer timer;
 	XCImageHelper* image;
-	bool isInit = false, aimToPlayer = false, isFinishTime = false;
-
+	bool isInit = false, aimToPlayer = false;
 	
 public:
 	/*#£¡Attention scaleInfo will work both collide and render.

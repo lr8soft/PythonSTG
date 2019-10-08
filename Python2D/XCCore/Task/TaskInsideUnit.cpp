@@ -18,18 +18,19 @@ void TaskInsideUnit::UnitWork()
 		auto iterBegin = bulletGroup.begin();
 		auto iterEnd = bulletGroup.end();
 		for (auto bullet = iterBegin; bullet != iterEnd;bullet++) {
-			if (!(*bullet)->getIsFinish()) {
+			if (!(*bullet)->getIsTerminate()) {
 				(*bullet)->BulletRender();
 				if (CollideInfo::collideHelperP1 != nullptr) {
 					CollideInfo::collideHelperP1->checkCollisionWithBullet((*bullet));
 				}
 			}
-			if ((*bullet)->getIsFinish()) {
+
+			if ((*bullet)->getIsTerminate()) {
 				(*bullet)->BulletRelease();
 				delete *bullet;
 				if (std::next(bullet) == bulletGroup.end()) {
 					bulletGroup.erase(bullet);
-					break;
+					return;
 				}
 				else {
 					bullet = bulletGroup.erase(bullet);

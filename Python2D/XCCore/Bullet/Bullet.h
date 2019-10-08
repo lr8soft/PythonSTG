@@ -8,7 +8,7 @@ protected:
 
 	float NowPosition[3] = { 0.0f,  0.0f, 0.0f };
 
-	bool isWorkFinish = false;
+	bool isWorkFinish = false, isFinishTime = false;
 
 	bool checkReboundOrOverflow(int *reBoundTimePointer, float *angle, float scaleX, float scaleY)
 	{
@@ -68,7 +68,6 @@ protected:
 					|| renderX + renderWidth > frameWidth || renderX + renderWidth < -frameWidth) {
 					return true;
 				}
-				
 			}
 		}
 		return false;
@@ -82,8 +81,12 @@ public:
 
 	virtual void startFinishEffect() = 0;
 
-	bool getIsFinish() {
+	bool getIsTerminate() {
 		return isWorkFinish;
+	}
+
+	bool getIsFinishTime() {
+		return isFinishTime;
 	}
 
 	void setPosition(float x, float y, float z) {

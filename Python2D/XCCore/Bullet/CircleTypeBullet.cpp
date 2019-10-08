@@ -58,7 +58,6 @@ void CircleTypeBullet::BulletRender()
 			glDisable(GL_BLEND);
 			if (Bullet::checkReboundOrOverflow(&reBoundTime, &angle, collideSize[0], collideSize[1])) {//超出边界不渲染结束特效
 				isWorkFinish = true;
-				//startFinishEffect();
 			}
 		}
 		else {
@@ -77,7 +76,7 @@ void CircleTypeBullet::BulletRender()
 void CircleTypeBullet::startFinishEffect()
 {
 	isFinishTime = true;
-	nowFinishTime = timer.getNowFrame();
+	nowFinishTime = timer.getNowFrame();	
 }
 void CircleTypeBullet::BulletRelease()
 {

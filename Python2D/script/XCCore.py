@@ -89,11 +89,10 @@ def StageInit():
         unit2_0.addBullet(bullet)
 
     unit2_1 = TaskUnit(waitFrame=360)
-    for k in range(0, 360):
+    for k in range(0, 180):
         bullet = RiceBullet([0.0, 0.0, 0.0], 0.9)
-        bullet.setAngle(k, -5)
-        if k % 4 == 0 or k % 6 == 0:
-            bullet.setBulletColorLight(True)
+        bullet.setAngle(k*2, -5)
+        bullet.setBulletColorLight(True)
         if k % 2 == 0:
             bullet.setBulletColor(BulletColor.LIGHTBLUE)
             bullet.setAcceleration(0.1)

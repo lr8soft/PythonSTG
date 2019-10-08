@@ -94,14 +94,14 @@ void GameInfoInterface::UserInterfaceRender()
 
 			float nowLifeWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
 			float nowLifeHeight = nowLifeWidth / 3.0f;
-			float nowLifeX = nowScoreX + nowLifeWidth /2.0f;
+			float nowLifeX = nowScoreX + nowLifeWidth /2.2f;
 			float nowLifeY = nowScoreY - nowLifeWidth;
 			glm::mat4 nowLifeMat;
 			nowLifeMat = glm::translate(nowLifeMat, glm::vec3(nowLifeX, nowLifeY, 0.0f));
 			nowLifeMat = glm::scale(nowLifeMat, glm::vec3(nowLifeWidth, nowLifeHeight, 1.0f));
 
 			playerInfoImage2->setMvpMatrix(nowLifeMat);
-			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f,0.8f,0.8f,1.0f), 0.0f, glm::vec3(), glm::vec3(),
+			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f,0.6f,0.6f,1.0f), 0.0f, glm::vec3(), glm::vec3(),
 				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 1, 3));
 			
 			BlendEnd
