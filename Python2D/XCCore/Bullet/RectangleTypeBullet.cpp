@@ -63,3 +63,7 @@ bool RectangleTypeBullet::BulletCollideWithPoint(float x, float y)
 {
 	return false;
 }
+
+void RectangleTypeBullet::startFinishEffect()
+{
+}

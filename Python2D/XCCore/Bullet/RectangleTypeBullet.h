@@ -33,5 +33,6 @@ public:
 	virtual void BulletRelease() override;
 
 	virtual bool BulletCollideWithPoint(float x, float y) override;
+	virtual void startFinishEffect() override;
 };
 #endif

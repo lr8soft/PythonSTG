@@ -80,6 +80,8 @@ public:
 
 	virtual bool BulletCollideWithPoint(float x, float y) = 0;
 
+	virtual void startFinishEffect() = 0;
+
 	bool getIsFinish() {
 		return isWorkFinish;
 	}

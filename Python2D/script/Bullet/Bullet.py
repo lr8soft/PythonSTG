@@ -26,12 +26,11 @@ class Bullet:
         self.aimToPlayer = False
         self.reboundCount = 0
 
-    def _setRenderSize(self, size=[0.1,0.1,0.1]):
-        self.scaleSize = size
-        self.collideSize = size
-
-    def _setCollideSize(self, size):
-        self.collideSize = size
+        self.releaseParticleColor = [0.0, 0.0, 1.0, 1.0]  # RGBA, default color Blue
+        self.releaseParticleDensity = 3  # Generate 3 particles after release
+        self.releaseParticleLifeTime = 0.5
+        self.releaseParticleVelocity = 0.6
+        self.releaseParticleSize = 15
 
     def setAcceleration(self, a):
         self.acceleration = a
@@ -57,6 +56,28 @@ class Bullet:
     def setRebound(self, rebound=0):
         self.reboundCount = rebound
 
+    def _setReleaseParticleColor(self, color=[0.0, 0.0, 1.0, 1.0]):
+        self.releaseParticleColor = color
+
+    def _setReleaseParticleDensity(self, count=3):
+        self.releaseParticleDensity = count
+
+    def _setReleaseParticleLifeTime(self, lifeTime=0.5):
+        self.releaseParticleLifeTime = lifeTime
+
+    def _setReleaseParticleVelocity(self, v=0.6):
+        self.releaseParticleVelocity = v
+
+    def _setReleaseParticleSize(self, size = 15):
+        self.releaseParticleSize = size
+
+    def _setRenderSize(self, size=[0.1, 0.1, 0.1]):
+        self.scaleSize = size
+        self.collideSize = size
+
+    def _setCollideSize(self, size):
+        self.collideSize = size
+
     # recall function for cpp init
     def _cpp_getInitCoord(self):
         return tuple(self.position)
@@ -67,4 +88,9 @@ class Bullet:
     @abstractmethod
     def _cpp_getInitRenderInfo(self):
         pass
+
     # return self.bulletType, tuple(self.divideInfo), tuple(self.scaleSize)
+
+    def _cpp_getReleaseParticleInfo(self):
+        return self.releaseParticleDensity, self.releaseParticleLifeTime, self.releaseParticleVelocity, self.releaseParticleSize,\
+               tuple(self.releaseParticleColor)

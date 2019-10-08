@@ -10,15 +10,13 @@ class RiceBullet(CircleTypeBullet):
         self.isLight = False
         super().setBulletImage("assets/Bullet/riceBullet.png")
 
-    # RED = 1
-    # PURPLE = 2
-    # BLUE = 3
-    # LIGHTBLUE = 4
-    # LIGHTGREEN = 5
-    # YELLOW = 6
-    # ORANGE = 7
-    # WHITE = 8
+        super()._setReleaseParticleDensity(2)
+        super()._setReleaseParticleLifeTime(0.4)
+        super()._setReleaseParticleSize(10)
+        super()._setReleaseParticleVelocity(0.3)
+
     def setBulletColor(self, color=BulletColor.BLUE):
+        super()._circleBullet_setReleaseColor(color)
         if self.isLight:
             self.divideInfo[3] = color.value * 2
         else:

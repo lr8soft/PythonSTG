@@ -118,4 +118,3 @@ def PlayerInit():
     rin.setPlayerData(1.45, 0.1, 1.0)
     XCInit.addPlayerItem(rin)
     print("[XCCore]Player info init.")
-

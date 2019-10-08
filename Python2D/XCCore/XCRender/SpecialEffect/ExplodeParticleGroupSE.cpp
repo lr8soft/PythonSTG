@@ -1,60 +1,68 @@
 #include "ExplodeParticleGroupSE.h"
 #include "../../../XCFrameInfo.h"
-ExplodeParticleSpecialEffect::ExplodeParticleSpecialEffect(int density,float size ,float lifeTime, float v,glm::vec4 color, glm::vec3 initCoord)
+ExplodeParticleSpecialEffect::ExplodeParticleSpecialEffect(int density,float size ,float lifeTime, float v,glm::vec4 color)
 {
 	groupDensity = density;
 	groupColor = color;
 	groupLifeTime = lifeTime;
 	groupSize = size;
-	groupCoord = initCoord;
+
 	groupVelocity = v;
+
 }
 
-void ExplodeParticleSpecialEffect::SpecialEffectInit()
+void ExplodeParticleSpecialEffect::SpecialEffectCoordInit(glm::vec3 initCoord)
+{
+	if (!isCoordInit) {
+		groupCoord = initCoord;
+		for (int i = 0; i < particleGroup.size(); i++) {
+			particleGroup[i].x = groupCoord.x;
+			particleGroup[i].y = groupCoord.y;
+			particleGroup[i].z = groupCoord.z;
+
+			particleGroup[i].angle = (float)(rand() % 360);
+			particleGroup[i].velocity = groupVelocity;
+		}
+		isCoordInit = true;
+	}
+}
+
+void ExplodeParticleSpecialEffect::SpecialEffectGLInit()
 {
 	for (int i = 0; i < groupDensity; i++) {
 		XCParticle* particle = new XCParticle(groupLifeTime);
-		ParticleInfo info;
-		info.x = groupCoord.x;
-		info.y = groupCoord.y;
-		info.z = groupCoord.z;
-		info.velocity = groupVelocity;
-		info.angle = rand() % 360;
-
 		particle->particleInit();
+	
+		ParticleInfo info;
+		info.particle = particle;
 
-		particleGroup.push_back(particle);
-		particleInfoGroup.push_back(info);
+		particleGroup.push_back(info);
 	}
 }
 
 void ExplodeParticleSpecialEffect::SpecialEffectRender()
 {
-	std::vector<XCParticle*>::iterator partBegin = particleGroup.begin();
-	std::vector<XCParticle*>::iterator partEnd = particleGroup.end();
+	timer.Tick();
+	std::vector<ParticleInfo>::iterator partBegin = particleGroup.begin();
+	std::vector<ParticleInfo>::iterator partEnd = particleGroup.end();
 
-	std::vector<ParticleInfo>::iterator infoBegin = particleInfoGroup.begin();
-	std::vector<ParticleInfo>::iterator infoEnd = particleInfoGroup.end();
-	auto info = infoBegin;
-	for (auto particle = partBegin; particle != partEnd && info != infoEnd; particle++, info++) {
-		if (!(*particle)->getIsFinish()) {
-			info->x += info->velocity * cos(info->angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
-			info->y += info->velocity * sin(info->angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
-			(*particle)->particleRender(glm::vec3(info->x, info->y, info->z) * glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0F), groupSize, groupColor);
+	for (auto particleIter = partBegin; particleIter != partEnd; particleIter++) {
+
+		if (!particleIter->particle->getIsFinish()) {
+			particleIter->x += particleIter->velocity * cos(particleIter->angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
+			particleIter->y += particleIter->velocity * sin(particleIter->angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
+			particleIter->particle->particleRender(glm::vec3(particleIter->x, particleIter->y, particleIter->z) * glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0F), groupSize, groupColor);
 		}
-		if ((*particle)->getIsFinish()) {
-			(*particle)->particleRelease();
-			delete (*particle);
-			if (std::next(particle) == particleGroup.end() && std::next(info) == particleInfoGroup.end()) {
-				particleGroup.erase(particle);
-				particleInfoGroup.erase(info);
+		if (particleIter->particle->getIsFinish()) {
+			particleIter->particle->particleRelease();
+			delete (particleIter->particle);
+			if (std::next(particleIter) == particleGroup.end()) {
+				particleGroup.erase(particleIter);
 				break;
 			}
 			else {
-				particle = particleGroup.erase(particle);
-				particleInfoGroup.erase(info);
+				particleIter = particleGroup.erase(particleIter);
 				partEnd = particleGroup.end();
-				infoEnd = particleInfoGroup.end();
 			}
 		}
 	}
@@ -62,9 +70,17 @@ void ExplodeParticleSpecialEffect::SpecialEffectRender()
 
 void ExplodeParticleSpecialEffect::SpecialEffectRelease()
 {
+	std::vector<ParticleInfo>::iterator partBegin = particleGroup.begin();
+	std::vector<ParticleInfo>::iterator partEnd = particleGroup.end();
+	for (auto iter = partBegin; iter != partEnd; iter++) {
+		iter->particle->particleRelease();
+		delete iter->particle;
+		iter->particle = nullptr;
+	}
+	particleGroup.clear();
 }
 
 bool ExplodeParticleSpecialEffect::getIsFinish()
 {
-	return false;
+	return !particleGroup.empty();
 }

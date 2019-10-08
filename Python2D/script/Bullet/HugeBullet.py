@@ -9,7 +9,13 @@ class HugeBullet(CircleTypeBullet):
         super()._setCollideSize([0.1, 0.1, 0.1])
         super().setBulletImage("assets/Bullet/hugeBullet.png")
 
+        super()._setReleaseParticleDensity(6)
+        super()._setReleaseParticleLifeTime(0.5)
+        super()._setReleaseParticleSize(18)
+        super()._setReleaseParticleVelocity(0.8)
+
     def setBulletColor(self, color=BulletColor.BLUE):
+        super()._circleBullet_setReleaseColor(color)
         if color == BulletColor.RED:
             self.divideInfo = [4, 2, 1, 2]
         elif color == BulletColor.PURPLE:
