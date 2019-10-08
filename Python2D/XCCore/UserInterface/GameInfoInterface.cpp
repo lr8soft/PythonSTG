@@ -32,7 +32,6 @@ void GameInfoInterface::UserInterfaceRender()
 {
 	infoTimer.Tick();
 	if (isInit) {
-		
 		if( (float)XCFrameInfo::ScreenWidth / (float)XCFrameInfo::ScreenHeight >= 1.6667f){//>scrren(16:10)
 			BlendNormalStart
 			//rank render start
@@ -74,10 +73,8 @@ void GameInfoInterface::UserInterfaceRender()
 			playerInfoImage2->setMvpMatrix(nowScoreMat);
 			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 2, 2));
-			BlendEnd
 
 			//font start render
-			BlendNormalStart
 			float hsFontX = XCFrameInfo::FrameRight + (1.0f - XCFrameInfo::FrameRight) / 2 + highScoreWidth / 1.4f;
 			float hsFontY = rankY - nowScoreHeight/2.6f;
 			fontHelper.FontSetWidthAndHeight(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
@@ -94,10 +91,21 @@ void GameInfoInterface::UserInterfaceRender()
 			fontHelper.FontASCIIRender(nowscoreStr, nsFontX, nsFontY, 0.5f, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
 
 			fontHelper.FontASCIIRender(std::to_string((int)infoTimer.getFramePerSecond()), 0.0f, 0.0f, 1.0f, glm::vec4(0.0f, 0.0f, 0.8f, 1.0f));//fps render
+
+			float nowLifeWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
+			float nowLifeHeight = nowLifeWidth / 3.0f;
+			float nowLifeX = nowScoreX + nowLifeWidth /2.0f;
+			float nowLifeY = nowScoreY - nowLifeWidth;
+			glm::mat4 nowLifeMat;
+			nowLifeMat = glm::translate(nowLifeMat, glm::vec3(nowLifeX, nowLifeY, 0.0f));
+			nowLifeMat = glm::scale(nowLifeMat, glm::vec3(nowLifeWidth, nowLifeHeight, 1.0f));
+
+			playerInfoImage2->setMvpMatrix(nowLifeMat);
+			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f,0.8f,0.8f,1.0f), 0.0f, glm::vec3(), glm::vec3(),
+				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 1, 3));
+			
 			BlendEnd
 		}
-
-		
 	}
 }
 
@@ -127,4 +135,14 @@ void GameInfoInterface::setNowScore(long score)
 void GameInfoInterface::setHightScore(long score)
 {
 	highScore = score;
+}
+
+void GameInfoInterface::setNowBomb(int count)
+{
+	nowBomb = count;
+}
+
+void GameInfoInterface::setNowLife(int life)
+{
+	nowLife = life;
 }

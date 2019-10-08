@@ -86,9 +86,9 @@ void XCParticle::particleRender(glm::vec3 position, float scaleSize, glm::vec4 c
 
 		glDrawArrays(GL_POINTS, 0, 1);
 
-		glUseProgram(0);		
 		glDisable(GL_PROGRAM_POINT_SIZE);
 		glDisable(GL_BLEND);
+		glUseProgram(0);		
 		glBindVertexArray(0);
 
 	}

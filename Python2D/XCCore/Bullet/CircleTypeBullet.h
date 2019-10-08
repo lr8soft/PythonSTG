@@ -24,6 +24,8 @@ private:
 	float particleFinishTime = 0.0f, particleVelocity = 0.6f, particleSize = 15.0f;
 	glm::vec4 particleColor;
 
+	float nowFinishTime;
+
 	ExplodeParticleSpecialEffect *explodeSpecialEffect;
 
 	XCGameTimer timer;

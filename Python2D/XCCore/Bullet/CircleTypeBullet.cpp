@@ -62,7 +62,7 @@ void CircleTypeBullet::BulletRender()
 			}
 		}
 		else {
-			if (timer.getNowFrame() - particleFinishTime < 0.5f) {
+			if (timer.getNowFrame() - nowFinishTime < particleFinishTime) {
 				explodeSpecialEffect->SpecialEffectCoordInit(glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 				explodeSpecialEffect->SpecialEffectRender();
 			}
@@ -77,7 +77,7 @@ void CircleTypeBullet::BulletRender()
 void CircleTypeBullet::startFinishEffect()
 {
 	isFinishTime = true;
-	particleFinishTime = timer.getNowFrame();
+	nowFinishTime = timer.getNowFrame();
 }
 void CircleTypeBullet::BulletRelease()
 {
