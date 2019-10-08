@@ -143,6 +143,8 @@
     <ClCompile Include="XCCore\UserInterface\GameInfoInterface.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideHelper.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideInfo.cpp" />
+    <ClCompile Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.cpp" />
+    <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp" />
     <ClCompile Include="XCCore\XCRender\XCFont.cpp" />
     <ClCompile Include="XCCore\Item\Item.cpp" />
     <ClCompile Include="XCCore\Item\Player.cpp" />
@@ -180,6 +182,8 @@
     <ClInclude Include="XCCore\UserInterface\IUserInterface.h" />
     <ClInclude Include="XCCore\XCCollide\CollideHelper.h" />
     <ClInclude Include="XCCore\XCCollide\CollideInfo.h" />
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.h" />
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h" />
     <ClInclude Include="XCCore\XCRender\XCFont.h" />
     <ClInclude Include="XCCore\Item\Item.h" />
     <ClInclude Include="XCCore\Item\Player.h" />

@@ -129,6 +129,12 @@
     <ClCompile Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.cpp">
       <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.cpp">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -233,6 +239,12 @@
       <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\XCRender\SpecialEffect\ISpecialEffect.h">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.h">
       <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClInclude>
   </ItemGroup>

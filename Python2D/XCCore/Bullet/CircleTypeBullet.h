@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "../../util/GameTimer.h"
 #include "../XCRender/XCImageHelper.h"
+
 class CircleTypeBullet :public Bullet {
 private:
 	/*
@@ -19,10 +20,13 @@ private:
 	glm::vec3 collideSize;
 	int  reBoundTime = 0;
 	float velocity = 0.0f, acceleration = 0.0f, angle = 0.0f, increaseAngle = 0.0f;
+	float finishTime = 0.0f;
 
 	XCGameTimer timer;
 	XCImageHelper* image;
-	bool isInit = false, aimToPlayer = false;
+	bool isInit = false, aimToPlayer = false, isFinishTime = false;
+
+	void setBulletFinish();
 public:
 	/*#£¡Attention scaleInfo will work both collide and render.
 #£¡renderSize: scaleX * widthRate : scaleY * heightRate  ,collideSize : scaleX : scaleY*/
