@@ -1,6 +1,6 @@
 #include "DecisionPointSE.h"
-#include "XCImageHelper.h"
-#include "../../XCFrameInfo.h"
+#include "../XCImageHelper.h"
+#include "../../../XCFrameInfo.h"
 #include <GL3/gl3w.h>
 void DecisionPointSpecialEffect::SpecialEffectInit()
 {

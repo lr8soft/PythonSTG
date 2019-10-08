@@ -5,7 +5,8 @@ class RiceBullet(CircleTypeBullet):
     def __init__(self, position = [0.0,0.0,0.0],velocity = 0.01, angle = 0.0):
         super().__init__(position, velocity, angle)
         self.divideInfo = [1,16,1,6]
-        self.scaleSize = [0.033, 0.033, 0.033]
+        super()._setRenderSize([0.033, 0.033, 0.033])
+        super()._setCollideSize([0.033, 0.033, 0.033])
         self.isLight = False
         super().setBulletImage("assets/Bullet/riceBullet.png")
 

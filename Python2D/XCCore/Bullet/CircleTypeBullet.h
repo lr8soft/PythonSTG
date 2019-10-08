@@ -16,6 +16,7 @@ private:
 
 	glm::vec4 divideInfo;
 	glm::vec3 scaleInfo;
+	glm::vec3 collideSize;
 	int  reBoundTime = 0;
 	float velocity = 0.0f, acceleration = 0.0f, angle = 0.0f, increaseAngle = 0.0f;
 
@@ -25,7 +26,7 @@ private:
 public:
 	/*#£¡Attention scaleInfo will work both collide and render.
 #£¡renderSize: scaleX * widthRate : scaleY * heightRate  ,collideSize : scaleX : scaleY*/
-	CircleTypeBullet(std::string bulletImagePath, glm::vec4 divideInfo, glm::vec3 scaleInfo, glm::vec3 initCoord
+	CircleTypeBullet(std::string bulletImagePath, glm::vec4 divideInfo, glm::vec3 scaleInfo, glm::vec3 collideSize ,glm::vec3 initCoord
 		, float velocity, float acceleration, float angle, float increateAngle, int reboundTime, bool aimPlayer);
 	virtual void BulletInit()  override;
 	virtual void BulletRender() override;

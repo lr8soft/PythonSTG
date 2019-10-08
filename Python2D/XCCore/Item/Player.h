@@ -3,7 +3,7 @@
 #define _XCPlayer_H_
 #include <atomic>
 #include <map>
-#include "../XCRender/DecisionPointSE.h"
+#include "../XCRender/SpecialEffect/DecisionPointSE.h"
 #include "../XCRender/XCImageHelper.h"
 class Player {
 private:

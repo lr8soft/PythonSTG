@@ -146,7 +146,7 @@
     <ClCompile Include="XCCore\XCRender\XCFont.cpp" />
     <ClCompile Include="XCCore\Item\Item.cpp" />
     <ClCompile Include="XCCore\Item\Player.cpp" />
-    <ClCompile Include="XCCore\XCRender\DecisionPointSE.cpp" />
+    <ClCompile Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.cpp" />
     <ClCompile Include="XCCore\XCRender\IRenderHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\RenderManager.cpp" />
     <ClCompile Include="XCCore\XCRender\XCAdvImageHelper.cpp" />
@@ -184,9 +184,9 @@
     <ClInclude Include="XCCore\Item\Item.h" />
     <ClInclude Include="XCCore\Item\Player.h" />
     <ClInclude Include="XCCore\XCRender\BlendHelper.h" />
-    <ClInclude Include="XCCore\XCRender\DecisionPointSE.h" />
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.h" />
     <ClInclude Include="XCCore\XCRender\IRenderHelper.h" />
-    <ClInclude Include="XCCore\XCRender\ISpecialEffect.h" />
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\ISpecialEffect.h" />
     <ClInclude Include="XCCore\XCRender\RenderManager.h" />
     <ClInclude Include="XCCore\XCRender\XCAdvImageHelper.h" />
     <ClInclude Include="XCCore\XCRender\XCColorBlockHelper.h" />

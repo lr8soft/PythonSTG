@@ -82,7 +82,7 @@ def StageInit():
     taskAfter = Task(durationFrame=-1, intervalFrame=0, targetUuid=taskTest.getUuid())
     unit2_0 = TaskUnit()
     for j in range(0, 36):
-        bullet = HugeBullet([0.0, 0.0, 0.0], 0.9)
+        bullet = HugeBullet([0.0, 0.0, 0.0], 0.00)
         bullet.setAngle(j * 10, 75)
         bullet.setBulletColor(BulletColor.LIGHTBLUE)
         bullet.setRebound(3)
