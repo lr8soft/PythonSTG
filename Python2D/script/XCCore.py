@@ -82,18 +82,17 @@ def StageInit():
     taskAfter = Task(durationFrame=-1, intervalFrame=0, targetUuid=taskTest.getUuid())
     unit2_0 = TaskUnit()
     for j in range(0, 36):
-        bullet = HugeBullet([0.0, 0.0, 0.0], 0.9)
+        bullet = HugeBullet([0.0, 0.0, 0.0], 0.6)
         bullet.setAngle(j * 10, 75)
         bullet.setBulletColor(BulletColor.LIGHTBLUE)
         bullet.setRebound(3)
         unit2_0.addBullet(bullet)
 
     unit2_1 = TaskUnit(waitFrame=360)
-    for k in range(0, 360):
+    for k in range(0, 180):
         bullet = RiceBullet([0.0, 0.0, 0.0], 0.9)
-        bullet.setAngle(k, -5)
-        if k % 4 == 0 or k % 6 == 0:
-            bullet.setBulletColorLight(True)
+        bullet.setAngle(k*2, -5)
+        bullet.setBulletColorLight(True)
         if k % 2 == 0:
             bullet.setBulletColor(BulletColor.LIGHTBLUE)
             bullet.setAcceleration(0.1)
@@ -118,4 +117,3 @@ def PlayerInit():
     rin.setPlayerData(1.45, 0.1, 1.0)
     XCInit.addPlayerItem(rin)
     print("[XCCore]Player info init.")
-

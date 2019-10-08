@@ -5,7 +5,8 @@ class CircleTypeBullet(Bullet):
     def __init__(self, position=[0.0, 0.0, 0.0], velocity=0.01, angle=0.0):
         super().__init__(position, velocity, angle)
         self.divideInfo = [1, 1, 1, 1]
-        self.scaleSize = [0.01, 0.01, 0.01]
+        super()._setRenderSize([0.01, 0.01, 0.01])
+        super()._setCollideSize([0.01, 0.01, 0.01])
         self.bulletType = "circleTypeBullet"
         self.bulletImage = ""
 
@@ -17,4 +18,22 @@ class CircleTypeBullet(Bullet):
         self.bulletImage = bulletImagePath
 
     def _cpp_getInitRenderInfo(self):
-        return self.bulletImage, self.bulletType, tuple(self.divideInfo), tuple(self.scaleSize)
+        return self.bulletImage, self.bulletType, tuple(self.divideInfo), tuple(self.scaleSize), tuple(self.collideSize)
+
+    def _circleBullet_setReleaseColor(self, color=BulletColor.BLUE):
+        if color == BulletColor.LIGHTGREEN:
+            super()._setReleaseParticleColor([0.58, 0.72, 0.15, 1.0])
+        elif color == BulletColor.RED:
+            super()._setReleaseParticleColor([1.0, 0.0, 0.0, 1.0])
+        elif color == BulletColor.BLUE:
+            super()._setReleaseParticleColor([0.0, 0.0, 1.0, 1.0])
+        elif color == BulletColor.YELLOW:
+            super()._setReleaseParticleColor([0.7, 0.85, 0.15, 1.0])
+        elif color == BulletColor.LIGHTBLUE:
+            super()._setReleaseParticleColor([0.0, 1.0, 1.0, 1.0])
+        elif color == BulletColor.ORANGE:
+            super()._setReleaseParticleColor([1.0, 0.85, 0.27, 1.0])
+        elif color == BulletColor.PURPLE:
+            super()._setReleaseParticleColor([1.0, 0.35, 1.0, 1.0])
+        elif color == BulletColor.WHITE:
+            super()._setReleaseParticleColor([0.76, 0.76, 0.76, 1.0])

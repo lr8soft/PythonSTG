@@ -36,10 +36,9 @@ void Task::taskSubWork()
 				}
 				if ((*unit)->getIsEmpty()) {//release here
 					(*unit)->UnitRelease();
+					delete (*unit);
 					if (std::next(unit) == subUnitGroup.end()) {
 						subUnitGroup.erase(unit);
-						if(subUnitGroup.empty())
-							taskFinish = true;
 						break;
 					}
 					else {
@@ -48,6 +47,8 @@ void Task::taskSubWork()
 					}
 				}
 			}
+			if (subUnitGroup.empty())
+				taskFinish = true;
 			taskNowDurationFrame++;
 		}
 		taskAccumlateTime++;

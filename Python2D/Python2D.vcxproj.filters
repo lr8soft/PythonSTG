@@ -120,14 +120,20 @@
     <ClCompile Include="XCCore\XCRender\XCFont.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\XCRender\DecisionPointSE.cpp">
-      <Filter>XCCore\XCRender\SpecialEffect</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\XCCollide\CollideHelper.cpp">
       <Filter>XCCore\XCCollide</Filter>
     </ClCompile>
     <ClCompile Include="XCCore\XCCollide\CollideInfo.cpp">
       <Filter>XCCore\XCCollide</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.cpp">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.cpp">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -226,14 +232,20 @@
     <ClInclude Include="XCCore\XCCollide\CollideHelper.h">
       <Filter>XCCore\XCCollide</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\XCRender\ISpecialEffect.h">
-      <Filter>XCCore\XCRender\SpecialEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\XCRender\DecisionPointSE.h">
-      <Filter>XCCore\XCRender\SpecialEffect</Filter>
-    </ClInclude>
     <ClInclude Include="XCCore\XCCollide\CollideInfo.h">
       <Filter>XCCore\XCCollide</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.h">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\ISpecialEffect.h">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.h">
+      <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

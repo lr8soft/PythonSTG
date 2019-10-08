@@ -5,10 +5,17 @@ class HugeBullet(CircleTypeBullet):
     def __init__(self, position=[0.0, 0.0, 0.0], velocity=0.01, angle=0.0):
         super().__init__(position, velocity, angle)
         self.divideInfo = [4, 2, 1, 2]
-        self.scaleSize = [0.16, 0.16, 0.16]
+        super()._setRenderSize([0.16, 0.16, 0.16])
+        super()._setCollideSize([0.1, 0.1, 0.1])
         super().setBulletImage("assets/Bullet/hugeBullet.png")
 
+        super()._setReleaseParticleDensity(6)
+        super()._setReleaseParticleLifeTime(0.5)
+        super()._setReleaseParticleSize(18)
+        super()._setReleaseParticleVelocity(0.8)
+
     def setBulletColor(self, color=BulletColor.BLUE):
+        super()._circleBullet_setReleaseColor(color)
         if color == BulletColor.RED:
             self.divideInfo = [4, 2, 1, 2]
         elif color == BulletColor.PURPLE:

@@ -3,7 +3,7 @@
 #define _XCPlayer_H_
 #include <atomic>
 #include <map>
-#include "../XCRender/DecisionPointSE.h"
+#include "../XCRender/SpecialEffect/DecisionPointSE.h"
 #include "../XCRender/XCImageHelper.h"
 class Player {
 private:
@@ -21,7 +21,7 @@ private:
 	glm::vec3 rotateWork;
 	float rotateAngle = 0.0f;
 
-	float NowPosition[3] = { 0.0f ,0.0f ,0.0f };
+	float NowPosition[3] = { 0.0f ,-0.5f ,0.0f };
 
 	DecisionPointSpecialEffect* specialEffectDecision;
 
