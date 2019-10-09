@@ -10,6 +10,7 @@ struct InitInfo {
 	int winWidth;
 	bool winResize;
 	bool winScale;
+	std::string winImage;
 	std::string winTitle;
 };
 class XCInterpreter {

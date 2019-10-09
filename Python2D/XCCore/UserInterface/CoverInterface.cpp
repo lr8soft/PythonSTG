@@ -7,14 +7,17 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 using namespace xc_ogl;
+std::string CoverInterface::imagePath;
 CoverInterface* CoverInterface::pInterface = nullptr;
 CoverInterface::CoverInterface() {
 }
 
-CoverInterface * CoverInterface::getInstance()
+CoverInterface * CoverInterface::getInstance(std::string path)
 {
-	if (pInterface == nullptr)
+	if (pInterface == nullptr) {
+		imagePath = path;
 		pInterface = new CoverInterface;
+	}
 	return pInterface;
 }
 
@@ -28,7 +31,7 @@ void CoverInterface::UserInterfaceInit()
 		program = fxreader.getProgramHandle();
 
 		ImageLoader image;
-		image.loadTextureFromFile("assets/background/123.jpeg");
+		image.loadTextureFromFile(imagePath.c_str());
 		tbo = image.getTextureBufferObjectHandle();
 
 		glGenVertexArrays(1, &vao);

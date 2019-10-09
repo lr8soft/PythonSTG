@@ -15,10 +15,9 @@ from script.Bullet.Bullet import BulletColor
 winWidth = 1280
 winHeight = 720
 
-winTitle = "Python2D v0.23u2"
+winTitle = "Python2D v0.24"
 winScaleToMonitor = False
 winResize = False
-
 
 # PySTG default function
 def coreInitializer():

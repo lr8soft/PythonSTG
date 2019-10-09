@@ -12,7 +12,7 @@
 RenderManager* RenderManager::pRManager = nullptr;
 RenderManager::RenderManager()
 {
-	auto coverInterface = CoverInterface::getInstance();
+	auto coverInterface = CoverInterface::getInstance("assets/background/default.jpeg");
 	AddUserInterface("coverImage", coverInterface);
 
 	auto infoInterface = GameInfoInterface::getInstance();
@@ -34,10 +34,7 @@ RenderManager * RenderManager::getInstance()
 	return pRManager;
 }
 
-void RenderManager::AddStaticWork(StaticRenderItem work)
-{
-	staticQueue.push_back(work);
-}
+
 void RenderManager::AddStageItem(Stage * stage)
 {
 	stageQueue.push_back(stage);

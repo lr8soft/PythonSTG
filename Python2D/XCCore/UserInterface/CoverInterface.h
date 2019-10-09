@@ -3,8 +3,10 @@
 #define _COVER_INTERFACE_H_
 #include "IUserInterface.h"
 #include <GL/glcorearb.h>
+#include <iostream>
 class CoverInterface : public IUserInterface{
 private:
+	static std::string imagePath;
 	static CoverInterface* pInterface;
 
 	GLushort indices[6] = { 0, 1, 2, 2, 3, 0 };
@@ -13,7 +15,7 @@ private:
 
 	CoverInterface();
 public:
-	static CoverInterface* getInstance();
+	static CoverInterface* getInstance(std::string path="assets/background/123.jpeg");
 
 	virtual void UserInterfaceInit();
 	virtual void UserInterfaceRender();

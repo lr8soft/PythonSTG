@@ -23,9 +23,11 @@ InitInfo XCInterpreter::InterpreterThread()
 	PyObject* title = pyLoader.getAttrib(mainScript, "winTitle");
 	PyObject* resize = pyLoader.getAttrib(mainScript, "winResize");
 	PyObject* scale  = pyLoader.getAttrib(mainScript, "winScaleToMonitor");
+	//PyObject* image = pyLoader.getAttrib(mainScript, "winImage");
 	info.winHeight = pyLoader.getSingleArg<int>(height);
 	info.winWidth = pyLoader.getSingleArg<int>(width);
 	info.winTitle = pyLoader.getSingleArg<const char*>(title);
+	//info.winImage = pyLoader.getSingleArg<const char*>(image);
 
 	int intValue;
 	PyArg_Parse(resize, "p", &intValue);
