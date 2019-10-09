@@ -140,6 +140,7 @@
     <ClCompile Include="XCCore\Task\TaskDispatcher.cpp" />
     <ClCompile Include="XCCore\Task\TaskHelper.cpp" />
     <ClCompile Include="XCCore\Task\TaskInsideUnit.cpp" />
+    <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp" />
     <ClCompile Include="XCCore\UserInterface\GameInfoInterface.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideHelper.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideInfo.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="XCCore\Task\TaskDispatcher.h" />
     <ClInclude Include="XCCore\Task\TaskHelper.h" />
     <ClInclude Include="XCCore\Task\TaskInsideUnit.h" />
+    <ClInclude Include="XCCore\UserInterface\CoverInterface.h" />
     <ClInclude Include="XCCore\UserInterface\GameInfoInterface.h" />
     <ClInclude Include="XCCore\UserInterface\IUserInterface.h" />
     <ClInclude Include="XCCore\XCCollide\CollideHelper.h" />

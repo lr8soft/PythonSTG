@@ -7,10 +7,14 @@
 #include "RenderManager.h"
 #include "../../XCFrameInfo.h"
 #include "../UserInterface/GameInfoInterface.h"
+#include "../UserInterface/CoverInterface.h"
 #include "../XCCollide/CollideInfo.h"
 RenderManager* RenderManager::pRManager = nullptr;
 RenderManager::RenderManager()
 {
+	auto coverInterface = CoverInterface::getInstance();
+	AddUserInterface("coverImage", coverInterface);
+
 	auto infoInterface = GameInfoInterface::getInstance();
 	AddUserInterface("gameInfo", infoInterface);
 }
@@ -46,27 +50,6 @@ void RenderManager::RenderWork()
 {
 	if (!shouldGamePause) {
 		glClear(GL_COLOR_BUFFER_BIT);
-		std::vector<StaticRenderItem>::iterator workBegin = staticQueue.begin();
-		std::vector<StaticRenderItem>::iterator workEnd = staticQueue.end();
-
-		for (auto work = workBegin; work != workEnd; work++) {//static render work
-			if (!work->init) {
-				work->image = IRenderHelper::getRenderObjectByType(work->renderType, work->imagePath, work->flexible);
-				work->init = true;
-			}
-			if (work->init && work->visible) {
-				work->image->Render(
-					work->renderPos,
-					work->renderColor,
-					0.0f,
-					glm::vec3(1),
-					work->scaleSize,
-					IRenderHelper::GetSpecificTexWithRate(
-						XCFrameInfo::FrameRight, XCFrameInfo::FrameTop,
-						work->divideInfo[0], work->divideInfo[1], work->divideInfo[2], work->divideInfo[3])
-				);
-			}
-		}
 		if (renderBackground != nullptr) {
 			renderBackground->BackgroundRender();
 		}

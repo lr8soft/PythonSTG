@@ -15,14 +15,13 @@ from script.Bullet.Bullet import BulletColor
 winWidth = 1280
 winHeight = 720
 
-winTitle = "Python2D v0.20x"
+winTitle = "Python2D v0.23u2"
 winScaleToMonitor = False
 winResize = False
 
 
 # PySTG default function
 def coreInitializer():
-    UiInit()
     StageInit()
     PlayerInit()
 
@@ -30,24 +29,6 @@ def coreInitializer():
 def coreFinalizer():
     print("[XCCore]Now interpreter stop.")
 
-
-# UI Init
-def UiInit():
-    background = RenderImageItem()
-    background.IsFlexible = False
-    background.ImagePath = "assets/background/123.jpeg"
-    background.renderPos = [0.0, 0.0, 0.0]
-    background.priority = 6
-    XCInit.addStaticRenderItem(background)
-
-    gameScene = RenderColorItem()
-    gameScene.renderPos = [0.0, 0.0, 0.0]
-    gameScene.renderSize = [1.0, 1.0, 1.0]
-    gameScene.colorValue = [0.0, 0.0, 0.0, 1.0]
-    gameScene.isFlexible = True
-    background.priority = 7
-    XCInit.addStaticRenderItem(gameScene)
-    print("[XCCore]UI init.")
 
 
 def StageInit():
@@ -82,8 +63,8 @@ def StageInit():
     taskAfter = Task(durationFrame=-1, intervalFrame=0, targetUuid=taskTest.getUuid())
     unit2_0 = TaskUnit()
     for j in range(0, 36):
-        bullet = HugeBullet([0.0, 0.0, 0.0], 0.6)
-        bullet.setAngle(j * 10, 75)
+        bullet = HugeBullet([0.0, 0.0, 0.0], 0.8)
+        bullet.setAngle(j * 10, 65)
         bullet.setBulletColor(BulletColor.LIGHTBLUE)
         bullet.setRebound(3)
         unit2_0.addBullet(bullet)

@@ -33,7 +33,7 @@ void GameInfoInterface::UserInterfaceRender()
 	infoTimer.Tick();
 	if (isInit) {
 		if( (float)XCFrameInfo::ScreenWidth / (float)XCFrameInfo::ScreenHeight >= 1.6667f){//>scrren(16:10)
-			BlendNormalStart
+			BlendOneMinusAlphaStart
 			//rank render start
 			float rankWidth = (1.0f - XCFrameInfo::FrameRight) / 2.5f;
 			float rankHeight = rankWidth / 4.5f;
@@ -101,7 +101,7 @@ void GameInfoInterface::UserInterfaceRender()
 			nowLifeMat = glm::scale(nowLifeMat, glm::vec3(nowLifeWidth, nowLifeHeight, 1.0f));
 
 			playerInfoImage2->setMvpMatrix(nowLifeMat);
-			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f,0.6f,0.6f,1.0f), 0.0f, glm::vec3(), glm::vec3(),
+			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f,1.0f,1.0f,1.0f), 0.0f, glm::vec3(), glm::vec3(),
 				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 1, 3));
 			
 			BlendEnd

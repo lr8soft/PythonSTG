@@ -19,7 +19,6 @@ private:
 	InitInfo InterpreterThread();
 
 	void parseStageItem();
-	void parseStaticRenderItem();
 	void parsePlayerEntity();
 public:
 	XCInterpreter();
