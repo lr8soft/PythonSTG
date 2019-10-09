@@ -4,6 +4,7 @@
 #include <atomic>
 #include <map>
 #include "../XCRender/SpecialEffect/DecisionPointSE.h"
+#include "../XCRender/SpecialEffect/ExplodeParticleGroupSE.h"
 #include "../XCRender/XCImageHelper.h"
 class Player {
 private:
@@ -13,17 +14,24 @@ private:
 
 	IRenderHelper* renderHelper;
 	IRenderHelper* hitHelper;
-	int hitTime = 0;
+
+	bool isHitTime = false;
+	double HitProtectTime = 3.0f;
+	double lastHitTime = 0;
 
 	glm::vec4 divideInfo;
 	glm::vec4 coverColor;
 	glm::vec3 scaleSize;
 	glm::vec3 rotateWork;
+
+	glm::vec4 tempColor;
+
 	float rotateAngle = 0.0f;
 
 	float NowPosition[3] = { 0.0f ,-0.5f ,0.0f };
 
 	DecisionPointSpecialEffect* specialEffectDecision;
+	ExplodeParticleSpecialEffect* playerHurtEffect;
 
 	bool isInit = false, renderDecisionPoint = false;
 	const char* playerFrameName, *playerImage;

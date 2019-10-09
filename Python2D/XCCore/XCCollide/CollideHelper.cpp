@@ -14,3 +14,14 @@ void CollideHelper::checkCollisionWithBullet(Bullet * pBullet)
 		pPlayer->hurtPlayer();
 	}
 }
+
+float * CollideHelper::getPlayerPosition()
+{
+	float *srcPostion = pPlayer->getPosition();
+
+	static float position[3];
+	position[0] = *(srcPostion);
+	position[1] = *(srcPostion + 1);
+	position[2] = *(srcPostion + 2);
+	return position;
+}

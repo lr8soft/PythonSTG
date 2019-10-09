@@ -1,6 +1,5 @@
 from enum import  Enum
 import uuid
-from script.RenderItem.TranslateItem import TranslateItem
 class BlendType(Enum):
     COLOR_NONE = 0
     COLOR_ONE_MINUS_SRC = 1
@@ -8,7 +7,7 @@ class BlendType(Enum):
     ALPHA_NONE = 0
     ALPHA_ONE_MINUS_SRC = 1
     ALPHA_ONE = 2
-class XCItem(TranslateItem):
+class XCItem():
     def __init__(self):
         super().__init__()
         self._pos = [0.0, 0.0, 0.0]
@@ -22,6 +21,8 @@ class XCItem(TranslateItem):
         self._divideInfo = [1, 1, 0, 0]
         self._useBlend = True
         self._blendFunc = [BlendType.COLOR_NONE.value, BlendType.ALPHA_ONE_MINUS_SRC.value]
+
+        self.priority = 9;
 
     def setImage(self, imagePath, divideFormat = [1, 1, 0, 0], scaleSize = [1.0, 1.0, 1.0], isFlexible = True):
         self._imagePath = imagePath
@@ -39,6 +40,9 @@ class XCItem(TranslateItem):
 
     def setInitPos(self, pos = [0.0, 0.0, 0.0]):
         self._pos = pos
+
+    def setPriority(self, priority):
+        self.priority = priority
 
     #callback function for cpp
     def _cpp_getInitRenderInfo(self):
@@ -58,6 +62,17 @@ class XCItem(TranslateItem):
 
     def _cpp_getInitCoord(self):
         return tuple(self._pos)
+
+    def __eq__(self, other):
+        try:
+            return self.priority == other.priority;
+        except AttributeError:
+            return NotImplemented
+    def __lt__(self, other):
+        try:
+            return self.priority < other.priority;
+        except AttributeError:
+            return NotImplemented
 
 
 

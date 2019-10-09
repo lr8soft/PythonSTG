@@ -9,5 +9,6 @@ private:
 public:
 	CollideHelper(Player *player);
 	void checkCollisionWithBullet(Bullet *pBullet);
+	float* getPlayerPosition();
 };
 #endif

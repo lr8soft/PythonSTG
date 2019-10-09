@@ -20,8 +20,10 @@ void TaskInsideUnit::UnitWork()
 		for (auto bullet = iterBegin; bullet != iterEnd;bullet++) {
 			if (!(*bullet)->getIsTerminate()) {
 				(*bullet)->BulletRender();
-				if (CollideInfo::collideHelperP1 != nullptr) {
-					CollideInfo::collideHelperP1->checkCollisionWithBullet((*bullet));
+
+				auto collideHelperP1 = CollideInfo::getCollideHelperP1();
+				if (collideHelperP1 != nullptr) {
+					collideHelperP1->checkCollisionWithBullet((*bullet));
 				}
 			}
 

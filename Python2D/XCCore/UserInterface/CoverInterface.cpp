@@ -7,15 +7,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 using namespace xc_ogl;
-std::string CoverInterface::imagePath;
+std::string CoverInterface::imagePath = "assets/background/default.jpeg";
 CoverInterface* CoverInterface::pInterface = nullptr;
 CoverInterface::CoverInterface() {
 }
 
-CoverInterface * CoverInterface::getInstance(std::string path)
+CoverInterface * CoverInterface::getInstance()
 {
 	if (pInterface == nullptr) {
-		imagePath = path;
 		pInterface = new CoverInterface;
 	}
 	return pInterface;
@@ -58,7 +57,7 @@ void CoverInterface::UserInterfaceRender()
 	if (isInit) {
 		glEnable(GL_BLEND);
 		//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUseProgram(program);
 		glBindVertexArray(vao);
 

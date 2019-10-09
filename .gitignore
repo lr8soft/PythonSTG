@@ -1,3 +1,6 @@
 x64
 .vs
+Debug
+Release
+Python2D\Release
 *.pyc

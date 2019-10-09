@@ -15,7 +15,7 @@ private:
 
 	CoverInterface();
 public:
-	static CoverInterface* getInstance(std::string path="assets/background/123.jpeg");
+	static CoverInterface* getInstance();
 
 	virtual void UserInterfaceInit();
 	virtual void UserInterfaceRender();

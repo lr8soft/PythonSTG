@@ -12,7 +12,7 @@
 RenderManager* RenderManager::pRManager = nullptr;
 RenderManager::RenderManager()
 {
-	auto coverInterface = CoverInterface::getInstance("assets/background/default.jpeg");
+	auto coverInterface = CoverInterface::getInstance();
 	AddUserInterface("coverImage", coverInterface);
 
 	auto infoInterface = GameInfoInterface::getInstance();
@@ -114,5 +114,5 @@ Player * RenderManager::getPlayerP1()
 void RenderManager::setPlayerP1(Player * p1)
 {
 	playerP1 = p1;
-	CollideInfo::collideHelperP1 = new CollideHelper(p1);
+	CollideInfo::setCollideHelperP1(new CollideHelper(p1));
 }
