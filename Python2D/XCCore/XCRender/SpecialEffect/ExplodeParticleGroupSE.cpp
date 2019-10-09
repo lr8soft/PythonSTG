@@ -22,6 +22,7 @@ void ExplodeParticleSpecialEffect::SpecialEffectCoordInit(glm::vec3 initCoord)
 
 			particleGroup[i].angle = (float)(rand() % 360);
 			particleGroup[i].velocity = groupVelocity;
+
 		}
 		isCoordInit = true;
 	}
@@ -45,7 +46,7 @@ void ExplodeParticleSpecialEffect::SpecialEffectRender()
 	timer.Tick();
 	std::vector<ParticleInfo>::iterator partBegin = particleGroup.begin();
 	std::vector<ParticleInfo>::iterator partEnd = particleGroup.end();
-
+	
 	for (auto particleIter = partBegin; particleIter != partEnd; particleIter++) {
 
 		if (!particleIter->particle->getIsFinish()) {
@@ -79,6 +80,7 @@ void ExplodeParticleSpecialEffect::SpecialEffectRelease()
 	}
 	particleGroup.clear();
 }
+
 
 bool ExplodeParticleSpecialEffect::getIsFinish()
 {

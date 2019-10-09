@@ -72,6 +72,38 @@ protected:
 		}
 		return false;
 	}
+
+	/*if aimToPlayer==false ,playerPos can be nullptr.*/
+	void solveBulletMovement(bool &aimToPlayer, float* playerPos,float &velocity, float &angle, float &acceleration, float &increaseAngle, float deltaTime) {
+		float pi = 3.1415926535f;
+		if (aimToPlayer) {
+			if (playerPos != nullptr) {
+				float x = *(playerPos), y = *(playerPos + 1);
+				float k = (y - NowPosition[1]) / (x - NowPosition[0]);
+				float theta = 0.0f;
+				if (x != NowPosition[0]) {
+					theta = atan(k);
+				}
+				else {
+					if (y > NowPosition[1]) {
+						theta = pi / 2.0f;
+					}
+					else {
+						theta = (pi *3.0f) / 2.0f;
+					}
+				}
+				if (x < NowPosition[0])
+					velocity = -velocity;
+
+				angle = (180.0f / pi) * theta;
+				aimToPlayer = false;
+			}
+		}
+		NowPosition[0] += velocity * cos(angle / 180.0f * pi) * deltaTime;
+		NowPosition[1] += velocity * sin(angle / 180.0f * pi) * deltaTime;
+		angle += increaseAngle * deltaTime;
+		velocity += acceleration * deltaTime;
+	}
 public:
 	virtual void BulletInit() = 0;
 	virtual void BulletRender() = 0;

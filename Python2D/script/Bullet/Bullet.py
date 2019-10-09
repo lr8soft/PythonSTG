@@ -14,12 +14,12 @@ class BulletColor(Enum):
 
 
 class Bullet:
-    def __init__(self, position=[0.0, 0.0, 0.0], velocity=0.0, acceleration=0.0, angle=0.0, increaseAnglePerTick=0.0):
-        self.position = position
-        self.acceleration = acceleration
-        self.velocity = velocity
-        self.angle = angle
-        self.incAngle = increaseAnglePerTick
+    def __init__(self):
+        self.position = [0.0, 0.0, 0.0]
+        self.acceleration = 0.0
+        self.velocity = 0.3
+        self.angle = 0.0
+        self.incAngle = 0.0
         self.bulletColor = BulletColor.BLUE
         self.rotateAngle = 0.0
         self.rotateWork = [0, 0, 1]
@@ -32,18 +32,23 @@ class Bullet:
         self.releaseParticleVelocity = 0.6
         self.releaseParticleSize = 15
 
+    def setInitCoord(self, coord=[0.0, 0.0, 0.0]):
+        self.position = coord
+
     def setAcceleration(self, a):
         self.acceleration = a
 
     def setVelocity(self, v):
         self.velocity = v
 
-    def setAngle(self, angle, increaseAngle=0.0):
+    def setAngle(self, angle = 0.0):
         if angle >= 360:
             angle -= 360
         elif angle < 0:
             angle += 360
         self.angle = angle
+
+    def setAngleAcceleration(self, increaseAngle=0.0):
         self.incAngle = increaseAngle
 
     def setAimToPlayer(self, aimToPlayer):
@@ -68,7 +73,7 @@ class Bullet:
     def _setReleaseParticleVelocity(self, v=0.6):
         self.releaseParticleVelocity = v
 
-    def _setReleaseParticleSize(self, size = 15):
+    def _setReleaseParticleSize(self, size=15):
         self.releaseParticleSize = size
 
     def _setRenderSize(self, size=[0.1, 0.1, 0.1]):
@@ -92,5 +97,5 @@ class Bullet:
     # return self.bulletType, tuple(self.divideInfo), tuple(self.scaleSize)
 
     def _cpp_getReleaseParticleInfo(self):
-        return self.releaseParticleDensity, self.releaseParticleLifeTime, self.releaseParticleVelocity, self.releaseParticleSize,\
+        return self.releaseParticleDensity, self.releaseParticleLifeTime, self.releaseParticleVelocity, self.releaseParticleSize, \
                tuple(self.releaseParticleColor)

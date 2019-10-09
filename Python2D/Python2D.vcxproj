@@ -80,7 +80,7 @@
       <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\libs\python36_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x86\python36.lib;..\libs\x86\python36_d.lib;..\libs\x86\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -103,10 +103,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x86\python36.lib;..\libs\x86\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,6 +142,7 @@
     <ClCompile Include="XCCore\Task\TaskDispatcher.cpp" />
     <ClCompile Include="XCCore\Task\TaskHelper.cpp" />
     <ClCompile Include="XCCore\Task\TaskInsideUnit.cpp" />
+    <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp" />
     <ClCompile Include="XCCore\UserInterface\GameInfoInterface.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideHelper.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideInfo.cpp" />
@@ -178,6 +181,7 @@
     <ClInclude Include="XCCore\Task\TaskDispatcher.h" />
     <ClInclude Include="XCCore\Task\TaskHelper.h" />
     <ClInclude Include="XCCore\Task\TaskInsideUnit.h" />
+    <ClInclude Include="XCCore\UserInterface\CoverInterface.h" />
     <ClInclude Include="XCCore\UserInterface\GameInfoInterface.h" />
     <ClInclude Include="XCCore\UserInterface\IUserInterface.h" />
     <ClInclude Include="XCCore\XCCollide\CollideHelper.h" />

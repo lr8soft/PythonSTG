@@ -2,8 +2,8 @@ from script.Bullet.Bullet import Bullet, BulletColor, abstractmethod
 
 
 class CircleTypeBullet(Bullet):
-    def __init__(self, position=[0.0, 0.0, 0.0], velocity=0.01, angle=0.0):
-        super().__init__(position, velocity, angle)
+    def __init__(self):
+        super().__init__()
         self.divideInfo = [1, 1, 1, 1]
         super()._setRenderSize([0.01, 0.01, 0.01])
         super()._setCollideSize([0.01, 0.01, 0.01])

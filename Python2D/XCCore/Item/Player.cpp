@@ -21,7 +21,7 @@ Player::Player( const char* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 s
 	rotateWork = rWork;
 	rotateAngle = rAngle;
 	coverColor = color;
-
+	tempColor = color;
 
 	playerImage = image;
 
@@ -44,6 +44,8 @@ void Player::PlayerInit()
 		specialEffectDecision = new DecisionPointSpecialEffect;
 		specialEffectDecision->SpecialEffectInit();
 
+		playerHurtEffect = new ExplodeParticleSpecialEffect(300, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));
+		playerHurtEffect->SpecialEffectGLInit();
 		hitHelper = new XCImageHelper("assets/Item/hit.png", true);
 		isInit = true;
 	}
@@ -54,6 +56,12 @@ void Player::PlayerRender()
 		playerKeyCheck();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		if (isHitTime) {
+			coverColor = glm::vec4(1.0f,1.0f,1.0f,0.5f);
+		}
+		else {
+			coverColor = tempColor;
+		}
 		switch (playerNowState) {
 		case PLAYER_STANDBY:
 			renderHelper->Render(
@@ -97,13 +105,14 @@ void Player::PlayerRender()
 
 		//////////test
 
-		if (hitTime > 0) {
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			hitHelper->Render(glm::vec3(NowPosition[0], NowPosition[1] + 0.1f, NowPosition[2]), glm::vec4(1.0f),0.0f,glm::vec3(0,0,1),glm::vec3(0.1f),
-				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight,XCFrameInfo::FrameTop,1,1,1,1));
-			glDisable(GL_BLEND);
-			hitTime--;
+		if (isHitTime) {
+			playerHurtEffect->SpecialEffectRender();
+			if (itemTimer.getAccumlateTime() - lastHitTime > HitProtectTime) {
+				playerHurtEffect->SpecialEffectRelease();
+				delete playerHurtEffect;
+				playerHurtEffect = nullptr;
+				isHitTime = false;
+			}
 		}
 			
 		///////////test
@@ -125,8 +134,21 @@ float * Player::getPosition()
 
 void Player::hurtPlayer()
 {
-	if(hitTime==0)
-		hitTime += 10;
+	if (itemTimer.getAccumlateTime() - lastHitTime > HitProtectTime || lastHitTime == 0) {
+		lastHitTime = itemTimer.getAccumlateTime();
+
+		if (playerHurtEffect == nullptr) {
+			playerHurtEffect = new ExplodeParticleSpecialEffect(300, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));
+			playerHurtEffect->SpecialEffectGLInit();
+			playerHurtEffect->SpecialEffectCoordInit(glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+
+		}
+		else {
+			playerHurtEffect->SpecialEffectCoordInit(glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+		}
+		isHitTime = true;
+	}
+		
 }
 
 void Player::playerKeyCheck()
@@ -137,6 +159,7 @@ void Player::playerKeyCheck()
 
 	float renderX = NowPosition[0] * XCFrameInfo::FrameRight;
 	float renderY = NowPosition[1] * XCFrameInfo::FrameTop;
+
 	if (glfwGetKey(screen, GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(screen, true);
 	}
@@ -174,8 +197,9 @@ void Player::playerKeyCheck()
 	}
 
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyShoot) == GLFW_PRESS) {
-	
+
 	}
+
 	/*if (glfwGetKey(screen, keyitem) == GLFW_PRESS) {
 		player_fire_power += 0.1f;
 	}*/

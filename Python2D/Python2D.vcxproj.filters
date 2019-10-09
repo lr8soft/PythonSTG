@@ -135,6 +135,9 @@
     <ClCompile Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.cpp">
       <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp">
+      <Filter>XCCore\UserInterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -246,6 +249,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.h">
       <Filter>XCCore\XCRender\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\UserInterface\CoverInterface.h">
+      <Filter>XCCore\UserInterface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

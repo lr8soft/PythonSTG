@@ -23,7 +23,7 @@ private:
 	XCGameTimer timer;
 	std::vector<ParticleInfo> particleGroup;
 public:
-	ExplodeParticleSpecialEffect(int density,float size ,float lifetime, float velocity,glm::vec4 color);
+	ExplodeParticleSpecialEffect(int density,float size ,float lifetime, float velocity, glm::vec4 color);
 	void SpecialEffectCoordInit(glm::vec3 initCoord);
 	void SpecialEffectGLInit();
 	void SpecialEffectRender();
