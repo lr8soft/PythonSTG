@@ -3,6 +3,7 @@
 #define _XCPlayer_H_
 #include <atomic>
 #include <map>
+#include "../XCAudio/AudioHelper.h"
 #include "../XCRender/SpecialEffect/DecisionPointSE.h"
 #include "../XCRender/SpecialEffect/ExplodeParticleGroupSE.h"
 #include "../XCRender/XCImageHelper.h"
@@ -13,7 +14,6 @@ private:
 	XCGameTimer itemTimer;
 
 	IRenderHelper* renderHelper;
-	IRenderHelper* hitHelper;
 
 	bool isHitTime = false;
 	double HitProtectTime = 3.0f;
@@ -31,6 +31,7 @@ private:
 
 	DecisionPointSpecialEffect* specialEffectDecision;
 	ExplodeParticleSpecialEffect* playerHurtEffect;
+	XCWavFile playerHurtAudio;
 
 	bool isInit = false, renderDecisionPoint = false;
 	const char* playerFrameName, *playerImage;

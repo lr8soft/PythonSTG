@@ -29,17 +29,29 @@ struct RIFF_Header {
 
 };
 
+struct XCWavFile {
+	ALuint wavSource;
+	ALsizei wavSize;
+	ALsizei wavFrequent;
+	ALenum wavFormat;
+};
+
 class AudioHelper {
 private:
 	static bool isEvonInit;
 	static ALCdevice* device;
 	static ALCcontext* context;
+	static float audioVolume;
 
-	//std::map<std::string, >
+	static std::map<std::string, XCWavFile> wavSourceGroup;
+	
+	static bool loadWavFile(const std::string filename, XCWavFile *wavFile);
 public:
 	static void EvonInit();
 	static void UnloadEvon();
 
-	static bool loadWavFile(const std::string filename, ALuint* buffer, ALsizei* size, ALsizei* frequency, ALenum* format);
+	static XCWavFile loadWavFromFile(const std::string filename);
+	static void playerWavFile(XCWavFile file);
+	static void setVolume(float volume);
 };
 #endif

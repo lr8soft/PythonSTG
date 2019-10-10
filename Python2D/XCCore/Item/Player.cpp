@@ -46,7 +46,9 @@ void Player::PlayerInit()
 
 		playerHurtEffect = new ExplodeParticleSpecialEffect(250, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));
 		playerHurtEffect->SpecialEffectGLInit();
-		hitHelper = new XCImageHelper("assets/Item/hit.png", true);
+
+		playerHurtAudio = AudioHelper::loadWavFromFile("assets/SE/se_pldead00.wav");
+
 		isInit = true;
 	}
 }
@@ -136,6 +138,7 @@ void Player::hurtPlayer()
 {
 	if (itemTimer.getAccumlateTime() - lastHitTime > HitProtectTime || lastHitTime == 0) {
 		lastHitTime = itemTimer.getAccumlateTime();
+		AudioHelper::playerWavFile(playerHurtAudio);
 
 		if (playerHurtEffect == nullptr) {
 			playerHurtEffect = new ExplodeParticleSpecialEffect(250, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));

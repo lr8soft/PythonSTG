@@ -1,9 +1,13 @@
 #include "AudioHelper.h"
 #include <iostream>
 #include <string>
+#include <thread>
 bool AudioHelper::isEvonInit = false;
+float AudioHelper::audioVolume = 0.4f;
 ALCdevice*  AudioHelper::device = nullptr;
 ALCcontext* AudioHelper::context = nullptr;
+
+std::map<std::string, XCWavFile> AudioHelper::wavSourceGroup;
 void AudioHelper::EvonInit()
 {
 	if (!isEvonInit) {
@@ -40,7 +44,51 @@ void AudioHelper::UnloadEvon()
 	isEvonInit = false;
 }
 
-bool AudioHelper::loadWavFile(const std::string filename, ALuint* buffer, ALsizei* size, ALsizei* frequency, ALenum* format) {
+XCWavFile AudioHelper::loadWavFromFile(const std::string filename)
+{
+	XCWavFile wavFile;
+	auto wavIter = wavSourceGroup.find(filename);
+	if (wavIter !=wavSourceGroup.end()) {
+		wavFile = wavIter->second;
+	}
+	else {
+		bool success = loadWavFile(filename, &wavFile);
+		if (success) {
+			wavSourceGroup.insert(std::make_pair(filename, wavFile));
+			std::cout << "[INFO] Load wav from file " << filename << std::endl;
+		}
+		else {
+			std::cerr << "[ERROR] Failed to load wav from file " << filename << std::endl;
+		}
+	}
+	return wavFile;
+}
+
+void AudioHelper::playerWavFile(XCWavFile file)
+{
+	auto playerFunc = [file](ALCcontext* context) {
+		ALuint source;
+		alGenSources(1, &source);
+		alSourcei(source, AL_BUFFER, file.wavSource);
+		alSourcef(source, AL_GAIN, audioVolume);
+		alSourcePlay(source);
+		
+		ALint state;
+		do {		
+			alGetSourcei(source, AL_SOURCE_STATE, &state);		
+		} while (state==AL_PLAYING);
+	};
+	std::thread playThread(playerFunc, context);
+	playThread.detach();
+}
+
+void AudioHelper::setVolume(float volume)
+{
+	audioVolume = volume;
+}
+
+bool AudioHelper::loadWavFile(const std::string filename, XCWavFile *wavFile) {
+	/*ALuint* buffer, ALsizei* size, ALsizei* frequency, ALenum* format*/
 	//Local Declarations
 	FILE* soundFile = NULL;
 	WAVE_Format wave_format;
@@ -98,29 +146,29 @@ bool AudioHelper::loadWavFile(const std::string filename, ALuint* buffer, ALsize
 
 		//Now we set the variables that we passed in with the
 		//data from the structs
-		*size = wave_data.subChunk2Size;
-		*frequency = wave_format.sampleRate;
+		wavFile->wavSize = wave_data.subChunk2Size;
+		wavFile->wavFrequent = wave_format.sampleRate;
 		//The format is worked out by looking at the number of
 		//channels and the bits per sample.
 		if (wave_format.numChannels == 1) {
 			if (wave_format.bitsPerSample == 8)
-				*format = AL_FORMAT_MONO8;
+				wavFile->wavFormat = AL_FORMAT_MONO8;
 			else if (wave_format.bitsPerSample == 16)
-				*format = AL_FORMAT_MONO16;
+				wavFile->wavFormat = AL_FORMAT_MONO16;
 		}
 		else if (wave_format.numChannels == 2) {
 			if (wave_format.bitsPerSample == 8)
-				*format = AL_FORMAT_STEREO8;
+				wavFile->wavFormat = AL_FORMAT_STEREO8;
 			else if (wave_format.bitsPerSample == 16)
-				*format = AL_FORMAT_STEREO16;
+				wavFile->wavFormat = AL_FORMAT_STEREO16;
 		}
 		//create our openAL buffer and check for success
-		alGenBuffers(1, buffer);
+		alGenBuffers(1, &(wavFile->wavSource));
 		//errorCheck();
 		//now we put our data into the openAL buffer and
 		//check for success
-		alBufferData(*buffer, *format, (void*)data,
-			*size, *frequency);
+		alBufferData(wavFile->wavSource, wavFile->wavFormat, (void*)data,
+			wavFile->wavSize, wavFile->wavFrequent);
 		//errorCheck();
 		//clean up and return true if successful
 		fclose(soundFile);
@@ -132,4 +180,5 @@ bool AudioHelper::loadWavFile(const std::string filename, ALuint* buffer, ALsize
 			fclose(soundFile);
 		return false;
 	}
+
 }

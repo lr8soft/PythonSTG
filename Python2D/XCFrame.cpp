@@ -51,17 +51,6 @@ void XCFrame::FrameInit()
 	gl3wInit();
 
 	AudioHelper::EvonInit();
-
-	//ALuint alSource;
-	//ALuint source;
-	//ALsizei size2;
-	//ALsizei frequent;
-	//ALenum format;
-	//AudioHelper::loadWavFile("assets/1.wav", &alSource, &size2, &frequent, &format);
-	//alGenSources(1, &source);
-	//alSourcei(source, AL_BUFFER, alSource);
-	//alSourcePlay(source);
-
 }
 void XCFrame::FrameLoop()
 {	
