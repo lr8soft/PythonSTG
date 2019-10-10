@@ -5,7 +5,7 @@
 #include <map>
 #include "../XCAudio/AudioHelper.h"
 #include "../XCRender/SpecialEffect/DecisionPointSE.h"
-#include "../XCRender/SpecialEffect/ExplodeParticleGroupSE.h"
+#include "../XCRender/FlexibleParticleGenerater.h"
 #include "../XCRender/XCImageHelper.h"
 class Player {
 private:
@@ -29,9 +29,9 @@ private:
 	float rotateAngle = 0.0f;
 	float NowPosition[3] = { 0.0f ,-0.5f ,0.0f };
 
+	FlexibleParticleGenerater fxParticleManager;
 	DecisionPointSpecialEffect* specialEffectDecision;
-	ExplodeParticleSpecialEffect* playerHurtEffect;
-	XCWavFile playerHurtAudio;
+	XCWavFile playerHurtAudio, playerGrazeAudio;
 
 	bool isInit = false, renderDecisionPoint = false;
 	const char* playerFrameName, *playerImage;
@@ -60,5 +60,6 @@ public:
 
 	float* getPosition();
 	void hurtPlayer();
+	void grazePlayer();
 };
 #endif

@@ -59,7 +59,7 @@ void RectangleTypeBullet::BulletRelease()
 	}
 }
 
-bool RectangleTypeBullet::BulletCollideWithPoint(float x, float y)
+bool RectangleTypeBullet::BulletCollideWithPoint(float x, float y, bool& haveGraze)
 {
 	return false;
 }

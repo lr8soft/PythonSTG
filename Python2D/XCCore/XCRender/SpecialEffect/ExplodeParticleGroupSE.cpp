@@ -22,7 +22,8 @@ void ExplodeParticleSpecialEffect::SpecialEffectCoordInit(glm::vec3 initCoord)
 
 			particleGroup[i].angle = (float)(rand() % 360);
 			particleGroup[i].velocity = groupVelocity * rand() / (RAND_MAX + 1.0);
-
+			particleGroup[i].color = groupColor;
+			particleGroup[i].size = groupSize;
 		}
 		isCoordInit = true;
 	}
@@ -52,7 +53,9 @@ void ExplodeParticleSpecialEffect::SpecialEffectRender()
 		if (!particleIter->particle->getIsFinish()) {
 			particleIter->x += particleIter->velocity * cos(particleIter->angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
 			particleIter->y += particleIter->velocity * sin(particleIter->angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
-			particleIter->particle->particleRender(glm::vec3(particleIter->x, particleIter->y, particleIter->z) * glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0F), groupSize, groupColor);
+			particleIter->particle->particleRender(
+				glm::vec3(particleIter->x, particleIter->y, particleIter->z) * glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0F),
+				particleIter->size, particleIter->color);
 		}
 		if (particleIter->particle->getIsFinish()) {
 			particleIter->particle->particleRelease();

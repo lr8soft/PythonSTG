@@ -86,7 +86,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>
+      </Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;D:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -150,6 +151,7 @@
     <ClCompile Include="XCCore\XCCollide\CollideHelper.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideInfo.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.cpp" />
+    <ClCompile Include="XCCore\XCRender\FlexibleParticleGenerater.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp" />
     <ClCompile Include="XCCore\XCRender\XCFont.cpp" />
     <ClCompile Include="XCCore\Item\Item.cpp" />
@@ -193,6 +195,7 @@
     <ClInclude Include="XCCore\XCCollide\CollideHelper.h" />
     <ClInclude Include="XCCore\XCCollide\CollideInfo.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.h" />
+    <ClInclude Include="XCCore\XCRender\FlexibleParticleGenerater.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h" />
     <ClInclude Include="XCCore\XCRender\XCFont.h" />
     <ClInclude Include="XCCore\Item\Item.h" />

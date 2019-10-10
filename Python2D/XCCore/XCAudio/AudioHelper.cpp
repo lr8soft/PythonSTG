@@ -3,11 +3,12 @@
 #include <string>
 #include <thread>
 bool AudioHelper::isEvonInit = false;
-float AudioHelper::audioVolume = 0.4f;
+float AudioHelper::audioVolume = 0.2f;
 ALCdevice*  AudioHelper::device = nullptr;
 ALCcontext* AudioHelper::context = nullptr;
 
 std::map<std::string, XCWavFile> AudioHelper::wavSourceGroup;
+std::map<ALuint, std::atomic_bool> AudioHelper::playingGroup;
 void AudioHelper::EvonInit()
 {
 	if (!isEvonInit) {
@@ -28,7 +29,7 @@ void AudioHelper::EvonInit()
 		}
 		alGetError(); //clear all error
 	}
-	
+
 }
 
 void AudioHelper::UnloadEvon()
@@ -66,21 +67,37 @@ XCWavFile AudioHelper::loadWavFromFile(const std::string filename)
 
 void AudioHelper::playerWavFile(XCWavFile file)
 {
-	auto playerFunc = [file](ALCcontext* context) {
-		ALuint source;
-		alGenSources(1, &source);
-		alSourcei(source, AL_BUFFER, file.wavSource);
-		alSourcef(source, AL_GAIN, audioVolume);
-		alSourcePlay(source);
-		
-		ALint state;
-		do {		
-			alGetSourcei(source, AL_SOURCE_STATE, &state);		
-		} while (state==AL_PLAYING);
-	};
-	std::thread playThread(playerFunc, context);
-	playThread.detach();
+	auto target = playingGroup.find(file.wavSource);
+	if (target != playingGroup.end()) {
+		bool isPlaying = target->second;
+		if (!isPlaying) {
+			std::thread playThread(threadWork,file);
+			playThread.detach();
+		}
+	}
+	else {
+		playingGroup[file.wavSource] = true;
+		std::thread playThread(threadWork, file);
+		playThread.detach();
+	}
 }
+
+void AudioHelper::threadWork(XCWavFile file)
+{
+	ALuint source;
+	alGenSources(1, &source);
+	alSourcei(source, AL_BUFFER, file.wavSource);
+	alSourcef(source, AL_GAIN, audioVolume);
+	alSourcePlay(source);
+
+	ALint state;
+	do {
+		alGetSourcei(source, AL_SOURCE_STATE, &state);
+	} while (state == AL_PLAYING);
+	alDeleteSources(1, &source);
+	playingGroup[file.wavSource] = false;
+}
+
 
 void AudioHelper::setVolume(float volume)
 {

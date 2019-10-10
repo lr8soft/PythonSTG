@@ -64,6 +64,9 @@ void Stage::stageWork()
 			}
 		}
 	}
+	if (stageTaskGroup.empty()) {
+		//stageFinish = true;
+	}
 }
 
 void Stage::stageRelease()

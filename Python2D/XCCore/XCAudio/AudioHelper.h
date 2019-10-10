@@ -6,6 +6,7 @@
 #include <AL/alc.h>
 #include <map>
 #include <iostream>
+#include <atomic>
 struct WAVE_Data {
 	char subChunkID[4]; //should contain the word data
 	long subChunk2Size; //Stores the size of the data block
@@ -44,8 +45,11 @@ private:
 	static float audioVolume;
 
 	static std::map<std::string, XCWavFile> wavSourceGroup;
-	
+	static std::map<ALuint, std::atomic_bool> playingGroup;
+
 	static bool loadWavFile(const std::string filename, XCWavFile *wavFile);
+	
+	static void threadWork(XCWavFile);
 public:
 	static void EvonInit();
 	static void UnloadEvon();

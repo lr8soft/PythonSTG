@@ -6,9 +6,16 @@
 class CollideHelper {
 private:
 	Player* pPlayer;
+
+	long nowScore = 0;
+	long nowGraze = 0;
+
+
 public:
 	CollideHelper(Player *player);
 	void checkCollisionWithBullet(Bullet *pBullet);
 	float* getPlayerPosition();
+
+	
 };
 #endif

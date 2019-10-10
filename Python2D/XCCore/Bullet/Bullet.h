@@ -109,7 +109,7 @@ public:
 	virtual void BulletRender() = 0;
 	virtual void BulletRelease() = 0;
 
-	virtual bool BulletCollideWithPoint(float x, float y) = 0;
+	virtual bool BulletCollideWithPoint(float x, float y, bool &haveGraze) = 0;
 
 	virtual void startFinishEffect() = 0;
 

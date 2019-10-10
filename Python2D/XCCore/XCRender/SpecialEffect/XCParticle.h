@@ -24,4 +24,11 @@ class XCParticle {
 		void particleReset();
 		bool getIsFinish();
 };
+
+struct ParticleInfo {
+	float x = 0.0f, y = 0.0f, z = 0.0f;
+	float velocity = 0.01f, angle = 0.0f, size=10.0f;
+	glm::vec4 color = glm::vec4(1.0f);
+	XCParticle* particle = nullptr;
+};
 #endif

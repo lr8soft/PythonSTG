@@ -91,8 +91,19 @@ void CircleTypeBullet::BulletRelease()
 	}
 }
 
-bool CircleTypeBullet::BulletCollideWithPoint(float x, float y)
+bool CircleTypeBullet::BulletCollideWithPoint(float x, float y,bool &haveGraze)
 {
-	float value = pow(x - NowPosition[0], 2) + pow(y - NowPosition[1], 2);
-	return value < pow(collideSize[0],2);
+	bool value = false;
+	if (isInit && !isFinishTime && timer.getAccumlateTime() >=0.4f) {
+		float distance = (x - NowPosition[0])*(x - NowPosition[0]) + (y - NowPosition[1])*(y - NowPosition[1]);
+		float parameter = collideSize[0] * collideSize[0];
+
+		if (!haveCheckGraze && distance <= CollideInfo::getGrazeDistance()) {
+			haveGraze = true;
+			haveCheckGraze = true;
+		}
+		value = (distance < parameter);
+	}
+
+	return value;
 }

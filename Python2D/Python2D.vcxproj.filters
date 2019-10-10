@@ -150,6 +150,9 @@
     <ClCompile Include="XCCore\XCAudio\AudioHelper.cpp">
       <Filter>XCCore\XCAudio</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\XCRender\FlexibleParticleGenerater.cpp">
+      <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -273,6 +276,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\XCAudio\AudioHelper.h">
       <Filter>XCCore\XCAudio</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\FlexibleParticleGenerater.h">
+      <Filter>XCCore\XCRender</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

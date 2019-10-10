@@ -5,11 +5,6 @@
 #include "../../../util/GameTimer.h"
 #include <glm/glm.hpp>
 #include <vector>
-struct ParticleInfo {
-	float x =0.0f, y = 0.0f, z = 0.0f;
-	float velocity = 0.01f, angle = 0.0f;
-	XCParticle* particle = nullptr;
-};
 class ExplodeParticleSpecialEffect {
 private:
 	int groupDensity;

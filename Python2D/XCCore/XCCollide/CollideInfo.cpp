@@ -1,6 +1,7 @@
 #include "CollideInfo.h"
 
 CollideHelper* CollideInfo::collideHelperP1 = nullptr;
+float CollideInfo::grazeDistance = 0.03f;
 
 void CollideInfo::setCollideHelperP1(CollideHelper * helper)
 {
@@ -12,4 +13,9 @@ void CollideInfo::setCollideHelperP1(CollideHelper * helper)
 CollideHelper * CollideInfo::getCollideHelperP1()
 {
 	return collideHelperP1;
+}
+
+float CollideInfo::getGrazeDistance()
+{
+	return grazeDistance;
 }

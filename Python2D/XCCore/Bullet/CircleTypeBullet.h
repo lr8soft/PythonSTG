@@ -31,7 +31,7 @@ private:
 
 	XCGameTimer timer;
 	XCImageHelper* image;
-	bool isInit = false, aimToPlayer = false;
+	bool isInit = false, aimToPlayer = false, haveCheckGraze = false;
 	
 public:
 	/*#£¡Attention scaleInfo will work both collide and render.
@@ -44,7 +44,7 @@ public:
 	virtual void BulletRender() override;
 	virtual void BulletRelease() override;
 
-	virtual bool BulletCollideWithPoint(float x, float y) override;
+	virtual bool BulletCollideWithPoint(float x, float y, bool &haveGraze) override;
 	virtual void startFinishEffect() override;
 };
 #endif
