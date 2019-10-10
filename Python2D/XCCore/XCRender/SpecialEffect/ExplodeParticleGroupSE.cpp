@@ -21,7 +21,7 @@ void ExplodeParticleSpecialEffect::SpecialEffectCoordInit(glm::vec3 initCoord)
 			particleGroup[i].z = groupCoord.z;
 
 			particleGroup[i].angle = (float)(rand() % 360);
-			particleGroup[i].velocity = groupVelocity;
+			particleGroup[i].velocity = groupVelocity * rand() / (RAND_MAX + 1.0);
 
 		}
 		isCoordInit = true;

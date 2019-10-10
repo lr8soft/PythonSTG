@@ -44,7 +44,7 @@ void Player::PlayerInit()
 		specialEffectDecision = new DecisionPointSpecialEffect;
 		specialEffectDecision->SpecialEffectInit();
 
-		playerHurtEffect = new ExplodeParticleSpecialEffect(300, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));
+		playerHurtEffect = new ExplodeParticleSpecialEffect(250, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));
 		playerHurtEffect->SpecialEffectGLInit();
 		hitHelper = new XCImageHelper("assets/Item/hit.png", true);
 		isInit = true;
@@ -138,7 +138,7 @@ void Player::hurtPlayer()
 		lastHitTime = itemTimer.getAccumlateTime();
 
 		if (playerHurtEffect == nullptr) {
-			playerHurtEffect = new ExplodeParticleSpecialEffect(300, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));
+			playerHurtEffect = new ExplodeParticleSpecialEffect(250, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));
 			playerHurtEffect->SpecialEffectGLInit();
 			playerHurtEffect->SpecialEffectCoordInit(glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 

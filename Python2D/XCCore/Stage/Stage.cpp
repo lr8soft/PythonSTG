@@ -6,36 +6,10 @@
 #include "../Task/TaskHelper.h"
 #include "../Bullet/BulletHelper.h"
 #include <GL3/gl3w.h>
-GLenum Stage::parseAlphaFunc(int src)
-{
-	switch (src)
-	{
-	case 0:
-		return GL_NONE;
-	case 1:
-		return GL_ONE_MINUS_SRC_ALPHA;
-	default:
-		return GL_NONE;
-	}
-}
-GLenum Stage::parseColorFunc(int src)
-{
-	switch (src)
-	{
-	case 0:
-		return GL_NONE;
-	case 1:
-		return GL_ONE_MINUS_SRC_COLOR;
-	default:
-		return GL_NONE;
-	}
-}
-Stage::Stage(std::string uuid, PyObject* item, int backgroundID)
+Stage::Stage(std::string uuid, PyObject* item)
 {
 	itemStage = item;
 	stageUuid = uuid;
-
-	stageBackgroundID = backgroundID;
 }
 
 void Stage::stageInit()
@@ -43,7 +17,9 @@ void Stage::stageInit()
 	if (!getStageInit()) {
 		MultiThreadDefine
 		PyObject* taskSizeObj = PyObject_CallMethod(itemStage, "_cpp_getTaskSize", NULL);
+		PyObject* backgroundIdObj = PyObject_CallMethod(itemStage, "_cpp_getBackground", NULL);
 		int taskSize = ScriptLoader::getSingleArg<int>(taskSizeObj);
+		stageBackgroundID = ScriptLoader::getSingleArg<int>(backgroundIdObj);
 		if (taskSize > 0) {
 
 			for (int i = 0; i < taskSize; i++) {

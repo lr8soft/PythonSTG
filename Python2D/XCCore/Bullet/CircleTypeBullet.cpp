@@ -56,7 +56,7 @@ void CircleTypeBullet::BulletRender()
 				scaleInfo * glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f),
 				IRenderHelper::GetSpecificTexture(divideInfo[0], divideInfo[1], divideInfo[2], divideInfo[3]));
 			glDisable(GL_BLEND);
-			if (Bullet::checkReboundOrOverflow(&reBoundTime, &angle, collideSize[0], collideSize[1])) {//超出边界不渲染结束特效
+			if (Bullet::checkReboundOrOverflow(&reBoundTime, &angle, scaleInfo[0], scaleInfo[1])) {//超出边界不渲染结束特效
 				isWorkFinish = true;
 			}
 		}
@@ -94,5 +94,5 @@ void CircleTypeBullet::BulletRelease()
 bool CircleTypeBullet::BulletCollideWithPoint(float x, float y)
 {
 	float value = pow(x - NowPosition[0], 2) + pow(y - NowPosition[1], 2);
-	return value < pow(scaleInfo[0],2);
+	return value < pow(collideSize[0],2);
 }

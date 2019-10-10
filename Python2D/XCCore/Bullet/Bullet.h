@@ -64,8 +64,8 @@ protected:
 			else {
 				float renderWidth = scaleX * XCFrameInfo::FrameRight;
 				float renderHeight = scaleY * XCFrameInfo::FrameTop;
-				if (renderY + renderHeight > frameHeight || renderY + renderHeight< -frameHeight
-					|| renderX + renderWidth > frameWidth || renderX + renderWidth < -frameWidth) {
+				if (renderY + renderHeight   > frameHeight || renderY + renderHeight< -frameHeight
+					|| renderX + renderWidth  > frameWidth || renderX + renderWidth  < -frameWidth) {
 					return true;
 				}
 			}

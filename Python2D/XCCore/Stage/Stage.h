@@ -10,7 +10,7 @@
 #include "../Background/BackgroundHelper.h"
 class Stage {
 private:
-	int stageBackgroundID;
+	int stageBackgroundID = 0;
 	Background* stageBackground;
 
 	std::string stageUuid;
@@ -19,11 +19,9 @@ private:
 	XCGameTimer timer;
 	PyObject* itemStage;
 	bool stageFinish = false, isStageInit = false;
-	GLenum parseAlphaFunc(int src);
-	GLenum parseColorFunc(int src);
 public:
 	Stage() = delete;
-	Stage(std::string uuid, PyObject* item,int backgroundID = 0);
+	Stage(std::string uuid, PyObject* item);
 	void stageInit();
 	void stageWork();
 	void stageRelease();

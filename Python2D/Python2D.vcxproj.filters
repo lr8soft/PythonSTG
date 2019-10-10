@@ -37,6 +37,9 @@
     <Filter Include="XCCore\XCRender\SpecialEffect">
       <UniqueIdentifier>{45914d97-27d5-4885-8ac8-35dc9da4f6f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\XCAudio">
+      <UniqueIdentifier>{d0df81fa-abea-42c1-a3d3-a689a213969e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -137,6 +140,15 @@
     </ClCompile>
     <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp">
       <Filter>XCCore\UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Background\MagicForest.cpp">
+      <Filter>XCCore\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Background\Camera.cpp">
+      <Filter>XCCore\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCAudio\AudioHelper.cpp">
+      <Filter>XCCore\XCAudio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +264,15 @@
     </ClInclude>
     <ClInclude Include="XCCore\UserInterface\CoverInterface.h">
       <Filter>XCCore\UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Background\MagicForest.h">
+      <Filter>XCCore\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Background\Camera.h">
+      <Filter>XCCore\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCAudio\AudioHelper.h">
+      <Filter>XCCore\XCAudio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

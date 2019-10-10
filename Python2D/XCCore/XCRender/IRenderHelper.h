@@ -14,6 +14,9 @@ public:
 	static float* GetSpecificTexture(int column, int row, int ix, int iy);
 
 	/*共column列，row行；取第x列 第y行（以左下为坐标轴原点）*/
+	static float* GetSpecificTexturef(int column, int row, float xcoord, float ycoord);
+
+	/*共column列，row行；取第x列 第y行（以左下为坐标轴原点）*/
 	static float * GetSpecificTexWithRate(float width_rate, float height_rate, int column, int row, int ix, int iy);
 
 	/*共column列，row行；取(xcoord, ycoord)处纹理数据（以左下为坐标轴原点）*/

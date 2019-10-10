@@ -27,7 +27,6 @@ private:
 	glm::vec4 tempColor;
 
 	float rotateAngle = 0.0f;
-
 	float NowPosition[3] = { 0.0f ,-0.5f ,0.0f };
 
 	DecisionPointSpecialEffect* specialEffectDecision;

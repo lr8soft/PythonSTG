@@ -27,6 +27,32 @@ float * IRenderHelper::GetSpecificTexture(int column, int row, int ix, int iy)
 	returnArray[15] = y / row;
 	return returnArray;
 }
+float * IRenderHelper::GetSpecificTexturef(int column, int row, float xcoord, float ycoord)
+{
+	float x = xcoord; float y = ycoord;
+	static float returnArray[16];
+	returnArray[0] = 1.0f;
+	returnArray[1] = 1.0f;
+	returnArray[2] = x / column;
+	returnArray[3] = y / row;
+
+	returnArray[4] = 1.0f;
+	returnArray[5] = -1.0f,
+		returnArray[6] = x / column;
+	returnArray[7] = (y - 1) / row;
+
+	returnArray[8] = -1.0f;
+	returnArray[9] = -1.0f,
+		returnArray[10] = (x - 1) / column;
+	returnArray[11] = (y - 1) / row;
+
+
+	returnArray[12] = -1.0f;
+	returnArray[13] = 1.0f,
+		returnArray[14] = (x - 1) / column;
+	returnArray[15] = y / row;
+	return returnArray;
+}
 float * IRenderHelper::GetSpecificTexWithRate(float width_rate, float height_rate, int column, int row, int ix, int iy)
 {
 	float x = ix; float y = iy;
