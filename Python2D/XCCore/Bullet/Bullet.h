@@ -64,8 +64,8 @@ protected:
 			else {
 				float renderWidth = scaleX * XCFrameInfo::FrameRight;
 				float renderHeight = scaleY * XCFrameInfo::FrameTop;
-				if (renderY + renderHeight > frameHeight || renderY + renderHeight< -frameHeight
-					|| renderX + renderWidth > frameWidth || renderX + renderWidth < -frameWidth) {
+				if (renderY + renderHeight   > frameHeight || renderY + renderHeight< -frameHeight
+					|| renderX + renderWidth  > frameWidth || renderX + renderWidth  < -frameWidth) {
 					return true;
 				}
 			}
@@ -109,7 +109,7 @@ public:
 	virtual void BulletRender() = 0;
 	virtual void BulletRelease() = 0;
 
-	virtual bool BulletCollideWithPoint(float x, float y) = 0;
+	virtual bool BulletCollideWithPoint(float x, float y, bool &haveGraze) = 0;
 
 	virtual void startFinishEffect() = 0;
 

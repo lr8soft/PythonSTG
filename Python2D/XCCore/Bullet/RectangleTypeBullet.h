@@ -32,7 +32,7 @@ public:
 	virtual void BulletRender() override;
 	virtual void BulletRelease() override;
 
-	virtual bool BulletCollideWithPoint(float x, float y) override;
+	virtual bool BulletCollideWithPoint(float x, float y, bool& haveGraze) override;
 	virtual void startFinishEffect() override;
 };
 #endif

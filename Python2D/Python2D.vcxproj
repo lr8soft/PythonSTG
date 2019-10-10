@@ -80,19 +80,20 @@
       <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x86\python36.lib;..\libs\x86\python36_d.lib;..\libs\x86\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x86\OpenAL32.lib;..\libs\x86\python36.lib;..\libs\x86\python36_d.lib;..\libs\x86\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>
+      </Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;D:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x64\python36_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x64\OpenAL32.lib;..\libs\x64\python36_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -108,7 +109,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x86\python36.lib;..\libs\x86\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x86\OpenAL32.lib;..\libs\x86\python36.lib;..\libs\x86\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -124,7 +125,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x64\python36.lib;..\libs\x64\python36_d.lib;..\libs\x64\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x64\OpenAL32.lib;..\libs\x64\python36.lib;..\libs\x64\python36_d.lib;..\libs\x64\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -134,7 +135,9 @@
     <ClCompile Include="util\ImageLoader.cpp" />
     <ClCompile Include="util\ShaderReader.cpp" />
     <ClCompile Include="XCCore\Background\BackgroundHelper.cpp" />
+    <ClCompile Include="XCCore\Background\Camera.cpp" />
     <ClCompile Include="XCCore\Background\Lake.cpp" />
+    <ClCompile Include="XCCore\Background\MagicForest.cpp" />
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp" />
     <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp" />
@@ -144,9 +147,11 @@
     <ClCompile Include="XCCore\Task\TaskInsideUnit.cpp" />
     <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp" />
     <ClCompile Include="XCCore\UserInterface\GameInfoInterface.cpp" />
+    <ClCompile Include="XCCore\XCAudio\AudioHelper.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideHelper.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideInfo.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.cpp" />
+    <ClCompile Include="XCCore\XCRender\FlexibleParticleGenerater.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp" />
     <ClCompile Include="XCCore\XCRender\XCFont.cpp" />
     <ClCompile Include="XCCore\Item\Item.cpp" />
@@ -172,7 +177,9 @@
     <ClInclude Include="util\stb_image.h" />
     <ClInclude Include="XCCore\Background\Background.h" />
     <ClInclude Include="XCCore\Background\BackgroundHelper.h" />
+    <ClInclude Include="XCCore\Background\Camera.h" />
     <ClInclude Include="XCCore\Background\Lake.h" />
+    <ClInclude Include="XCCore\Background\MagicForest.h" />
     <ClInclude Include="XCCore\Bullet\Bullet.h" />
     <ClInclude Include="XCCore\Bullet\BulletHelper.h" />
     <ClInclude Include="XCCore\Bullet\CircleTypeBullet.h" />
@@ -184,9 +191,11 @@
     <ClInclude Include="XCCore\UserInterface\CoverInterface.h" />
     <ClInclude Include="XCCore\UserInterface\GameInfoInterface.h" />
     <ClInclude Include="XCCore\UserInterface\IUserInterface.h" />
+    <ClInclude Include="XCCore\XCAudio\AudioHelper.h" />
     <ClInclude Include="XCCore\XCCollide\CollideHelper.h" />
     <ClInclude Include="XCCore\XCCollide\CollideInfo.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.h" />
+    <ClInclude Include="XCCore\XCRender\FlexibleParticleGenerater.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h" />
     <ClInclude Include="XCCore\XCRender\XCFont.h" />
     <ClInclude Include="XCCore\Item\Item.h" />

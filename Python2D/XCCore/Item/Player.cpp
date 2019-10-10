@@ -44,9 +44,10 @@ void Player::PlayerInit()
 		specialEffectDecision = new DecisionPointSpecialEffect;
 		specialEffectDecision->SpecialEffectInit();
 
-		playerHurtEffect = new ExplodeParticleSpecialEffect(300, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));
-		playerHurtEffect->SpecialEffectGLInit();
-		hitHelper = new XCImageHelper("assets/Item/hit.png", true);
+
+		playerHurtAudio = AudioHelper::loadWavFromFile("assets/SE/se_pldead00.wav");
+		playerGrazeAudio = AudioHelper::loadWavFromFile("assets/SE/se_graze.wav");
+
 		isInit = true;
 	}
 }
@@ -54,6 +55,7 @@ void Player::PlayerRender()
 {
 	if (isInit) {
 		playerKeyCheck();
+		itemTimer.Tick();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		if (isHitTime) {
@@ -98,19 +100,14 @@ void Player::PlayerRender()
 			break;
 		}
 		glDisable(GL_BLEND);
+		fxParticleManager.ManagerWork();
 		if (renderDecisionPoint) {
 			specialEffectDecision->SpecialEffectRender(NowPosition[0], NowPosition[1], NowPosition[2]);
 		}
-		itemTimer.Tick();
-
 		//////////test
 
 		if (isHitTime) {
-			playerHurtEffect->SpecialEffectRender();
 			if (itemTimer.getAccumlateTime() - lastHitTime > HitProtectTime) {
-				playerHurtEffect->SpecialEffectRelease();
-				delete playerHurtEffect;
-				playerHurtEffect = nullptr;
 				isHitTime = false;
 			}
 		}
@@ -136,19 +133,17 @@ void Player::hurtPlayer()
 {
 	if (itemTimer.getAccumlateTime() - lastHitTime > HitProtectTime || lastHitTime == 0) {
 		lastHitTime = itemTimer.getAccumlateTime();
-
-		if (playerHurtEffect == nullptr) {
-			playerHurtEffect = new ExplodeParticleSpecialEffect(300, 25.0f, 0.6f, 1.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f));
-			playerHurtEffect->SpecialEffectGLInit();
-			playerHurtEffect->SpecialEffectCoordInit(glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
-
-		}
-		else {
-			playerHurtEffect->SpecialEffectCoordInit(glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
-		}
+		AudioHelper::playerWavFile(playerHurtAudio);
+		fxParticleManager.addNewParticle(250, 25.0f, 1.6f, 0.8f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 		isHitTime = true;
 	}
 		
+}
+
+void Player::grazePlayer()
+{
+	AudioHelper::playerWavFile(playerGrazeAudio);
+	fxParticleManager.addNewParticle(1, 12.0f, 0.6f, 0.6f, glm::vec4(1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 }
 
 void Player::playerKeyCheck()

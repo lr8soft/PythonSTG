@@ -1,6 +1,7 @@
 #include <sstream>
 #include <GL3/gl3w.h>
 #include "XCFrame.h"
+#include "XCCore/XCAudio/AudioHelper.h"
 #include "XCCore/XCRender/RenderManager.h"
 #include "XCFrameInfo.h"
 #include "util/ConfigManager.h"
@@ -28,7 +29,7 @@ void XCFrame::FrameInit()
 	XCFrameInfo::FrameBottom = -absHeight;
 
 	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);//OpenGL 4.2 Core Mode
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);//OpenGL 4.3 Core Mode
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);//ºËÐÄÄ£Ê½Å£ ±Æ
 	glfwWindowHint(GLFW_RESIZABLE, info.winResize);//No resizable.
@@ -49,7 +50,7 @@ void XCFrame::FrameInit()
 	glfwSetWindowPosCallback(pscreen, FramePos);
 	gl3wInit();
 
-	
+	AudioHelper::EvonInit();
 }
 void XCFrame::FrameLoop()
 {	
@@ -64,6 +65,7 @@ void XCFrame::FrameLoop()
 void XCFrame::FrameFinalize()
 {
 	ScriptLoader::unloadPythonEvon();
+	AudioHelper::UnloadEvon();
 	delete pInstance;
 }
 void XCFrame::FrameResize(GLFWwindow * screen, int w, int h)
