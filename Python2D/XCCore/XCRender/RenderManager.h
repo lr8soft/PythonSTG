@@ -1,35 +1,21 @@
 #pragma once
-#ifndef _RenderManager_H_
-#define _RenderManager_H_
+#ifndef _RENDER_MANAGER_H_
+#define _RENDER_MANAGER_H_
 #include <vector>
-#include <string>
-#include <mutex>
-#include <map>
-#include "IRenderHelper.h"
-#include "../UserInterface/IUserInterface.h"
-#include "../Stage/Stage.h"
-#include "../Item/Player.h"
-#include "../Background/Background.h"
+#include "RenderObject.h"
 class RenderManager {
 private:
-	std::vector<Stage*> stageQueue;
-	std::map<std::string, IUserInterface*> uiGroup;
+	std::vector<RenderObject*> renderObjectList;
 
-	bool shouldGamePause = false;
-	Background *renderBackground = nullptr;
-	Player* playerP1;
-
-	static RenderManager* pRManager;
+	static RenderManager* pRenderManager;
 	RenderManager();
 public:
 	static RenderManager* getInstance();
 
-	void AddStageItem(Stage* stage);
-	void AddUserInterface(std::string uiName, IUserInterface* ui);
-
 	void RenderWork();
 
-	Player* getPlayerP1();
-	void setPlayerP1(Player* p1);
+	void CleanRenderObject();
+	bool CheckRenderComplete();
+	void AddRenderObject(RenderObject* object);
 };
 #endif

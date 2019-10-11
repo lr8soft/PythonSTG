@@ -22,7 +22,7 @@ RectangleTypeBullet::RectangleTypeBullet(std::string bulletImagePath, glm::vec4 
 
 }
 
-void RectangleTypeBullet::BulletInit()
+void RectangleTypeBullet::Init()
 {
 	if (!isInit) {
 		image = new XCImageHelper(imagePath, true);
@@ -30,7 +30,7 @@ void RectangleTypeBullet::BulletInit()
 	}
 }
 
-void RectangleTypeBullet::BulletRender()
+void RectangleTypeBullet::Render()
 {
 	if (isInit) {
 		timer.Tick();
@@ -49,7 +49,7 @@ void RectangleTypeBullet::BulletRender()
 		Bullet::checkReboundOrOverflow(&reBoundTime, &angle, collideSize[0], collideSize[1]);
 	}
 }
-void RectangleTypeBullet::BulletRelease()
+void RectangleTypeBullet::Release()
 {
 	if (isInit) {
 		image->Release();

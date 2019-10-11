@@ -7,7 +7,7 @@
 class TaskInsideUnit {
 private:
 	int waitFrame, workInterval = 0, repeatTime = 0;
-
+	bool haveAddToQueue = false, isFinish = false;
 	std::list<Bullet*> bulletGroup;
 public:
 	TaskInsideUnit(int waitFrame, int workInterval, int repeatTime);
@@ -17,6 +17,6 @@ public:
 	void UnitRelease();
 
 	void addBullet(Bullet* pBullet);
-	bool getIsEmpty();
+	bool getIsFinish();
 };
 #endif

@@ -1,5 +1,5 @@
 #include "TaskInsideUnit.h"
-#include "../XCCollide/CollideInfo.h"
+#include "../XCRender/RenderManager.h"
 TaskInsideUnit::TaskInsideUnit(int wFrame, int wInterval, int rTime): waitFrame(wFrame), workInterval(wInterval), repeatTime(rTime)
 {
 	;
@@ -15,44 +15,54 @@ void TaskInsideUnit::UnitWork()
 		waitFrame--;
 	}
 	else {
-		auto iterBegin = bulletGroup.begin();
-		auto iterEnd = bulletGroup.end();
-		for (auto bullet = iterBegin; bullet != iterEnd;bullet++) {
-			if (!(*bullet)->getIsTerminate()) {
-				(*bullet)->BulletRender();
+		if (!haveAddToQueue) {
+			auto iterBegin = bulletGroup.begin();
+			auto iterEnd = bulletGroup.end();
+			for (auto bullet = iterBegin; bullet != iterEnd; bullet++) {
+				RenderManager::getInstance()->AddRenderObject(*bullet);
+				/*if (!(*bullet)->getIsTerminate()) {
+					(*bullet)->Render();
 
-				auto collideHelperP1 = CollideInfo::getCollideHelperP1();
-				if (collideHelperP1 != nullptr) {
-					collideHelperP1->checkCollisionWithBullet((*bullet));
+					auto collideHelperP1 = CollideInfo::getCollideHelperP1();
+					if (collideHelperP1 != nullptr) {
+						collideHelperP1->checkCollisionWithBullet((*bullet));
+					}
 				}
+
+				if ((*bullet)->getIsTerminate()) {
+					(*bullet)->Release();
+					delete *bullet;
+					if (std::next(bullet) == bulletGroup.end()) {
+						bulletGroup.erase(bullet);
+						return;
+					}
+					else {
+						bullet = bulletGroup.erase(bullet);
+						iterEnd = bulletGroup.end();
+					}
+				}*/
+			}
+			haveAddToQueue = true;
+		}
+		else {
+			if (RenderManager::getInstance()->CheckRenderComplete()) {
+				isFinish = true;
 			}
 
-			if ((*bullet)->getIsTerminate()) {
-				(*bullet)->BulletRelease();
-				delete *bullet;
-				if (std::next(bullet) == bulletGroup.end()) {
-					bulletGroup.erase(bullet);
-					return;
-				}
-				else {
-					bullet = bulletGroup.erase(bullet);
-					iterEnd = bulletGroup.end();
-				}
-			}
 		}
 	}
 }
 
 void TaskInsideUnit::UnitRelease()
 {
-	auto iterBegin = bulletGroup.begin();
-	auto iterEnd = bulletGroup.end();
-	if (!bulletGroup.empty()) {
-		for (auto iter = iterBegin; iter != iterEnd; iter++) {
-			(*iter)->BulletRelease();
-			delete *iter;
-		}
-	}
+	//auto iterBegin = bulletGroup.begin();
+	//auto iterEnd = bulletGroup.end();
+	//if (!bulletGroup.empty()) {
+	//	for (auto iter = iterBegin; iter != iterEnd; iter++) {
+	//		(*iter)->Release();
+	//		delete *iter;
+	//	}
+	//}
 	bulletGroup.clear();
 }
 
@@ -61,7 +71,7 @@ void TaskInsideUnit::addBullet(Bullet * pBullet)
 	bulletGroup.push_back(pBullet);
 }
 
-bool TaskInsideUnit::getIsEmpty()
+bool TaskInsideUnit::getIsFinish()
 {
-	return bulletGroup.empty();
+	return isFinish;
 }

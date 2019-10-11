@@ -1,5 +1,5 @@
 #include "XCInterpreter.h"
-#include "../XCCore/XCRender/RenderManager.h"
+#include "../XCCore/Task/TaskManager.h"
 #include "../XCCore/Stage/Stage.h"
 #include "../XCCore/Item/Player.h"
 #include <string>
@@ -67,7 +67,7 @@ void XCInterpreter::parseStageItem()
 				PyArg_Parse(uuidValue, "s", &uuid);
 
 				Stage *stage = new Stage(uuid, pObject);
-				auto renderQueue = RenderManager::getInstance();
+				auto renderQueue = TaskManager::getInstance();
 				renderQueue->AddStageItem(stage);
 #ifndef _DEBUG
 				Py_INCREF(retValue);

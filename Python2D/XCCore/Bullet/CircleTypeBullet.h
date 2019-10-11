@@ -40,9 +40,9 @@ public:
 		float velocity, float acceleration, float angle, float increateAngle, int reboundTime, bool aimPlayer, 
 		int particleDensity, float particleFinishTime, float particleVelocity, float particleSize, glm::vec4 particleColor);
 
-	virtual void BulletInit()  override;
-	virtual void BulletRender() override;
-	virtual void BulletRelease() override;
+	virtual void Init()  override;
+	virtual void Render() override;
+	virtual void Release() override;
 
 	virtual bool BulletCollideWithPoint(float x, float y, bool &haveGraze) override;
 	virtual void startFinishEffect() override;

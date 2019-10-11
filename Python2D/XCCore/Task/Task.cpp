@@ -31,10 +31,10 @@ void Task::taskSubWork()
 			auto iterBegin = subUnitGroup.begin();
 			auto iterEnd = subUnitGroup.end();
 			for (auto unit = iterBegin; unit != iterEnd; unit++) {
-				if (!(*unit)->getIsEmpty()) {
+				if (!(*unit)->getIsFinish()) {
 					(*unit)->UnitWork();
 				}
-				if ((*unit)->getIsEmpty()) {//release here
+				if ((*unit)->getIsFinish()) {//release here
 					(*unit)->UnitRelease();
 					delete (*unit);
 					if (std::next(unit) == subUnitGroup.end()) {

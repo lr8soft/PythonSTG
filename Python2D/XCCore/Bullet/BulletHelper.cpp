@@ -43,7 +43,7 @@ Bullet * BulletHelper::parseBulletObject(PyObject * bulletObject)
 			glm::vec3(initCoord[0], initCoord[1], initCoord[2]), velocity, acceleration, angle, increaseAngle, reboundTime, aimPlayer,
 			particleDensity, lifeTime, particleVelocity,particleSize, glm::vec4(particleColor[0], particleColor[1], particleColor[2], particleColor[3]));
 		if (bullet != nullptr) {
-			bullet->BulletInit();
+			bullet->Init();
 		}
 	}
 

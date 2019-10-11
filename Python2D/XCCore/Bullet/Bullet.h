@@ -2,13 +2,16 @@
 #ifndef _XCBULLET_H_
 #define _XCBULLET_H_
 #include <glm/glm.hpp>
+#include "../XCRender/RenderObject.h"
 #include "../../XCFrameInfo.h"
-class Bullet {
+class Bullet:public RenderObject {
 protected:
 
 	float NowPosition[3] = { 0.0f,  0.0f, 0.0f };
-
-	bool isWorkFinish = false, isFinishTime = false;
+	/*
+	boolisWorkFinish = false
+	*/
+	bool isFinishTime = false;
 
 	bool checkReboundOrOverflow(int *reBoundTimePointer, float *angle, float scaleX, float scaleY)
 	{
@@ -105,17 +108,14 @@ protected:
 		velocity += acceleration * deltaTime;
 	}
 public:
-	virtual void BulletInit() = 0;
-	virtual void BulletRender() = 0;
-	virtual void BulletRelease() = 0;
+	virtual void Init() = 0;
+	virtual void Render() = 0;
+	virtual void Release() = 0;
 
 	virtual bool BulletCollideWithPoint(float x, float y, bool &haveGraze) = 0;
 
 	virtual void startFinishEffect() = 0;
 
-	bool getIsTerminate() {
-		return isWorkFinish;
-	}
 
 	bool getIsFinishTime() {
 		return isFinishTime;

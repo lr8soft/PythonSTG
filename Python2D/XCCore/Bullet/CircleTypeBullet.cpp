@@ -30,7 +30,7 @@ CircleTypeBullet::CircleTypeBullet(std::string bulletImagePath, glm::vec4 dInfo,
 	particleColor = pColor;
 }
 
-void CircleTypeBullet::BulletInit()
+void CircleTypeBullet::Init()
 {
 	if (!isInit) {
 		image = new XCImageHelper(imagePath, true);
@@ -40,7 +40,7 @@ void CircleTypeBullet::BulletInit()
 	}
 }
 
-void CircleTypeBullet::BulletRender()
+void CircleTypeBullet::Render()
 {
 	if (isInit) {
 		timer.Tick();
@@ -78,7 +78,7 @@ void CircleTypeBullet::startFinishEffect()
 	isFinishTime = true;
 	nowFinishTime = timer.getNowFrame();	
 }
-void CircleTypeBullet::BulletRelease()
+void CircleTypeBullet::Release()
 {
 	if (isInit) {
 		image->Release();
