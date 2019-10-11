@@ -133,7 +133,7 @@ void Player::hurtPlayer()
 {
 	if (itemTimer.getAccumlateTime() - lastHitTime > HitProtectTime || lastHitTime == 0) {
 		lastHitTime = itemTimer.getAccumlateTime();
-		AudioHelper::playerWavFile(playerHurtAudio);
+		AudioHelper::playFromBuffer(playerHurtAudio.wavBuffer);
 		fxParticleManager.addNewParticle(250, 25.0f, 1.6f, 0.8f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 		isHitTime = true;
 	}
@@ -142,7 +142,7 @@ void Player::hurtPlayer()
 
 void Player::grazePlayer()
 {
-	AudioHelper::playerWavFile(playerGrazeAudio);
+	AudioHelper::playFromBuffer(playerGrazeAudio.wavBuffer);
 	fxParticleManager.addNewParticle(1, 12.0f, 0.6f, 0.6f, glm::vec4(1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 }
 

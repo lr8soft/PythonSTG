@@ -8,7 +8,7 @@ ALCdevice*  AudioHelper::device = nullptr;
 ALCcontext* AudioHelper::context = nullptr;
 
 std::map<std::string, XCWavFile> AudioHelper::wavSourceGroup;
-std::map<ALuint, std::atomic_bool> AudioHelper::playingGroup;
+std::map<ALuint, ALuint> AudioHelper::effectPlayingList;
 void AudioHelper::EvonInit()
 {
 	if (!isEvonInit) {
@@ -34,6 +34,17 @@ void AudioHelper::EvonInit()
 
 void AudioHelper::UnloadEvon()
 {
+
+	for (auto work = effectPlayingList.begin(); work != effectPlayingList.end(); work++) {
+		ALint state;
+		alGetSourcei(work->second, AL_SOURCE_STATE, &state);
+		if (state == AL_PLAYING) {
+			alSourceStop(work->second);
+		}
+		alDeleteBuffers(1, &work->first);
+		alDeleteSources(1, &work->second);
+	}
+
 	alcMakeContextCurrent(NULL);
 	alcDestroyContext(context);
 	alcCloseDevice(device);
@@ -65,43 +76,56 @@ XCWavFile AudioHelper::loadWavFromFile(const std::string filename)
 	return wavFile;
 }
 
-void AudioHelper::playerWavFile(XCWavFile file)
-{
-	auto target = playingGroup.find(file.wavSource);
-	if (target != playingGroup.end()) {
-		bool isPlaying = target->second;
-		if (!isPlaying) {
-			std::thread playThread(threadWork,file);
-			playThread.detach();
-		}
-	}
-	else {
-		playingGroup[file.wavSource] = true;
-		std::thread playThread(threadWork, file);
-		playThread.detach();
-	}
-}
-
-void AudioHelper::threadWork(XCWavFile file)
-{
-	ALuint source;
-	alGenSources(1, &source);
-	alSourcei(source, AL_BUFFER, file.wavSource);
-	alSourcef(source, AL_GAIN, audioVolume);
-	alSourcePlay(source);
-
-	ALint state;
-	do {
-		alGetSourcei(source, AL_SOURCE_STATE, &state);
-	} while (state == AL_PLAYING);
-	alDeleteSources(1, &source);
-	playingGroup[file.wavSource] = false;
-}
-
-
 void AudioHelper::setVolume(float volume)
 {
 	audioVolume = volume;
+}
+
+void AudioHelper::playFromBuffer(ALuint buffer)
+{
+	auto work = effectPlayingList.find(buffer);
+	if (work!=effectPlayingList.end()) {
+		ALint state;
+		alGetSourcei(work->second, AL_SOURCE_STATE, &state);
+		if (state!=AL_PLAYING) {
+			alSourcePlay(work->second);
+		}
+	}
+	else {
+		ALuint source;
+		alGenSources(1, &source);
+		alSourcei(source, AL_BUFFER, buffer);
+		alSourcef(source, AL_GAIN, audioVolume);
+		alSourcePlay(source);
+
+		effectPlayingList.insert(std::make_pair(buffer, source));
+	}
+}
+
+void AudioHelper::stopByBuffer(ALuint buffer)
+{
+	auto work = effectPlayingList.find(buffer);
+	if (work != effectPlayingList.end()) {
+		ALint state;
+		alGetSourcei(work->second, AL_SOURCE_STATE, &state);
+		if (state == AL_PLAYING) {
+			alSourceStop(work->second);
+		}
+	}
+}
+
+void AudioHelper::releaseByBuffer(ALuint buffer)
+{
+	auto work = effectPlayingList.find(buffer);
+	if (work != effectPlayingList.end()) {
+		ALint state;
+		alGetSourcei(work->second, AL_SOURCE_STATE, &state);
+		if (state == AL_PLAYING) {
+			alSourceStop(work->second);
+		}
+		alDeleteSources(1, &work->second);
+		effectPlayingList.erase(work);
+	}
 }
 
 bool AudioHelper::loadWavFile(const std::string filename, XCWavFile *wavFile) {
@@ -180,11 +204,11 @@ bool AudioHelper::loadWavFile(const std::string filename, XCWavFile *wavFile) {
 				wavFile->wavFormat = AL_FORMAT_STEREO16;
 		}
 		//create our openAL buffer and check for success
-		alGenBuffers(1, &(wavFile->wavSource));
+		alGenBuffers(1, &(wavFile->wavBuffer));
 		//errorCheck();
 		//now we put our data into the openAL buffer and
 		//check for success
-		alBufferData(wavFile->wavSource, wavFile->wavFormat, (void*)data,
+		alBufferData(wavFile->wavBuffer, wavFile->wavFormat, (void*)data,
 			wavFile->wavSize, wavFile->wavFrequent);
 		//errorCheck();
 		//clean up and return true if successful

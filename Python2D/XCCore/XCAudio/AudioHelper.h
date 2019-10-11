@@ -6,7 +6,6 @@
 #include <AL/alc.h>
 #include <map>
 #include <iostream>
-#include <atomic>
 struct WAVE_Data {
 	char subChunkID[4]; //should contain the word data
 	long subChunk2Size; //Stores the size of the data block
@@ -31,7 +30,7 @@ struct RIFF_Header {
 };
 
 struct XCWavFile {
-	ALuint wavSource;
+	ALuint wavBuffer;
 	ALsizei wavSize;
 	ALsizei wavFrequent;
 	ALenum wavFormat;
@@ -45,17 +44,19 @@ private:
 	static float audioVolume;
 
 	static std::map<std::string, XCWavFile> wavSourceGroup;
-	static std::map<ALuint, std::atomic_bool> playingGroup;
+	static std::map<ALuint, ALuint> effectPlayingList;/*buffer, source*/
 
 	static bool loadWavFile(const std::string filename, XCWavFile *wavFile);
-	
-	static void threadWork(XCWavFile);
+
 public:
 	static void EvonInit();
 	static void UnloadEvon();
 
 	static XCWavFile loadWavFromFile(const std::string filename);
-	static void playerWavFile(XCWavFile file);
 	static void setVolume(float volume);
+
+	static void playFromBuffer(ALuint buffer);
+	static void stopByBuffer(ALuint buffer);
+	static void releaseByBuffer(ALuint buffer);
 };
 #endif
