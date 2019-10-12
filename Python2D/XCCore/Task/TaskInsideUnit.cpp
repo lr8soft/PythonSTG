@@ -1,6 +1,6 @@
 #include "TaskInsideUnit.h"
 #include "../XCRender/RenderManager.h"
-TaskInsideUnit::TaskInsideUnit(int wFrame, int wInterval, int rTime): waitFrame(wFrame), workInterval(wInterval), repeatTime(rTime)
+TaskInsideUnit::TaskInsideUnit(std::string uuid, int wFrame, int wInterval, int rTime): parentUuid(uuid),waitFrame(wFrame), workInterval(wInterval), repeatTime(rTime)
 {
 	;
 }
@@ -19,7 +19,7 @@ void TaskInsideUnit::UnitWork()
 			auto iterBegin = bulletGroup.begin();
 			auto iterEnd = bulletGroup.end();
 			for (auto bullet = iterBegin; bullet != iterEnd; bullet++) {
-				RenderManager::getInstance()->AddRenderObject(*bullet);
+				RenderManager::getInstance()->AddRenderObject(parentUuid, *bullet);
 				/*if (!(*bullet)->getIsTerminate()) {
 					(*bullet)->Render();
 
@@ -45,7 +45,7 @@ void TaskInsideUnit::UnitWork()
 			haveAddToQueue = true;
 		}
 		else {
-			if (RenderManager::getInstance()->CheckRenderComplete()) {
+			if (RenderManager::getInstance()->CheckRenderComplete(parentUuid)) {
 				isFinish = true;
 			}
 

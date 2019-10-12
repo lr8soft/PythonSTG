@@ -1,11 +1,12 @@
 #pragma once
 #ifndef _RENDER_MANAGER_H_
 #define _RENDER_MANAGER_H_
-#include <vector>
+#include <map>
+#include <string>
 #include "RenderObject.h"
 class RenderManager {
 private:
-	std::vector<RenderObject*> renderObjectList;
+	std::multimap<std::string, RenderObject*> renderObjectList;
 
 	static RenderManager* pRenderManager;
 	RenderManager();
@@ -14,8 +15,8 @@ public:
 
 	void RenderWork();
 
-	void CleanRenderObject();
-	bool CheckRenderComplete();
-	void AddRenderObject(RenderObject* object);
+	void CleanRenderObject(std::string parentUuid);
+	bool CheckRenderComplete(std::string parentUuid);
+	void AddRenderObject(std::string parentUuid,RenderObject* object);
 };
 #endif
