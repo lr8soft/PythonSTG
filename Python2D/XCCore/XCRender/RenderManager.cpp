@@ -1,17 +1,12 @@
-#include <iostream>
-#include <chrono>
-#include <future>
+#include "RenderManager.h"
 #include <GL3/gl3w.h>
 #include <GLFW/glfw3.h>
-
-#include "RenderManager.h"
-#include "../../XCFrameInfo.h"
+#include "../Bullet/Bullet.h"
+#include "../XCCollide/CollideInfo.h"
 #include "../UserInterface/GameInfoInterface.h"
 #include "../UserInterface/CoverInterface.h"
-#include "../XCCollide/CollideInfo.h"
-RenderManager* RenderManager::pRManager = nullptr;
-RenderManager::RenderManager()
-{
+RenderManager* RenderManager::pRenderManager = nullptr;
+RenderManager::RenderManager() {
 	auto coverInterface = CoverInterface::getInstance();
 	AddUserInterface("coverImage", coverInterface);
 
@@ -21,60 +16,75 @@ RenderManager::RenderManager()
 
 RenderManager * RenderManager::getInstance()
 {
-	if (pRManager==nullptr) {
-		pRManager = new RenderManager;
-	}
-	if (pRManager->getPlayerP1() == nullptr)
-	{
-		auto group = Player::getPlayerGroup();
-		if (!group->empty()) {
-			pRManager->setPlayerP1(group->begin()->second);
+	if (pRenderManager == nullptr) {
+		pRenderManager = new RenderManager;
+		if (pRenderManager->getPlayer() == nullptr)
+		{
+			auto group = Player::getPlayerGroup();
+			if (!group->empty()) {
+				pRenderManager->setPlayer(group->begin()->second);
+			}
 		}
 	}
-	return pRManager;
+	return pRenderManager;
 }
 
-
-void RenderManager::AddStageItem(Stage * stage)
+void RenderManager::AddRenderObject(std::string parentUuid, RenderObject * object)
 {
-	stageQueue.push_back(stage);
+	renderObjectList.insert(std::make_pair(parentUuid, object));
+	object->Init();
 }
+
 void RenderManager::AddUserInterface(std::string uiName, IUserInterface * ui)
 {
 	uiGroup.insert(std::make_pair(uiName, ui));
 }
+
+void RenderManager::SetBackgroundPointer(Background * bg)
+{
+	renderBackground = bg;
+}
+
 void RenderManager::RenderWork()
 {
-	if (!shouldGamePause) {
-		glClear(GL_COLOR_BUFFER_BIT);
-		if (renderBackground != nullptr) {
-			renderBackground->BackgroundRender();
+	glClear(GL_COLOR_BUFFER_BIT);
+	if (renderBackground != nullptr) {
+		renderBackground->BackgroundRender();
+	}
+	if (player != nullptr) {
+		if (!player->getIsInit()) {
+			player->PlayerInit();
 		}
-		if (playerP1 != nullptr) {
-			if (!playerP1->getIsInit()) {
-				playerP1->PlayerInit();
-			}
-			if (playerP1->getIsInit()) {
-				playerP1->PlayerRender();
-			}
+		if (player->getIsInit()) {
+			player->PlayerRender();
+		}
 
+	}
+	std::multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
+	std::multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
+	for (auto object = renderBegin; object != renderEnd; object++) {
+		RenderObject *renderObject = object->second;
+		if (!renderObject->getIsTerminate()) {
+			renderObject->Render();
+
+			if (renderObject->getCurrentType()==RenderObject::BulletType) {
+				auto collideHelperP1 = CollideInfo::getCollideHelperP1();
+				if (collideHelperP1 != nullptr) {
+					collideHelperP1->checkCollisionWithBullet(static_cast<Bullet*>(renderObject));
+				}
+			}
 		}
-		std::vector<Stage*>::iterator stageBegin = stageQueue.begin();
-		std::vector<Stage*>::iterator stageEnd = stageQueue.end();
-		if (stageBegin != stageEnd) {//only one stage will work
-			Stage* stageItem = (*stageBegin);
-			if (!stageItem->getStageInit()) {
-				stageItem->stageInit();
+		if (renderObject->getIsTerminate()) {
+			renderObject->Release();
+			delete renderObject;
+			if (std::next(object) == renderEnd)
+			{
+				renderObjectList.erase(object);
+				break;
 			}
-			if (stageItem->getStageFinish()) {
-				stageQueue.erase(stageBegin);
-				renderBackground = nullptr;
-				delete stageItem;
-				return;
-			}
-			if (stageItem->getStageInit()) {
-				stageItem->stageWork();
-				renderBackground = stageItem->getBackgroundPointer();
+			else {
+				object = renderObjectList.erase(object);
+				renderEnd = renderObjectList.end();
 			}
 		}
 	}
@@ -89,7 +99,7 @@ void RenderManager::RenderWork()
 		}
 		if (ui->getIsInit()) {
 			ui->UserInterfaceRender();
-			shouldGamePause = ui->getShouldPauseGame();
+			//shouldGamePause = ui->getShouldPauseGame();
 		}
 		if (ui->getIsWorkFinish()) {
 			if (std::next(uiIter) == uiEnd)
@@ -106,13 +116,38 @@ void RenderManager::RenderWork()
 	}
 }
 
-Player * RenderManager::getPlayerP1()
+void RenderManager::CleanRenderObject(std::string uuid)
 {
-	return playerP1;
+	std::multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.find(uuid);
+	std::multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
+	for (auto object = renderBegin; object != renderEnd; object = renderObjectList.find(uuid)) {
+		RenderObject *renderObject = object->second;
+		renderObject->Release();
+		delete renderObject;
+		if (std::next(object) == renderEnd)
+		{
+			renderObjectList.erase(object);
+			break;
+		}
+		else {
+			renderObjectList.erase(object++);
+			renderEnd = renderObjectList.end();
+		}
+	}
 }
 
-void RenderManager::setPlayerP1(Player * p1)
+bool RenderManager::CheckRenderComplete(std::string uuid)
 {
-	playerP1 = p1;
-	CollideInfo::setCollideHelperP1(new CollideHelper(p1));
+	return  renderObjectList.find(uuid)== renderObjectList.end();
+}
+
+Player * RenderManager::getPlayer()
+{
+	return player;
+}
+
+void RenderManager::setPlayer(Player * p1)
+{
+	player = p1;
+	CollideInfo::setCollideHelper(new CollideHelper(p1));
 }

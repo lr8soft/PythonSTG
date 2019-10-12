@@ -1,6 +1,6 @@
 #include "TaskInsideUnit.h"
-#include "../XCCollide/CollideInfo.h"
-TaskInsideUnit::TaskInsideUnit(int wFrame, int wInterval, int rTime): waitFrame(wFrame), workInterval(wInterval), repeatTime(rTime)
+#include "../XCRender/RenderManager.h"
+TaskInsideUnit::TaskInsideUnit(std::string uuid, int wFrame, int wInterval, int rTime): parentUuid(uuid),waitFrame(wFrame), workInterval(wInterval), repeatTime(rTime)
 {
 	;
 }
@@ -15,53 +15,28 @@ void TaskInsideUnit::UnitWork()
 		waitFrame--;
 	}
 	else {
-		auto iterBegin = bulletGroup.begin();
-		auto iterEnd = bulletGroup.end();
-		for (auto bullet = iterBegin; bullet != iterEnd;bullet++) {
-			if (!(*bullet)->getIsTerminate()) {
-				(*bullet)->BulletRender();
-
-				auto collideHelperP1 = CollideInfo::getCollideHelperP1();
-				if (collideHelperP1 != nullptr) {
-					collideHelperP1->checkCollisionWithBullet((*bullet));
-				}
+		if (!haveAddToQueue) {
+			auto iterBegin = renderObjectGroup.begin();
+			auto iterEnd = renderObjectGroup.end();
+			for (auto object = iterBegin; object != iterEnd; object++) {
+				RenderManager::getInstance()->AddRenderObject(parentUuid, *object);
 			}
-
-			if ((*bullet)->getIsTerminate()) {
-				(*bullet)->BulletRelease();
-				delete *bullet;
-				if (std::next(bullet) == bulletGroup.end()) {
-					bulletGroup.erase(bullet);
-					return;
-				}
-				else {
-					bullet = bulletGroup.erase(bullet);
-					iterEnd = bulletGroup.end();
-				}
-			}
+			haveAddToQueue = true;
 		}
 	}
 }
 
 void TaskInsideUnit::UnitRelease()
 {
-	auto iterBegin = bulletGroup.begin();
-	auto iterEnd = bulletGroup.end();
-	if (!bulletGroup.empty()) {
-		for (auto iter = iterBegin; iter != iterEnd; iter++) {
-			(*iter)->BulletRelease();
-			delete *iter;
-		}
-	}
-	bulletGroup.clear();
+	renderObjectGroup.clear();
 }
 
-void TaskInsideUnit::addBullet(Bullet * pBullet)
+void TaskInsideUnit::addRenderObject(RenderObject * pObject)
 {
-	bulletGroup.push_back(pBullet);
+	renderObjectGroup.push_back(pObject);
 }
 
-bool TaskInsideUnit::getIsEmpty()
+bool TaskInsideUnit::IsAddToQueue()
 {
-	return bulletGroup.empty();
+	return haveAddToQueue;
 }

@@ -1,35 +1,37 @@
 #pragma once
-#ifndef _RenderManager_H_
-#define _RenderManager_H_
-#include <vector>
-#include <string>
-#include <mutex>
+#ifndef _RENDER_MANAGER_H_
+#define _RENDER_MANAGER_H_
 #include <map>
-#include "IRenderHelper.h"
+#include <string>
 #include "../UserInterface/IUserInterface.h"
-#include "../Stage/Stage.h"
-#include "../Item/Player.h"
 #include "../Background/Background.h"
+#include "../Item/Player.h"
+#include "RenderObject.h"
 class RenderManager {
 private:
-	std::vector<Stage*> stageQueue;
+	std::multimap<std::string, RenderObject*> renderObjectList;
 	std::map<std::string, IUserInterface*> uiGroup;
 
 	bool shouldGamePause = false;
 	Background *renderBackground = nullptr;
-	Player* playerP1;
+	Player* player;
 
-	static RenderManager* pRManager;
+	static RenderManager* pRenderManager;
 	RenderManager();
 public:
 	static RenderManager* getInstance();
 
-	void AddStageItem(Stage* stage);
-	void AddUserInterface(std::string uiName, IUserInterface* ui);
-
 	void RenderWork();
 
-	Player* getPlayerP1();
-	void setPlayerP1(Player* p1);
+	void CleanRenderObject(std::string parentUuid);
+	bool CheckRenderComplete(std::string parentUuid);
+
+	void AddRenderObject(std::string parentUuid,RenderObject* object);
+	void AddUserInterface(std::string uiName, IUserInterface* ui);
+
+	void SetBackgroundPointer(Background* background);
+
+	Player* getPlayer();
+	void setPlayer(Player* player);
 };
 #endif

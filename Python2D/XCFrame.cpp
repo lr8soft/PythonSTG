@@ -2,6 +2,7 @@
 #include <GL3/gl3w.h>
 #include "XCFrame.h"
 #include "XCCore/XCAudio/AudioHelper.h"
+#include "XCCore/Task/TaskManager.h"
 #include "XCCore/XCRender/RenderManager.h"
 #include "XCFrameInfo.h"
 #include "util/ConfigManager.h"
@@ -55,7 +56,9 @@ void XCFrame::FrameInit()
 void XCFrame::FrameLoop()
 {	
 	while (!glfwWindowShouldClose(pscreen)) {
+		TaskManager::getInstance()->TaskWork();
 		RenderManager::getInstance()->RenderWork();
+
 		glfwSwapBuffers(pscreen);
 		glfwPollEvents();
 	}

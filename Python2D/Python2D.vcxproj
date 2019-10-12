@@ -150,6 +150,7 @@
     <ClCompile Include="XCCore\XCAudio\AudioHelper.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideHelper.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideInfo.cpp" />
+    <ClCompile Include="XCCore\XCRender\RenderManager.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.cpp" />
     <ClCompile Include="XCCore\XCRender\FlexibleParticleGenerater.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp" />
@@ -158,7 +159,7 @@
     <ClCompile Include="XCCore\Item\Player.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.cpp" />
     <ClCompile Include="XCCore\XCRender\IRenderHelper.cpp" />
-    <ClCompile Include="XCCore\XCRender\RenderManager.cpp" />
+    <ClCompile Include="XCCore\Task\TaskManager.cpp" />
     <ClCompile Include="XCCore\XCRender\XCAdvImageHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\XCColorBlockHelper.cpp" />
     <ClCompile Include="XCCore\Stage\Stage.cpp" />
@@ -194,6 +195,8 @@
     <ClInclude Include="XCCore\XCAudio\AudioHelper.h" />
     <ClInclude Include="XCCore\XCCollide\CollideHelper.h" />
     <ClInclude Include="XCCore\XCCollide\CollideInfo.h" />
+    <ClInclude Include="XCCore\XCRender\RenderManager.h" />
+    <ClInclude Include="XCCore\XCRender\RenderObject.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.h" />
     <ClInclude Include="XCCore\XCRender\FlexibleParticleGenerater.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h" />
@@ -204,7 +207,7 @@
     <ClInclude Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.h" />
     <ClInclude Include="XCCore\XCRender\IRenderHelper.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\ISpecialEffect.h" />
-    <ClInclude Include="XCCore\XCRender\RenderManager.h" />
+    <ClInclude Include="XCCore\Task\TaskManager.h" />
     <ClInclude Include="XCCore\XCRender\XCAdvImageHelper.h" />
     <ClInclude Include="XCCore\XCRender\XCColorBlockHelper.h" />
     <ClInclude Include="XCCore\Stage\Stage.h" />

@@ -1,6 +1,6 @@
 #include "TaskHelper.h"
 #include "../Bullet/BulletHelper.h"
-TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(PyObject * unitObject)
+TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject * unitObject)
 {
 	TaskInsideUnit* unit  = nullptr;
 	if (unitObject != nullptr) {
@@ -12,7 +12,7 @@ TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(PyObject * unitObject)
 
 		int waitFrame, workInterval, repeatTime;
 		PyArg_ParseTuple(unitDetailInfo, "iii", &waitFrame, &workInterval, &repeatTime); 
-		unit = new TaskInsideUnit(waitFrame, workInterval, repeatTime);//R  E  L  E  A  S  E     P  L  E  A S  E
+		unit = new TaskInsideUnit(uuid, waitFrame, workInterval, repeatTime);//R  E  L  E  A  S  E     P  L  E  A S  E
 
 		if (unitSize>0) {
 			for (int i = 0; i < unitSize;i++) {
@@ -21,7 +21,7 @@ TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(PyObject * unitObject)
 
 				Bullet* bulletItem = BulletHelper::parseBulletObject(pBullet);
 				if (bulletItem !=nullptr) {
-					unit->addBullet(bulletItem);
+					unit->addRenderObject(bulletItem);
 				}
 			}
 		}
@@ -47,7 +47,7 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 			PyObject *pUnit,*unitObj = PyObject_CallMethod(taskObject, "_cpp_getUnitItem", NULL);
 			PyArg_Parse(unitObj, "O", &pUnit);
 
-			TaskInsideUnit *unit = parseTaskUnitFromObject(pUnit);
+			TaskInsideUnit *unit = parseTaskUnitFromObject(uuid, pUnit);
 			if (unit!=nullptr) {
 				task->addSubUnit(unit);
 			}

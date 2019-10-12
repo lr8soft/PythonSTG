@@ -3,12 +3,13 @@
 #include <string>
 #include <thread>
 bool AudioHelper::isEvonInit = false;
-float AudioHelper::audioVolume = 0.2f;
+float AudioHelper::audioVolume = 0.08f;
 ALCdevice*  AudioHelper::device = nullptr;
 ALCcontext* AudioHelper::context = nullptr;
 
 std::map<std::string, XCWavFile> AudioHelper::wavSourceGroup;
 std::map<ALuint, ALuint> AudioHelper::effectPlayingList;
+
 void AudioHelper::EvonInit()
 {
 	if (!isEvonInit) {
@@ -23,8 +24,8 @@ void AudioHelper::EvonInit()
 			}
 			else {
 				alcMakeContextCurrent(context);
-				isEvonInit = true;
-				std::cout << "[INFO]Now OpenAL environment init.\n";
+				std::cout << "[INFO]Now OpenAL environment init.\n";	
+				isEvonInit = true;		
 			}
 		}
 		alGetError(); //clear all error

@@ -65,7 +65,7 @@ void Stage::stageWork()
 		}
 	}
 	if (stageTaskGroup.empty()) {
-		//stageFinish = true;
+		stageFinish = true;
 	}
 }
 
