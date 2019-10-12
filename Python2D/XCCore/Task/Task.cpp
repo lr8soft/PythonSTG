@@ -1,6 +1,6 @@
 #include "Task.h"
 #include "TaskDispatcher.h"
-
+#include "../XCRender/RenderManager.h"
 Task::Task(std::string taskUuid, std::string uuidForWaitTask, int repeatTime, int intervalFrame)
 {
 	taskUUID = taskUuid;
@@ -31,10 +31,10 @@ void Task::taskSubWork()
 			auto iterBegin = subUnitGroup.begin();
 			auto iterEnd = subUnitGroup.end();
 			for (auto unit = iterBegin; unit != iterEnd; unit++) {
-				if (!(*unit)->getIsFinish()) {
+				if (!(*unit)->IsAddToQueue()) {
 					(*unit)->UnitWork();
 				}
-				if ((*unit)->getIsFinish()) {//release here
+				if ((*unit)->IsAddToQueue()) {//release here
 					(*unit)->UnitRelease();
 					delete (*unit);
 					if (std::next(unit) == subUnitGroup.end()) {
@@ -47,7 +47,7 @@ void Task::taskSubWork()
 					}
 				}
 			}
-			if (subUnitGroup.empty())
+			if (subUnitGroup.empty() && RenderManager::getInstance()->CheckRenderComplete(taskUUID))
 				taskFinish = true;
 			taskNowDurationFrame++;
 		}
@@ -81,6 +81,7 @@ void Task::TaskRelease()
 		(*unit)->UnitRelease();
 		delete (*unit);
 	}
+	RenderManager::getInstance()->CleanRenderObject(taskUUID);
 	subUnitGroup.clear();
 	taskIsInit = false;
 }

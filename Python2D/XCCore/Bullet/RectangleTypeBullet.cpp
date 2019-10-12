@@ -20,6 +20,8 @@ RectangleTypeBullet::RectangleTypeBullet(std::string bulletImagePath, glm::vec4 
 	reBoundTime = rbTime;
 	aimToPlayer = ap;
 
+	//define current type
+	setCurrentType(BulletType);
 }
 
 void RectangleTypeBullet::Init()

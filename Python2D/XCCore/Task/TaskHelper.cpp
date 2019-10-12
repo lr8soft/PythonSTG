@@ -21,7 +21,7 @@ TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject 
 
 				Bullet* bulletItem = BulletHelper::parseBulletObject(pBullet);
 				if (bulletItem !=nullptr) {
-					unit->addBullet(bulletItem);
+					unit->addRenderObject(bulletItem);
 				}
 			}
 		}

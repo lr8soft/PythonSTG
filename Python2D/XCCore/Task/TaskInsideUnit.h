@@ -2,6 +2,7 @@
 #ifndef _TASKINSIDE_UNIT_H_
 #define _TASKINSIDE_UNIT_H_
 #include "../Item/Item.h"
+#include "../XCRender/RenderObject.h"
 #include "../Bullet/Bullet.h"
 #include <list>
 #include <string>
@@ -9,7 +10,7 @@ class TaskInsideUnit {
 private:
 	int waitFrame, workInterval = 0, repeatTime = 0;
 	bool haveAddToQueue = false, isFinish = false;
-	std::list<Bullet*> bulletGroup;
+	std::list<RenderObject*> renderObjectGroup;
 
 	std::string parentUuid;
 public:
@@ -19,7 +20,7 @@ public:
 	void UnitWork();
 	void UnitRelease();
 
-	void addBullet(Bullet* pBullet);
-	bool getIsFinish();
+	void addRenderObject(RenderObject* pObject);
+	bool IsAddToQueue();
 };
 #endif

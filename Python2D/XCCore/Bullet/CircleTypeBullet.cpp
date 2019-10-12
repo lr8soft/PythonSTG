@@ -28,6 +28,10 @@ CircleTypeBullet::CircleTypeBullet(std::string bulletImagePath, glm::vec4 dInfo,
 	particleVelocity = pVelocity;
 	particleSize = pSize;
 	particleColor = pColor;
+
+	//define current type
+	setCurrentType(BulletType);
+
 }
 
 void CircleTypeBullet::Init()

@@ -3,7 +3,7 @@
 CollideHelper* CollideInfo::collideHelperP1 = nullptr;
 float CollideInfo::grazeDistance = 0.06f;
 
-void CollideInfo::setCollideHelperP1(CollideHelper * helper)
+void CollideInfo::setCollideHelper(CollideHelper * helper)
 {
 	if (collideHelperP1 == nullptr) {
 		collideHelperP1 = helper;
