@@ -12,7 +12,7 @@ import random
 def setupMyStage():
     stage0 = XCStage("Stage TEST")
     # task 0
-    taskTest = Task(durationFrame=-1, intervalFrame=0)
+    taskTest = Task(durationFrame=500, intervalFrame=0)
 
     enemyUnit = EnemyTaskUnit(waitFrame=60)
     taskTest.addUnit(enemyUnit)

@@ -15,7 +15,7 @@ class EnemyTaskUnit(TaskUnit):
         self.isEnemyUnit = True
 
         self.renderImage = "assets/Item/fairy.png"
-        self.scaleInfo = [0.5, 0.5, 0.5]
+        self.scaleInfo = [0.06, 0.06, 0.06]
         self.divideInfo = [12, 4]
         self.colorType = EnemyColor.Red # row
         self.imageStandBy = [1, 5]  # start - end (column)
@@ -24,7 +24,7 @@ class EnemyTaskUnit(TaskUnit):
         self.position = [0.0, 0.0, 0.0]
         self.acceleration = 0.0
         self.velocity = 0.3
-        self.angle = 0.0
+        self.angle = 180.0
         self.incAngle = 0.0
         self.enemyHealth = 5
 
