@@ -27,6 +27,9 @@ class Task:
     def getUuid(self):
         return self.uuid
 
+    def renewUuid(self):
+        self.uuid = str(uuid.uuid1())
+
     def _cpp_getUnitSize(self):
         return self.taskUnitQueue.qsize()
 

@@ -70,10 +70,10 @@ void XCInterpreter::parseStageItem()
 				auto renderQueue = TaskManager::getInstance();
 				renderQueue->AddStageItem(stage);
 #ifndef _DEBUG
-				Py_INCREF(retValue);
+				//Py_INCREF(retValue);
 #else
 				std::cout << "Stage Uuid:"<< uuid <<  std::endl;
-				Py_IncRef(retValue);
+				//Py_IncRef(retValue);
 #endif
 
 			}
@@ -116,7 +116,7 @@ void XCInterpreter::parsePlayerEntity()
 
 				Player::addPlayerInstance(frameName, player);
 #ifndef _DEBUG
-				Py_INCREF(retValue);
+				//Py_INCREF(retValue);
 #else
 				std::cout << "-------player entity item-------" << std::endl;
 				std::cout << "entityName:" << frameName << " speed:" << moveSpeed << " swapInterval:" << imageSwapInterval << " basePower:" << basePower << std::endl;
@@ -125,7 +125,7 @@ void XCInterpreter::parsePlayerEntity()
 				
 				std::cout  <<"scale:" << scaleX << " " << scaleY << " " << scaleZ<< " uuid:"<< uuid << std::endl;
 				std::cout << "----------------------------\n" << std::endl;
-				Py_IncRef(retValue);
+				//Py_IncRef(retValue);
 #endif
 
 			}

@@ -8,9 +8,10 @@
 #include <string>
 class TaskInsideUnit {
 protected:
-	int waitFrame, workInterval = 0, repeatTime = 0;
+	int waitFrame, workInterval = 0, repeatTime = 0, nowFrame = 0;
 	bool haveAddToQueue = false, isFinish = false;
 	std::list<RenderObject*> renderObjectGroup;
+	std::list<std::list<RenderObject*>> renderGroupManager;
 
 	std::string parentUuid;
 public:
@@ -21,6 +22,7 @@ public:
 	virtual void UnitRelease();
 
 	virtual void addRenderObject(RenderObject* pObject);
+	void addRenderGroup(std::list<RenderObject*> group);
 
 	void setBulletInitCoord(float x, float y, float z);
 	bool IsAddToQueue();

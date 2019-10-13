@@ -18,6 +18,10 @@ EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, g
 	angleAcceleration = agleA;
 
 	colorType = type;
+
+
+	//set as enemytype
+	setCurrentType(EnemyType);
 }
 
 void EnemyObject::Init()

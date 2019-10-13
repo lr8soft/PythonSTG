@@ -4,7 +4,7 @@
 #include "TaskDispatcher.h"
 TaskEnemy::TaskEnemy(std::string taskUuid, std::string targetTaskUuid, int repeatTime, int intervalFrame,
 	std::string enemyImage, glm::vec2 dInfo, glm::vec3 sInfo, glm::vec2 sbInfo, glm::vec2 wInfo,
-	glm::vec3 iCoord, float v, float a, float agle, float agleA, int type):Task(taskUuid, targetTaskUuid, repeatTime, intervalFrame)
+	glm::vec3 iCoord, float v, float a, float agle, float agleA, int type, float hp):Task(taskUuid, targetTaskUuid, repeatTime, intervalFrame)
 {
 	imagePath = enemyImage;
 	divideInfo = dInfo;
@@ -19,6 +19,7 @@ TaskEnemy::TaskEnemy(std::string taskUuid, std::string targetTaskUuid, int repea
 	angleAcceleration = agleA;
 
 	colorType = type;
+	nowLife = hp;
 }
 
 void TaskEnemy::TaskInit()
@@ -56,10 +57,10 @@ void TaskEnemy::TaskWork()
 			auto iterEnd = subUnitGroup.end();
 			for (auto unit = iterBegin; unit != iterEnd; unit++) {
 				if (!(*unit)->IsAddToQueue()) {
+					(*unit)->setBulletInitCoord(NowPosition[0], NowPosition[1], NowPosition[2]);
 					(*unit)->UnitWork();
 				}
 				if ((*unit)->IsAddToQueue()) {//release here
-					(*unit)->setBulletInitCoord(NowPosition[0], NowPosition[1], NowPosition[2]);
 					(*unit)->UnitRelease();
 					delete (*unit);
 					if (std::next(unit) == subUnitGroup.end()) {
@@ -72,7 +73,7 @@ void TaskEnemy::TaskWork()
 					}
 				}
 			}
-			if (subUnitGroup.empty() && RenderManager::getInstance()->CheckRenderComplete(taskUUID))
+			if ( (subUnitGroup.empty() && RenderManager::getInstance()->CheckRenderComplete(taskUUID)) || enemyImage->getIsTerminate())
 				taskFinish = true;
 			taskNowDurationFrame++;
 		}
@@ -94,6 +95,11 @@ void TaskEnemy::TaskRelease()
 	}
 	RenderManager::getInstance()->CleanRenderObject(taskUUID);
 	subUnitGroup.clear();
+
+	if (!haveImageAddInQueue) {
+		enemyImage->Release();
+		delete enemyImage;
+	}
 	taskIsInit = false;
 }
 

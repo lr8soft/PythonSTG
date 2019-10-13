@@ -16,6 +16,12 @@ TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject 
 
 		unit = new TaskInsideUnit(uuid, waitFrame, workInterval, repeatTime);//R  E  L  E  A  S  E     P  L  E  A S  E
 		
+		std::list<std::list<RenderObject*>> renderGroupGroup;
+		for (int i = 0; i < repeatTime - 1;i++) {
+			std::list<RenderObject*> list;
+			renderGroupGroup.push_back(list);
+		}
+
 		if (renderObjectSize>0) {
 			for (int i = 0; i < renderObjectSize;i++) {
 				PyObject* pBullet, *bulletObject = PyObject_CallMethod(unitObject, "_cpp_getBulletItem", NULL);
@@ -25,6 +31,15 @@ TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject 
 				if (bulletItem !=nullptr) {
 					unit->addRenderObject(bulletItem);
 				}
+				if (repeatTime > 1) {
+					for (auto iter = renderGroupGroup.begin(); iter != renderGroupGroup.end(); iter++) {
+						Bullet* newBullet = BulletHelper::parseBulletObject(pBullet);
+						iter->push_back(newBullet);
+					}
+				}
+			}
+			for (auto iter = renderGroupGroup.begin(); iter != renderGroupGroup.end(); iter++) {
+				unit->addRenderGroup(*iter);
 			}
 		}
 
@@ -52,11 +67,11 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 			PyArg_ParseTuple(renderInfo, "s(ii)(fff)(ii)(ii)i", &imagePath, &divideInfo[0], &divideInfo[1], &scaleInfo[0], &scaleInfo[1], &scaleInfo[2],
 				&sandByInfo[0], &sandByInfo[1], &walkInfo[0], &walkInfo[1], &colorType);
 
-			float position[3], velocity, acceleration, angle, angleAcceleration;
-			PyArg_ParseTuple(enemyInfo, "(fff)ffff", &position[0], &position[1], &position[2], &velocity, &acceleration, &angle, &angleAcceleration);
+			float position[3], velocity, acceleration, angle, angleAcceleration, maxHealth;
+			PyArg_ParseTuple(enemyInfo, "(fff)fffff", &position[0], &position[1], &position[2], &velocity, &acceleration, &angle, &angleAcceleration, &maxHealth);
 			task = new TaskEnemy(uuid, targetUuid, repeatTime, intervalFrame, imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
 				glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec2(sandByInfo[0], sandByInfo[1]), glm::vec2(walkInfo[0], walkInfo[1]),
-				glm::vec3(position[0], position[1], position[2]), velocity, acceleration, angle, angleAcceleration, colorType);
+				glm::vec3(position[0], position[1], position[2]), velocity, acceleration, angle, angleAcceleration, colorType, maxHealth);
 		}
 		
 		int unitSize;

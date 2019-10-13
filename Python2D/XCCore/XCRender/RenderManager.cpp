@@ -1,6 +1,7 @@
 #include "RenderManager.h"
 #include <GL3/gl3w.h>
 #include <GLFW/glfw3.h>
+#include "../Enemy/EnemyObject.h"
 #include "../Bullet/Bullet.h"
 #include "../XCCollide/CollideInfo.h"
 #include "../UserInterface/GameInfoInterface.h"
@@ -78,6 +79,9 @@ void RenderManager::RenderWork()
 				if (collideHelperP1 != nullptr) {
 					collideHelperP1->checkCollisionWithBullet(static_cast<Bullet*>(renderObject));
 				}
+			}
+			else if (renderObject->getCurrentType() == RenderObject::EnemyType) {
+			
 			}
 		}
 		if (renderObject->getIsTerminate()) {
