@@ -40,6 +40,9 @@
     <Filter Include="XCCore\XCAudio">
       <UniqueIdentifier>{d0df81fa-abea-42c1-a3d3-a689a213969e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\Enemy">
+      <UniqueIdentifier>{2e419218-6347-4310-bc9f-14bf80549af2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -155,6 +158,12 @@
     </ClCompile>
     <ClCompile Include="XCCore\XCRender\RenderManager.cpp">
       <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Enemy\Enemy.cpp">
+      <Filter>XCCore\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Task\TaskInsideEnemyUnit.cpp">
+      <Filter>XCCore\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +297,12 @@
     </ClInclude>
     <ClInclude Include="XCCore\XCRender\RenderObject.h">
       <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Enemy\Enemy.h">
+      <Filter>XCCore\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Task\TaskInsideEnemyUnit.h">
+      <Filter>XCCore\Task</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

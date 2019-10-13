@@ -1,4 +1,4 @@
-from script.Stage.Task import Task, TaskUnit
+from script.Stage.Task import Task, TaskUnit, EnemyTaskUnit
 from script.Bullet.HugeBullet import HugeBullet
 from script.Bullet.CircleBullet import CircleBullet
 from script.Bullet.RiceBullet import RiceBullet
@@ -13,6 +13,9 @@ def setupMyStage():
     stage0 = XCStage("Stage TEST")
     # task 0
     taskTest = Task(durationFrame=-1, intervalFrame=0)
+
+    enemyUnit = EnemyTaskUnit(waitFrame=60)
+    taskTest.addUnit(enemyUnit)
     # bullet group 0
     unit0 = TaskUnit(waitFrame=60)
     for j in range(0, 36):

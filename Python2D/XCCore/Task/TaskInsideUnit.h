@@ -7,7 +7,7 @@
 #include <list>
 #include <string>
 class TaskInsideUnit {
-private:
+protected:
 	int waitFrame, workInterval = 0, repeatTime = 0;
 	bool haveAddToQueue = false, isFinish = false;
 	std::list<RenderObject*> renderObjectGroup;
@@ -16,11 +16,11 @@ private:
 public:
 	TaskInsideUnit(std::string uuid,int waitFrame, int workInterval, int repeatTime);
 
-	void UnitInit();
-	void UnitWork();
-	void UnitRelease();
+	virtual void UnitInit();
+	virtual void UnitWork();
+	virtual void UnitRelease();
 
-	void addRenderObject(RenderObject* pObject);
+	virtual void addRenderObject(RenderObject* pObject);
 	bool IsAddToQueue();
 };
 #endif

@@ -20,6 +20,11 @@ void Task::TaskInit()
 {
 	if (!taskIsInit) {
 		TaskDispatcher::addTask(targetUUID);
+		auto iterBegin = subUnitGroup.begin();
+		auto iterEnd = subUnitGroup.end();
+		for (auto unit = iterBegin; unit != iterEnd; unit++) {
+			(*unit)->UnitInit();
+		}
 		taskIsInit = true;
 	}
 }

@@ -3,7 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="7e5e419c-fa07-405a-8b82-0fe439d18051" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/script/XCCore.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/XCCore.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/Python2D.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/Python2D.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/Python2D.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/Python2D.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Task/Task.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Task/Task.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskHelper.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskInsideUnit.h" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskInsideUnit.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/XCRender/IRenderHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/XCRender/IRenderHelper.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/XCRender/IRenderHelper.h" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/XCRender/IRenderHelper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/assets/Item/fairy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/assets/Item/fairy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/script/Stage/EnemyTaskUnit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/Stage/EnemyTaskUnit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/script/Stage/Task.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/Stage/Task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/script/Stage/TaskUnit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/Stage/TaskUnit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python2D/script/TestStage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/TestStage.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +33,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1RSmB7qzMUj4W63hKB6yVbjIFdF" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Python2D/script/Bullet" />
