@@ -141,11 +141,11 @@
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp" />
     <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp" />
-    <ClCompile Include="XCCore\Enemy\Enemy.cpp" />
+    <ClCompile Include="XCCore\Enemy\EnemyObject.cpp" />
     <ClCompile Include="XCCore\Task\Task.cpp" />
     <ClCompile Include="XCCore\Task\TaskDispatcher.cpp" />
     <ClCompile Include="XCCore\Task\TaskHelper.cpp" />
-    <ClCompile Include="XCCore\Task\TaskInsideEnemyUnit.cpp" />
+    <ClCompile Include="XCCore\Task\TaskEnemy.cpp" />
     <ClCompile Include="XCCore\Task\TaskInsideUnit.cpp" />
     <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp" />
     <ClCompile Include="XCCore\UserInterface\GameInfoInterface.cpp" />
@@ -187,11 +187,11 @@
     <ClInclude Include="XCCore\Bullet\BulletHelper.h" />
     <ClInclude Include="XCCore\Bullet\CircleTypeBullet.h" />
     <ClInclude Include="XCCore\Bullet\RectangleTypeBullet.h" />
-    <ClInclude Include="XCCore\Enemy\Enemy.h" />
+    <ClInclude Include="XCCore\Enemy\EnemyObject.h" />
     <ClInclude Include="XCCore\Task\Task.h" />
     <ClInclude Include="XCCore\Task\TaskDispatcher.h" />
     <ClInclude Include="XCCore\Task\TaskHelper.h" />
-    <ClInclude Include="XCCore\Task\TaskInsideEnemyUnit.h" />
+    <ClInclude Include="XCCore\Task\TaskEnemy.h" />
     <ClInclude Include="XCCore\Task\TaskInsideUnit.h" />
     <ClInclude Include="XCCore\UserInterface\CoverInterface.h" />
     <ClInclude Include="XCCore\UserInterface\GameInfoInterface.h" />

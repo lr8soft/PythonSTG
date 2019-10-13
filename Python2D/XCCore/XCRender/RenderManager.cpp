@@ -5,6 +5,7 @@
 #include "../XCCollide/CollideInfo.h"
 #include "../UserInterface/GameInfoInterface.h"
 #include "../UserInterface/CoverInterface.h"
+
 RenderManager* RenderManager::pRenderManager = nullptr;
 RenderManager::RenderManager() {
 	auto coverInterface = CoverInterface::getInstance();
@@ -43,6 +44,11 @@ void RenderManager::AddUserInterface(std::string uiName, IUserInterface * ui)
 void RenderManager::SetBackgroundPointer(Background * bg)
 {
 	renderBackground = bg;
+}
+
+size_t RenderManager::GetRenderObjectCount()
+{
+	return renderObjectList.size();
 }
 
 void RenderManager::RenderWork()

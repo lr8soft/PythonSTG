@@ -1,4 +1,5 @@
 from script.Stage.TaskUnit import TaskUnit
+from script.Stage.Task import Task
 from enum import Enum
 
 

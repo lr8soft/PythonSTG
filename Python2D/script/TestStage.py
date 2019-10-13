@@ -12,12 +12,13 @@ import random
 def setupMyStage():
     stage0 = XCStage("Stage TEST")
     # task 0
-    taskTest = Task(durationFrame=500, intervalFrame=0)
+    taskTest = Task(durationFrame=-1, intervalFrame=0)
 
-    enemyUnit = EnemyTaskUnit(waitFrame=60)
-    taskTest.addUnit(enemyUnit)
     # bullet group 0
-    unit0 = TaskUnit(waitFrame=60)
+    unit0 = EnemyTaskUnit(waitFrame=60)
+    unit0.setAngle(270.0)
+    unit0.setInitCoord([-0.5,1.0,0.0])
+    unit0.setVelocity(0.3)
     for j in range(0, 36):
         bullet = CircleBullet()
         bullet.setVelocity(0.6)

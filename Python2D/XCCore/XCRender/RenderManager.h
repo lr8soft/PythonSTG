@@ -31,6 +31,8 @@ public:
 
 	void SetBackgroundPointer(Background* background);
 
+	size_t GetRenderObjectCount();
+
 	Player* getPlayer();
 	void setPlayer(Player* player);
 };

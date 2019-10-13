@@ -1,6 +1,6 @@
 #include "TaskHelper.h"
 #include "../Bullet/BulletHelper.h"
-#include "TaskInsideEnemyUnit.h"
+#include "TaskEnemy.h"
 TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject * unitObject)
 {
 	TaskInsideUnit* unit  = nullptr;
@@ -26,7 +26,7 @@ TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject 
 
 			float position[3], velocity, acceleration, angle, angleAcceleration;
 			PyArg_ParseTuple(enemyInfo, "(fff)ffff", &position[0], &position[1], &position[2], &velocity, &acceleration, &angle, &angleAcceleration);
-			unit = new TaskInsideEnemyUnit(uuid, waitFrame, workInterval, repeatTime, imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
+			unit = new TaskEnemy(uuid, waitFrame, workInterval, repeatTime, imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
 				glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec2(sandByInfo[0], sandByInfo[1]), glm::vec2(walkInfo[0], walkInfo[1]),
 				glm::vec3(position[0], position[1], position[2]), velocity, acceleration, angle, angleAcceleration, colorType);
 		}
