@@ -77,6 +77,12 @@ EnemyRenderObject::EnemyRenderObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::v
 
 void EnemyRenderObject::Init()
 {
+	if ( (angle == 0 && velocity==0) || angle == 270.0f || angle == 90.0f) {
+		nowTexIndex = standbyInfo[0];
+	}
+	else {
+		nowTexIndex = walkInfo[0];
+	}
 }
 
 void EnemyRenderObject::Render()
@@ -91,17 +97,16 @@ void EnemyRenderObject::Render()
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	int nowDivideX = 0;
 	bool isAnti = false;
-	if (angle == 0) {
+	if ((angle == 0 && velocity == 0) || angle == 270.0f || angle == 90.0f) {
 		if (nowTexIndex < standbyInfo[1])
-			nowTexIndex+=0.1f*deltaTime;
+			nowTexIndex+=7.0f * deltaTime;
 		else
 			nowTexIndex = standbyInfo[0];
 	}
 	else {
 		if (nowTexIndex < walkInfo[1])
-			nowTexIndex += 0.1f*deltaTime;
+			nowTexIndex += 7.0f * deltaTime;
 		else
 			nowTexIndex = walkInfo[0];
 
@@ -111,7 +116,7 @@ void EnemyRenderObject::Render()
 	}
 
 	imageHelper->Render(initCoord, glm::vec4(1.0f), glm::radians(isAnti ? 180.0f :0.0f), glm::vec3(0, 1, 0), scaleInfo,
-		IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1], (int)nowDivideX, colorType));
+		IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1], (int)nowTexIndex, colorType));
 
 	glDisable(GL_BLEND);
 }

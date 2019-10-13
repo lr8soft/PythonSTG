@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e5e419c-fa07-405a-8b82-0fe439d18051" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskHelper.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskInsideEnemyUnit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskInsideEnemyUnit.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskInsideEnemyUnit.h" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Task/TaskInsideEnemyUnit.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Python2D/script/Stage/EnemyTaskUnit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/Stage/EnemyTaskUnit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/script/TestStage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/TestStage.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
