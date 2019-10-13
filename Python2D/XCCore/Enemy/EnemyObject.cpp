@@ -81,3 +81,7 @@ void EnemyObject::Release()
 	delete imageHelper;
 }
 
+glm::vec3 EnemyObject::getNowPosition()
+{
+	return NowPosition;
+}

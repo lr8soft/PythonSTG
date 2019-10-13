@@ -21,6 +21,8 @@ public:
 	virtual void UnitRelease();
 
 	virtual void addRenderObject(RenderObject* pObject);
+
+	void setBulletInitCoord(float x, float y, float z);
 	bool IsAddToQueue();
 };
 #endif

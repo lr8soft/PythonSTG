@@ -1,24 +1,25 @@
-from script.Stage.Task import Task, TaskUnit, EnemyTaskUnit
-from script.Bullet.HugeBullet import HugeBullet
-from script.Bullet.CircleBullet import CircleBullet
-from script.Bullet.RiceBullet import RiceBullet
+import random
+
 from script.Bullet.Bullet import BulletColor
+from script.Bullet.CircleBullet import CircleBullet
+from script.Bullet.HugeBullet import HugeBullet
+from script.Bullet.RiceBullet import RiceBullet
+from script.Stage.Task import Task, TaskUnit
+from script.Stage.TaskEnemy import TaskEnemy
 from script.Stage.XCStage import XCStage
 
-import random
 
 # demo show how to create a custom stage
 # 演示如何创建并返回一个自定义关卡
 def setupMyStage():
     stage0 = XCStage("Stage TEST")
     # task 0
-    taskTest = Task(durationFrame=-1, intervalFrame=0)
-
+    taskTest = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    taskTest.setInitCoord([0.0, 1.0, 0.0])
+    taskTest.setAngle(270.0)
+    taskTest.setVelocity(0.2)
     # bullet group 0
-    unit0 = EnemyTaskUnit(waitFrame=60)
-    unit0.setAngle(270.0)
-    unit0.setInitCoord([-0.5,1.0,0.0])
-    unit0.setVelocity(0.3)
+    unit0 = TaskUnit(waitFrame=60)
     for j in range(0, 36):
         bullet = CircleBullet()
         bullet.setVelocity(0.6)

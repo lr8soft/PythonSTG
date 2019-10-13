@@ -36,6 +36,19 @@ void TaskInsideUnit::addRenderObject(RenderObject * pObject)
 	renderObjectGroup.push_back(pObject);
 }
 
+void TaskInsideUnit::setBulletInitCoord(float x, float y, float z)
+{
+	auto iterBegin = renderObjectGroup.begin();
+	auto iterEnd = renderObjectGroup.end();
+	for (auto object = iterBegin; object != iterEnd; object++) {
+		RenderObject* renderObject = *object;
+		if (renderObject->getCurrentType() == RenderObject::BulletType) {
+			Bullet* bullet = static_cast<Bullet*>(renderObject);
+			bullet->setPosition(x, y, z);
+		}
+	}
+}
+
 bool TaskInsideUnit::IsAddToQueue()
 {
 	return haveAddToQueue;

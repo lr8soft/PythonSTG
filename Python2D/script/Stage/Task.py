@@ -1,6 +1,5 @@
 from queue import PriorityQueue
 from script.Stage.TaskUnit import TaskUnit
-from script.Stage.EnemyTaskUnit import EnemyTaskUnit, EnemyColor
 import uuid
 
 

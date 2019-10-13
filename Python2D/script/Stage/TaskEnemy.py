@@ -1,4 +1,3 @@
-from script.Stage.TaskUnit import TaskUnit
 from script.Stage.Task import Task
 from enum import Enum
 
@@ -10,10 +9,10 @@ class EnemyColor(Enum):
     Red = 4
 
 
-class EnemyTaskUnit(TaskUnit):
-    def __init__(self, priority=6, waitFrame=0, workInterval=0, repeatTime=1):
-        super().__init__(priority, waitFrame, workInterval, repeatTime)
-        self.isEnemyUnit = True
+class TaskEnemy(Task):
+    def __init__(self, durationFrame=0, intervalFrame=0, targetUuid=""):
+        super().__init__(durationFrame, intervalFrame, targetUuid)
+        self.isEnemyTask = True
 
         self.renderImage = "assets/Item/fairy.png"
         self.scaleInfo = [0.06, 0.06, 0.06]
@@ -54,8 +53,8 @@ class EnemyTaskUnit(TaskUnit):
     def setAngleAcceleration(self, increaseAngle=0.0):
         self.incAngle = increaseAngle
 
-    def _cpp_getUnitInfo(self):
-        return self.waitFrame, self.workInterval, self.repeatTime, self.isEnemyUnit
+    def _cpp_getTaskInfo(self):
+        return self.uuid, self.targetUuid, self.duration, self.intervalFrame,  self.isEnemyTask
 
     def _cpp_getRenderInfo(self):
         return self.renderImage, tuple( self.divideInfo),  tuple(self.scaleInfo), tuple(self.imageStandBy), tuple(self.imageWalk), self.colorType.value

@@ -11,25 +11,10 @@ TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject 
 		int renderObjectSize;
 		PyArg_Parse(unitSizeInfo, "i", &renderObjectSize);
 
-		int waitFrame, workInterval, repeatTime, isEnemyUnit = 0;
-		PyArg_ParseTuple(unitDetailInfo, "iii|p", &waitFrame, &workInterval, &repeatTime, &isEnemyUnit);
-		if (!isEnemyUnit) {
-			unit = new TaskInsideUnit(uuid, waitFrame, workInterval, repeatTime);//R  E  L  E  A  S  E     P  L  E  A S  E
-		}
-		else {
-			auto renderInfo = PyObject_CallMethod(unitObject, "_cpp_getRenderInfo", NULL);
-			auto enemyInfo = PyObject_CallMethod(unitObject, "_cpp_getEnemyInfo", NULL);
-			
-			const char* imagePath; int divideInfo[2]; float scaleInfo[3]; int sandByInfo[2]; int walkInfo[2]; int colorType;
-			PyArg_ParseTuple(renderInfo, "s(ii)(fff)(ii)(ii)i", &imagePath, &divideInfo[0], &divideInfo[1], &scaleInfo[0], &scaleInfo[1], &scaleInfo[2], 
-				&sandByInfo[0], &sandByInfo[1], &walkInfo[0], &walkInfo[1], &colorType);
+		int waitFrame, workInterval, repeatTime;
+		PyArg_ParseTuple(unitDetailInfo, "iii", &waitFrame, &workInterval, &repeatTime);
 
-			float position[3], velocity, acceleration, angle, angleAcceleration;
-			PyArg_ParseTuple(enemyInfo, "(fff)ffff", &position[0], &position[1], &position[2], &velocity, &acceleration, &angle, &angleAcceleration);
-			unit = new TaskEnemy(uuid, waitFrame, workInterval, repeatTime, imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
-				glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec2(sandByInfo[0], sandByInfo[1]), glm::vec2(walkInfo[0], walkInfo[1]),
-				glm::vec3(position[0], position[1], position[2]), velocity, acceleration, angle, angleAcceleration, colorType);
-		}
+		unit = new TaskInsideUnit(uuid, waitFrame, workInterval, repeatTime);//R  E  L  E  A  S  E     P  L  E  A S  E
 		
 		if (renderObjectSize>0) {
 			for (int i = 0; i < renderObjectSize;i++) {
@@ -54,10 +39,26 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 		auto taskInfo = PyObject_CallMethod(taskObject, "_cpp_getTaskInfo", NULL);
 		auto sizeInfo = PyObject_CallMethod(taskObject, "_cpp_getUnitSize", NULL);
 
-		const char *uuid, *targetUuid; int repeatTime, intervalFrame;
-		PyArg_ParseTuple(taskInfo, "ssii", &uuid, &targetUuid, &repeatTime, &intervalFrame);
-		task = new Task(uuid, targetUuid, repeatTime, intervalFrame);
+		const char *uuid, *targetUuid; int repeatTime, intervalFrame, isEnemyTask = 0;
+		PyArg_ParseTuple(taskInfo, "ssii|p", &uuid, &targetUuid, &repeatTime, &intervalFrame, &isEnemyTask);
+		if (!isEnemyTask) {
+			task = new Task(uuid, targetUuid, repeatTime, intervalFrame);
+		}
+		else {
+			auto renderInfo = PyObject_CallMethod(taskObject, "_cpp_getRenderInfo", NULL);
+			auto enemyInfo = PyObject_CallMethod(taskObject, "_cpp_getEnemyInfo", NULL);
 
+			const char* imagePath; int divideInfo[2]; float scaleInfo[3]; int sandByInfo[2]; int walkInfo[2]; int colorType;
+			PyArg_ParseTuple(renderInfo, "s(ii)(fff)(ii)(ii)i", &imagePath, &divideInfo[0], &divideInfo[1], &scaleInfo[0], &scaleInfo[1], &scaleInfo[2],
+				&sandByInfo[0], &sandByInfo[1], &walkInfo[0], &walkInfo[1], &colorType);
+
+			float position[3], velocity, acceleration, angle, angleAcceleration;
+			PyArg_ParseTuple(enemyInfo, "(fff)ffff", &position[0], &position[1], &position[2], &velocity, &acceleration, &angle, &angleAcceleration);
+			task = new TaskEnemy(uuid, targetUuid, repeatTime, intervalFrame, imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
+				glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec2(sandByInfo[0], sandByInfo[1]), glm::vec2(walkInfo[0], walkInfo[1]),
+				glm::vec3(position[0], position[1], position[2]), velocity, acceleration, angle, angleAcceleration, colorType);
+		}
+		
 		int unitSize;
 		PyArg_Parse(sizeInfo, "i", &unitSize);
 		for (int i = 0; i < unitSize;i++) {

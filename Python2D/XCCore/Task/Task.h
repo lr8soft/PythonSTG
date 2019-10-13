@@ -17,12 +17,12 @@ protected:
 public:
 	/*while taskType==TaskWait, the task will wait for target task to end and start.
 	repeatTime == -1 means task will work repeatedly.*/
-	Task(std::string taskUuid, std::string targetTaskUuid, int repeatTime = -1, int intervalFrame = 0);
+	Task(std::string taskUuid, std::string targetTaskUuid, int repeatTime, int intervalFrame);
 	void addSubUnit(TaskInsideUnit* unit);
 
-	void TaskInit();
-	void TaskWork();
-	void TaskRelease();	
+	virtual void TaskInit();
+	virtual void TaskWork();
+	virtual void TaskRelease();
 
 	bool getTaskFinish();
 	bool getTaskInit();
