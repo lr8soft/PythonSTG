@@ -1,29 +1,40 @@
-from script.Stage.Task import Task, TaskUnit
-from script.Bullet.HugeBullet import HugeBullet
-from script.Bullet.CircleBullet import CircleBullet
-from script.Bullet.RiceBullet import RiceBullet
+import random
+
 from script.Bullet.Bullet import BulletColor
+from script.Bullet.CircleBullet import CircleBullet
+from script.Bullet.HugeBullet import HugeBullet
+from script.Bullet.RiceBullet import RiceBullet
+from script.Stage.Task import Task, TaskUnit
+from script.Stage.TaskEnemy import TaskEnemy
 from script.Stage.XCStage import XCStage
 
-import random
 
 # demo show how to create a custom stage
 # 演示如何创建并返回一个自定义关卡
 def setupMyStage():
     stage0 = XCStage("Stage TEST")
     # task 0
-    taskTest = Task(durationFrame=-1, intervalFrame=0)
+    enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    enemyTest.setInitCoord([0.0, 1.0, 0.0])
+    enemyTest.setAngle(270.0)
+    enemyTest.setVelocity(0.2)
     # bullet group 0
-    unit0 = TaskUnit(waitFrame=60)
+    unit0 = TaskUnit(waitFrame=60, repeatTime=3)
     for j in range(0, 36):
         bullet = CircleBullet()
         bullet.setVelocity(0.6)
         bullet.setAngle(j * 10)
         bullet.setBulletColor(BulletColor.BLUE)
         unit0.addBullet(bullet)
-    taskTest.addUnit(unit0)
+    enemyTest.addUnit(unit0)
     # bullet group 1
-    unit1 = TaskUnit(waitFrame=300)
+    enemyTest2 = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    enemyTest2.setAngle(270.0)
+    enemyTest2.setVelocity(0.3)
+    enemyTest2.setInitCoord([-0.5, 1.0, 0.0])
+
+    unit1 = TaskUnit(waitFrame=180, repeatTime=3)
+    unit2 = TaskUnit(waitFrame=180, repeatTime=3)
     for i in range(0, 72):
         if i % 2 == 0:
             bullet = CircleBullet()
@@ -39,13 +50,22 @@ def setupMyStage():
             bullet.setVelocity(0.6)
             bullet.setBulletColor(BulletColor.PURPLE)
             bullet.setAngle(i * 10)
-            bullet.setAngleAcceleration(20)
-            unit1.addBullet(bullet)
-    taskTest.addUnit(unit1)
-    stage0.addTask(taskTest)
+            bullet.setAngleAcceleration(-20)
+            unit2.addBullet(bullet)
+    enemyTest2.addUnit(unit1)
+
+    enemyTest3 = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    enemyTest3.setAngle(270.0)
+    enemyTest3.setVelocity(0.3)
+    enemyTest3.addUnit(unit2)
+    enemyTest3.setInitCoord([0.5, 1.0, 0.0])
+
+    stage0.addTask(enemyTest)
+    stage0.addTask(enemyTest2)
+    stage0.addTask(enemyTest3)
 
     # task 2
-    taskAfter = Task(durationFrame=-1, intervalFrame=0, targetUuid=taskTest.getUuid())
+    taskAfter = Task(durationFrame=-1, intervalFrame=0, targetUuid=enemyTest.getUuid())
     unit2_0 = TaskUnit()
     for j in range(0, 36):
         bullet = HugeBullet()

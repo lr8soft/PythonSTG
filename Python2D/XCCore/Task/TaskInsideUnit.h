@@ -7,20 +7,24 @@
 #include <list>
 #include <string>
 class TaskInsideUnit {
-private:
-	int waitFrame, workInterval = 0, repeatTime = 0;
+protected:
+	int waitFrame, workInterval = 0, repeatTime = 0, nowFrame = 0;
 	bool haveAddToQueue = false, isFinish = false;
 	std::list<RenderObject*> renderObjectGroup;
+	std::list<std::list<RenderObject*>> renderGroupManager;
 
 	std::string parentUuid;
 public:
 	TaskInsideUnit(std::string uuid,int waitFrame, int workInterval, int repeatTime);
 
-	void UnitInit();
-	void UnitWork();
-	void UnitRelease();
+	virtual void UnitInit();
+	virtual void UnitWork();
+	virtual void UnitRelease();
 
-	void addRenderObject(RenderObject* pObject);
+	virtual void addRenderObject(RenderObject* pObject);
+	void addRenderGroup(std::list<RenderObject*> group);
+
+	void setBulletInitCoord(float x, float y, float z);
 	bool IsAddToQueue();
 };
 #endif

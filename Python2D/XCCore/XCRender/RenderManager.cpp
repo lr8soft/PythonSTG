@@ -1,10 +1,12 @@
 #include "RenderManager.h"
 #include <GL3/gl3w.h>
 #include <GLFW/glfw3.h>
+#include "../Enemy/EnemyObject.h"
 #include "../Bullet/Bullet.h"
 #include "../XCCollide/CollideInfo.h"
 #include "../UserInterface/GameInfoInterface.h"
 #include "../UserInterface/CoverInterface.h"
+
 RenderManager* RenderManager::pRenderManager = nullptr;
 RenderManager::RenderManager() {
 	auto coverInterface = CoverInterface::getInstance();
@@ -45,6 +47,11 @@ void RenderManager::SetBackgroundPointer(Background * bg)
 	renderBackground = bg;
 }
 
+size_t RenderManager::GetRenderObjectCount()
+{
+	return renderObjectList.size();
+}
+
 void RenderManager::RenderWork()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -72,6 +79,9 @@ void RenderManager::RenderWork()
 				if (collideHelperP1 != nullptr) {
 					collideHelperP1->checkCollisionWithBullet(static_cast<Bullet*>(renderObject));
 				}
+			}
+			else if (renderObject->getCurrentType() == RenderObject::EnemyType) {
+			
 			}
 		}
 		if (renderObject->getIsTerminate()) {
