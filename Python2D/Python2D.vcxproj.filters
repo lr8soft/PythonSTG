@@ -168,6 +168,7 @@
     <ClCompile Include="XCCore\Task\TaskEnemy.cpp">
       <Filter>XCCore\Task</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\Attack\NormalStrike.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -308,6 +309,9 @@
       <Filter>XCCore\Task</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\Attack\IAttack.h">
+      <Filter>XCCore\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Attack\NormalStrike.h">
       <Filter>XCCore\Attack</Filter>
     </ClInclude>
   </ItemGroup>
