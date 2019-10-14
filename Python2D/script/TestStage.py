@@ -30,11 +30,11 @@ def setupMyStage():
     # bullet group 1
     enemyTest2 = TaskEnemy(durationFrame=-1, intervalFrame=0)
     enemyTest2.setAngle(270.0)
-    enemyTest2.setVelocity(0.3)
+    enemyTest2.setVelocity(0.2)
     enemyTest2.setInitCoord([-0.5, 1.0, 0.0])
 
-    unit1 = TaskUnit(waitFrame=180, repeatTime=3)
-    unit2 = TaskUnit(waitFrame=180, repeatTime=3)
+    unit1 = TaskUnit(waitFrame=120, repeatTime=3)
+    unit2 = TaskUnit(waitFrame=120, repeatTime=3)
     for i in range(0, 72):
         if i % 2 == 0:
             bullet = CircleBullet()
@@ -56,7 +56,7 @@ def setupMyStage():
 
     enemyTest3 = TaskEnemy(durationFrame=-1, intervalFrame=0)
     enemyTest3.setAngle(270.0)
-    enemyTest3.setVelocity(0.3)
+    enemyTest3.setVelocity(0.2)
     enemyTest3.addUnit(unit2)
     enemyTest3.setInitCoord([0.5, 1.0, 0.0])
 

@@ -43,6 +43,9 @@
     <Filter Include="XCCore\Enemy">
       <UniqueIdentifier>{2e419218-6347-4310-bc9f-14bf80549af2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\Attack">
+      <UniqueIdentifier>{b873b62a-f989-4429-9109-4a1a7bc6ab6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -303,6 +306,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\Task\TaskEnemy.h">
       <Filter>XCCore\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Attack\IAttack.h">
+      <Filter>XCCore\Attack</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -178,6 +178,7 @@
     <ClInclude Include="util\ImageLoader.h" />
     <ClInclude Include="util\ShaderReader.h" />
     <ClInclude Include="util\stb_image.h" />
+    <ClInclude Include="XCCore\Attack\IAttack.h" />
     <ClInclude Include="XCCore\Background\Background.h" />
     <ClInclude Include="XCCore\Background\BackgroundHelper.h" />
     <ClInclude Include="XCCore\Background\Camera.h" />
