@@ -24,6 +24,7 @@ void XCFrame::FrameInit()
 	float absWidth = smallSize / (float)FrameWidth;
 	float absHeight = smallSize / (float)FrameHeight;
 
+	XCFrameInfo::ScreenOriginTitle = info.winTitle;
 	XCFrameInfo::FrameRight = absWidth;
 	XCFrameInfo::FrameLeft = -absWidth;
 	XCFrameInfo::FrameTop = absHeight;
@@ -36,7 +37,7 @@ void XCFrame::FrameInit()
 	glfwWindowHint(GLFW_RESIZABLE, info.winResize);//No resizable.
 	glfwWindowHint(GLFW_SCALE_TO_MONITOR, info.winScale);//Auto change size
 	
-	pscreen = glfwCreateWindow(FrameWidth, FrameHeight, info.winTitle.c_str(), nullptr, nullptr);
+	pscreen = glfwCreateWindow(FrameWidth, FrameHeight, XCFrameInfo::ScreenOriginTitle.c_str(), nullptr, nullptr);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -61,6 +62,8 @@ void XCFrame::FrameLoop()
 
 		glfwSwapBuffers(pscreen);
 		glfwPollEvents();
+		glfwSetWindowTitle(pscreen, 
+			(XCFrameInfo::ScreenOriginTitle + "  | RenderObject: " + std::to_string(RenderManager::getInstance()->GetRenderObjectCount())).c_str());
 	}
 	glfwDestroyWindow(pscreen);
 	glfwTerminate();

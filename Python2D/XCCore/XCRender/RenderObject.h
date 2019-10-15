@@ -4,7 +4,7 @@
 class RenderObject {
 public:
 	enum ObjectType {
-		BulletType = 0, ItemType, EnemyType, NoneType
+		BulletType = 0, ItemType, EnemyType, AttackType, NoneType
 	};
 
 protected:

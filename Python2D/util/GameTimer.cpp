@@ -119,7 +119,7 @@ float XCGameTimer::getFramePerSecond()
 	return fpsNow;
 }
 
-double XCGameTimer::getAccumlateTime()
+long double XCGameTimer::getAccumlateTime()
 {
 	return accumulateTime;
 }

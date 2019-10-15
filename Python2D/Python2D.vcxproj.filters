@@ -168,7 +168,9 @@
     <ClCompile Include="XCCore\Task\TaskEnemy.cpp">
       <Filter>XCCore\Task</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\Attack\NormalStrike.cpp" />
+    <ClCompile Include="XCCore\Attack\NormalStrike.cpp">
+      <Filter>XCCore\Attack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">

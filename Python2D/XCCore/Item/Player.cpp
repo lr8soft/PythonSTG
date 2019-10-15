@@ -2,7 +2,9 @@
 #include "Player.h"
 #include "../../XCFrameInfo.h"
 #include "../../XCFrame.h"
+#include "../XCRender/RenderManager.h"
 #include "../../XCCore/XCRender/XCImageHelper.h"
+#include "../Attack/NormalStrike.h"
 #include <GLFW/glfw3.h>
 std::map<std::string, Player*> Player::playerInstanceGroup;
 void Player::addPlayerInstance(std::string name, Player *instance)
@@ -192,7 +194,15 @@ void Player::playerKeyCheck()
 	}
 
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyShoot) == GLFW_PRESS) {
+		if (itemTimer.getAccumlateTime() - lastShootTime > 0.1) {
+			NormalStrike *strikeRight = new NormalStrike(NowPosition[0] + 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
+			NormalStrike *strikeLeft = new NormalStrike(NowPosition[0] - 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
+			RenderManager::getInstance()->AddRenderObject("StrikeGroupUniformUUID", strikeRight);
+			RenderManager::getInstance()->AddRenderObject("StrikeGroupUniformUUID", strikeLeft);
 
+			lastShootTime = itemTimer.getAccumlateTime();
+		}
+	
 	}
 
 	/*if (glfwGetKey(screen, keyitem) == GLFW_PRESS) {

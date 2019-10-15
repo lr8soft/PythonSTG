@@ -8,6 +8,8 @@ class XCImageHelper:public IRenderHelper {
 private:
 	bool isFlexible;
 	GLuint vao, vbo, ebo, tbo;
+
+	int imageWidth = 0, imageHeight = 0;
 	std::string imagePath;
 	static GLuint ProgramHandle, ProgramHandleFx;
 	static bool haveProgramInit;
@@ -21,7 +23,8 @@ public:
 		glm::vec3 scaleSize=glm::vec3(1.0f, 1.0f, 1.0f), float *texuturePos16xFloat=nullptr) override;
 	virtual void Release() override;
 
-
+	int getImageHeight();
+	int getImageWidth();
 };
 
 #endif
