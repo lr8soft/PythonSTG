@@ -1,6 +1,7 @@
 #pragma once
 #ifndef _NORMAL_STRIKE_H_
 #define _NORMAL_STRIKE_H_
+#include <thread>
 #include "IAttack.h"
 #include "../../util/GameTimer.h"
 #include "../XCRender/XCImageHelper.h"
@@ -17,6 +18,8 @@ protected:
 	XCImageHelper *renderHelper;
 	bool isInit = false, haveEffectPlay = false, isFinish = false;
 	double finishTime = 0.0;
+
+	void threadStrikeHitWork();
 public:
 	NormalStrike(float x, float y, float z = 0.0f);
 	virtual void Init() override;

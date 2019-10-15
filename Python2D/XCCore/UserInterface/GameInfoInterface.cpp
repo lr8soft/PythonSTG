@@ -30,7 +30,6 @@ void GameInfoInterface::UserInterfaceInit()
 
 void GameInfoInterface::UserInterfaceRender()
 {
-	infoTimer.Tick();
 	if (isInit) {
 		if( (float)XCFrameInfo::ScreenWidth / (float)XCFrameInfo::ScreenHeight >= 1.6667f){//>scrren(16:10)
 			BlendOneMinusAlphaStart
@@ -90,9 +89,6 @@ void GameInfoInterface::UserInterfaceRender()
 			ss << std::setfill('0') << std::setw(10) << nowScore++ << std::endl;//////////test
 			static std::string nowscoreStr; ss >> nowscoreStr;
 			fontHelper.FontASCIIRender(nowscoreStr, nsFontX, nsFontY, 0.5f, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
-
-			fontHelper.FontASCIIRender(std::to_string((int)infoTimer.getFramePerSecond()), 0.0f, 0.0f, 1.0f, glm::vec4(0.0f, 0.0f, 0.8f, 1.0f));//fps render
-
 			
 			float nowLifeWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
 			float nowLifeHeight = nowLifeWidth / 3.0f;

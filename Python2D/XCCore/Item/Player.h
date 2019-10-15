@@ -1,6 +1,7 @@
 #pragma once
 #ifndef _XCPlayer_H_
 #define _XCPlayer_H_
+#include <thread>
 #include <atomic>
 #include <map>
 #include "../XCAudio/AudioHelper.h"

@@ -145,6 +145,7 @@ void Player::hurtPlayer()
 		
 }
 
+
 void Player::grazePlayer()
 {
 	AudioHelper::playFromBuffer(playerGrazeAudio.wavBuffer);
@@ -234,3 +235,4 @@ void Player::setPlayerDirection(int direction)
 		}
 	}
 }
+

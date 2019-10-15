@@ -57,13 +57,15 @@ void XCFrame::FrameInit()
 void XCFrame::FrameLoop()
 {	
 	while (!glfwWindowShouldClose(pscreen)) {
+		timer.Tick();
 		TaskManager::getInstance()->TaskWork();
 		RenderManager::getInstance()->RenderWork();
 
 		glfwSwapBuffers(pscreen);
 		glfwPollEvents();
 		glfwSetWindowTitle(pscreen, 
-			(XCFrameInfo::ScreenOriginTitle + "  | RenderObject: " + std::to_string(RenderManager::getInstance()->GetRenderObjectCount())).c_str());
+			(XCFrameInfo::ScreenOriginTitle + "  | RenderObject: " + std::to_string(RenderManager::getInstance()->GetRenderObjectCount())
+				+  "  FPS: "+std::to_string(timer.getFramePerSecond())).c_str());
 	}
 	glfwDestroyWindow(pscreen);
 	glfwTerminate();

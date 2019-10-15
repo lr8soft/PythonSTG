@@ -4,7 +4,6 @@
 #include "IUserInterface.h"
 #include "../XCRender/XCAdvImageHelper.h"
 #include "../XCRender/XCFont.h"
-#include "../../util/GameTimer.h"
 class GameInfoInterface :public IUserInterface{
 protected:
 	/*
@@ -18,7 +17,6 @@ protected:
 
 	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2;
 	static GameInfoInterface* pInterface;
-	XCGameTimer infoTimer;
 
 	XCFont fontHelper;
 	GameInfoInterface();

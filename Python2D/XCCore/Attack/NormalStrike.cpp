@@ -5,6 +5,7 @@
 #include <GL3/gl3w.h>
 XCWavFile NormalStrike::strikeEffect;
 bool NormalStrike::isResInit = false;
+
 NormalStrike::NormalStrike(float x, float y, float z)
 {
 	NowPosition[0] = x;
@@ -22,6 +23,9 @@ void NormalStrike::Init()
 			isResInit = true;
 		}
 		
+		std::thread effectThread(&NormalStrike::threadStrikeHitWork, this);
+		effectThread.detach();
+
 		renderHelper = new XCImageHelper("assets/Item/attack.png", true);	
 
 		scaleSize[1] = 0.075f;
@@ -92,4 +96,9 @@ void NormalStrike::checkCollisonWithEnemy(EnemyObject * pEnemy)
 			}
 		}
 	}
+}
+
+void NormalStrike::threadStrikeHitWork()
+{
+	AudioHelper::playFromBuffer(strikeEffect.wavBuffer);
 }
