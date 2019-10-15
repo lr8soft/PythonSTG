@@ -35,6 +35,9 @@ void RenderManager::AddRenderObject(std::string parentUuid, RenderObject * objec
 {
 	renderObjectList.insert(std::make_pair(parentUuid, object));
 	object->Init();
+	if (parentUuid == StrikeRenderGroupUuid) {
+		strikeCollisionHelperGroup.push_back(object);
+	}
 }
 
 void RenderManager::AddUserInterface(std::string uiName, IUserInterface * ui)
@@ -86,6 +89,11 @@ void RenderManager::RenderWork()
 		}
 		if (renderObject->getIsTerminate()) {
 			renderObject->Release();
+			if (object->first == StrikeRenderGroupUuid) {
+				auto iter = std::find(strikeCollisionHelperGroup.begin(), strikeCollisionHelperGroup.end(), renderObject);
+				strikeCollisionHelperGroup.erase(iter);
+			}
+
 			delete renderObject;
 			if (std::next(object) == renderEnd)
 			{

@@ -2,15 +2,19 @@
 #ifndef _RENDER_MANAGER_H_
 #define _RENDER_MANAGER_H_
 #include <map>
+#include <list>
 #include <string>
 #include "../UserInterface/IUserInterface.h"
 #include "../Background/Background.h"
 #include "../Item/Player.h"
 #include "RenderObject.h"
+
+#define StrikeRenderGroupUuid "StrikeGroupUniformUUID"
 class RenderManager {
 private:
 	std::multimap<std::string, RenderObject*> renderObjectList;
 	std::map<std::string, IUserInterface*> uiGroup;
+	std::list<RenderObject*> strikeCollisionHelperGroup;
 
 	bool shouldGamePause = false;
 	Background *renderBackground = nullptr;

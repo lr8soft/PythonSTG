@@ -197,8 +197,8 @@ void Player::playerKeyCheck()
 		if (itemTimer.getAccumlateTime() - lastShootTime > 0.1) {
 			NormalStrike *strikeRight = new NormalStrike(NowPosition[0] + 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
 			NormalStrike *strikeLeft = new NormalStrike(NowPosition[0] - 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
-			RenderManager::getInstance()->AddRenderObject("StrikeGroupUniformUUID", strikeRight);
-			RenderManager::getInstance()->AddRenderObject("StrikeGroupUniformUUID", strikeLeft);
+			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeRight);
+			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeLeft);
 
 			lastShootTime = itemTimer.getAccumlateTime();
 		}
