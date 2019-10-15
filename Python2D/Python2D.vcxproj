@@ -134,6 +134,7 @@
     <ClCompile Include="util\gl3w.c" />
     <ClCompile Include="util\ImageLoader.cpp" />
     <ClCompile Include="util\ShaderReader.cpp" />
+    <ClCompile Include="XCCore\Attack\NormalStrike.cpp" />
     <ClCompile Include="XCCore\Background\BackgroundHelper.cpp" />
     <ClCompile Include="XCCore\Background\Camera.cpp" />
     <ClCompile Include="XCCore\Background\Lake.cpp" />
@@ -153,8 +154,7 @@
     <ClCompile Include="XCCore\XCCollide\CollideHelper.cpp" />
     <ClCompile Include="XCCore\XCCollide\CollideInfo.cpp" />
     <ClCompile Include="XCCore\XCRender\RenderManager.cpp" />
-    <ClCompile Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.cpp" />
-    <ClCompile Include="XCCore\XCRender\FlexibleParticleGenerater.cpp" />
+    <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp" />
     <ClCompile Include="XCCore\XCRender\XCFont.cpp" />
     <ClCompile Include="XCCore\Item\Item.cpp" />
@@ -178,6 +178,8 @@
     <ClInclude Include="util\ImageLoader.h" />
     <ClInclude Include="util\ShaderReader.h" />
     <ClInclude Include="util\stb_image.h" />
+    <ClInclude Include="XCCore\Attack\IAttack.h" />
+    <ClInclude Include="XCCore\Attack\NormalStrike.h" />
     <ClInclude Include="XCCore\Background\Background.h" />
     <ClInclude Include="XCCore\Background\BackgroundHelper.h" />
     <ClInclude Include="XCCore\Background\Camera.h" />
@@ -201,8 +203,7 @@
     <ClInclude Include="XCCore\XCCollide\CollideInfo.h" />
     <ClInclude Include="XCCore\XCRender\RenderManager.h" />
     <ClInclude Include="XCCore\XCRender\RenderObject.h" />
-    <ClInclude Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.h" />
-    <ClInclude Include="XCCore\XCRender\FlexibleParticleGenerater.h" />
+    <ClInclude Include="XCCore\XCRender\ParticleHelper.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h" />
     <ClInclude Include="XCCore\XCRender\XCFont.h" />
     <ClInclude Include="XCCore\Item\Item.h" />

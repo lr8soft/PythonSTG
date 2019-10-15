@@ -2,7 +2,10 @@
 #include "Player.h"
 #include "../../XCFrameInfo.h"
 #include "../../XCFrame.h"
+#include "../XCRender/RenderManager.h"
 #include "../../XCCore/XCRender/XCImageHelper.h"
+#include "../XCRender/ParticleHelper.h"
+#include "../Attack/NormalStrike.h"
 #include <GLFW/glfw3.h>
 std::map<std::string, Player*> Player::playerInstanceGroup;
 void Player::addPlayerInstance(std::string name, Player *instance)
@@ -100,7 +103,6 @@ void Player::PlayerRender()
 			break;
 		}
 		glDisable(GL_BLEND);
-		fxParticleManager.ManagerWork();
 		if (renderDecisionPoint) {
 			specialEffectDecision->SpecialEffectRender(NowPosition[0], NowPosition[1], NowPosition[2]);
 		}
@@ -134,16 +136,22 @@ void Player::hurtPlayer()
 	if (itemTimer.getAccumlateTime() - lastHitTime > HitProtectTime || lastHitTime == 0) {
 		lastHitTime = itemTimer.getAccumlateTime();
 		AudioHelper::playFromBuffer(playerHurtAudio.wavBuffer);
-		fxParticleManager.addNewParticle(250, 25.0f, 1.6f, 0.8f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+
+		ParticleHelper* particleGroup = new ParticleHelper;
+		particleGroup->addNewParticle(150, 25.0f, 1.6f, 0.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 		isHitTime = true;
 	}
 		
 }
 
+
 void Player::grazePlayer()
 {
 	AudioHelper::playFromBuffer(playerGrazeAudio.wavBuffer);
-	fxParticleManager.addNewParticle(1, 12.0f, 0.6f, 0.6f, glm::vec4(1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+	ParticleHelper* particleGroup = new ParticleHelper;
+	particleGroup->addNewParticle(1, 12.0f, 0.6f, 0.6f, glm::vec4(1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+	RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 }
 
 void Player::playerKeyCheck()
@@ -192,7 +200,15 @@ void Player::playerKeyCheck()
 	}
 
 	if (glfwGetKey(screen, XCFrameInfo::p1_keyShoot) == GLFW_PRESS) {
+		if (itemTimer.getAccumlateTime() - lastShootTime > 0.1) {
+			NormalStrike *strikeRight = new NormalStrike(NowPosition[0] + 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
+			NormalStrike *strikeLeft = new NormalStrike(NowPosition[0] - 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
+			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeRight);
+			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeLeft);
 
+			lastShootTime = itemTimer.getAccumlateTime();
+		}
+	
 	}
 
 	/*if (glfwGetKey(screen, keyitem) == GLFW_PRESS) {
@@ -219,3 +235,4 @@ void Player::setPlayerDirection(int direction)
 		}
 	}
 }
+

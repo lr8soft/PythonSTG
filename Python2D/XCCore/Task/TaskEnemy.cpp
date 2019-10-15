@@ -2,9 +2,9 @@
 #include "../XCRender/XCImageHelper.h"
 #include "../XCRender/RenderManager.h"
 #include "TaskDispatcher.h"
-TaskEnemy::TaskEnemy(std::string taskUuid, std::string targetTaskUuid, int repeatTime, int intervalFrame,
+TaskEnemy::TaskEnemy(std::string taskUuid, std::vector<std::string> targetTaskUuid, int repeatTime, int intervalFrame,
 	std::string enemyImage, glm::vec2 dInfo, glm::vec3 sInfo, glm::vec2 sbInfo, glm::vec2 wInfo,
-	glm::vec3 iCoord, float v, float a, float agle, float agleA, int type, float hp):Task(taskUuid, targetTaskUuid, repeatTime, intervalFrame)
+	glm::vec3 iCoord, float v, float mTime,float a, float agle, float agleA, int type, float hp):Task(taskUuid, targetTaskUuid, repeatTime, intervalFrame)
 {
 	imagePath = enemyImage;
 	divideInfo = dInfo;
@@ -14,6 +14,7 @@ TaskEnemy::TaskEnemy(std::string taskUuid, std::string targetTaskUuid, int repea
 	NowPosition = iCoord;
 
 	velocity = v;
+	movingTime = mTime;
 	acceleration = a;
 	angle = agle;
 	angleAcceleration = agleA;
@@ -25,7 +26,9 @@ TaskEnemy::TaskEnemy(std::string taskUuid, std::string targetTaskUuid, int repea
 void TaskEnemy::TaskInit()
 {
 	if (!taskIsInit) {
-		TaskDispatcher::addTask(targetUUID);
+		for (int i = 0; i < targetUUID.size(); i++) {
+			TaskDispatcher::addTask(targetUUID[i]);
+		}
 		auto iterBegin = subUnitGroup.begin();
 		auto iterEnd = subUnitGroup.end();
 		for (auto unit = iterBegin; unit != iterEnd; unit++) {
@@ -34,7 +37,7 @@ void TaskEnemy::TaskInit()
 
 		XCImageHelper *image = new XCImageHelper(imagePath, true);
 		enemyImage = new EnemyObject(image, divideInfo, scaleInfo, standbyInfo, walkInfo,
-			NowPosition, velocity, acceleration, angle, angleAcceleration, colorType);
+			NowPosition, velocity, movingTime,acceleration, angle, angleAcceleration, colorType, nowLife);
 		enemyImage->Init();
 		taskIsInit = true;
 	}
@@ -42,7 +45,7 @@ void TaskEnemy::TaskInit()
 	
 }
 
-void TaskEnemy::TaskWork()
+void TaskEnemy::taskSubWork()
 {
 	if (taskNowDurationFrame < taskDurationFrame || taskDurationFrame < 0) {
 		if (taskAccumlateTime >= taskIntervalFrame) {
@@ -93,7 +96,13 @@ void TaskEnemy::TaskRelease()
 		(*unit)->UnitRelease();
 		delete (*unit);
 	}
-	RenderManager::getInstance()->CleanRenderObject(taskUUID);
+	if (!enemyImage->getIsTerminate()) {
+		RenderManager::getInstance()->CleanRenderObject(taskUUID);
+	}
+	else {
+		RenderManager::getInstance()->TerminateBullet(taskUUID);
+	}
+	
 	subUnitGroup.clear();
 
 	if (!haveImageAddInQueue) {

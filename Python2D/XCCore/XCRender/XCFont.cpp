@@ -115,15 +115,15 @@ void XCFont::FontASCIIInit(int endchar)
 	BufferInit();
 }
 
-void XCFont::FontASCIIRender(std::string text, float x, float y, float scale, glm::vec4 color)
+void XCFont::FontASCIIRender(const std::string& text, float x, float y, float scale, const glm::vec4& color)
 {
 	x *= render_width;
 	y *= render_height;
 	glUseProgram(program);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-	for (auto iter = text.begin(); iter != text.end(); iter++) {
-		XCCharacter CharacterTemp = XCCharacterGroup[*iter];
+	for (char iter :text) {
+		XCCharacter CharacterTemp = XCCharacterGroup[iter];
 		float xpos = x + CharacterTemp.offset.x * scale;
 		float ypos = y - (CharacterTemp.size.y - CharacterTemp.offset.y) * scale;
 
@@ -138,7 +138,7 @@ void XCFont::FontASCIIRender(std::string text, float x, float y, float scale, gl
 		   { xpos + w, ypos,       1.0, 1.0 },
 		   { xpos + w, ypos + h,   1.0, 0.0 }
 		};
-		glActiveTexture(GL_TEXTURE0);
+		//glActiveTexture(GL_TEXTURE0);
 		glBindVertexArray(vao);
 		glBindTexture(GL_TEXTURE_2D, CharacterTemp.tbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -152,11 +152,12 @@ void XCFont::FontASCIIRender(std::string text, float x, float y, float scale, gl
 		x += (CharacterTemp.advance >> 6) * scale;
 	}
 	glUseProgram(0);
+	glDisable(GL_BLEND);
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void XCFont::FontUnicodeInit(std::wstring text)
+void XCFont::FontUnicodeInit(const std::wstring& text)
 {
 	if (XCRenderStringGroup.find(text) != XCRenderStringGroup.end()) return;//wstring existed.
 	ShaderInit();
@@ -221,7 +222,7 @@ void XCFont::FontUnicodeInit(std::wstring text)
 	XCRenderStringGroup.insert(std::pair<std::wstring, XCUniformChar*>(text, tempChar));
 }
 
-void XCFont::FontUnicodeRender(std::wstring text, float x, float y, float scale, glm::vec4 color)
+void XCFont::FontUnicodeRender(const std::wstring& text, float x, float y, float scale, const glm::vec4& color)
 {
 	x *= render_width;
 	y *= render_height;
@@ -259,11 +260,126 @@ void XCFont::FontUnicodeRender(std::wstring text, float x, float y, float scale,
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		x += (CharacterTemp->advanceGroup[i] >> 6) * scale;
 	}
+	glDisable(GL_BLEND);
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void XCFont::FontUnicodeDirectRender(std::wstring text, float x, float y, float scale, glm::vec4 color)
+void XCFont::FontUnicodeDirectRender(const std::wstring& text, float x, float y, float scale, const glm::vec4& color)
+{
+	FontUnicodeInit(text);
+	FontUnicodeRender(text, x, y, scale, color);
+}
+
+void XCFont::FontUnicodeInit(const std::string& text)
+{
+	if (XCRenderNormalGroup.find(text) != XCRenderNormalGroup.end()) return;//wstring existed.
+	ShaderInit();
+	BufferInit();
+
+	FT_Library freetype;
+	FT_Face fontFace;
+	if (FT_Init_FreeType(&freetype)) {
+		MessageBox(0, "FreeType加载失败！", "ERROR", MB_ICONERROR); return;
+	}
+	if (FT_New_Face(freetype, "assets/Font/SourceHanSansCN-Normal.otf", 0, &fontFace)) {
+		MessageBox(0, "无法加载字体/assets/Font/SourceHanSansCN-Normal.otf！", "ERROR", MB_ICONERROR); return;
+	}
+	FT_Set_Pixel_Sizes(fontFace, 0, 48);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	XCUniformChar *tempChar = new XCUniformChar;
+	for (int i = 0; i < text.length(); i++) {
+		if (FT_Load_Glyph(fontFace, FT_Get_Char_Index(fontFace, text[i]), FT_LOAD_DEFAULT))//FT_Load_Char(fontFace, load_char, FT_LOAD_RENDER)
+		{
+#ifdef _DEBUG
+			char* log = new char[128];
+			sprintf_s(log, 64, "无法加载字体%wc!", text[i]);
+			MessageBox(0, log, "ERROR", MB_ICONERROR);
+			delete[] log;
+#endif
+			continue;
+		}
+		if (FT_Render_Glyph(fontFace->glyph, FT_RENDER_MODE_NORMAL)) {
+#ifdef _DEBUG
+			char* log = new char[128];
+			sprintf_s(log, 64, "无法加载字体!");
+			MessageBox(0, log, "ERROR", MB_ICONERROR);
+			delete[] log;
+#endif
+			continue;
+		}
+		GLuint texture;
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0,
+			GL_RED,
+			fontFace->glyph->bitmap.width,
+			fontFace->glyph->bitmap.rows,
+			0,
+			GL_RED,
+			GL_UNSIGNED_BYTE,
+			fontFace->glyph->bitmap.buffer
+		);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		tempChar->tboGroup.push_back(texture);
+		tempChar->sizeGroup.push_back(glm::ivec2(fontFace->glyph->bitmap.width, fontFace->glyph->bitmap.rows));
+		tempChar->offsetGroup.push_back(glm::ivec2(fontFace->glyph->bitmap_left, fontFace->glyph->bitmap_top));
+		tempChar->advanceGroup.push_back(fontFace->glyph->advance.x);
+	}
+	FT_Done_Face(fontFace);
+	FT_Done_FreeType(freetype);
+	XCRenderNormalGroup.insert(std::pair<std::string, XCUniformChar*>(text, tempChar));
+}
+
+void XCFont::FontUnicodeRender(const std::string& text, float x, float y, float scale, const glm::vec4& color)
+{
+	x *= render_width;
+	y *= render_height;
+	glUseProgram(program);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	XCUniformChar *CharacterTemp = XCRenderNormalGroup[text];
+	if (CharacterTemp == nullptr) return;
+	for (int i = 0; i < CharacterTemp->tboGroup.size(); i++) {
+		float xpos = x + CharacterTemp->offsetGroup[i].x * scale;
+		float ypos = y - (CharacterTemp->sizeGroup[i].y - CharacterTemp->offsetGroup[i].y) * scale;
+
+		float w = CharacterTemp->sizeGroup[i].x * scale;
+		float h = CharacterTemp->sizeGroup[i].y * scale;
+		GLfloat draw_vertex[6][4] = {
+		   { xpos,     ypos + h,   0.0, 0.0 },
+		   { xpos,     ypos,       0.0, 1.0 },
+		   { xpos + w, ypos,       1.0, 1.0 },
+
+		   { xpos,     ypos + h,   0.0, 0.0 },
+		   { xpos + w, ypos,       1.0, 1.0 },
+		   { xpos + w, ypos + h,   1.0, 0.0 }
+		};
+		glActiveTexture(GL_TEXTURE0);
+		glBindVertexArray(vao);
+		glBindTexture(GL_TEXTURE_2D, CharacterTemp->tboGroup[i]);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(draw_vertex), draw_vertex);
+		glm::mat4 projection = glm::ortho(0.0f, render_width, 0.0f, render_height);
+		auto convert_mat_loc = glGetUniformLocation(program, "convert_mat");
+		auto font_color_loc = glGetUniformLocation(program, "font_color");
+		glUniform4fv(font_color_loc, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(convert_mat_loc, 1, GL_FALSE, glm::value_ptr(projection));
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		x += (CharacterTemp->advanceGroup[i] >> 6) * scale;
+	}
+	glDisable(GL_BLEND);
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void XCFont::FontUnicodeDirectRender(const std::string& text, float x, float y, float scale, const  glm::vec4& color)
 {
 	FontUnicodeInit(text);
 	FontUnicodeRender(text, x, y, scale, color);

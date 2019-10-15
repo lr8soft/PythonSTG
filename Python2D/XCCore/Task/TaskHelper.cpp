@@ -53,9 +53,23 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 	if (taskObject != nullptr) {
 		auto taskInfo = PyObject_CallMethod(taskObject, "_cpp_getTaskInfo", NULL);
 		auto sizeInfo = PyObject_CallMethod(taskObject, "_cpp_getUnitSize", NULL);
+		auto targetInfo = PyObject_CallMethod(taskObject, "_cpp_getTargetUuidSize", NULL);
+		const char *uuid; int  repeatTime, intervalFrame, isEnemyTask = 0;
+		PyArg_ParseTuple(taskInfo, "sii|p", &uuid, &repeatTime, &intervalFrame, &isEnemyTask);
 
-		const char *uuid, *targetUuid; int repeatTime, intervalFrame, isEnemyTask = 0;
-		PyArg_ParseTuple(taskInfo, "ssii|p", &uuid, &targetUuid, &repeatTime, &intervalFrame, &isEnemyTask);
+		int targetUuidSize;
+		PyArg_Parse(targetInfo, "i", &targetUuidSize);
+
+		std::vector<std::string> targetUuid;
+		if (targetUuidSize > 0){
+			for (int i = 0; i < targetUuidSize; i++) {
+				const char* tuuid;
+				auto targetInfo = PyObject_CallMethod(taskObject, "_cpp_getTargetUuidSingle", NULL);
+				PyArg_Parse(targetInfo, "s", &tuuid);
+				targetUuid.push_back(tuuid);
+			}
+		}
+
 		if (!isEnemyTask) {
 			task = new Task(uuid, targetUuid, repeatTime, intervalFrame);
 		}
@@ -67,11 +81,11 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 			PyArg_ParseTuple(renderInfo, "s(ii)(fff)(ii)(ii)i", &imagePath, &divideInfo[0], &divideInfo[1], &scaleInfo[0], &scaleInfo[1], &scaleInfo[2],
 				&sandByInfo[0], &sandByInfo[1], &walkInfo[0], &walkInfo[1], &colorType);
 
-			float position[3], velocity, acceleration, angle, angleAcceleration, maxHealth;
-			PyArg_ParseTuple(enemyInfo, "(fff)fffff", &position[0], &position[1], &position[2], &velocity, &acceleration, &angle, &angleAcceleration, &maxHealth);
+			float position[3], velocity, movingTime,acceleration, angle, angleAcceleration, maxHealth;
+			PyArg_ParseTuple(enemyInfo, "(fff)ffffff", &position[0], &position[1], &position[2], &velocity, &movingTime, &acceleration, &angle, &angleAcceleration, &maxHealth);
 			task = new TaskEnemy(uuid, targetUuid, repeatTime, intervalFrame, imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
 				glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec2(sandByInfo[0], sandByInfo[1]), glm::vec2(walkInfo[0], walkInfo[1]),
-				glm::vec3(position[0], position[1], position[2]), velocity, acceleration, angle, angleAcceleration, colorType, maxHealth);
+				glm::vec3(position[0], position[1], position[2]), velocity, movingTime, acceleration, angle, angleAcceleration, colorType, maxHealth);
 		}
 		
 		int unitSize;

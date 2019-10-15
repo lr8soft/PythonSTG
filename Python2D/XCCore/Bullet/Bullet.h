@@ -9,9 +9,8 @@ protected:
 
 	float NowPosition[3] = { 0.0f,  0.0f, 0.0f };
 	/*
-	boolisWorkFinish = false
+	bool isWorkFinish = false
 	*/
-	bool isFinishTime = false;
 
 	bool checkReboundOrOverflow(int *reBoundTimePointer, float *angle, float scaleX, float scaleY)
 	{
@@ -114,12 +113,7 @@ public:
 
 	virtual bool BulletCollideWithPoint(float x, float y, bool &haveGraze) = 0;
 
-	virtual void startFinishEffect() = 0;
-
-
-	bool getIsFinishTime() {
-		return isFinishTime;
-	}
+	virtual void setBulletTerminate() = 0;
 
 	void setPosition(float x, float y, float z) {
 		NowPosition[0] = x;

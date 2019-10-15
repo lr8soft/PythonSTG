@@ -22,7 +22,7 @@ public:
 	float getDeltaFrame();
 	float getLastFrame();
 	float getFramePerSecond();
-	double getAccumlateTime();
+	long double getAccumlateTime();
 
 	
 };

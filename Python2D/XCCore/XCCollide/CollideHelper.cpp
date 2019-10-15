@@ -10,8 +10,8 @@ void CollideHelper::checkCollisionWithBullet(Bullet * pBullet)
 	float *pos = pPlayer->getPosition();
 	float x = *(pos), y = *(pos+1);
 	bool haveGraze = false, haveCollide = false;
-	if (!pBullet->getIsFinishTime() && pBullet->BulletCollideWithPoint(x, y, haveGraze)) {
-		pBullet->startFinishEffect();
+	if (!pBullet->getIsTerminate() && pBullet->BulletCollideWithPoint(x, y, haveGraze)) {
+		pBullet->setBulletTerminate();
 		pPlayer->hurtPlayer();
 		haveCollide = true;
 	}

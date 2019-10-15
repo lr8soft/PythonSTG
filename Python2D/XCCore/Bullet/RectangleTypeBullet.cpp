@@ -48,7 +48,9 @@ void RectangleTypeBullet::Render()
 			scaleInfo * glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f),
 			IRenderHelper::GetSpecificTexture(divideInfo[0], divideInfo[1], divideInfo[2], divideInfo[3]));
 		glDisable(GL_BLEND);
-		Bullet::checkReboundOrOverflow(&reBoundTime, &angle, collideSize[0], collideSize[1]);
+		if (Bullet::checkReboundOrOverflow(&reBoundTime, &angle, collideSize[0], collideSize[1])) {//超出边界不渲染结束特效
+			isWorkFinish = true;
+		}
 	}
 }
 void RectangleTypeBullet::Release()
@@ -66,6 +68,6 @@ bool RectangleTypeBullet::BulletCollideWithPoint(float x, float y, bool& haveGra
 	return false;
 }
 
-void RectangleTypeBullet::startFinishEffect()
+void RectangleTypeBullet::setBulletTerminate()
 {
 }

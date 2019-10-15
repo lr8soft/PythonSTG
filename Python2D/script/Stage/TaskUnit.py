@@ -1,6 +1,6 @@
 from queue import Queue
 from script.Bullet.Bullet import Bullet
-from copy import copy
+
 
 class TaskUnit:
     def __init__(self, priority=6, waitFrame=0, workInterval=0, repeatTime=1):

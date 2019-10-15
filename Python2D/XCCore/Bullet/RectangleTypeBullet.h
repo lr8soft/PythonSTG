@@ -24,8 +24,8 @@ private:
 	XCImageHelper* image;
 	bool isInit = false, aimToPlayer = false;
 public:
-	/*#£¡Attention scaleInfo will work both collide and render.
-#£¡renderSize: scaleX * widthRate : scaleY * heightRate  ,collideSize : scaleX : scaleY*/
+	/*#! Attention scaleInfo will work both collide and render.
+#! renderSize: scaleX * widthRate : scaleY * heightRate  ,collideSize : scaleX : scaleY*/
 	RectangleTypeBullet(std::string bulletImagePath, glm::vec4 divideInfo, glm::vec3 scaleInfo, glm::vec3 collideSize, glm::vec3 initCoord,
 		 float velocity, float acceleration, float angle, float increateAngle, int reboundTime, bool aimPlayer);
 	virtual void Init()  override;
@@ -33,6 +33,6 @@ public:
 	virtual void Release() override;
 
 	virtual bool BulletCollideWithPoint(float x, float y, bool& haveGraze) override;
-	virtual void startFinishEffect() override;
+	virtual void setBulletTerminate() override;
 };
 #endif

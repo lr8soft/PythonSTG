@@ -5,7 +5,6 @@
 #include <glm/glm.hpp>
 #include "../../util/GameTimer.h"
 #include "../XCRender/XCImageHelper.h"
-#include "../XCRender/SpecialEffect/ExplodeParticleGroupSE.h"
 class CircleTypeBullet :public Bullet {
 private:
 	/*
@@ -25,10 +24,6 @@ private:
 	float particleFinishTime = 0.0f, particleVelocity = 0.6f, particleSize = 15.0f;
 	glm::vec4 particleColor;
 
-	float nowFinishTime;
-
-	ExplodeParticleSpecialEffect *explodeSpecialEffect;
-
 	XCGameTimer timer;
 	XCImageHelper* image;
 	bool isInit = false, aimToPlayer = false, haveCheckGraze = false;
@@ -45,6 +40,6 @@ public:
 	virtual void Release() override;
 
 	virtual bool BulletCollideWithPoint(float x, float y, bool &haveGraze) override;
-	virtual void startFinishEffect() override;
+	virtual void setBulletTerminate() override;
 };
 #endif

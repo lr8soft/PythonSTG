@@ -2,15 +2,20 @@
 #ifndef _RENDER_MANAGER_H_
 #define _RENDER_MANAGER_H_
 #include <map>
+#include <list>
 #include <string>
 #include "../UserInterface/IUserInterface.h"
 #include "../Background/Background.h"
 #include "../Item/Player.h"
 #include "RenderObject.h"
+
+#define StrikeRenderGroupUuid "StrikeGroupUniformUUID"
+#define ParticleGroupUuid "ParticleGroupUniformUUID"
 class RenderManager {
 private:
 	std::multimap<std::string, RenderObject*> renderObjectList;
 	std::map<std::string, IUserInterface*> uiGroup;
+	std::list<RenderObject*> strikeCollisionHelperGroup;
 
 	bool shouldGamePause = false;
 	Background *renderBackground = nullptr;
@@ -23,11 +28,12 @@ public:
 
 	void RenderWork();
 
-	void CleanRenderObject(std::string parentUuid);
-	bool CheckRenderComplete(std::string parentUuid);
+	void CleanRenderObject(const std::string& parentUuid);
+	void TerminateBullet(const std::string& parentUuid);
+	bool CheckRenderComplete(const std::string& parentUuid);
 
-	void AddRenderObject(std::string parentUuid,RenderObject* object);
-	void AddUserInterface(std::string uiName, IUserInterface* ui);
+	void AddRenderObject(const std::string& parentUuid,RenderObject* object);
+	void AddUserInterface(const std::string& uiName, IUserInterface* ui);
 
 	void SetBackgroundPointer(Background* background);
 

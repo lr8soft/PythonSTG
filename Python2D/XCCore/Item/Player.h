@@ -1,11 +1,11 @@
 #pragma once
 #ifndef _XCPlayer_H_
 #define _XCPlayer_H_
+#include <thread>
 #include <atomic>
 #include <map>
 #include "../XCAudio/AudioHelper.h"
 #include "../XCRender/SpecialEffect/DecisionPointSE.h"
-#include "../XCRender/FlexibleParticleGenerater.h"
 #include "../XCRender/XCImageHelper.h"
 class Player {
 private:
@@ -18,6 +18,7 @@ private:
 	bool isHitTime = false;
 	double HitProtectTime = 3.0f;
 	double lastHitTime = 0;
+	long double lastShootTime = 0;
 
 	glm::vec4 divideInfo;
 	glm::vec4 coverColor;
@@ -29,7 +30,6 @@ private:
 	float rotateAngle = 0.0f;
 	float NowPosition[3] = { 0.0f ,-0.5f ,0.0f };
 
-	FlexibleParticleGenerater fxParticleManager;
 	DecisionPointSpecialEffect* specialEffectDecision;
 	XCWavFile playerHurtAudio, playerGrazeAudio;
 

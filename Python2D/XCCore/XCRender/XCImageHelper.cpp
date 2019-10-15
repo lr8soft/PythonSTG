@@ -40,6 +40,8 @@ XCImageHelper::XCImageHelper(std::string path, bool isRenderFlexible)
 	ImageLoader imgLoader;
 	imgLoader.loadTextureFromFile(path.c_str());
 	tbo = imgLoader.getTextureBufferObjectHandle();
+	imageWidth = imgLoader.getTextureWidth();
+	imageHeight = imgLoader.getTextureHeight();
 
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
@@ -84,6 +86,7 @@ void XCImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rota
 	else {
 		mvp_mat = glm::translate(mvp_mat, renderPos * glm::vec3(XCFrameInfo::FrameRight,XCFrameInfo::FrameTop,1.0f));
 	}
+
 	mvp_mat = glm::scale(mvp_mat, scaleSize);
 	mvp_mat = glm::rotate(mvp_mat, rotateAngle, rorateWorkCoord);
 	auto mvp_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
@@ -110,6 +113,16 @@ void XCImageHelper::Release()
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
 	
+}
+
+int XCImageHelper::getImageHeight()
+{
+	return imageHeight;
+}
+
+int XCImageHelper::getImageWidth()
+{
+	return imageWidth;
 }
 
 

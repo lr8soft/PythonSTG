@@ -3,7 +3,7 @@
 #include <GL3/gl3w.h>
 #include <iostream>
 #include <string>
-std::map<std::string, GLuint> xc_ogl::ImageLoader::textureGroup;
+std::map<std::string, xc_ogl::ImageStruct> xc_ogl::ImageLoader::textureGroup;
 xc_ogl::ImageLoader::ImageLoader()
 {
 	texture_type = GL_TEXTURE_2D;
@@ -38,9 +38,12 @@ void xc_ogl::ImageLoader::Release()
 
 void xc_ogl::ImageLoader::loadTextureFromFile(const char * path)
 {	
-	std::map<std::string, GLuint>::iterator item = textureGroup.find(path);
+	std::map<std::string, ImageStruct>::iterator item = textureGroup.find(path);
 	if (item != textureGroup.end()) {
-		tbo = item->second;
+		tbo = item->second.tbo;
+		width = item->second.width;
+		height = item->second.height;
+		channel = item->second.channel;
 	}
 	else {
 		stbi_set_flip_vertically_on_load(true);
@@ -64,8 +67,23 @@ void xc_ogl::ImageLoader::loadTextureFromFile(const char * path)
 		glBindTexture(texture_type, 0);//Bind nothing.
 		stbi_image_free(texture_ptr);
 
-		textureGroup.insert(std::make_pair(path, tbo));
+		ImageStruct newImage;
+		newImage.channel = channel;
+		newImage.height = height;
+		newImage.width = width;
+		newImage.tbo = tbo;
+		textureGroup.insert(std::make_pair(path, newImage));
 	}
+}
+
+int xc_ogl::ImageLoader::getTextureWidth()
+{
+	return width;
+}
+
+int xc_ogl::ImageLoader::getTextureHeight()
+{
+	return height;
 }
 
 void * xc_ogl::ImageLoader::getTexturePointer(const char* tex, int &width, int &height, int &channels)

@@ -1,9 +1,11 @@
 #include "EnemyObject.h"
+#include "../XCRender/RenderManager.h"
+#include "../XCRender/ParticleHelper.h"
 #include <GL3/gl3w.h>
 #include "../../XCFrameInfo.h"
 
 EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, glm::vec2 sbInfo, glm::vec2 wInfo,
-	glm::vec3 iCoord, float v, float a, float agle, float agleA, int type)
+	glm::vec3 iCoord, float v, float mTime,float a, float agle, float agleA, int type, float health)
 {
 	imageHelper = ptr;
 	divideInfo = dInfo;
@@ -13,12 +15,13 @@ EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, g
 	NowPosition = iCoord;
 
 	velocity = v;
+	movingTime = mTime;
 	acceleration = a;
 	angle = agle;
 	angleAcceleration = agleA;
 
 	colorType = type;
-
+	currentHealth = health;
 
 	//set as enemytype
 	setCurrentType(EnemyType);
@@ -26,6 +29,7 @@ EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, g
 
 void EnemyObject::Init()
 {
+	deadEffect = AudioHelper::loadWavFromFile("assets/SE/se_enep00.wav");
 	if ((angle == 0 && velocity == 0) || angle == 270.0f || angle == 90.0f) {
 		nowTexIndex = standbyInfo[0];
 	}
@@ -39,10 +43,16 @@ void EnemyObject::Render()
 	timer.Tick();
 	float deltaTime = timer.getDeltaFrame();
 	float pi = 3.1415926535f;
-	NowPosition[0] += velocity * cos(angle / 180.0f * pi) * deltaTime;
-	NowPosition[1] += velocity * sin(angle / 180.0f * pi) * deltaTime;
-	angle += angleAcceleration * deltaTime;
-	velocity += acceleration * deltaTime;
+	if (timer.getAccumlateTime() < movingTime || movingTime < 0.0) {
+		NowPosition[0] += velocity * cos(angle / 180.0f * pi) * deltaTime;
+		NowPosition[1] += velocity * sin(angle / 180.0f * pi) * deltaTime;
+		angle += angleAcceleration * deltaTime;
+		velocity += acceleration * deltaTime;	
+	}
+	else {
+		angle = 0.0f;
+		velocity = 0.0f;
+	}
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -88,4 +98,20 @@ void EnemyObject::Release()
 glm::vec3 EnemyObject::getNowPosition()
 {
 	return NowPosition;
+}
+
+void EnemyObject::hurtEnemy(float damage)
+{
+	if (currentHealth - damage > 0) {
+		currentHealth -= damage;
+	}
+	else {
+		AudioHelper::playFromBuffer(deadEffect.wavBuffer);
+		ParticleHelper* particleGroup = new ParticleHelper;
+		particleGroup->addNewParticle(20, 20.0f, 1.0f, 0.6f, glm::vec4(1.0f), NowPosition);
+		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+		
+		currentHealth = 0;
+		isWorkFinish = true;
+	}
 }

@@ -40,6 +40,9 @@
     <Filter Include="XCCore\XCAudio">
       <UniqueIdentifier>{d0df81fa-abea-42c1-a3d3-a689a213969e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\Attack">
+      <UniqueIdentifier>{b873b62a-f989-4429-9109-4a1a7bc6ab6b}</UniqueIdentifier>
+    </Filter>
     <Filter Include="XCCore\Enemy">
       <UniqueIdentifier>{2e419218-6347-4310-bc9f-14bf80549af2}</UniqueIdentifier>
     </Filter>
@@ -135,9 +138,6 @@
     <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp">
       <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.cpp">
-      <Filter>XCCore\XCRender\SpecialEffect</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp">
       <Filter>XCCore\UserInterface</Filter>
     </ClCompile>
@@ -150,9 +150,6 @@
     <ClCompile Include="XCCore\XCAudio\AudioHelper.cpp">
       <Filter>XCCore\XCAudio</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\XCRender\FlexibleParticleGenerater.cpp">
-      <Filter>XCCore\XCRender</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\Task\TaskManager.cpp">
       <Filter>XCCore\Task</Filter>
     </ClCompile>
@@ -164,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="XCCore\Task\TaskEnemy.cpp">
       <Filter>XCCore\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Attack\NormalStrike.cpp">
+      <Filter>XCCore\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp">
+      <Filter>XCCore\XCRender</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,9 +274,6 @@
     <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h">
       <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\XCRender\SpecialEffect\ExplodeParticleGroupSE.h">
-      <Filter>XCCore\XCRender\SpecialEffect</Filter>
-    </ClInclude>
     <ClInclude Include="XCCore\UserInterface\CoverInterface.h">
       <Filter>XCCore\UserInterface</Filter>
     </ClInclude>
@@ -285,9 +285,6 @@
     </ClInclude>
     <ClInclude Include="XCCore\XCAudio\AudioHelper.h">
       <Filter>XCCore\XCAudio</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\XCRender\FlexibleParticleGenerater.h">
-      <Filter>XCCore\XCRender</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\XCRender\RenderManager.h">
       <Filter>XCCore\XCRender</Filter>
@@ -303,6 +300,15 @@
     </ClInclude>
     <ClInclude Include="XCCore\Task\TaskEnemy.h">
       <Filter>XCCore\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Attack\IAttack.h">
+      <Filter>XCCore\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Attack\NormalStrike.h">
+      <Filter>XCCore\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\ParticleHelper.h">
+      <Filter>XCCore\XCRender</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
