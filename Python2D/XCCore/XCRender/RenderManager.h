@@ -28,11 +28,12 @@ public:
 
 	void RenderWork();
 
-	void CleanRenderObject(std::string parentUuid);
-	bool CheckRenderComplete(std::string parentUuid);
+	void CleanRenderObject(const std::string& parentUuid);
+	void TerminateBullet(const std::string& parentUuid);
+	bool CheckRenderComplete(const std::string& parentUuid);
 
-	void AddRenderObject(std::string parentUuid,RenderObject* object);
-	void AddUserInterface(std::string uiName, IUserInterface* ui);
+	void AddRenderObject(const std::string& parentUuid,RenderObject* object);
+	void AddUserInterface(const std::string& uiName, IUserInterface* ui);
 
 	void SetBackgroundPointer(Background* background);
 

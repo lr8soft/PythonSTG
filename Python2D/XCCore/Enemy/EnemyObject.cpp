@@ -5,7 +5,7 @@
 #include "../../XCFrameInfo.h"
 
 EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, glm::vec2 sbInfo, glm::vec2 wInfo,
-	glm::vec3 iCoord, float v, float a, float agle, float agleA, int type, float health)
+	glm::vec3 iCoord, float v, float mTime,float a, float agle, float agleA, int type, float health)
 {
 	imageHelper = ptr;
 	divideInfo = dInfo;
@@ -15,6 +15,7 @@ EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, g
 	NowPosition = iCoord;
 
 	velocity = v;
+	movingTime = mTime;
 	acceleration = a;
 	angle = agle;
 	angleAcceleration = agleA;
@@ -42,10 +43,16 @@ void EnemyObject::Render()
 	timer.Tick();
 	float deltaTime = timer.getDeltaFrame();
 	float pi = 3.1415926535f;
-	NowPosition[0] += velocity * cos(angle / 180.0f * pi) * deltaTime;
-	NowPosition[1] += velocity * sin(angle / 180.0f * pi) * deltaTime;
-	angle += angleAcceleration * deltaTime;
-	velocity += acceleration * deltaTime;
+	if (timer.getAccumlateTime() < movingTime || movingTime < 0.0) {
+		NowPosition[0] += velocity * cos(angle / 180.0f * pi) * deltaTime;
+		NowPosition[1] += velocity * sin(angle / 180.0f * pi) * deltaTime;
+		angle += angleAcceleration * deltaTime;
+		velocity += acceleration * deltaTime;	
+	}
+	else {
+		angle = 0.0f;
+		velocity = 0.0f;
+	}
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

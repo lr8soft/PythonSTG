@@ -9,7 +9,7 @@ import script.TestStage as TestStage
 winWidth = 1280
 winHeight = 720
 
-winTitle = "Python2D v0.28"
+winTitle = "Python2D v0.29x"
 winScaleToMonitor = False
 winResize = False
 

@@ -24,6 +24,7 @@ public:
 		return isWorkFinish;
 	}
 
+
 	ObjectType getCurrentType() {
 		return objectType;
 	}

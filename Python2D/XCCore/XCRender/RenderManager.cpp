@@ -32,7 +32,7 @@ RenderManager * RenderManager::getInstance()
 	return pRenderManager;
 }
 
-void RenderManager::AddRenderObject(std::string parentUuid, RenderObject * object)
+void RenderManager::AddRenderObject(const std::string& parentUuid, RenderObject * object)
 {
 	renderObjectList.insert(std::make_pair(parentUuid, object));
 	object->Init();
@@ -41,7 +41,7 @@ void RenderManager::AddRenderObject(std::string parentUuid, RenderObject * objec
 	}
 }
 
-void RenderManager::AddUserInterface(std::string uiName, IUserInterface * ui)
+void RenderManager::AddUserInterface(const std::string& uiName, IUserInterface * ui)
 {
 	uiGroup.insert(std::make_pair(uiName, ui));
 }
@@ -123,9 +123,11 @@ void RenderManager::RenderWork()
 		}
 		if (ui->getIsInit()) {
 			ui->UserInterfaceRender();
-			//shouldGamePause = ui->getShouldPauseGame();
+			shouldGamePause = ui->getShouldPauseGame();
 		}
 		if (ui->getIsWorkFinish()) {
+			ui->UserInterfaceRelease();
+			delete ui;
 			if (std::next(uiIter) == uiEnd)
 			{
 				uiGroup.erase(uiIter);
@@ -140,7 +142,7 @@ void RenderManager::RenderWork()
 	}
 }
 
-void RenderManager::CleanRenderObject(std::string uuid)
+void RenderManager::CleanRenderObject(const std::string& uuid)
 {
 	std::multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.find(uuid);
 	std::multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
@@ -160,7 +162,22 @@ void RenderManager::CleanRenderObject(std::string uuid)
 	}
 }
 
-bool RenderManager::CheckRenderComplete(std::string uuid)
+void RenderManager::TerminateBullet(const std::string& parentUuid)
+{
+	std::multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
+	std::multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
+	for (auto object = renderBegin; object != renderEnd; object++) {
+		if (object->first == parentUuid) {
+			RenderObject *renderObject = object->second;
+			if (renderObject->getCurrentType() == RenderObject::BulletType) {
+				Bullet* pBullet = static_cast<Bullet*>(renderObject);
+				pBullet->setBulletTerminate();
+			}
+		}
+	}
+}
+
+bool RenderManager::CheckRenderComplete(const std::string& uuid)
 {
 	return  renderObjectList.find(uuid)== renderObjectList.end();
 }

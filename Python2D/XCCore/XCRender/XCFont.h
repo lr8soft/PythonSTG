@@ -26,15 +26,22 @@ private:
 	static GLuint vao, vbo, program;
 	static std::map<GLchar,XCCharacter> XCCharacterGroup;
 	std::map<std::wstring,XCUniformChar*> XCRenderStringGroup;
+	std::map<std::string, XCUniformChar*> XCRenderNormalGroup;
+
 	void ShaderInit();
 	void ResourceInit(int end);
 	void BufferInit();
 public:
 	static void FontSetWidthAndHeight(float h,float w);
 	void FontASCIIInit(int endchar=128);
-	void FontASCIIRender(std::string text, float x, float y, float scale, glm::vec4 color);
-	void FontUnicodeInit(std::wstring text);
-	void FontUnicodeRender(std::wstring text, float x, float y, float scale, glm::vec4 color);
-	void FontUnicodeDirectRender(std::wstring text, float x, float y, float scale, glm::vec4 color);
+	void FontASCIIRender(const std::string &text, float x, float y, float scale, const glm::vec4& color);
+
+	void FontUnicodeInit(const std::wstring& text);
+	void FontUnicodeRender(const std::wstring& text, float x, float y, float scale, const glm::vec4& color);
+	void FontUnicodeDirectRender(const std::wstring& text, float x, float y, float scale, const glm::vec4& color);
+
+	void FontUnicodeInit(const std::string& text);
+	void FontUnicodeRender(const std::string& text, float x, float y, float scale, const glm::vec4& color);
+	void FontUnicodeDirectRender(const std::string& text, float x, float y, float scale, const glm::vec4& color);
 };
 #endif

@@ -40,11 +40,11 @@
     <Filter Include="XCCore\XCAudio">
       <UniqueIdentifier>{d0df81fa-abea-42c1-a3d3-a689a213969e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XCCore\Enemy">
-      <UniqueIdentifier>{2e419218-6347-4310-bc9f-14bf80549af2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="XCCore\Attack">
       <UniqueIdentifier>{b873b62a-f989-4429-9109-4a1a7bc6ab6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore\Enemy">
+      <UniqueIdentifier>{2e419218-6347-4310-bc9f-14bf80549af2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

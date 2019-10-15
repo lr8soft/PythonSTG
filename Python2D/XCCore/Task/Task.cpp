@@ -2,10 +2,10 @@
 #include "TaskDispatcher.h"
 #include "../XCRender/RenderManager.h"
 #include <thread>
-Task::Task(std::string taskUuid, std::string uuidForWaitTask, int repeatTime, int intervalFrame)
+Task::Task(std::string taskUuid, std::vector<std::string> uuidForWaitTask, int repeatTime, int intervalFrame)
 {
 	taskUUID = taskUuid;
-	targetUUID = uuidForWaitTask;
+	targetUUID.assign(uuidForWaitTask.begin(), uuidForWaitTask.end());
 
 	taskDurationFrame = repeatTime;
 	taskIntervalFrame = intervalFrame;
@@ -19,7 +19,9 @@ void Task::addSubUnit(TaskInsideUnit * unit)
 void Task::TaskInit()
 {
 	if (!taskIsInit) {
-		TaskDispatcher::addTask(targetUUID);
+		for (int i = 0; i < targetUUID.size(); i++) {
+			TaskDispatcher::addTask(targetUUID[i]);
+		}
 		auto iterBegin = subUnitGroup.begin();
 		auto iterEnd = subUnitGroup.end();
 		for (auto unit = iterBegin; unit != iterEnd; unit++) {
@@ -70,7 +72,14 @@ void Task::TaskWork()
 			taskSubWork();
 		}
 		else {
-			if (TaskDispatcher::getTaskFinish(targetUUID)) {
+			bool isTargetTaskFinish = true;
+			for (int i = 0; i < targetUUID.size(); i++) {
+				bool isSubFinish = TaskDispatcher::getTaskFinish(targetUUID[i]);
+				if (!isSubFinish) {
+					isTargetTaskFinish = false;
+				}
+			}
+			if (isTargetTaskFinish) {
 				taskSubWork();
 			}
 		}	
