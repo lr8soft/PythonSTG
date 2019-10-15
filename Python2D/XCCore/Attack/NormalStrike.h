@@ -13,7 +13,7 @@ protected:
 	XCGameTimer timer;
 	float scaleSize[3] = { 0.0f };
 	float texIndex = 1.0f;
-	float NowPosition[3] = {0.0f, 0.0f, 0.0f}, velocity = 2.0f;
+	float NowPosition[3] = {0.0f, 0.0f, 0.0f}, velocity = 2.5f;
 	XCImageHelper *renderHelper;
 	bool isInit = false, haveEffectPlay = false, isFinish = false;
 	double finishTime = 0.0;

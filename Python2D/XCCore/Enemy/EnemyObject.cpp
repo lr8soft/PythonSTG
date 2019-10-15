@@ -1,4 +1,6 @@
 #include "EnemyObject.h"
+#include "../XCRender/RenderManager.h"
+#include "../XCRender/ParticleHelper.h"
 #include <GL3/gl3w.h>
 #include "../../XCFrameInfo.h"
 
@@ -26,6 +28,7 @@ EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, g
 
 void EnemyObject::Init()
 {
+	deadEffect = AudioHelper::loadWavFromFile("assets/SE/se_enep00.wav");
 	if ((angle == 0 && velocity == 0) || angle == 270.0f || angle == 90.0f) {
 		nowTexIndex = standbyInfo[0];
 	}
@@ -96,6 +99,11 @@ void EnemyObject::hurtEnemy(float damage)
 		currentHealth -= damage;
 	}
 	else {
+		AudioHelper::playFromBuffer(deadEffect.wavBuffer);
+		ParticleHelper* particleGroup = new ParticleHelper;
+		particleGroup->addNewParticle(20, 20.0f, 1.0f, 0.6f, glm::vec4(1.0f), NowPosition);
+		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+		
 		currentHealth = 0;
 		isWorkFinish = true;
 	}

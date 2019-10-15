@@ -38,7 +38,7 @@ void NormalStrike::Render()
 		timer.Tick();
 		NowPosition[1] += velocity * timer.getDeltaFrame();
 		if (isFinish && texIndex < 4) {
-			texIndex += 0.4f;
+			texIndex += 1.0f;
 		}
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -56,7 +56,7 @@ void NormalStrike::Render()
 			isWorkFinish = true;
 		}
 		
-		if (isFinish && timer.getAccumlateTime() - finishTime > 0.2) {
+		if (isFinish && timer.getAccumlateTime() - finishTime > 0.06) {
 			isWorkFinish = true;
 		}
 	}
@@ -86,6 +86,7 @@ void NormalStrike::checkCollisonWithEnemy(EnemyObject * pEnemy)
 				RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 
 				pEnemy->hurtEnemy(0.2f);
+				velocity /= 3.0f;
 				finishTime = timer.getAccumlateTime();
 				isFinish = true;
 			}
