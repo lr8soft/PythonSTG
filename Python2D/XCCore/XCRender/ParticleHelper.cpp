@@ -1,6 +1,9 @@
-#include "FlexibleParticleGenerater.h"
+#include "ParticleHelper.h"
 #include "../../XCFrameInfo.h"
-void FlexibleParticleGenerater::ManagerWork()
+void ParticleHelper::Init()
+{
+}
+void ParticleHelper::Render()
 {
 	timer.Tick();
 	std::list<ParticleInfo>::iterator workBegin = particleManager.begin();
@@ -16,8 +19,6 @@ void FlexibleParticleGenerater::ManagerWork()
 		if (particleObj->particle->getIsFinish()) {
 			particleObj->particle->particleRelease();
 			delete (particleObj->particle);
-			//particleObj = particleManager.erase(particleObj);
-			//workEnd = particleManager.end();
 			if (std::next(particleObj) == particleManager.end()) {
 				particleManager.erase(particleObj);
 				return;
@@ -28,9 +29,25 @@ void FlexibleParticleGenerater::ManagerWork()
 			}
 		}
 	}
+	if (particleManager.empty()) {
+		isWorkFinish = true;
+	}
 }
 
-void FlexibleParticleGenerater::addNewParticle(int density, float size, float velocity, float lifetime, glm::vec4 color, glm::vec3 pos)
+void ParticleHelper::Release()
+{
+	if (!particleManager.empty()) {
+		std::list<ParticleInfo>::iterator workBegin = particleManager.begin();
+		std::list<ParticleInfo>::iterator workEnd = particleManager.end();
+		for (auto particleObj = workBegin; particleObj != workEnd; particleObj++) {
+			particleObj->particle->particleRelease();
+			delete (particleObj->particle);
+		}
+		particleManager.clear();
+	}
+}
+
+void ParticleHelper::addNewParticle(int density, float size, float velocity, float lifetime, glm::vec4 color, glm::vec3 pos)
 {
 	for (int i = 0; i < density; i++) {
 		XCParticle* particle = new XCParticle(lifetime * rand() / (RAND_MAX + 1.0));

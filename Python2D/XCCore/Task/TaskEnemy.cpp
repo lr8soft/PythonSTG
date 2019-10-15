@@ -34,7 +34,7 @@ void TaskEnemy::TaskInit()
 
 		XCImageHelper *image = new XCImageHelper(imagePath, true);
 		enemyImage = new EnemyObject(image, divideInfo, scaleInfo, standbyInfo, walkInfo,
-			NowPosition, velocity, acceleration, angle, angleAcceleration, colorType);
+			NowPosition, velocity, acceleration, angle, angleAcceleration, colorType, nowLife);
 		enemyImage->Init();
 		taskIsInit = true;
 	}

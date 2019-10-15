@@ -73,6 +73,7 @@ void GameInfoInterface::UserInterfaceRender()
 			playerInfoImage2->setMvpMatrix(nowScoreMat);
 			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 2, 2));
+			BlendEnd
 
 			//font start render
 			float hsFontX = XCFrameInfo::FrameRight + (1.0f - XCFrameInfo::FrameRight) / 2 + highScoreWidth / 1.4f;
@@ -80,18 +81,19 @@ void GameInfoInterface::UserInterfaceRender()
 			fontHelper.FontSetWidthAndHeight(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
 			static std::stringstream ss; ss.str(""); 
 			ss << std::setfill('0') << std::setw(10) << highScore << std::endl;
-			std::string highscoreStr;  ss >> highscoreStr;
+			static std::string highscoreStr;  ss >> highscoreStr;
 			fontHelper.FontASCIIRender(highscoreStr, hsFontX, hsFontY, 0.5f, glm::vec4(0.8f,0.8f,0.8f, 0.6f));
 
 			float nsFontX = hsFontX;
 			float nsFontY = hsFontY - highScoreHeight * 1.3f;
 			ss.str("");
 			ss << std::setfill('0') << std::setw(10) << nowScore++ << std::endl;//////////test
-			std::string nowscoreStr; ss >> nowscoreStr;
+			static std::string nowscoreStr; ss >> nowscoreStr;
 			fontHelper.FontASCIIRender(nowscoreStr, nsFontX, nsFontY, 0.5f, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
 
 			fontHelper.FontASCIIRender(std::to_string((int)infoTimer.getFramePerSecond()), 0.0f, 0.0f, 1.0f, glm::vec4(0.0f, 0.0f, 0.8f, 1.0f));//fps render
 
+			
 			float nowLifeWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
 			float nowLifeHeight = nowLifeWidth / 3.0f;
 			float nowLifeX = nowScoreX + nowLifeWidth /2.2f;
@@ -100,8 +102,9 @@ void GameInfoInterface::UserInterfaceRender()
 			nowLifeMat = glm::translate(nowLifeMat, glm::vec3(nowLifeX, nowLifeY, 0.0f));
 			nowLifeMat = glm::scale(nowLifeMat, glm::vec3(nowLifeWidth, nowLifeHeight, 1.0f));
 
+			BlendOneMinusAlphaStart
 			playerInfoImage2->setMvpMatrix(nowLifeMat);
-			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f,1.0f,1.0f,1.0f), 0.0f, glm::vec3(), glm::vec3(),
+			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 1, 3));
 			
 			BlendEnd

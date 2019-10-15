@@ -3,7 +3,7 @@
 #include "../../XCFrameInfo.h"
 
 EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, glm::vec2 sbInfo, glm::vec2 wInfo,
-	glm::vec3 iCoord, float v, float a, float agle, float agleA, int type)
+	glm::vec3 iCoord, float v, float a, float agle, float agleA, int type, float health)
 {
 	imageHelper = ptr;
 	divideInfo = dInfo;
@@ -18,7 +18,7 @@ EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, g
 	angleAcceleration = agleA;
 
 	colorType = type;
-
+	currentHealth = health;
 
 	//set as enemytype
 	setCurrentType(EnemyType);
@@ -88,4 +88,15 @@ void EnemyObject::Release()
 glm::vec3 EnemyObject::getNowPosition()
 {
 	return NowPosition;
+}
+
+void EnemyObject::hurtEnemy(float damage)
+{
+	if (currentHealth - damage > 0) {
+		currentHealth -= damage;
+	}
+	else {
+		currentHealth = 0;
+		isWorkFinish = true;
+	}
 }

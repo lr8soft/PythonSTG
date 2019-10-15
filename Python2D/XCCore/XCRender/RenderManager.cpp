@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "../Enemy/EnemyObject.h"
 #include "../Bullet/Bullet.h"
+#include "../Attack/IAttack.h"
 #include "../XCCollide/CollideInfo.h"
 #include "../UserInterface/GameInfoInterface.h"
 #include "../UserInterface/CoverInterface.h"
@@ -83,8 +84,13 @@ void RenderManager::RenderWork()
 					collideHelperP1->checkCollisionWithBullet(static_cast<Bullet*>(renderObject));
 				}
 			}
-			else if (renderObject->getCurrentType() == RenderObject::EnemyType) {
-			
+			else if (renderObject->getCurrentType() == RenderObject::EnemyType && !strikeCollisionHelperGroup.empty()) {
+				std::list<RenderObject*>::iterator strikeBegin = strikeCollisionHelperGroup.begin();
+				std::list<RenderObject*>::iterator strikeEnd = strikeCollisionHelperGroup.end();
+				for (auto strike = strikeBegin; strike != strikeEnd; strike++) {
+					IAttack* pStrike = static_cast<IAttack*>(*strike);
+					pStrike->checkCollisonWithEnemy(static_cast<EnemyObject*>(renderObject));
+				}
 			}
 		}
 		if (renderObject->getIsTerminate()) {

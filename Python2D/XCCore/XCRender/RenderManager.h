@@ -10,6 +10,7 @@
 #include "RenderObject.h"
 
 #define StrikeRenderGroupUuid "StrikeGroupUniformUUID"
+#define ParticleGroupUuid "ParticleGroupUniformUUID"
 class RenderManager {
 private:
 	std::multimap<std::string, RenderObject*> renderObjectList;

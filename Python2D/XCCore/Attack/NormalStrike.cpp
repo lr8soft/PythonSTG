@@ -1,6 +1,7 @@
 #include "NormalStrike.h"
 #include "../../XCFrameInfo.h"
-
+#include "../XCRender/RenderManager.h"
+#include "../XCRender/ParticleHelper.h"
 #include <GL3/gl3w.h>
 XCWavFile NormalStrike::strikeEffect;
 bool NormalStrike::isResInit = false;
@@ -21,7 +22,12 @@ void NormalStrike::Init()
 			isResInit = true;
 		}
 		
-		renderHelper = new XCImageHelper("assets/Item/attack.png", true);
+		renderHelper = new XCImageHelper("assets/Item/attack.png", true);	
+
+		scaleSize[1] = 0.075f;
+		scaleSize[0] = scaleSize[1] / (1.0f * renderHelper->getImageWidth() / renderHelper->getImageHeight());
+		scaleSize[2] = 0.075f;
+		
 		isInit = true;
 	}
 }
@@ -30,20 +36,27 @@ void NormalStrike::Render()
 {
 	if (isInit) {
 		timer.Tick();
-
-		AudioHelper::playFromBuffer(strikeEffect.wavBuffer);
 		NowPosition[1] += velocity * timer.getDeltaFrame();
-
-		float height = 0.075f;
-		float width = height /(1.0f * renderHelper->getImageWidth() / renderHelper->getImageHeight());
+		if (isFinish && texIndex < 4) {
+			texIndex += 0.4f;
+		}
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		renderHelper->Render(glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]), 
-			glm::vec4(1.0f), glm::radians(90.0f), glm::vec3(0, 0, 1), glm::vec3(width, height, 0.05f),
-			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 4, 1, 1, 1));
+			glm::vec4(1.0f), glm::radians(90.0f), glm::vec3(0, 0, 1), glm::vec3(scaleSize[0], scaleSize[1], scaleSize[2]),
+			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 4, 1, (int)texIndex, 1));
 		glDisable(GL_BLEND);
 
+		if (!haveEffectPlay) {
+			AudioHelper::playFromBuffer(strikeEffect.wavBuffer);
+			haveEffectPlay = true;
+		}
+
 		if (NowPosition[1]>1.0f + 0.025f) {
+			isWorkFinish = true;
+		}
+		
+		if (isFinish && timer.getAccumlateTime() - finishTime > 0.2) {
 			isWorkFinish = true;
 		}
 	}
@@ -61,4 +74,21 @@ void NormalStrike::Release()
 
 void NormalStrike::checkCollisonWithEnemy(EnemyObject * pEnemy)
 {
+	if (!pEnemy->getIsTerminate() && !isFinish) {
+		glm::vec3 enemyPosition = pEnemy->getNowPosition();
+		float halfWidth = scaleSize[1];
+		float halfHeight = scaleSize[0];
+		float lastY = NowPosition[1] - velocity * timer.getDeltaFrame();
+		if (enemyPosition[0] <= NowPosition[0] + halfWidth && enemyPosition[0] >= NowPosition[0] - halfWidth){
+			if (enemyPosition[1] <= NowPosition[1] + halfHeight && enemyPosition[1] >= lastY - halfHeight) {
+				ParticleHelper* particleGroup = new ParticleHelper;
+				particleGroup->addNewParticle(6, 20.0f, 0.6f, 0.4f, glm::vec4(1.0f), enemyPosition);
+				RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+
+				pEnemy->hurtEnemy(0.2f);
+				finishTime = timer.getAccumlateTime();
+				isFinish = true;
+			}
+		}
+	}
 }

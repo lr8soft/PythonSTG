@@ -11,9 +11,12 @@ protected:
 	static bool isResInit;
 
 	XCGameTimer timer;
+	float scaleSize[3] = { 0.0f };
+	float texIndex = 1.0f;
 	float NowPosition[3] = {0.0f, 0.0f, 0.0f}, velocity = 2.0f;
 	XCImageHelper *renderHelper;
-	bool isInit = false;
+	bool isInit = false, haveEffectPlay = false, isFinish = false;
+	double finishTime = 0.0;
 public:
 	NormalStrike(float x, float y, float z = 0.0f);
 	virtual void Init() override;

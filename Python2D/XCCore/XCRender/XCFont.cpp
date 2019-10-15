@@ -152,6 +152,7 @@ void XCFont::FontASCIIRender(std::string text, float x, float y, float scale, gl
 		x += (CharacterTemp.advance >> 6) * scale;
 	}
 	glUseProgram(0);
+	glDisable(GL_BLEND);
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -259,6 +260,7 @@ void XCFont::FontUnicodeRender(std::wstring text, float x, float y, float scale,
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		x += (CharacterTemp->advanceGroup[i] >> 6) * scale;
 	}
+	glDisable(GL_BLEND);
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
