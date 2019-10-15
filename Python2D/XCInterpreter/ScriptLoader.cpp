@@ -60,8 +60,11 @@ PyObject * ScriptLoader::callFunction(PyObject * module, std::string funcName, c
 void ScriptLoader::initPythonEvon()
 {
 	if (!have_python_init) {//First time init.
-		Py_Initialize();
 
+		wchar_t info[] = L"\\";
+		Py_SetPythonHome(info);
+		Py_Initialize();
+		
 		PyRun_SimpleString("import sys");
 		PyRun_SimpleString("sys.path.append('./')");//Load all script
 		if (Py_IsInitialized()) {

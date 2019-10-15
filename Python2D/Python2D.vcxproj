@@ -78,6 +78,8 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <UseUnicodeForAssemblerListing>
+      </UseUnicodeForAssemblerListing>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x86\OpenAL32.lib;..\libs\x86\python36.lib;..\libs\x86\python36_d.lib;..\libs\x86\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
