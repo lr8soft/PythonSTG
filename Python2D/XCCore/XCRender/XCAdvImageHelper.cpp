@@ -25,6 +25,8 @@ XCAdvImageHelper::XCAdvImageHelper(std::string path)
 	ImageLoader imgLoader;
 	imgLoader.loadTextureFromFile(path.c_str());
 	tbo = imgLoader.getTextureBufferObjectHandle();
+	width = imgLoader.getTextureWidth();
+	height = imgLoader.getTextureHeight();
 
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
@@ -87,4 +89,14 @@ void XCAdvImageHelper::Release()
 GLuint XCAdvImageHelper::getProgramHandle()
 {
 	return ProgramHandle;
+}
+
+int XCAdvImageHelper::getHeight()
+{
+	return height;
+}
+
+int XCAdvImageHelper::getWidth()
+{
+	return width;
 }

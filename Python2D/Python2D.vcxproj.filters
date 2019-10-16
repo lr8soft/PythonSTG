@@ -168,6 +168,9 @@
     <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\Task\TaskBoss.cpp">
+      <Filter>XCCore\Task</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -309,6 +312,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\XCRender\ParticleHelper.h">
       <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Task\TaskBoss.h">
+      <Filter>XCCore\Task</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

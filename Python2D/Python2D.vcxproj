@@ -146,6 +146,7 @@
     <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Enemy\EnemyObject.cpp" />
     <ClCompile Include="XCCore\Task\Task.cpp" />
+    <ClCompile Include="XCCore\Task\TaskBoss.cpp" />
     <ClCompile Include="XCCore\Task\TaskDispatcher.cpp" />
     <ClCompile Include="XCCore\Task\TaskHelper.cpp" />
     <ClCompile Include="XCCore\Task\TaskEnemy.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="XCCore\Bullet\RectangleTypeBullet.h" />
     <ClInclude Include="XCCore\Enemy\EnemyObject.h" />
     <ClInclude Include="XCCore\Task\Task.h" />
+    <ClInclude Include="XCCore\Task\TaskBoss.h" />
     <ClInclude Include="XCCore\Task\TaskDispatcher.h" />
     <ClInclude Include="XCCore\Task\TaskHelper.h" />
     <ClInclude Include="XCCore\Task\TaskEnemy.h" />

@@ -15,11 +15,14 @@ protected:
 	int nowLife = 2, maxLife = 8;
 	int nowBomb = 2, maxBomb = 8;
 
-	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2;
+	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2, *lifeBombImage;
 	static GameInfoInterface* pInterface;
 
 	XCFont fontHelper;
 	GameInfoInterface();
+
+	void renderPlayerLife(float x, float y);
+	void renderPlayerBomb(float x, float y);
 public:
 	static GameInfoInterface* getInstance();
 

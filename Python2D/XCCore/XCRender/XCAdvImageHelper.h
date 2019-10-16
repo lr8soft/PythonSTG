@@ -12,6 +12,8 @@ private:
 	std::string imagePath;
 	static GLuint ProgramHandle;
 	static bool haveProgramInit;
+
+	int width = 0, height = 0;
 public:
 	XCAdvImageHelper() = delete;
 	XCAdvImageHelper(std::string path);
@@ -23,5 +25,8 @@ public:
 	virtual void Release() override;
 
 	static GLuint getProgramHandle();
+
+	int getHeight();
+	int getWidth();
 };
 #endif
