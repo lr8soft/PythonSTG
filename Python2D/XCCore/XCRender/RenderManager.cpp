@@ -79,7 +79,7 @@ void RenderManager::RenderWork()
 			renderObject->Render();
 
 			if (renderObject->getCurrentType()==RenderObject::BulletType) {
-				auto collideHelperP1 = CollideInfo::getCollideHelperP1();
+				auto collideHelperP1 = CollideInfo::getCollideHelper();
 				if (collideHelperP1 != nullptr) {
 					collideHelperP1->checkCollisionWithBullet(static_cast<Bullet*>(renderObject));
 				}

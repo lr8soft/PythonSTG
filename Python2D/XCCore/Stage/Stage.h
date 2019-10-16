@@ -5,6 +5,7 @@
 #include <GL/glcorearb.h>
 #include <string>
 #include <vector>
+#include <atomic>
 #include "../Task/Task.h"
 #include "../../util/GameTimer.h"
 #include "../Background/BackgroundHelper.h"
@@ -18,7 +19,8 @@ private:
 
 	XCGameTimer timer;
 	PyObject* itemStage;
-	bool stageFinish = false, isStageInit = false;
+	bool stageFinish = false;
+	std::atomic_bool isStageInit = false;
 public:
 	Stage() = delete;
 	Stage(std::string uuid, PyObject* item);

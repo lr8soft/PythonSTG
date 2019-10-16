@@ -10,6 +10,7 @@ struct InitInfo {
 	int winWidth;
 	bool winResize;
 	bool winScale;
+	bool winFullScreen;
 	std::string winImage;
 	std::string winTitle;
 };

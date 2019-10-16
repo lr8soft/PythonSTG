@@ -7,7 +7,7 @@ class CollideInfo {
 	static float grazeDistance;
 public:
 	static void setCollideHelper(CollideHelper* helper);
-	static CollideHelper* getCollideHelperP1();
+	static CollideHelper* getCollideHelper();
 
 	static float getGrazeDistance();
 };

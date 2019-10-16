@@ -31,22 +31,26 @@ void XCFrame::FrameInit()
 	XCFrameInfo::FrameBottom = -absHeight;
 
 	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);//OpenGL 4.3 Core Mode
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);//OpenGL 4.3 Core Mode
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);//核心模式牛 逼
 	glfwWindowHint(GLFW_RESIZABLE, info.winResize);//No resizable.
 	glfwWindowHint(GLFW_SCALE_TO_MONITOR, info.winScale);//Auto change size
-	
-	pscreen = glfwCreateWindow(FrameWidth, FrameHeight, XCFrameInfo::ScreenOriginTitle.c_str(), nullptr, nullptr);
+
+	GLFWmonitor* primaryMonitor = info.winFullScreen ? glfwGetPrimaryMonitor() : nullptr;
+	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+	tscreen = glfwCreateWindow(1, 1, "ThreadInitHelper", nullptr, nullptr);
+	glfwWindowHint(GLFW_VISIBLE, GL_TRUE);
+	pscreen = glfwCreateWindow(FrameWidth, FrameHeight, XCFrameInfo::ScreenOriginTitle.c_str(), primaryMonitor, tscreen);
+	glfwMakeContextCurrent(pscreen);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 	glfwSetWindowPos(pscreen, (mode->width - FrameWidth) / 2, (mode->height - FrameHeight) / 2);
 	if (pscreen == nullptr) {
-		MessageBox(NULL, "无法创建窗口！", "ERROR", MB_ICONERROR);
+		std::cerr << "[ERROR] Failed to create window!\n";
 		exit(-1);
 	}
-	glfwMakeContextCurrent(pscreen);
 	glfwSwapInterval(1);
 	glfwSetFramebufferSizeCallback(pscreen, FrameResize);
 	glfwSetWindowPosCallback(pscreen, FramePos);
@@ -67,7 +71,9 @@ void XCFrame::FrameLoop()
 			(XCFrameInfo::ScreenOriginTitle + "  | RenderObject: " + std::to_string(RenderManager::getInstance()->GetRenderObjectCount())
 				+  "  FPS: "+std::to_string(timer.getFramePerSecond())).c_str());
 	}
+	isFrameTerminate = true;
 	glfwDestroyWindow(pscreen);
+	glfwDestroyWindow(tscreen);
 	glfwTerminate();
 }
 void XCFrame::FrameFinalize()
@@ -114,6 +120,14 @@ XCFrame * XCFrame::getInstance()
 GLFWwindow * XCFrame::getScreen()
 {
 	return pscreen;
+}
+GLFWwindow * XCFrame::getThreadScreen()
+{
+	return tscreen;
+}
+bool XCFrame::getFrameTerminate()
+{
+	return isFrameTerminate;
 }
 XCFrame::XCFrame() {
 	xcstd::ConfigManager cfg("p2d.cfg");

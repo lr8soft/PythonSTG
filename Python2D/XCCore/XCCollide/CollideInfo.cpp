@@ -10,7 +10,7 @@ void CollideInfo::setCollideHelper(CollideHelper * helper)
 	}
 }
 
-CollideHelper * CollideInfo::getCollideHelperP1()
+CollideHelper * CollideInfo::getCollideHelper()
 {
 	return collideHelperP1;
 }
