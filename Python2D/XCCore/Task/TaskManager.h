@@ -14,6 +14,7 @@ private:
 public:
 	static TaskManager* getInstance();
 	void AddStageItem(Stage* stage);
+	void CleanAllStage();
 	void TaskWork();
 };
 #endif

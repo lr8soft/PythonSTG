@@ -13,26 +13,35 @@
 #define ParticleGroupUuid "ParticleGroupUniformUUID"
 class RenderManager {
 private:
+	enum insideCommand {
+		cRenderObject = 0, cAllRenderObject, tBullet, cUserInterface
+	};
 	std::multimap<std::string, RenderObject*> renderObjectList;
+	std::multimap<insideCommand, std::string> externCommandList;
+	std::multimap<std::string, RenderObject*> asyncRenderObjectList;
 	std::map<std::string, IUserInterface*> uiGroup;
 	std::list<RenderObject*> strikeCollisionHelperGroup;
 
-	bool shouldGamePause = false;
 	Background *renderBackground = nullptr;
 	Player* player;
 
 	static RenderManager* pRenderManager;
 	RenderManager();
+
+	void solveExternCommand();
+	void solveAsyncObject();
 public:
 	static RenderManager* getInstance();
 
 	void RenderWork();
 
 	void CleanRenderObject(const std::string& parentUuid);
+	void CleanAllRenderObject();
+	void CleanUserInterface(const std::string& uuid);
 	void TerminateBullet(const std::string& parentUuid);
 	bool CheckRenderComplete(const std::string& parentUuid);
 
-	void AddRenderObject(const std::string& parentUuid,RenderObject* object);
+	void AddRenderObject(const std::string& parentUuid,RenderObject* object, bool isAsynico = false);
 	void AddUserInterface(const std::string& uiName, IUserInterface* ui);
 
 	void SetBackgroundPointer(Background* background);

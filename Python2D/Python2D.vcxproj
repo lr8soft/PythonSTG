@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LaunchHelper.cpp" />
     <ClCompile Include="util\ConfigManager.cpp" />
     <ClCompile Include="util\GameTimer.cpp" />
     <ClCompile Include="util\gl3w.c" />
@@ -145,6 +146,7 @@
     <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Enemy\EnemyObject.cpp" />
+    <ClCompile Include="XCCore\Menu\GameMenu.cpp" />
     <ClCompile Include="XCCore\Task\Task.cpp" />
     <ClCompile Include="XCCore\Task\TaskBoss.cpp" />
     <ClCompile Include="XCCore\Task\TaskDispatcher.cpp" />
@@ -176,6 +178,7 @@
     <ClCompile Include="python2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LaunchHelper.h" />
     <ClInclude Include="util\ConfigManager.h" />
     <ClInclude Include="util\GameTimer.h" />
     <ClInclude Include="util\ImageLoader.h" />
@@ -193,6 +196,8 @@
     <ClInclude Include="XCCore\Bullet\CircleTypeBullet.h" />
     <ClInclude Include="XCCore\Bullet\RectangleTypeBullet.h" />
     <ClInclude Include="XCCore\Enemy\EnemyObject.h" />
+    <ClInclude Include="XCCore\Menu\GameMenu.h" />
+    <ClInclude Include="XCCore\Menu\IMenu.h" />
     <ClInclude Include="XCCore\Task\Task.h" />
     <ClInclude Include="XCCore\Task\TaskBoss.h" />
     <ClInclude Include="XCCore\Task\TaskDispatcher.h" />

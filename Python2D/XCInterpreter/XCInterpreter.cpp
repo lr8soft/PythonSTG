@@ -43,9 +43,6 @@ InitInfo XCInterpreter::InterpreterThread()
 	std::cout << "title:" << info.winTitle << std::endl;
 	std::cout << "=====================" << std::endl << std::endl;
 #endif
-	
-	parseStageItem();
-	parsePlayerEntity();
 	MultiThreadDefineEnd
 	return info;
 }
@@ -135,11 +132,18 @@ void XCInterpreter::parsePlayerEntity()
 	}
 }
 
-InitInfo XCInterpreter::ScriptLaunch()
+InitInfo XCInterpreter::getInitInfo()
 {
 	std::cout << "[INFO] Now pyInterpreter start." << std::endl;
 	std::future<InitInfo> retFuture = std::async(&XCInterpreter::InterpreterThread, this);
 	return retFuture.get();
+}
+void XCInterpreter::loadTaskManagerInfo()
+{
+	MultiThreadDefine
+	parseStageItem();
+	parsePlayerEntity();
+	MultiThreadDefineEnd
 }
 XCInterpreter::~XCInterpreter()
 {

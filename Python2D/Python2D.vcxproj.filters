@@ -46,6 +46,9 @@
     <Filter Include="XCCore\Enemy">
       <UniqueIdentifier>{2e419218-6347-4310-bc9f-14bf80549af2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\Menu">
+      <UniqueIdentifier>{0b1f0165-e716-497e-a0ae-d9e4b7595711}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -171,6 +174,10 @@
     <ClCompile Include="XCCore\Task\TaskBoss.cpp">
       <Filter>XCCore\Task</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\Menu\GameMenu.cpp">
+      <Filter>XCCore\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="LaunchHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -316,5 +323,12 @@
     <ClInclude Include="XCCore\Task\TaskBoss.h">
       <Filter>XCCore\Task</Filter>
     </ClInclude>
+    <ClInclude Include="XCCore\Menu\IMenu.h">
+      <Filter>XCCore\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Menu\GameMenu.h">
+      <Filter>XCCore\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="LaunchHelper.h" />
   </ItemGroup>
 </Project>

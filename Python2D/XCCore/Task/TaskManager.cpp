@@ -3,6 +3,8 @@
 #include "../../XCFrameInfo.h"
 #include "../XCCollide/CollideInfo.h"
 #include "../XCRender/RenderManager.h"
+#include "../../LaunchHelper.h"
+#include "../Menu/IMenu.h"
 TaskManager* TaskManager::pRManager = nullptr;
 TaskManager::TaskManager()
 {
@@ -23,6 +25,17 @@ void TaskManager::AddStageItem(Stage * stage)
 	stageQueue.push_back(stage);
 }
 
+void TaskManager::CleanAllStage()
+{
+	std::vector<Stage*>::iterator stageBegin = stageQueue.begin();
+	std::vector<Stage*>::iterator stageEnd = stageQueue.end();
+	for (auto stage = stageBegin; stage != stageEnd; stage++) {
+		(*stage)->stageRelease();
+		delete *stage;
+	}
+	stageQueue.clear();
+}
+
 void TaskManager::TaskWork()
 {
 	std::vector<Stage*>::iterator stageBegin = stageQueue.begin();
@@ -41,6 +54,11 @@ void TaskManager::TaskWork()
 		if (stageItem->getStageInit()) {
 			stageItem->stageWork();
 			RenderManager::getInstance()->SetBackgroundPointer(stageItem->getBackgroundPointer());
+		}
+	}
+	else {//empty
+		if (stageQueue.empty() && RenderManager::getInstance()->CheckRenderComplete(MenuUniformUUID)) {
+			LaunchHelper::LoadGameMenu();
 		}
 	}
 }

@@ -32,7 +32,7 @@ private:
 	void ResourceInit(int end);
 	void BufferInit();
 public:
-	static void FontSetWidthAndHeight(float h,float w);
+	static void SetHeightAndWidth(float h,float w);
 	void FontASCIIInit(int endchar=128);
 	void FontASCIIRender(const std::string &text, float x, float y, float scale, const glm::vec4& color);
 

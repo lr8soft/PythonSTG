@@ -3,7 +3,7 @@
 #define _IUSER_INTERFACE_H_
 class IUserInterface {
 protected:
-	bool isInit = false, pauseGame = false, workFinish = false;
+	bool isInit = false, workFinish = false;
 public:
 	virtual void UserInterfaceInit() = 0;
 	virtual void UserInterfaceRender() = 0;
@@ -11,10 +11,6 @@ public:
 
 	bool getIsInit() {
 		return isInit;
-	}
-
-	bool getShouldPauseGame() {
-		return pauseGame;
 	}
 
 	bool getIsWorkFinish() {

@@ -14,7 +14,7 @@ void XCFrame::FrameInit()
 {
 	ScriptLoader::initPythonEvon();
 	interpreter = new XCInterpreter;
-	InitInfo info = interpreter->ScriptLaunch();
+	InitInfo info = interpreter->getInitInfo();
 	FrameWidth = info.winWidth;
 	FrameHeight = info.winHeight;
 	XCFrameInfo::ScreenHeight = info.winHeight;
@@ -130,23 +130,23 @@ bool XCFrame::getFrameTerminate()
 	return isFrameTerminate;
 }
 XCFrame::XCFrame() {
-	xcstd::ConfigManager cfg("p2d.cfg");
+	xcstd::ConfigManager cfg("pystg.cfg");
 	if (cfg.IsFirstRun()) {
-		cfg.AddNewInfo("p1_up", std::to_string(GLFW_KEY_UP));
-		cfg.AddNewInfo("p1_down", std::to_string(GLFW_KEY_DOWN));
-		cfg.AddNewInfo("p1_left", std::to_string(GLFW_KEY_LEFT));
-		cfg.AddNewInfo("p1_right", std::to_string(GLFW_KEY_RIGHT));
-		cfg.AddNewInfo("p1_shoot", std::to_string(GLFW_KEY_Z));
-		cfg.AddNewInfo("p1_special", std::to_string(GLFW_KEY_X));
-		cfg.AddNewInfo("p1_item", std::to_string(GLFW_KEY_C));
-		cfg.AddNewInfo("p1_slow", std::to_string(GLFW_KEY_LEFT_SHIFT));
+		cfg.AddNewInfo("up", std::to_string(GLFW_KEY_UP));
+		cfg.AddNewInfo("down", std::to_string(GLFW_KEY_DOWN));
+		cfg.AddNewInfo("left", std::to_string(GLFW_KEY_LEFT));
+		cfg.AddNewInfo("right", std::to_string(GLFW_KEY_RIGHT));
+		cfg.AddNewInfo("shoot", std::to_string(GLFW_KEY_Z));
+		cfg.AddNewInfo("special", std::to_string(GLFW_KEY_X));
+		cfg.AddNewInfo("item", std::to_string(GLFW_KEY_C));
+		cfg.AddNewInfo("slow", std::to_string(GLFW_KEY_LEFT_SHIFT));
 	}
 	else {
-		XCFrameInfo::p1_keyUp = atoi(cfg.GetValue("p1_up").c_str());
-		XCFrameInfo::p1_keyDown = atoi(cfg.GetValue("p1_down").c_str());
-		XCFrameInfo::p1_keyLeft = atoi(cfg.GetValue("p1_left").c_str());
-		XCFrameInfo::p1_keyRight = atoi(cfg.GetValue("p1_right").c_str());
-		XCFrameInfo::p1_keyShoot = atoi(cfg.GetValue("p1_shoot").c_str());
-		XCFrameInfo::p1_keySlow = atoi(cfg.GetValue("p1_slow").c_str());
+		XCFrameInfo::keyUp = atoi(cfg.GetValue("up").c_str());
+		XCFrameInfo::keyDown = atoi(cfg.GetValue("down").c_str());
+		XCFrameInfo::keyLeft = atoi(cfg.GetValue("left").c_str());
+		XCFrameInfo::keyRight = atoi(cfg.GetValue("right").c_str());
+		XCFrameInfo::keyShoot = atoi(cfg.GetValue("shoot").c_str());
+		XCFrameInfo::keySlow = atoi(cfg.GetValue("slow").c_str());
 	}
 }

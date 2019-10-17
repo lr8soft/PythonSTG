@@ -77,7 +77,7 @@ void GameInfoInterface::UserInterfaceRender()
 			//font start render
 			float hsFontX = XCFrameInfo::FrameRight + (1.0f - XCFrameInfo::FrameRight) / 2 + highScoreWidth / 1.4f;
 			float hsFontY = rankY - nowScoreHeight/2.6f;
-			fontHelper.FontSetWidthAndHeight(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
+			fontHelper.SetHeightAndWidth(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
 			static std::stringstream ss; ss.str(""); 
 			ss << std::setfill('0') << std::setw(10) << highScore << std::endl;
 			static std::string highscoreStr;  ss >> highscoreStr;
@@ -86,7 +86,7 @@ void GameInfoInterface::UserInterfaceRender()
 			float nsFontX = hsFontX;
 			float nsFontY = hsFontY - highScoreHeight * 1.3f;
 			ss.str("");
-			ss << std::setfill('0') << std::setw(10) << nowScore++ << std::endl;//////////test
+			ss << std::setfill('0') << std::setw(10) << nowScore << std::endl;//////////test
 			static std::string nowscoreStr; ss >> nowscoreStr;
 			fontHelper.FontASCIIRender(nowscoreStr, nsFontX, nsFontY, 0.5f, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
 			

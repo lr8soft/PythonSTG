@@ -25,7 +25,8 @@ private:
 public:
 	XCInterpreter();
 	~XCInterpreter();
-	InitInfo ScriptLaunch();
+	InitInfo getInitInfo();
+	void loadTaskManagerInfo();
 };
 
 #endif

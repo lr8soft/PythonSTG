@@ -9,6 +9,8 @@ private:
 	static std::string imagePath;
 	static CoverInterface* pInterface;
 
+	bool isMenu = false;
+
 	GLushort indices[6] = { 0, 1, 2, 2, 3, 0 };
 	GLfloat vertices[8] = {1.0f, 1.0f, 1.0f,-1.0f,-1.0f,-1.0f,-1.0f, 1.0f};
 	GLuint vao, vbo, ebo, tbo, program;
@@ -20,5 +22,7 @@ public:
 	virtual void UserInterfaceInit();
 	virtual void UserInterfaceRender();
 	virtual void UserInterfaceRelease();
+
+	void setIsMenu(bool is);
 };
 #endif

@@ -65,6 +65,7 @@ void CoverInterface::UserInterfaceRender()
 
 		auto limited_loc = glGetUniformLocation(program, "screen_info");
 		auto mvp_loc = glGetUniformLocation(program, "mvp_mat");
+		auto is_loc = glGetUniformLocation(program, "is_menu");
 
 		glm::mat4 mvp_mat;
 		mvp_mat = glm::translate(mvp_mat, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -73,6 +74,7 @@ void CoverInterface::UserInterfaceRender()
 
 		glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, glm::value_ptr(mvp_mat));
 		glUniform2f(limited_loc, XCFrameInfo::ScreenWidth, XCFrameInfo::ScreenHeight);
+		glUniform1i(is_loc, isMenu ? 1 : 0);
 
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(GLushort), GL_UNSIGNED_SHORT, NULL);
 
@@ -92,4 +94,9 @@ void CoverInterface::UserInterfaceRelease()
 		glDeleteBuffers(1, &vbo);
 		isInit = false;
 	}
+}
+
+void CoverInterface::setIsMenu(bool is)
+{
+	isMenu = is;
 }
