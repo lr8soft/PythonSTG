@@ -12,8 +12,8 @@ protected:
 	int gameRank = 4;
 	long nowScore = 0, highScore = LONG_MAX;
 
-	int nowLife = 2, maxLife = 8;
-	int nowBomb = 2, maxBomb = 8;
+	static int nowLife , maxLife ;
+	static int nowBomb , maxBomb ;
 
 	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2, *lifeBombImage;
 	static GameInfoInterface* pInterface;
@@ -35,7 +35,10 @@ public:
 	void setNowScore(long score);
 	void setHightScore(long score);
 
-	void setNowBomb(int count);
-	void setNowLife(int life);
+	static void setNowBomb(int count);
+	static void setNowLife(int life);
+
+	static void setMaxBomb(int  count);
+	static void setMaxLife(int count);
 };
 #endif

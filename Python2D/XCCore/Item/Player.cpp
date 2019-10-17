@@ -6,6 +6,7 @@
 #include "../../XCCore/XCRender/XCImageHelper.h"
 #include "../XCRender/ParticleHelper.h"
 #include "../Attack/NormalStrike.h"
+#include "../UserInterface/GameInfoInterface.h"
 #include <GLFW/glfw3.h>
 std::map<std::string, Player*> Player::playerInstanceGroup;
 void Player::addPlayerInstance(std::string name, Player *instance)
@@ -141,6 +142,12 @@ void Player::hurtPlayer()
 		particleGroup->addNewParticle(150, 25.0f, 1.6f, 0.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 		isHitTime = true;
+
+		GameInfoInterface::setMaxLife(maxLife);
+		GameInfoInterface::setNowLife(--nowLife);
+		if (nowLife < 0) {
+			glfwSetWindowShouldClose(XCFrame::getInstance()->getScreen(), true);
+		}
 	}
 		
 }
@@ -211,9 +218,11 @@ void Player::playerKeyCheck()
 	
 	}
 
-	/*if (glfwGetKey(screen, keyitem) == GLFW_PRESS) {
-		player_fire_power += 0.1f;
-	}*/
+	if (glfwGetKey(screen, XCFrameInfo::p1_keyItem) == GLFW_PRESS) {
+		GameInfoInterface::setMaxBomb(maxBomb);
+		GameInfoInterface::setNowBomb(nowBomb);
+		//player_fire_power += 0.1f;
+	}
 	if (!have_player_change_state) {
 		if (playerNowState != PLAYER_TURNRIGHT && playerNowState != PLAYER_TURNLEFT)
 			setPlayerDirection(playerNowState);

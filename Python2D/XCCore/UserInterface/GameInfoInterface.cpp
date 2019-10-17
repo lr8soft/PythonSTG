@@ -7,7 +7,8 @@
 #include <iomanip>
 #include <sstream>
 GameInfoInterface* GameInfoInterface::pInterface = nullptr;
-
+int GameInfoInterface::nowLife = 2, GameInfoInterface::maxLife = 8;
+int GameInfoInterface::nowBomb = 2, GameInfoInterface::maxBomb = 8;
 GameInfoInterface * GameInfoInterface::getInstance()
 {
 	if (pInterface == nullptr)
@@ -91,7 +92,7 @@ void GameInfoInterface::UserInterfaceRender()
 			
 			float nowLifeImageWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
 			float nowLifeImageHeight = nowLifeImageWidth / 3.0f;
-			float nowLifeImageX = nowScoreX / 1.015f;
+			float nowLifeImageX = nowScoreX;
 			float nowLifeImageY = nowScoreY - nowLifeImageWidth * 1.2f;
 			glm::mat4 nowLifeMat;
 			nowLifeMat = glm::translate(nowLifeMat, glm::vec3(nowLifeImageX, nowLifeImageY, 0.0f));
@@ -105,7 +106,7 @@ void GameInfoInterface::UserInterfaceRender()
 
 			float nowBombImageWidth = (1.0f - XCFrameInfo::FrameRight) / 4.5f;
 			float nowBombImageHeight = nowBombImageWidth / 3.0f;
-			float nowBombImageX = nowScoreX / 1.03f;
+			float nowBombImageX = nowScoreX / 1.02f;
 			float nowBombImageY = nowLifeImageY - nowBombImageWidth;
 			glm::mat4 nowBombMat;
 			nowBombMat = glm::translate(nowBombMat, glm::vec3(nowBombImageX, nowBombImageY, 0.0f));
@@ -131,7 +132,7 @@ void GameInfoInterface::renderPlayerLife(float x, float y)
 	BlendOneMinusAlphaStart
 
 	float scaleSize = 0.002f;
-	float lifeWidth = (1.0f - XCFrameInfo::FrameRight) / 12.0f;
+	float lifeWidth = (1.0f - XCFrameInfo::FrameRight) / 13.0f;
 	float lifeHeight = lifeWidth;
 
 	for (int i = 0; i < nowLife;i++) {
@@ -142,7 +143,7 @@ void GameInfoInterface::renderPlayerLife(float x, float y)
 		lifeBombImage->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 4, 3, 2, 3));
 	}
-	for (int j = 0; j < 8 - nowLife; j++) {
+	for (int j = 0; j < maxLife - nowLife; j++) {
 			glm::mat4 lifeMat;
 		lifeMat = glm::translate(lifeMat, glm::vec3(x + lifeWidth *(nowLife+j), y, 0.0f));
 		lifeMat = glm::scale(lifeMat, glm::vec3(lifeWidth, lifeHeight, 1.0f));
@@ -160,7 +161,7 @@ void GameInfoInterface::renderPlayerBomb(float x, float y)
 	BlendOneMinusAlphaStart
 
 	float scaleSize = 0.002f;
-	float lifeWidth = (1.0f - XCFrameInfo::FrameRight) / 12.0f;
+	float lifeWidth = (1.0f - XCFrameInfo::FrameRight) / 13.0f;
 	float lifeHeight = lifeWidth;
 
 	for (int i = 0; i < nowBomb; i++) {
@@ -171,7 +172,7 @@ void GameInfoInterface::renderPlayerBomb(float x, float y)
 		lifeBombImage->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 4, 3, 4, 3));
 	}
-	for (int j = 0; j < 8 - nowBomb; j++) {
+	for (int j = 0; j < maxBomb - nowBomb; j++) {
 		glm::mat4 lifeMat;
 		lifeMat = glm::translate(lifeMat, glm::vec3(x + lifeWidth * (nowBomb + j), y, 0.0f));
 		lifeMat = glm::scale(lifeMat, glm::vec3(lifeWidth, lifeHeight, 1.0f));
@@ -220,4 +221,14 @@ void GameInfoInterface::setNowBomb(int count)
 void GameInfoInterface::setNowLife(int life)
 {
 	nowLife = life;
+}
+
+void GameInfoInterface::setMaxBomb(int count)
+{
+	maxBomb = count;
+}
+
+void GameInfoInterface::setMaxLife(int count)
+{
+	maxLife = count;
 }
