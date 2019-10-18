@@ -6,7 +6,8 @@
 #include "../../XCCore/XCRender/XCImageHelper.h"
 #include "../XCRender/ParticleHelper.h"
 #include "../Attack/NormalStrike.h"
-#include <GLFW/glfw3.h>
+#include "../UserInterface/GameInfoInterface.h"
+#include "../../LaunchHelper.h"
 std::map<std::string, Player*> Player::playerInstanceGroup;
 void Player::addPlayerInstance(std::string name, Player *instance)
 {
@@ -35,6 +36,11 @@ Player::Player( const char* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 s
 	standByRow = sbyRow;
 	turnLeftRow = tLeftRow;
 	turnRightRow = tRightRow;
+
+	GameInfoInterface::setMaxLife(maxLife);
+	GameInfoInterface::setNowLife(nowLife);
+	GameInfoInterface::setMaxBomb(maxBomb);
+	GameInfoInterface::setNowBomb(nowBomb);
 }
 bool Player::getIsInit()
 {
@@ -141,6 +147,13 @@ void Player::hurtPlayer()
 		particleGroup->addNewParticle(150, 25.0f, 1.6f, 0.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 		isHitTime = true;
+
+		GameInfoInterface::setMaxLife(maxLife);
+		GameInfoInterface::setNowLife(--nowLife);
+		if (nowLife < 0) {
+			nowLife = 8;
+			//LaunchHelper::LoadGameMenu();
+		}
 	}
 		
 }
@@ -167,53 +180,54 @@ void Player::playerKeyCheck()
 		glfwSetWindowShouldClose(screen, true);
 	}
 	float moveSpeed = baseSpeed * itemTimer.getDeltaFrame();
-	if (glfwGetKey(screen, XCFrameInfo::p1_keySlow) == GLFW_PRESS) {
+	if (glfwGetKey(screen, XCFrameInfo::keySlow) == GLFW_PRESS) {
 		moveSpeed = moveSpeed / 1.5f * 0.40f;
-		//have_player_change_state = false;
 		renderDecisionPoint = true;
 	}
-	if (glfwGetKey(screen, XCFrameInfo::p1_keyUp) == GLFW_PRESS) {
+	if (glfwGetKey(screen, XCFrameInfo::keyUp) == GLFW_PRESS) {
 		if ((NowPosition[1] + moveSpeed)*XCFrameInfo::FrameTop < XCFrameInfo::FrameTop)//
 			NowPosition[1] += moveSpeed;
 		setPlayerDirection(PLAYER_STANDBY);
 		have_player_change_state = true;
 	}
 
-	if (glfwGetKey(screen, XCFrameInfo::p1_keyDown) == GLFW_PRESS) {
+	if (glfwGetKey(screen, XCFrameInfo::keyDown) == GLFW_PRESS) {
 		if ((NowPosition[1] - moveSpeed)*XCFrameInfo::FrameTop > XCFrameInfo::FrameBottom)
 			NowPosition[1] -= moveSpeed;
 		setPlayerDirection(PLAYER_STANDBY);
 		have_player_change_state = true;
 	}
-	if (glfwGetKey(screen, XCFrameInfo::p1_keyRight) == GLFW_PRESS) {
+	if (glfwGetKey(screen, XCFrameInfo::keyRight) == GLFW_PRESS) {
 		if ((NowPosition[0] + moveSpeed)*XCFrameInfo::FrameRight < XCFrameInfo::FrameRight)
 			NowPosition[0] += moveSpeed;
 		setPlayerDirection(PLAYER_TURNRIGHT);
 		have_player_change_state = true;
 	}
 
-	if (glfwGetKey(screen, XCFrameInfo::p1_keyLeft) == GLFW_PRESS) {
+	if (glfwGetKey(screen, XCFrameInfo::keyLeft) == GLFW_PRESS) {
 		if ((NowPosition[0] - moveSpeed)*XCFrameInfo::FrameRight > XCFrameInfo::FrameLeft)
 			NowPosition[0] -= moveSpeed;
 		setPlayerDirection(PLAYER_TURNLEFT);
 		have_player_change_state = true;
 	}
 
-	if (glfwGetKey(screen, XCFrameInfo::p1_keyShoot) == GLFW_PRESS) {
+	if (glfwGetKey(screen, XCFrameInfo::keyShoot) == GLFW_PRESS) {
 		if (itemTimer.getAccumlateTime() - lastShootTime > 0.1) {
 			NormalStrike *strikeRight = new NormalStrike(NowPosition[0] + 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
 			NormalStrike *strikeLeft = new NormalStrike(NowPosition[0] - 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
-			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeRight);
-			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeLeft);
+			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeRight, true);
+			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeLeft, true);
 
 			lastShootTime = itemTimer.getAccumlateTime();
 		}
 	
 	}
 
-	/*if (glfwGetKey(screen, keyitem) == GLFW_PRESS) {
-		player_fire_power += 0.1f;
-	}*/
+	if (glfwGetKey(screen, XCFrameInfo::keyItem) == GLFW_PRESS && nowBomb -1 >= 0) {
+		GameInfoInterface::setMaxBomb(maxBomb);
+		GameInfoInterface::setNowBomb(--nowBomb);
+		//player_fire_power += 0.1f;
+	}
 	if (!have_player_change_state) {
 		if (playerNowState != PLAYER_TURNRIGHT && playerNowState != PLAYER_TURNLEFT)
 			setPlayerDirection(playerNowState);

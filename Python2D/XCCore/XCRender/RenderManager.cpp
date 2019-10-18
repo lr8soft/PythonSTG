@@ -1,4 +1,5 @@
 #include "RenderManager.h"
+#include "../../XCFrame.h"
 #include <GL3/gl3w.h>
 #include <GLFW/glfw3.h>
 #include "../Enemy/EnemyObject.h"
@@ -7,37 +8,35 @@
 #include "../XCCollide/CollideInfo.h"
 #include "../UserInterface/GameInfoInterface.h"
 #include "../UserInterface/CoverInterface.h"
-
+#include "../Menu/GameMenu.h"
 RenderManager* RenderManager::pRenderManager = nullptr;
 RenderManager::RenderManager() {
 	auto coverInterface = CoverInterface::getInstance();
 	AddUserInterface("coverImage", coverInterface);
 
-	auto infoInterface = GameInfoInterface::getInstance();
-	AddUserInterface("gameInfo", infoInterface);
 }
+
 
 RenderManager * RenderManager::getInstance()
 {
 	if (pRenderManager == nullptr) {
 		pRenderManager = new RenderManager;
-		if (pRenderManager->getPlayer() == nullptr)
-		{
-			auto group = Player::getPlayerGroup();
-			if (!group->empty()) {
-				pRenderManager->setPlayer(group->begin()->second);
-			}
-		}
 	}
 	return pRenderManager;
 }
 
-void RenderManager::AddRenderObject(const std::string& parentUuid, RenderObject * object)
+void RenderManager::AddRenderObject(const std::string& parentUuid, RenderObject * object, bool isAsyncio)
 {
-	renderObjectList.insert(std::make_pair(parentUuid, object));
-	object->Init();
-	if (parentUuid == StrikeRenderGroupUuid) {
-		strikeCollisionHelperGroup.push_back(object);
+	if (!isAsyncio) {
+		renderObjectList.insert(std::make_pair(parentUuid, object));
+		object->Init();
+		if (parentUuid == StrikeRenderGroupUuid) {
+			strikeCollisionHelperGroup.push_back(object);
+		}
+	}
+	else {
+		object->Init();
+		asyncRenderObjectList.insert(std::make_pair(parentUuid, object));
 	}
 }
 
@@ -45,6 +44,7 @@ void RenderManager::AddUserInterface(const std::string& uiName, IUserInterface *
 {
 	uiGroup.insert(std::make_pair(uiName, ui));
 }
+
 
 void RenderManager::SetBackgroundPointer(Background * bg)
 {
@@ -71,15 +71,14 @@ void RenderManager::RenderWork()
 		}
 
 	}
-	std::multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
-	std::multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
+	std::unordered_multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
+	std::unordered_multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
 	for (auto object = renderBegin; object != renderEnd; object++) {
 		RenderObject *renderObject = object->second;
 		if (!renderObject->getIsTerminate()) {
 			renderObject->Render();
-
 			if (renderObject->getCurrentType()==RenderObject::BulletType) {
-				auto collideHelperP1 = CollideInfo::getCollideHelperP1();
+				auto collideHelperP1 = CollideInfo::getCollideHelper();
 				if (collideHelperP1 != nullptr) {
 					collideHelperP1->checkCollisionWithBullet(static_cast<Bullet*>(renderObject));
 				}
@@ -93,6 +92,7 @@ void RenderManager::RenderWork()
 				}
 			}
 		}
+	
 		if (renderObject->getIsTerminate()) {
 			renderObject->Release();
 			if (object->first == StrikeRenderGroupUuid) {
@@ -123,7 +123,6 @@ void RenderManager::RenderWork()
 		}
 		if (ui->getIsInit()) {
 			ui->UserInterfaceRender();
-			shouldGamePause = ui->getShouldPauseGame();
 		}
 		if (ui->getIsWorkFinish()) {
 			ui->UserInterfaceRelease();
@@ -140,41 +139,114 @@ void RenderManager::RenderWork()
 		}
 
 	}
+	solveAsyncCommand();
+	solveAsyncObject();
+}
+
+
+void RenderManager::solveAsyncCommand()
+{
+	if (externCommandList.empty()) return;
+	std::unordered_multimap<insideCommand, std::string>::iterator commandBegin = externCommandList.begin();
+	std::unordered_multimap<insideCommand, std::string>::iterator commandEnd = externCommandList.end();
+	for (auto command = commandBegin; command != commandEnd; command++) {
+		const insideCommand& info = command->first;
+		std::string& uuid = command->second;		
+
+		switch (info)
+		{
+		case RenderManager::cRenderObject:
+			{
+				std::unordered_multimap<std::string, RenderObject*>::iterator targetBegin = renderObjectList.find(uuid);
+				std::unordered_multimap<std::string, RenderObject*>::iterator targetEnd = renderObjectList.end();
+				for (auto object = targetBegin; object != targetEnd; object = renderObjectList.find(uuid)) {
+					RenderObject *renderObject = object->second;
+					renderObject->Release();
+					delete renderObject;
+					if (std::next(object) == targetEnd)
+					{
+						renderObjectList.erase(object);
+						break;
+					}
+					else {
+						renderObjectList.erase(object++);
+						targetEnd = renderObjectList.end();
+					}
+				}
+			}
+			break;
+		case RenderManager::cAllRenderObject:
+			{
+				std::unordered_multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
+				std::unordered_multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
+				for (auto object = renderBegin; object != renderEnd; object++) {
+					RenderObject *renderObject = object->second;
+					renderObject->Release();
+					delete renderObject;
+				}
+				renderObjectList.clear();
+				strikeCollisionHelperGroup.clear();		
+			}
+			break;
+		case RenderManager::tBullet:
+			{
+				std::unordered_multimap<std::string, RenderObject*>::iterator bulletBegin = renderObjectList.begin();
+				std::unordered_multimap<std::string, RenderObject*>::iterator bulletEnd = renderObjectList.end();
+				for (auto object = bulletBegin; object != bulletEnd; object++) {
+					if (object->first == uuid) {
+						RenderObject *renderObject = object->second;
+						if (renderObject->getCurrentType() == RenderObject::BulletType) {
+							Bullet* pBullet = static_cast<Bullet*>(renderObject);
+							pBullet->setBulletTerminate();
+						}
+					}
+				}		
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	externCommandList.clear();
+}
+
+void RenderManager::solveAsyncObject()
+{
+	if (asyncRenderObjectList.empty()) return;
+	std::unordered_multimap<std::string, RenderObject*>::iterator obegin = asyncRenderObjectList.begin();
+	std::unordered_multimap<std::string, RenderObject*>::iterator oend = asyncRenderObjectList.end();
+
+	for (auto object = obegin; object != oend; object++) {
+		renderObjectList.insert(std::make_pair(object->first, object->second));
+		if (object->first == StrikeRenderGroupUuid) {
+			strikeCollisionHelperGroup.push_back(object->second);
+		}
+	}
+	asyncRenderObjectList.clear();
 }
 
 void RenderManager::CleanRenderObject(const std::string& uuid)
 {
-	std::multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.find(uuid);
-	std::multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
-	for (auto object = renderBegin; object != renderEnd; object = renderObjectList.find(uuid)) {
-		RenderObject *renderObject = object->second;
-		renderObject->Release();
-		delete renderObject;
-		if (std::next(object) == renderEnd)
-		{
-			renderObjectList.erase(object);
-			break;
-		}
-		else {
-			renderObjectList.erase(object++);
-			renderEnd = renderObjectList.end();
-		}
+	externCommandList.insert(std::make_pair(RenderManager::cRenderObject, uuid));
+}
+
+void RenderManager::CleanAllRenderObject()
+{
+	externCommandList.insert(std::make_pair(RenderManager::cAllRenderObject, ""));
+	
+}
+
+void RenderManager::CleanUserInterface(const std::string & uuid)
+{
+	auto item = uiGroup.find(uuid);
+	if (item!=uiGroup.end()) {
+		uiGroup.erase(item);
 	}
 }
 
 void RenderManager::TerminateBullet(const std::string& parentUuid)
 {
-	std::multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
-	std::multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
-	for (auto object = renderBegin; object != renderEnd; object++) {
-		if (object->first == parentUuid) {
-			RenderObject *renderObject = object->second;
-			if (renderObject->getCurrentType() == RenderObject::BulletType) {
-				Bullet* pBullet = static_cast<Bullet*>(renderObject);
-				pBullet->setBulletTerminate();
-			}
-		}
-	}
+	externCommandList.insert(std::make_pair(RenderManager::tBullet, parentUuid));
 }
 
 bool RenderManager::CheckRenderComplete(const std::string& uuid)

@@ -25,6 +25,8 @@ XCAdvImageHelper::XCAdvImageHelper(std::string path)
 	ImageLoader imgLoader;
 	imgLoader.loadTextureFromFile(path.c_str());
 	tbo = imgLoader.getTextureBufferObjectHandle();
+	width = imgLoader.getTextureWidth();
+	height = imgLoader.getTextureHeight();
 
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
@@ -45,13 +47,13 @@ XCAdvImageHelper::XCAdvImageHelper(std::string path)
 	glEnableVertexAttribArray(1);
 }
 
-void XCAdvImageHelper::setMvpMatrix(glm::mat4 mat)
+void XCAdvImageHelper::setMvpMatrix(const glm::mat4& mat)
 {
 	mvp_matrix = mat;
 }
 
 
-void XCAdvImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle, glm::vec3 rorateWorkCoord, glm::vec3 scaleSize, float *texturePos16xFloat)
+void XCAdvImageHelper::Render(const glm::vec3& renderPos, const glm::vec4& coverColor, float rotateAngle, const glm::vec3& rorateWorkCoord, const glm::vec3& scaleSize, float *texturePos16xFloat)
 {
 
 	glUseProgram(ProgramHandle);
@@ -59,7 +61,7 @@ void XCAdvImageHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float r
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBindTexture(GL_TEXTURE_2D, tbo);
 
-	auto color_location = glGetUniformLocation(ProgramHandle, "diffuse_color");
+	auto color_location =  glGetUniformLocation(ProgramHandle, "diffuse");
 	glUniform4fv(color_location, 1, glm::value_ptr(coverColor));
 
 	auto mvp_fx_location = glGetUniformLocation(ProgramHandle, "mvp_mat");
@@ -87,4 +89,14 @@ void XCAdvImageHelper::Release()
 GLuint XCAdvImageHelper::getProgramHandle()
 {
 	return ProgramHandle;
+}
+
+int XCAdvImageHelper::getHeight()
+{
+	return height;
+}
+
+int XCAdvImageHelper::getWidth()
+{
+	return width;
 }

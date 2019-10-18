@@ -49,7 +49,7 @@ void CircleTypeBullet::Render()
 {
 	if (isInit) {
 		timer.Tick();
-		auto pPlayerHelper1 = CollideInfo::getCollideHelperP1();
+		auto pPlayerHelper1 = CollideInfo::getCollideHelper();
 		float* playerPos = (pPlayerHelper1 == nullptr ? nullptr : pPlayerHelper1->getPlayerPosition());
 		Bullet::solveBulletMovement(aimToPlayer, playerPos, velocity, angle, acceleration, increaseAngle, timer.getDeltaFrame());
 

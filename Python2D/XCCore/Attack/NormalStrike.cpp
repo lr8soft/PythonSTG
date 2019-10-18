@@ -23,8 +23,7 @@ void NormalStrike::Init()
 			isResInit = true;
 		}
 		
-		std::thread effectThread(&NormalStrike::threadStrikeHitWork, this);
-		effectThread.detach();
+		AudioHelper::playFromBuffer(strikeEffect.wavBuffer);
 
 		renderHelper = new XCImageHelper("assets/Item/attack.png", true);	
 
@@ -86,7 +85,7 @@ void NormalStrike::checkCollisonWithEnemy(EnemyObject * pEnemy)
 		if (enemyPosition[0] <= NowPosition[0] + halfWidth && enemyPosition[0] >= NowPosition[0] - halfWidth){
 			if (enemyPosition[1] <= NowPosition[1] + halfHeight && enemyPosition[1] >= lastY - halfHeight) {
 				ParticleHelper* particleGroup = new ParticleHelper;
-				particleGroup->addNewParticle(6, 20.0f, 0.6f, 0.4f, glm::vec4(1.0f), enemyPosition);
+				particleGroup->addNewParticle(6, 15.0f, 0.6f, 0.4f, glm::vec4(1.0f), enemyPosition);
 				RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 
 				pEnemy->hurtEnemy(0.2f);

@@ -12,7 +12,7 @@ winHeight = 720
 winTitle = "Python2D v0.29x"
 winScaleToMonitor = False
 winResize = False
-
+winFullScreen = False
 
 # PySTG default function
 def coreInitializer():

@@ -7,9 +7,8 @@
 #include <iomanip>
 #include <sstream>
 GameInfoInterface* GameInfoInterface::pInterface = nullptr;
-GameInfoInterface::GameInfoInterface()
-{
-}
+int GameInfoInterface::nowLife = 2, GameInfoInterface::maxLife = 8;
+int GameInfoInterface::nowBomb = 2, GameInfoInterface::maxBomb = 8;
 GameInfoInterface * GameInfoInterface::getInstance()
 {
 	if (pInterface == nullptr)
@@ -22,6 +21,7 @@ void GameInfoInterface::UserInterfaceInit()
 		rankImage = new XCAdvImageHelper("assets/UI/rank.png");
 		playerInfoImage1 = new XCAdvImageHelper("assets/UI/playerInfo.png");
 		playerInfoImage2 = new XCAdvImageHelper("assets/UI/playerInfo2.png");
+		lifeBombImage = new XCAdvImageHelper("assets/UI/lifebomb.png");
 
 		fontHelper.FontASCIIInit();
 		isInit = true;
@@ -77,7 +77,7 @@ void GameInfoInterface::UserInterfaceRender()
 			//font start render
 			float hsFontX = XCFrameInfo::FrameRight + (1.0f - XCFrameInfo::FrameRight) / 2 + highScoreWidth / 1.4f;
 			float hsFontY = rankY - nowScoreHeight/2.6f;
-			fontHelper.FontSetWidthAndHeight(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
+			fontHelper.SetHeightAndWidth(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
 			static std::stringstream ss; ss.str(""); 
 			ss << std::setfill('0') << std::setw(10) << highScore << std::endl;
 			static std::string highscoreStr;  ss >> highscoreStr;
@@ -86,26 +86,102 @@ void GameInfoInterface::UserInterfaceRender()
 			float nsFontX = hsFontX;
 			float nsFontY = hsFontY - highScoreHeight * 1.3f;
 			ss.str("");
-			ss << std::setfill('0') << std::setw(10) << nowScore++ << std::endl;//////////test
+			ss << std::setfill('0') << std::setw(10) << nowScore << std::endl;//////////test
 			static std::string nowscoreStr; ss >> nowscoreStr;
 			fontHelper.FontASCIIRender(nowscoreStr, nsFontX, nsFontY, 0.5f, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
 			
-			float nowLifeWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
-			float nowLifeHeight = nowLifeWidth / 3.0f;
-			float nowLifeX = nowScoreX + nowLifeWidth /2.2f;
-			float nowLifeY = nowScoreY - nowLifeWidth;
+			float nowLifeImageWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
+			float nowLifeImageHeight = nowLifeImageWidth / 3.0f;
+			float nowLifeImageX = nowScoreX;
+			float nowLifeImageY = nowScoreY - nowLifeImageWidth * 1.2f;
 			glm::mat4 nowLifeMat;
-			nowLifeMat = glm::translate(nowLifeMat, glm::vec3(nowLifeX, nowLifeY, 0.0f));
-			nowLifeMat = glm::scale(nowLifeMat, glm::vec3(nowLifeWidth, nowLifeHeight, 1.0f));
+			nowLifeMat = glm::translate(nowLifeMat, glm::vec3(nowLifeImageX, nowLifeImageY, 0.0f));
+			nowLifeMat = glm::scale(nowLifeMat, glm::vec3(nowLifeImageWidth, nowLifeImageHeight, 1.0f));
 
 			BlendOneMinusAlphaStart
 			playerInfoImage2->setMvpMatrix(nowLifeMat);
 			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 1, 3));
-			
 			BlendEnd
+
+			float nowBombImageWidth = (1.0f - XCFrameInfo::FrameRight) / 4.5f;
+			float nowBombImageHeight = nowBombImageWidth / 3.0f;
+			float nowBombImageX = nowScoreX / 1.02f;
+			float nowBombImageY = nowLifeImageY - nowBombImageWidth;
+			glm::mat4 nowBombMat;
+			nowBombMat = glm::translate(nowBombMat, glm::vec3(nowBombImageX, nowBombImageY, 0.0f));
+			nowBombMat = glm::scale(nowBombMat, glm::vec3(nowBombImageWidth, nowBombImageHeight, 1.0f));
+			BlendOneMinusAlphaStart
+				playerInfoImage2->setMvpMatrix(nowBombMat);
+			playerInfoImage2->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+				IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 3, 1, 2));
+			BlendEnd
+
+			renderPlayerLife(nowLifeImageX + nowLifeImageWidth / 2.0f, nowLifeImageY );
+			renderPlayerBomb(nowLifeImageX + nowLifeImageWidth / 2.0f, nowBombImageY);
 		}
 	}
+}
+
+GameInfoInterface::GameInfoInterface()
+{
+}
+
+void GameInfoInterface::renderPlayerLife(float x, float y)
+{
+	BlendOneMinusAlphaStart
+
+	float scaleSize = 0.002f;
+	float lifeWidth = (1.0f - XCFrameInfo::FrameRight) / 13.0f;
+	float lifeHeight = lifeWidth;
+
+	for (int i = 0; i < nowLife;i++) {
+		glm::mat4 lifeMat;
+		lifeMat = glm::translate(lifeMat, glm::vec3(x + lifeWidth * i, y, 0.0f));
+		lifeMat = glm::scale(lifeMat, glm::vec3(lifeWidth, lifeHeight, 1.0f));
+		lifeBombImage->setMvpMatrix(lifeMat);
+		lifeBombImage->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 4, 3, 2, 3));
+	}
+	for (int j = 0; j < maxLife - nowLife; j++) {
+			glm::mat4 lifeMat;
+		lifeMat = glm::translate(lifeMat, glm::vec3(x + lifeWidth *(nowLife+j), y, 0.0f));
+		lifeMat = glm::scale(lifeMat, glm::vec3(lifeWidth, lifeHeight, 1.0f));
+		lifeBombImage->setMvpMatrix(lifeMat);
+		lifeBombImage->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 4, 3, 1, 3));
+	}
+
+
+	BlendEnd
+}
+
+void GameInfoInterface::renderPlayerBomb(float x, float y)
+{
+	BlendOneMinusAlphaStart
+
+	float scaleSize = 0.002f;
+	float lifeWidth = (1.0f - XCFrameInfo::FrameRight) / 13.0f;
+	float lifeHeight = lifeWidth;
+
+	for (int i = 0; i < nowBomb; i++) {
+		glm::mat4 lifeMat;
+		lifeMat = glm::translate(lifeMat, glm::vec3(x + lifeWidth * i, y, 0.0f));
+		lifeMat = glm::scale(lifeMat, glm::vec3(lifeWidth, lifeHeight, 1.0f));
+		lifeBombImage->setMvpMatrix(lifeMat);
+		lifeBombImage->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 4, 3, 4, 3));
+	}
+	for (int j = 0; j < maxBomb - nowBomb; j++) {
+		glm::mat4 lifeMat;
+		lifeMat = glm::translate(lifeMat, glm::vec3(x + lifeWidth * (nowBomb + j), y, 0.0f));
+		lifeMat = glm::scale(lifeMat, glm::vec3(lifeWidth, lifeHeight, 1.0f));
+		lifeBombImage->setMvpMatrix(lifeMat);
+		lifeBombImage->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 4, 3, 3, 3));
+	}
+
+	BlendEnd
 }
 
 void GameInfoInterface::UserInterfaceRelease()
@@ -114,8 +190,9 @@ void GameInfoInterface::UserInterfaceRelease()
 		rankImage->Release();
 		playerInfoImage1->Release();
 		playerInfoImage2->Release();
+		lifeBombImage->Release();
 
-		delete rankImage, playerInfoImage1, playerInfoImage2, pInterface;
+		delete rankImage, playerInfoImage1, playerInfoImage2, pInterface, lifeBombImage;
 		pInterface = nullptr;
 		isInit = false;
 	}
@@ -144,4 +221,14 @@ void GameInfoInterface::setNowBomb(int count)
 void GameInfoInterface::setNowLife(int life)
 {
 	nowLife = life;
+}
+
+void GameInfoInterface::setMaxBomb(int count)
+{
+	maxBomb = count;
+}
+
+void GameInfoInterface::setMaxLife(int count)
+{
+	maxLife = count;
 }

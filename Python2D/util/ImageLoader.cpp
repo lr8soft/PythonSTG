@@ -50,7 +50,15 @@ void xc_ogl::ImageLoader::loadTextureFromFile(const char * path)
 		void* texture_ptr = stbi_load(path, &width, &height, &channel, STBI_rgb_alpha);
 		glBindTexture(texture_type, tbo);
 		if (texture_ptr) {
-			if (channel == 3) {//RGB -> jpeg
+			if (channel==1) {
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_ptr);//latter parameter is RGBA
+				std::cout << "[INFO] Load image from " << path << " format:GREY" << std::endl;
+			}
+			else if (channel ==2) {
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_ptr);//latter parameter is RGBA
+				std::cout << "[INFO] Load image from " << path << " format:GREY ALPHA" << std::endl;
+			}
+			else if (channel == 3) {//RGB -> jpeg
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_ptr);//latter parameter is RGBA
 				std::cout << "[INFO] Load image from " << path << " format:RGB" << std::endl;
 			}

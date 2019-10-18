@@ -57,7 +57,7 @@ void AudioHelper::UnloadEvon()
 	isEvonInit = false;
 }
 
-XCWavFile AudioHelper::loadWavFromFile(const std::string filename)
+XCWavFile AudioHelper::loadWavFromFile(const std::string& filename)
 {
 	XCWavFile wavFile;
 	auto wavIter = wavSourceGroup.find(filename);

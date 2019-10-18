@@ -55,7 +55,7 @@ XCColorBlockHelper::XCColorBlockHelper(bool fx)
 	glEnableVertexAttribArray(0);
 }
 
-void XCColorBlockHelper::Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle, glm::vec3 rotateWork, glm::vec3 scaleSize, float * dataPointer)
+void XCColorBlockHelper::Render(const glm::vec3& renderPos,const glm::vec4& coverColor, float rotateAngle, const glm::vec3& rotateWork, const glm::vec3& scaleSize, float * dataPointer)
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

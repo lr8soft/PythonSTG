@@ -10,6 +10,7 @@ struct InitInfo {
 	int winWidth;
 	bool winResize;
 	bool winScale;
+	bool winFullScreen;
 	std::string winImage;
 	std::string winTitle;
 };
@@ -24,7 +25,8 @@ private:
 public:
 	XCInterpreter();
 	~XCInterpreter();
-	InitInfo ScriptLaunch();
+	InitInfo getInitInfo();
+	void loadTaskManagerInfo();
 };
 
 #endif

@@ -103,7 +103,7 @@ void XCFont::BufferInit()
 	}
 
 }
-void XCFont::FontSetWidthAndHeight(float h, float w)
+void XCFont::SetHeightAndWidth(float h, float w)
 {
 	render_width = w;
 	render_height = h;

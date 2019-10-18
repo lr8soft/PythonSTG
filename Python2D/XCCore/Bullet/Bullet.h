@@ -10,6 +10,7 @@ protected:
 	float NowPosition[3] = { 0.0f,  0.0f, 0.0f };
 	/*
 	bool isWorkFinish = false
+	std::atomic_bool isInit = false;
 	*/
 
 	bool checkReboundOrOverflow(int *reBoundTimePointer, float *angle, float scaleX, float scaleY)

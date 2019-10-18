@@ -22,7 +22,7 @@ private:
 
 	XCGameTimer timer;
 	XCImageHelper* image;
-	bool isInit = false, aimToPlayer = false;
+	bool aimToPlayer = false;
 public:
 	/*#! Attention scaleInfo will work both collide and render.
 #! renderSize: scaleX * widthRate : scaleY * heightRate  ,collideSize : scaleX : scaleY*/

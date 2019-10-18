@@ -1,10 +1,11 @@
 #pragma once
 #ifndef _RENDER_OBJECT_H_
 #define _RENDER_OBJECT_H_
+#include <atomic>
 class RenderObject {
 public:
 	enum ObjectType {
-		BulletType = 0, ItemType, EnemyType, AttackType, NoneType
+		BulletType = 0, ItemType, EnemyType, AttackType, MenuType, NoneType
 	};
 
 protected:
@@ -15,6 +16,8 @@ protected:
 	}
 
 	bool isWorkFinish = false;
+
+	std::atomic_bool isInit = false;
 public:
 	virtual void Init() = 0;
 	virtual void Render() = 0;

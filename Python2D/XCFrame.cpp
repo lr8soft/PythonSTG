@@ -14,7 +14,7 @@ void XCFrame::FrameInit()
 {
 	ScriptLoader::initPythonEvon();
 	interpreter = new XCInterpreter;
-	InitInfo info = interpreter->ScriptLaunch();
+	InitInfo info = interpreter->getInitInfo();
 	FrameWidth = info.winWidth;
 	FrameHeight = info.winHeight;
 	XCFrameInfo::ScreenHeight = info.winHeight;
@@ -31,22 +31,26 @@ void XCFrame::FrameInit()
 	XCFrameInfo::FrameBottom = -absHeight;
 
 	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);//OpenGL 4.3 Core Mode
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);//核心模式牛 逼
 	glfwWindowHint(GLFW_RESIZABLE, info.winResize);//No resizable.
 	glfwWindowHint(GLFW_SCALE_TO_MONITOR, info.winScale);//Auto change size
-	
-	pscreen = glfwCreateWindow(FrameWidth, FrameHeight, XCFrameInfo::ScreenOriginTitle.c_str(), nullptr, nullptr);
+
+	GLFWmonitor* primaryMonitor = info.winFullScreen ? glfwGetPrimaryMonitor() : nullptr;
+	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+	tscreen = glfwCreateWindow(1, 1, "ThreadInitHelper", nullptr, nullptr);
+	glfwWindowHint(GLFW_VISIBLE, GL_TRUE);
+	pscreen = glfwCreateWindow(FrameWidth, FrameHeight, XCFrameInfo::ScreenOriginTitle.c_str(), primaryMonitor, tscreen);
+	glfwMakeContextCurrent(pscreen);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 	glfwSetWindowPos(pscreen, (mode->width - FrameWidth) / 2, (mode->height - FrameHeight) / 2);
 	if (pscreen == nullptr) {
-		MessageBox(NULL, "无法创建窗口！", "ERROR", MB_ICONERROR);
+		std::cerr << "[ERROR] Failed to create window!\n";
 		exit(-1);
 	}
-	glfwMakeContextCurrent(pscreen);
 	glfwSwapInterval(1);
 	glfwSetFramebufferSizeCallback(pscreen, FrameResize);
 	glfwSetWindowPosCallback(pscreen, FramePos);
@@ -67,7 +71,9 @@ void XCFrame::FrameLoop()
 			(XCFrameInfo::ScreenOriginTitle + "  | RenderObject: " + std::to_string(RenderManager::getInstance()->GetRenderObjectCount())
 				+  "  FPS: "+std::to_string(timer.getFramePerSecond())).c_str());
 	}
+	isFrameTerminate = true;
 	glfwDestroyWindow(pscreen);
+	glfwDestroyWindow(tscreen);
 	glfwTerminate();
 }
 void XCFrame::FrameFinalize()
@@ -115,24 +121,32 @@ GLFWwindow * XCFrame::getScreen()
 {
 	return pscreen;
 }
+GLFWwindow * XCFrame::getThreadScreen()
+{
+	return tscreen;
+}
+bool XCFrame::getFrameTerminate()
+{
+	return isFrameTerminate;
+}
 XCFrame::XCFrame() {
-	xcstd::ConfigManager cfg("p2d.cfg");
+	xcstd::ConfigManager cfg("pystg.cfg");
 	if (cfg.IsFirstRun()) {
-		cfg.AddNewInfo("p1_up", std::to_string(GLFW_KEY_UP));
-		cfg.AddNewInfo("p1_down", std::to_string(GLFW_KEY_DOWN));
-		cfg.AddNewInfo("p1_left", std::to_string(GLFW_KEY_LEFT));
-		cfg.AddNewInfo("p1_right", std::to_string(GLFW_KEY_RIGHT));
-		cfg.AddNewInfo("p1_shoot", std::to_string(GLFW_KEY_Z));
-		cfg.AddNewInfo("p1_special", std::to_string(GLFW_KEY_X));
-		cfg.AddNewInfo("p1_item", std::to_string(GLFW_KEY_C));
-		cfg.AddNewInfo("p1_slow", std::to_string(GLFW_KEY_LEFT_SHIFT));
+		cfg.AddNewInfo("up", std::to_string(GLFW_KEY_UP));
+		cfg.AddNewInfo("down", std::to_string(GLFW_KEY_DOWN));
+		cfg.AddNewInfo("left", std::to_string(GLFW_KEY_LEFT));
+		cfg.AddNewInfo("right", std::to_string(GLFW_KEY_RIGHT));
+		cfg.AddNewInfo("shoot", std::to_string(GLFW_KEY_Z));
+		cfg.AddNewInfo("special", std::to_string(GLFW_KEY_X));
+		cfg.AddNewInfo("item", std::to_string(GLFW_KEY_C));
+		cfg.AddNewInfo("slow", std::to_string(GLFW_KEY_LEFT_SHIFT));
 	}
 	else {
-		XCFrameInfo::p1_keyUp = atoi(cfg.GetValue("p1_up").c_str());
-		XCFrameInfo::p1_keyDown = atoi(cfg.GetValue("p1_down").c_str());
-		XCFrameInfo::p1_keyLeft = atoi(cfg.GetValue("p1_left").c_str());
-		XCFrameInfo::p1_keyRight = atoi(cfg.GetValue("p1_right").c_str());
-		XCFrameInfo::p1_keyShoot = atoi(cfg.GetValue("p1_shoot").c_str());
-		XCFrameInfo::p1_keySlow = atoi(cfg.GetValue("p1_slow").c_str());
+		XCFrameInfo::keyUp = atoi(cfg.GetValue("up").c_str());
+		XCFrameInfo::keyDown = atoi(cfg.GetValue("down").c_str());
+		XCFrameInfo::keyLeft = atoi(cfg.GetValue("left").c_str());
+		XCFrameInfo::keyRight = atoi(cfg.GetValue("right").c_str());
+		XCFrameInfo::keyShoot = atoi(cfg.GetValue("shoot").c_str());
+		XCFrameInfo::keySlow = atoi(cfg.GetValue("slow").c_str());
 	}
 }

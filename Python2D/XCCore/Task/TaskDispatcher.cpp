@@ -1,11 +1,11 @@
 #include "TaskDispatcher.h"
 std::map<std::string, bool> TaskDispatcher::StageTaskGroup;
-void TaskDispatcher::addTask(std::string uuid)
+void TaskDispatcher::addTask(const std::string& uuid)
 {
 	StageTaskGroup.insert(std::make_pair(uuid, false));
 }
 
-void TaskDispatcher::updateTask(std::string uuid, bool isFinsh)
+void TaskDispatcher::updateTask(const std::string& uuid, bool isFinsh)
 {
 	std::map<std::string, bool>::iterator target = StageTaskGroup.find(uuid);
 	if (target != StageTaskGroup.end()) {
@@ -13,7 +13,7 @@ void TaskDispatcher::updateTask(std::string uuid, bool isFinsh)
 	}
 }
 
-bool TaskDispatcher::getTaskFinish(std::string targetUuid)
+bool TaskDispatcher::getTaskFinish(const std::string& targetUuid)
 {
 	bool isTargetFinish = false;
 	std::map<std::string, bool>::iterator target = StageTaskGroup.find(targetUuid);

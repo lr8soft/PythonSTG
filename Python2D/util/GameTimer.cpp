@@ -3,11 +3,15 @@
 #include <iostream>
 bool XCGameTimer::IsPause = false;
 bool XCGameTimer::afterPause = false;
+XCGameTimer::XCGameTimer(bool willEffectByPause)
+{
+	EffectByPause = willEffectByPause;
+}
 void XCGameTimer::Tick()
 {
-	if (!IsPause) 
+	if (!IsPause || !EffectByPause)
 	{
-		if (afterPause)
+		if (afterPause && EffectByPause)
 		{
 			nowFrame = glfwGetTime();
 			lastTime = nowFrame;
@@ -39,9 +43,9 @@ void XCGameTimer::Tick()
 
 void XCGameTimer::Tick(float update_nowFrame)
 {
-	if (!IsPause) 
+	if (!IsPause || !EffectByPause)
 	{
-		if (afterPause)
+		if (afterPause && EffectByPause)
 		{
 			nowFrame = update_nowFrame;
 			lastTime = update_nowFrame;

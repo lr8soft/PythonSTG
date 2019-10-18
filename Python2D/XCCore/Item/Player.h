@@ -43,6 +43,9 @@ private:
 	int standByRow = 3, turnLeftRow = 2, turnRightRow = 1;
 	float playerSameStateTime = 0.0f;
 
+	int maxLife = 8, maxBomb = 8;
+	int nowLife = 2, nowBomb = 2;
+
 	void playerKeyCheck(); 
 	void setPlayerDirection(int direction);
 protected:

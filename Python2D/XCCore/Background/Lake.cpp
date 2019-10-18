@@ -45,7 +45,7 @@ void LakeBackground::BackgroundRender()
 
 void LakeBackground::renderLakeImage()
 {
-	glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop,1.0f);
+	static glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop,1.0f);
 	{
 		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.0f)*reshape);
@@ -82,10 +82,8 @@ void LakeBackground::renderLakeImage()
 
 void LakeBackground::renderWaterImage()
 {
-	glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f);
+	static glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f);
 	BlendAlphaOneStart
-	//GL_ONE_MINUS_SRC_ALPHA
-	//glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);
 	{
 		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.0f, 0.5f, 0.0f));
@@ -107,7 +105,7 @@ void LakeBackground::renderWaterImage()
 
 void LakeBackground::renderLeafImage()
 {
-	glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f);	
+	static glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f);
 	BlendOneMinusAlphaColorStart
 	{
 		glm::mat4 model;

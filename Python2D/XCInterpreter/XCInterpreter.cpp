@@ -23,17 +23,19 @@ InitInfo XCInterpreter::InterpreterThread()
 	PyObject* title = pyLoader.getAttrib(mainScript, "winTitle");
 	PyObject* resize = pyLoader.getAttrib(mainScript, "winResize");
 	PyObject* scale  = pyLoader.getAttrib(mainScript, "winScaleToMonitor");
-	//PyObject* image = pyLoader.getAttrib(mainScript, "winImage");
+	PyObject* fullscreen = pyLoader.getAttrib(mainScript, "winFullScreen");
+
 	info.winHeight = pyLoader.getSingleArg<int>(height);
 	info.winWidth = pyLoader.getSingleArg<int>(width);
 	info.winTitle = pyLoader.getSingleArg<const char*>(title);
-	//info.winImage = pyLoader.getSingleArg<const char*>(image);
 
 	int intValue;
 	PyArg_Parse(resize, "p", &intValue);
 	info.winResize = intValue;
 	PyArg_Parse(scale, "p", &intValue);
 	info.winScale = intValue;
+	PyArg_Parse(fullscreen, "p", &intValue);
+	info.winFullScreen = intValue;
 #ifdef _DEBUG
 	std::cout << "=======INIT INFO=======" << std::endl;
 	std::cout << "width:" << info.winWidth << " height:" << info.winHeight << std::endl;
@@ -41,9 +43,6 @@ InitInfo XCInterpreter::InterpreterThread()
 	std::cout << "title:" << info.winTitle << std::endl;
 	std::cout << "=====================" << std::endl << std::endl;
 #endif
-	
-	parseStageItem();
-	parsePlayerEntity();
 	MultiThreadDefineEnd
 	return info;
 }
@@ -133,11 +132,18 @@ void XCInterpreter::parsePlayerEntity()
 	}
 }
 
-InitInfo XCInterpreter::ScriptLaunch()
+InitInfo XCInterpreter::getInitInfo()
 {
 	std::cout << "[INFO] Now pyInterpreter start." << std::endl;
 	std::future<InitInfo> retFuture = std::async(&XCInterpreter::InterpreterThread, this);
 	return retFuture.get();
+}
+void XCInterpreter::loadTaskManagerInfo()
+{
+	MultiThreadDefine
+	parseStageItem();
+	parsePlayerEntity();
+	MultiThreadDefineEnd
 }
 XCInterpreter::~XCInterpreter()
 {
