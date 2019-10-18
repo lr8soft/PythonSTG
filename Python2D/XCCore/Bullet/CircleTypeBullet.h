@@ -26,7 +26,8 @@ private:
 
 	XCGameTimer timer;
 	XCImageHelper* image;
-	bool isInit = false, aimToPlayer = false, haveCheckGraze = false;
+	
+	bool aimToPlayer = false, haveCheckGraze = false;
 	
 public:
 	/*#£¡Attention scaleInfo will work both collide and render.

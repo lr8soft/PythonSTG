@@ -57,8 +57,10 @@ void TaskManager::TaskWork()
 		}
 	}
 	else {//empty
-		if (stageQueue.empty() && RenderManager::getInstance()->CheckRenderComplete(MenuUniformUUID)) {
-			LaunchHelper::LoadGameMenu();
+		if (stageQueue.empty()) {
+			if(RenderManager::getInstance()->CheckRenderComplete(MenuUniformUUID)){
+				LaunchHelper::LoadGameMenu();
+			}	
 		}
 	}
 }

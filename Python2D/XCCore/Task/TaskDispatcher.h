@@ -7,9 +7,9 @@ class TaskDispatcher {
 private:
 	static std::map<std::string, bool> StageTaskGroup;
 public:
-	static void addTask(std::string uuid);
-	static void updateTask(std::string uuid, bool isFinsh);
-	static bool getTaskFinish(std::string targetUuid);
+	static void addTask(const std::string& uuid);
+	static void updateTask(const std::string& uuid, bool isFinsh);
+	static bool getTaskFinish(const std::string& targetUuid);
 	static void clearTask();
 };
 #endif

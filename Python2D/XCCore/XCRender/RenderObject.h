@@ -1,6 +1,7 @@
 #pragma once
 #ifndef _RENDER_OBJECT_H_
 #define _RENDER_OBJECT_H_
+#include <atomic>
 class RenderObject {
 public:
 	enum ObjectType {
@@ -15,6 +16,8 @@ protected:
 	}
 
 	bool isWorkFinish = false;
+
+	std::atomic_bool isInit = false;
 public:
 	virtual void Init() = 0;
 	virtual void Render() = 0;

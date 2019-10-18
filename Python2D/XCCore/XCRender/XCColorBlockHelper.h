@@ -12,8 +12,8 @@ private:
 	bool isFlexible;
 public:
 	XCColorBlockHelper(bool isFlexible=false);
-	virtual void Render(glm::vec3 renderPos, glm::vec4 coverColor, float rotateAngle = 0.0f, glm::vec3 rotateWork = glm::vec3(0, 0, 0),
-		glm::vec3 scaleSize = glm::vec3(1.0f, 1.0f, 1.0f), float *dataPointer = nullptr);
+	virtual void Render(const glm::vec3& renderPos,const glm::vec4& coverColor, float rotateAngle = 0.0f, const glm::vec3& rotateWork = glm::vec3(0, 0, 0),
+		const glm::vec3& scaleSize = glm::vec3(1.0f, 1.0f, 1.0f), float *dataPointer = nullptr);
 	virtual void Release();
 };
 #endif

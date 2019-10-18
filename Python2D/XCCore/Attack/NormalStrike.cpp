@@ -23,8 +23,7 @@ void NormalStrike::Init()
 			isResInit = true;
 		}
 		
-		std::thread effectThread(&NormalStrike::threadStrikeHitWork, this);
-		effectThread.detach();
+		AudioHelper::playFromBuffer(strikeEffect.wavBuffer);
 
 		renderHelper = new XCImageHelper("assets/Item/attack.png", true);	
 

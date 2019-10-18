@@ -151,7 +151,8 @@ void Player::hurtPlayer()
 		GameInfoInterface::setMaxLife(maxLife);
 		GameInfoInterface::setNowLife(--nowLife);
 		if (nowLife < 0) {
-			LaunchHelper::LoadGameMenu();
+			nowLife = 8;
+			//LaunchHelper::LoadGameMenu();
 		}
 	}
 		
@@ -181,7 +182,6 @@ void Player::playerKeyCheck()
 	float moveSpeed = baseSpeed * itemTimer.getDeltaFrame();
 	if (glfwGetKey(screen, XCFrameInfo::keySlow) == GLFW_PRESS) {
 		moveSpeed = moveSpeed / 1.5f * 0.40f;
-		//have_player_change_state = false;
 		renderDecisionPoint = true;
 	}
 	if (glfwGetKey(screen, XCFrameInfo::keyUp) == GLFW_PRESS) {
@@ -215,8 +215,8 @@ void Player::playerKeyCheck()
 		if (itemTimer.getAccumlateTime() - lastShootTime > 0.1) {
 			NormalStrike *strikeRight = new NormalStrike(NowPosition[0] + 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
 			NormalStrike *strikeLeft = new NormalStrike(NowPosition[0] - 0.04f, NowPosition[1] + 0.07f, NowPosition[2]);
-			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeRight);
-			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeLeft);
+			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeRight, true);
+			RenderManager::getInstance()->AddRenderObject(StrikeRenderGroupUuid, strikeLeft, true);
 
 			lastShootTime = itemTimer.getAccumlateTime();
 		}

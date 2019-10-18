@@ -1,9 +1,9 @@
 #pragma once
 #ifndef _RENDER_MANAGER_H_
 #define _RENDER_MANAGER_H_
-#include <map>
 #include <list>
 #include <string>
+#include <unordered_map>
 #include "../UserInterface/IUserInterface.h"
 #include "../Background/Background.h"
 #include "../Item/Player.h"
@@ -16,9 +16,10 @@ private:
 	enum insideCommand {
 		cRenderObject = 0, cAllRenderObject, tBullet, cUserInterface
 	};
-	std::multimap<std::string, RenderObject*> renderObjectList;
-	std::multimap<insideCommand, std::string> externCommandList;
-	std::multimap<std::string, RenderObject*> asyncRenderObjectList;
+	std::unordered_multimap<std::string, RenderObject*> renderObjectList;
+	std::unordered_multimap<insideCommand, std::string> externCommandList;
+	std::unordered_multimap<std::string, RenderObject*> asyncRenderObjectList;
+
 	std::map<std::string, IUserInterface*> uiGroup;
 	std::list<RenderObject*> strikeCollisionHelperGroup;
 
@@ -28,7 +29,7 @@ private:
 	static RenderManager* pRenderManager;
 	RenderManager();
 
-	void solveExternCommand();
+	void solveAsyncCommand();
 	void solveAsyncObject();
 public:
 	static RenderManager* getInstance();

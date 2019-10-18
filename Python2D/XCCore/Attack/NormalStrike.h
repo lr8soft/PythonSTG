@@ -1,7 +1,6 @@
 #pragma once
 #ifndef _NORMAL_STRIKE_H_
 #define _NORMAL_STRIKE_H_
-#include <thread>
 #include "IAttack.h"
 #include "../../util/GameTimer.h"
 #include "../XCRender/XCImageHelper.h"

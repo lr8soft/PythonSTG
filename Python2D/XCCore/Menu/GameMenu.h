@@ -11,7 +11,6 @@ class GameMenu :public IMenu{
 private:
 	std::map<int, std::string> menuItem;
 	XCFont fontHelper;
-	bool isInit = false;
 	XCGameTimer timer;
 
 	XCWavFile confirmEffect, cancelEffect;
@@ -24,7 +23,5 @@ public:
 	virtual void Init() override;
 	virtual void Render() override;
 	virtual void Release() override;
-
-	void Reset();
 };
 #endif

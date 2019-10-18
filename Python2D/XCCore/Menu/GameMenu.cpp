@@ -48,7 +48,7 @@ void GameMenu::Render()
 
 void GameMenu::checkKeyInput()
 {
-	if (timer.getAccumlateTime() - lastClickTime > 0.16) {
+	if (timer.getAccumlateTime() - lastClickTime > 0.12) {
 		GLFWwindow* screen = XCFrame::getInstance()->getScreen();
 		if (glfwGetKey(screen, XCFrameInfo::keyUp) == GLFW_PRESS) {
 			AudioHelper::stopByBuffer(confirmEffect.wavBuffer);
