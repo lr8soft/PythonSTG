@@ -80,7 +80,6 @@
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
     <ClCompile Include="XCFrameInfo.cpp" />
-    <ClCompile Include="python2d.cpp" />
     <ClCompile Include="XCCore\Item\Item.cpp">
       <Filter>XCCore\Item</Filter>
     </ClCompile>
@@ -184,6 +183,7 @@
     <ClCompile Include="XCCore\Bullet\OvalTypeBullet.cpp">
       <Filter>XCCore\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="pythonstg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">

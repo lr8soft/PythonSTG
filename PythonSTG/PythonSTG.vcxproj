@@ -21,9 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{197FF324-7103-4D11-906C-5B318BDB99F0}</ProjectGuid>
-    <RootNamespace>python2d</RootNamespace>
+    <RootNamespace>pythonstg</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <ProjectName>Python2D</ProjectName>
+    <ProjectName>PythonSTG</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -180,7 +180,7 @@
     <ClCompile Include="XCInterpreter\XCInterpreter.cpp" />
     <ClCompile Include="XCCore\XCRender\XCImageHelper.cpp" />
     <ClCompile Include="XCFrame.cpp" />
-    <ClCompile Include="python2d.cpp" />
+    <ClCompile Include="pythonstg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LaunchHelper.h" />
