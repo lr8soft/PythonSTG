@@ -1,5 +1,7 @@
 #include "BulletHelper.h"
 #include "CircleTypeBullet.h"
+#include "OvalTypeBullet.h"
+#include "RectangleTypeBullet.h"
 #include "../../XCInterpreter/ScriptLoader.h"
 Bullet * BulletHelper::getNewBulletObject(std::string bulletImage,std::string bulletType, glm::vec4 divideInfo, glm::vec3 scaleInfo, glm::vec3 collideSize,
 	glm::vec3 initCoord, float velocity, float acceleration, float angle, float increateAngle, int reboundTime, bool aimPlayer,
@@ -9,6 +11,14 @@ Bullet * BulletHelper::getNewBulletObject(std::string bulletImage,std::string bu
 	if (bulletType == "circleTypeBullet") {
 		bullet = new CircleTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
 			particleDensity, particleFinishTime,  particleVelocity, particleSize, particleColor);
+	}
+	else if (bulletType == "ovalTypeBullet") {
+		bullet = new OvalTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
+			particleDensity, particleFinishTime, particleVelocity, particleSize, particleColor);
+	}
+	else if (bulletType == "rectangleTypeBullet") {
+		/*bullet = new RectangleTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
+			particleDensity, particleFinishTime, particleVelocity, particleSize, particleColor);*/
 	}
 	return bullet;
 }

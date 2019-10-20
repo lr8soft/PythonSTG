@@ -178,6 +178,12 @@
       <Filter>XCCore\Menu</Filter>
     </ClCompile>
     <ClCompile Include="LaunchHelper.cpp" />
+    <ClCompile Include="XCCore\Menu\PauseMenu.cpp">
+      <Filter>XCCore\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Bullet\OvalTypeBullet.cpp">
+      <Filter>XCCore\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -330,5 +336,11 @@
       <Filter>XCCore\Menu</Filter>
     </ClInclude>
     <ClInclude Include="LaunchHelper.h" />
+    <ClInclude Include="XCCore\Menu\PauseMenu.h">
+      <Filter>XCCore\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h">
+      <Filter>XCCore\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

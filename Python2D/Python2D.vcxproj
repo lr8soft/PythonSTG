@@ -123,6 +123,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;D:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <LanguageStandard>
+      </LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -144,9 +147,11 @@
     <ClCompile Include="XCCore\Background\MagicForest.cpp" />
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp" />
     <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp" />
+    <ClCompile Include="XCCore\Bullet\OvalTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Enemy\EnemyObject.cpp" />
     <ClCompile Include="XCCore\Menu\GameMenu.cpp" />
+    <ClCompile Include="XCCore\Menu\PauseMenu.cpp" />
     <ClCompile Include="XCCore\Task\Task.cpp" />
     <ClCompile Include="XCCore\Task\TaskBoss.cpp" />
     <ClCompile Include="XCCore\Task\TaskDispatcher.cpp" />
@@ -179,6 +184,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LaunchHelper.h" />
+    <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h" />
+    <ClInclude Include="XCCore\Menu\PauseMenu.h" />
     <ClInclude Include="util\ConfigManager.h" />
     <ClInclude Include="util\GameTimer.h" />
     <ClInclude Include="util\ImageLoader.h" />

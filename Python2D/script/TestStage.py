@@ -4,6 +4,7 @@ from script.Bullet.Bullet import BulletColor
 from script.Bullet.CircleBullet import CircleBullet
 from script.Bullet.HugeBullet import HugeBullet
 from script.Bullet.RiceBullet import RiceBullet
+from script.Bullet.OvalBullet import OvalBullet
 from script.Stage.Task import Task, TaskUnit
 from script.Stage.TaskEnemy import TaskEnemy, EnemyColor
 from script.Stage.XCStage import XCStage
@@ -23,7 +24,7 @@ def setupMyStage():
     # bullet group 0
     unit0 = TaskUnit(waitFrame=60, repeatTime=3)
     for j in range(0, 36):
-        bullet = CircleBullet()
+        bullet = OvalBullet()
         bullet.setVelocity(0.6)
         bullet.setAngle(j * 10)
         bullet.setBulletColor(BulletColor.BLUE)
@@ -40,7 +41,7 @@ def setupMyStage():
     unit2 = TaskUnit(waitFrame=120, repeatTime=3)
     for i in range(0, 72):
         if i % 2 == 0:
-            bullet = CircleBullet()
+            bullet = OvalBullet()
             bullet.setInitCoord([0.5, 0.5, 0.0])
             bullet.setVelocity(0.6)
             bullet.setBulletColor(BulletColor.ORANGE)
@@ -48,7 +49,7 @@ def setupMyStage():
             bullet.setAngleAcceleration(20)
             unit1.addBullet(bullet)
         else:
-            bullet = CircleBullet()
+            bullet = OvalBullet()
             bullet.setInitCoord([-0.5, -0.5, 0.0])
             bullet.setVelocity(0.6)
             bullet.setBulletColor(BulletColor.PURPLE)

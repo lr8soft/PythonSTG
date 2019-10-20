@@ -148,12 +148,14 @@ void Player::hurtPlayer()
 		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 		isHitTime = true;
 
-		GameInfoInterface::setMaxLife(maxLife);
-		GameInfoInterface::setNowLife(--nowLife);
-		if (nowLife < 0) {
+	
+		if (nowLife -1 >=0) {
+			nowLife--;
+		}else{
 			nowLife = 8;
-			//LaunchHelper::LoadGameMenu();
 		}
+		GameInfoInterface::setMaxLife(maxLife);
+		GameInfoInterface::setNowLife(nowLife);
 	}
 		
 }
@@ -223,10 +225,11 @@ void Player::playerKeyCheck()
 	
 	}
 
-	if (glfwGetKey(screen, XCFrameInfo::keyItem) == GLFW_PRESS && nowBomb -1 >= 0) {
-		GameInfoInterface::setMaxBomb(maxBomb);
-		GameInfoInterface::setNowBomb(--nowBomb);
-		//player_fire_power += 0.1f;
+	if (glfwGetKey(screen, XCFrameInfo::keyItem) == GLFW_PRESS ) {
+		if (nowBomb-1>=0) {
+			GameInfoInterface::setMaxBomb(maxBomb);
+			GameInfoInterface::setNowBomb(--nowBomb);
+		}
 	}
 	if (!have_player_change_state) {
 		if (playerNowState != PLAYER_TURNRIGHT && playerNowState != PLAYER_TURNLEFT)
