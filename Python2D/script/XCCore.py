@@ -9,10 +9,11 @@ import script.TestStage as TestStage
 winWidth = 1280
 winHeight = 720
 
-winTitle = "Python2D v0.29x"
+winTitle = "Python2D v0.30x"
 winScaleToMonitor = False
 winResize = False
 winFullScreen = False
+
 
 # PySTG default function
 def coreInitializer():

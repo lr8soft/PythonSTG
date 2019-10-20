@@ -1,5 +1,7 @@
 #include "BulletHelper.h"
 #include "CircleTypeBullet.h"
+#include "OvalTypeBullet.h"
+#include "RectangleTypeBullet.h"
 #include "../../XCInterpreter/ScriptLoader.h"
 Bullet * BulletHelper::getNewBulletObject(std::string bulletImage,std::string bulletType, glm::vec4 divideInfo, glm::vec3 scaleInfo, glm::vec3 collideSize,
 	glm::vec3 initCoord, float velocity, float acceleration, float angle, float increateAngle, int reboundTime, bool aimPlayer,
@@ -10,6 +12,14 @@ Bullet * BulletHelper::getNewBulletObject(std::string bulletImage,std::string bu
 		bullet = new CircleTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
 			particleDensity, particleFinishTime,  particleVelocity, particleSize, particleColor);
 	}
+	else if (bulletType == "ovalTypeBullet") {
+		bullet = new OvalTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
+			particleDensity, particleFinishTime, particleVelocity, particleSize, particleColor);
+	}
+	else if (bulletType == "rectangleTypeBullet") {
+		/*bullet = new RectangleTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
+			particleDensity, particleFinishTime, particleVelocity, particleSize, particleColor);*/
+	}
 	return bullet;
 }
 
@@ -18,10 +28,10 @@ Bullet * BulletHelper::parseBulletObject(PyObject * bulletObject)
 	Bullet* bullet = nullptr;
 
 	if (bulletObject != nullptr) {
-		auto imageInfo = PyObject_CallMethod(bulletObject, "_cpp_getInitRenderInfo", NULL);
-		auto bulletGenerateInfo = PyObject_CallMethod(bulletObject, "_cpp_getGenerateInfo", NULL);
-		auto bulletCoordInfo = PyObject_CallMethod(bulletObject, "_cpp_getInitCoord", NULL);
-		auto bulletReleaseInfo = PyObject_CallMethod(bulletObject, "_cpp_getReleaseParticleInfo", NULL);
+		PyObject* imageInfo = PyObject_CallMethod(bulletObject, "_cpp_getInitRenderInfo", NULL);
+		PyObject* bulletGenerateInfo = PyObject_CallMethod(bulletObject, "_cpp_getGenerateInfo", NULL);
+		PyObject* bulletCoordInfo = PyObject_CallMethod(bulletObject, "_cpp_getInitCoord", NULL);
+		PyObject* bulletReleaseInfo = PyObject_CallMethod(bulletObject, "_cpp_getReleaseParticleInfo", NULL);
 
 		const char* bulletImage, *bulletType; int divideInfo[4]; float scaleInfo[3], collideSize[3];
 		PyArg_ParseTuple(imageInfo, "ss(iiii)(fff)(fff)", &bulletImage, &bulletType, &divideInfo[0], &divideInfo[1], &divideInfo[2], &divideInfo[3],

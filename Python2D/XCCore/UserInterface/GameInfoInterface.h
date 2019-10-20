@@ -4,6 +4,7 @@
 #include "IUserInterface.h"
 #include "../XCRender/XCAdvImageHelper.h"
 #include "../XCRender/XCFont.h"
+#define GameInfoUIUuid "gameInfo"
 class GameInfoInterface :public IUserInterface{
 protected:
 	/*

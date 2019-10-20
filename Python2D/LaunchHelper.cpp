@@ -20,7 +20,7 @@ void LaunchHelper::StartGame()
 
 	/*render manager init*/
 	auto infoInterface = GameInfoInterface::getInstance();
-	RenderManager::getInstance()->AddUserInterface("gameInfo", infoInterface);
+	RenderManager::getInstance()->AddUserInterface(GameInfoUIUuid, infoInterface);
 
 }
 
@@ -32,7 +32,7 @@ void LaunchHelper::LoadGameMenu()
 {
 	TaskManager::getInstance()->CleanAllStage();
 	RenderManager::getInstance()->CleanAllRenderObject();
-	RenderManager::getInstance()->CleanUserInterface("gameInfo");
+	RenderManager::getInstance()->CleanUserInterface(GameInfoUIUuid);
 	if (RenderManager::getInstance()->getPlayer()!=nullptr) {
 		RenderManager::getInstance()->getPlayer()->PlayerRelease();
 		RenderManager::getInstance()->setPlayer(nullptr);

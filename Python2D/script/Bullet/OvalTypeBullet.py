@@ -1,13 +1,13 @@
 from script.Bullet.Bullet import Bullet, BulletColor, abstractmethod
 
 
-class CircleTypeBullet(Bullet):
+class OvalTypeBullet(Bullet):
     def __init__(self):
         super().__init__()
         self.divideInfo = [1, 1, 1, 1]
-        super()._setRenderSize([0.01, 0.01, 0.01])
-        super()._setCollideSize([0.01, 0.01, 0.01])
-        self.bulletType = "circleTypeBullet"
+        super()._setCollideSize([0.055, 0.0275, 0.055])
+        super()._setRenderSize([0.055, 0.055, 0.055])
+        self.bulletType = "ovalTypeBullet"
         self.bulletImage = ""
 
     @abstractmethod
@@ -20,7 +20,7 @@ class CircleTypeBullet(Bullet):
     def _cpp_getInitRenderInfo(self):
         return self.bulletImage, self.bulletType, tuple(self.divideInfo), tuple(self.scaleSize), tuple(self.collideSize)
 
-    def _circleBullet_setReleaseColor(self, color=BulletColor.BLUE):
+    def _ovalBullet_setReleaseColor(self, color=BulletColor.BLUE):
         if color == BulletColor.LIGHTGREEN:
             super()._setReleaseParticleColor([0.58, 0.72, 0.15, 1.0])
         elif color == BulletColor.RED:
