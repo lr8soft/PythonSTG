@@ -28,10 +28,10 @@ Bullet * BulletHelper::parseBulletObject(PyObject * bulletObject)
 	Bullet* bullet = nullptr;
 
 	if (bulletObject != nullptr) {
-		auto imageInfo = PyObject_CallMethod(bulletObject, "_cpp_getInitRenderInfo", NULL);
-		auto bulletGenerateInfo = PyObject_CallMethod(bulletObject, "_cpp_getGenerateInfo", NULL);
-		auto bulletCoordInfo = PyObject_CallMethod(bulletObject, "_cpp_getInitCoord", NULL);
-		auto bulletReleaseInfo = PyObject_CallMethod(bulletObject, "_cpp_getReleaseParticleInfo", NULL);
+		PyObject* imageInfo = PyObject_CallMethod(bulletObject, "_cpp_getInitRenderInfo", NULL);
+		PyObject* bulletGenerateInfo = PyObject_CallMethod(bulletObject, "_cpp_getGenerateInfo", NULL);
+		PyObject* bulletCoordInfo = PyObject_CallMethod(bulletObject, "_cpp_getInitCoord", NULL);
+		PyObject* bulletReleaseInfo = PyObject_CallMethod(bulletObject, "_cpp_getReleaseParticleInfo", NULL);
 
 		const char* bulletImage, *bulletType; int divideInfo[4]; float scaleInfo[3], collideSize[3];
 		PyArg_ParseTuple(imageInfo, "ss(iiii)(fff)(fff)", &bulletImage, &bulletType, &divideInfo[0], &divideInfo[1], &divideInfo[2], &divideInfo[3],
