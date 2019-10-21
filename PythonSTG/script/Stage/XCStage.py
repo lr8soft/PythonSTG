@@ -1,6 +1,6 @@
 from queue import Queue
 from enum import Enum
-from script.Stage.Task import Task
+from .Task import Task
 import uuid
 
 

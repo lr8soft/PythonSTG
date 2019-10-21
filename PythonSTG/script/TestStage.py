@@ -1,13 +1,13 @@
 import random
 
-from script.Bullet.Bullet import BulletColor
-from script.Bullet.CircleBullet import CircleBullet
-from script.Bullet.HugeBullet import HugeBullet
-from script.Bullet.RiceBullet import RiceBullet
-from script.Bullet.OvalBullet import OvalBullet
-from script.Stage.Task import Task, TaskUnit
-from script.Stage.TaskEnemy import TaskEnemy, EnemyColor
-from script.Stage.XCStage import XCStage
+from .Bullet.Bullet import BulletColor
+from .Bullet.CircleBullet import CircleBullet
+from .Bullet.HugeBullet import HugeBullet
+from .Bullet.RiceBullet import RiceBullet
+from .Bullet.OvalBullet import OvalBullet
+from .Stage.Task import Task, TaskUnit
+from .Stage.TaskEnemy import TaskEnemy, EnemyColor
+from .Stage.XCStage import XCStage
 
 
 # demo show how to create a custom stage

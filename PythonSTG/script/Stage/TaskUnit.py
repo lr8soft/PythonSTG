@@ -1,5 +1,5 @@
 from queue import Queue
-from script.Bullet.Bullet import Bullet
+from ..Bullet.Bullet import Bullet
 
 
 class TaskUnit:

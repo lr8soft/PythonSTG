@@ -1,15 +1,16 @@
-import script.XCInit as XCInit
-from script.Object.Player import Player
+
+from . import XCInit
+from .Object.Player import Player
 
 # demo stage 演示关卡
-import script.TestStage as TestStage
+from . import TestStage
 
 # PySTG Init
 # GameRANK show while winWidth / winHeight >= (16:10)
 winWidth = 1280
 winHeight = 720
 
-winTitle = "Python2D v0.30x"
+winTitle = "Python2D v0.31"
 winScaleToMonitor = False
 winResize = False
 winFullScreen = False

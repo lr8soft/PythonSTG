@@ -1,4 +1,4 @@
-from script.Stage.Task import Task
+from .Task import Task
 from enum import Enum
 
 

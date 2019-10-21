@@ -1,4 +1,4 @@
-from script.Bullet.Bullet import Bullet, BulletColor, abstractmethod
+from .Bullet import Bullet, BulletColor, abstractmethod
 
 
 class OvalTypeBullet(Bullet):

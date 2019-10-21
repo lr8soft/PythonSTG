@@ -1,0 +1,1 @@
+#__init__.py define PythonSTG script package

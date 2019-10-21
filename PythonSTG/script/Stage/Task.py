@@ -1,5 +1,5 @@
 from queue import PriorityQueue, Queue
-from script.Stage.TaskUnit import TaskUnit
+from .TaskUnit import TaskUnit
 import uuid
 
 

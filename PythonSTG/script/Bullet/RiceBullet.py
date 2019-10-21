@@ -1,4 +1,4 @@
-from script.Bullet.CircleTypeBullet import CircleTypeBullet, BulletColor
+from .CircleTypeBullet import CircleTypeBullet, BulletColor
 
 
 class RiceBullet(CircleTypeBullet):
