@@ -16,7 +16,7 @@ from .Stage.XCStage import XCStage
 def setupMyStage():
     stage0 = XCStage("Stage TEST")
     # task 0
-    enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)
     enemyTest.setInitCoord([0.0, 1.0, 0.0])
     enemyTest.setMovingTime(2.0)
     enemyTest.setAngle(270.0)

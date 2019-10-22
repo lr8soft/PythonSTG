@@ -2,7 +2,7 @@ from queue import Queue
 from enum import Enum
 from .Task import Task
 import uuid
-
+from .Boss import Boss
 
 class StageBackGround(Enum):
     lake = 0
@@ -13,6 +13,7 @@ class XCStage:
     def __init__(self, stageName="Stage 0 No name"):
         self.__stageName = stageName
         self.__stageTask = Queue()
+        self.__stageBoss = Queue()
         self.__uuid = str(uuid.uuid1())
         self.__background = StageBackGround.lake;
 

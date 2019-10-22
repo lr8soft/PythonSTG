@@ -49,6 +49,9 @@
     <Filter Include="XCCore\Menu">
       <UniqueIdentifier>{0b1f0165-e716-497e-a0ae-d9e4b7595711}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\Boss">
+      <UniqueIdentifier>{80d87d3d-c728-4f4e-b0bc-1e8ba341ac8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -341,6 +344,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h">
       <Filter>XCCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Boss\BossHelper.h">
+      <Filter>XCCore\Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

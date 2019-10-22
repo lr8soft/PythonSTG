@@ -185,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LaunchHelper.h" />
+    <ClInclude Include="XCCore\Boss\BossHelper.h" />
     <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h" />
     <ClInclude Include="XCCore\Menu\PauseMenu.h" />
     <ClInclude Include="util\ConfigManager.h" />

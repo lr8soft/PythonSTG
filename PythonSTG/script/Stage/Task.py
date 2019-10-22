@@ -4,12 +4,13 @@ import uuid
 
 
 class Task:
-    def __init__(self, durationFrame=0, intervalFrame=0):
+    def __init__(self, durationFrame=0, intervalFrame=0, waitFrame = 0):
         self.taskUnitQueue = PriorityQueue()
         self.targetUuid = Queue()
         self.uuid = str(uuid.uuid1())
         self.duration = durationFrame
         self.intervalFrame = intervalFrame
+        self.waitFrame = waitFrame
 
 
     def addUnit(self, unit):
@@ -38,7 +39,7 @@ class Task:
         return self.taskUnitQueue.get()
 
     def _cpp_getTaskInfo(self):
-        return self.uuid, self.duration, self.intervalFrame
+        return self.uuid, self.duration, self.intervalFrame, self.waitFrame
 
     def _cpp_getTargetUuidSize(self):
         return self.targetUuid.qsize()
