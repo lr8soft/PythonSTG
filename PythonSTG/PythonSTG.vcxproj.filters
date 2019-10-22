@@ -193,6 +193,12 @@
     <ClCompile Include="XCCore\Boss\SpellCard.cpp">
       <Filter>XCCore\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\Boss\BossObject.cpp">
+      <Filter>XCCore\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\UserInterface\BossInfoInterface.cpp">
+      <Filter>XCCore\UserInterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -359,6 +365,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\Boss\BossObject.h">
       <Filter>XCCore\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\UserInterface\BossInfoInterface.h">
+      <Filter>XCCore\UserInterface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

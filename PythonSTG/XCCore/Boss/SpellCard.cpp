@@ -81,6 +81,27 @@ void SpellCard::SpellCardRelease()
 	}
 }
 
+void SpellCard::setMovementPosition(float x, float y)
+{
+	movementPosition.x = x;
+	movementPosition.y = y;
+}
+
+float SpellCard::getSpellCardTime()
+{
+	return spellCardTime;
+}
+
+float SpellCard::getSpellCardHitPoint()
+{
+	return spellCardHitPoint;
+}
+
+glm::vec2 SpellCard::getMovement()
+{
+	return movementPosition;
+}
+
 bool SpellCard::haveAddToQueue()
 {
 	return isAddToQueue;

@@ -13,8 +13,8 @@ Boss * BossHelper::parseBossFromObject(PyObject * pBossPyObject)
 		const char* bossName, *uuid; int waitFrame;
 		PyArg_ParseTuple(bossInfoObject, "ssi", &bossName, &uuid, &waitFrame);
 
-		const char* imagePath; int divideCols, divideRows, standByRow, walkRow, attackRow;
-		PyArg_ParseTuple(imageInfoObject, "s(ii)iii", &imagePath, &divideCols, &divideRows, &standByRow, &walkRow, &attackRow);
+		const char* imagePath; int divideCols, divideRows, standByRow, walkRow, attackRow; float scaleX, scaleY;
+		PyArg_ParseTuple(imageInfoObject, "s(ii)(ff)iii", &imagePath, &divideCols, &divideRows, &scaleX, &scaleY, &standByRow, &walkRow, &attackRow);
 
 		int targetUUIDSize = 0;
 		PyArg_Parse(targetUuidObject, "i", &targetUUIDSize);
@@ -27,7 +27,8 @@ Boss * BossHelper::parseBossFromObject(PyObject * pBossPyObject)
 			targetUuidGroup.push_back(tuuid);
 		}
 
-		pBoss = new Boss(uuid, targetUuidGroup, bossName, waitFrame,imagePath,glm::vec2(divideCols, divideRows),standByRow, walkRow, attackRow);
+		pBoss = new Boss(uuid, targetUuidGroup, bossName, waitFrame,
+			imagePath,glm::vec2(divideCols, divideRows), glm::vec2(scaleX, scaleY), standByRow, walkRow, attackRow);
 
 		int spellCardSize = 0;
 		PyArg_Parse(spellCardSizeObject, "i", &spellCardSize);
@@ -49,12 +50,17 @@ SpellCard * BossHelper::parseSpellCardFromObject(std::string parentUuid, PyObjec
 	SpellCard* spellCard = nullptr;
 	if (spellCardPyObject!=nullptr) {
 		auto spellCardInfoObject = PyObject_CallMethod(spellCardPyObject, "_cpp_getSpellCardInfo", NULL);
-		auto taskSizeObject = PyObject_CallMethod(spellCardPyObject, "_cpp_getTaskSize", NULL);
+		auto taskSizeObject = PyObject_CallMethod(spellCardPyObject, "_cpp_getTaskSize", NULL);//_cpp_getBossMovePosition
+		auto movementObject = PyObject_CallMethod(spellCardPyObject, "_cpp_getBossMovePosition", NULL);
+
+		float moveX, moveY;
+		PyArg_ParseTuple(movementObject, "ff", &moveX, &moveY);
 
 		const char* spellCardName; int isSpellCard; float spellCardTime, spellCardHitPoint;
 		PyArg_ParseTuple(spellCardInfoObject, "siff", &spellCardName, &isSpellCard, &spellCardTime, &spellCardHitPoint);
-		std::cout << isSpellCard << spellCardTime << spellCardHitPoint;
+
 		spellCard = new SpellCard(parentUuid, spellCardName, isSpellCard, spellCardTime, spellCardHitPoint);
+		spellCard->setMovementPosition(moveX, moveY);
 
 		int taskSize;
 		PyArg_Parse(taskSizeObject, "i", &taskSize);

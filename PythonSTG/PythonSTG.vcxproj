@@ -148,6 +148,7 @@
     <ClCompile Include="XCCore\Background\MagicForest.cpp" />
     <ClCompile Include="XCCore\Boss\Boss.cpp" />
     <ClCompile Include="XCCore\Boss\BossHelper.cpp" />
+    <ClCompile Include="XCCore\Boss\BossObject.cpp" />
     <ClCompile Include="XCCore\Boss\SpellCard.cpp" />
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp" />
     <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="XCCore\Task\TaskHelper.cpp" />
     <ClCompile Include="XCCore\Task\TaskEnemy.cpp" />
     <ClCompile Include="XCCore\Task\TaskInsideUnit.cpp" />
+    <ClCompile Include="XCCore\UserInterface\BossInfoInterface.cpp" />
     <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp" />
     <ClCompile Include="XCCore\UserInterface\GameInfoInterface.cpp" />
     <ClCompile Include="XCCore\XCAudio\AudioHelper.cpp" />
@@ -217,6 +219,7 @@
     <ClInclude Include="XCCore\Task\TaskHelper.h" />
     <ClInclude Include="XCCore\Task\TaskEnemy.h" />
     <ClInclude Include="XCCore\Task\TaskInsideUnit.h" />
+    <ClInclude Include="XCCore\UserInterface\BossInfoInterface.h" />
     <ClInclude Include="XCCore\UserInterface\CoverInterface.h" />
     <ClInclude Include="XCCore\UserInterface\GameInfoInterface.h" />
     <ClInclude Include="XCCore\UserInterface\IUserInterface.h" />

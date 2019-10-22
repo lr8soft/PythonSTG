@@ -8,6 +8,7 @@ class SpellCard:
         self.spellCardHealthPoint = 50.0
         self.isSpellCard = False
         self.spellCardTask = Queue()
+        self.bossMoveTo = [0.0, 0.6]
 
     def setSpellCardName(self,name):
         self.spellCardName = name
@@ -21,6 +22,9 @@ class SpellCard:
     def setSpellCardHealthPoint(self, hp = 50.0):
         self.spellCardHealthPoint = hp
 
+    def setBossMovePosition(self, pos = [0.0, 0.8]):
+        self.bossMoveTo = pos;
+
     def addTask(self, task):
         if isinstance(task, Task):
             self.spellCardTask.put(task)
@@ -29,6 +33,9 @@ class SpellCard:
 
     def _cpp_getSpellCardInfo(self):
         return self.spellCardName,  self.isSpellCard, self.spellCardTime, self.spellCardHealthPoint
+
+    def _cpp_getBossMovePosition(self):
+        return tuple(self.bossMoveTo)
 
     def _cpp_getTaskSize(self):
         return self.spellCardTask.qsize()
@@ -48,6 +55,7 @@ class Boss:
 
         self.bossImage = "assets/Boss/TestBoss.png"
         self.bossImageDivide = [4, 3]
+        self.bossImageScale = [0.12, 0.16]
         self.bossStandBy = 3
         self.bossWalk = 2
         self.bossAttack = 1
@@ -68,7 +76,7 @@ class Boss:
         return self.bossName, self.uuid, self.waitFrame
 
     def _cpp_getImageInfo(self):
-        return self.bossImage, tuple(self.bossImageDivide), self.bossStandBy, self.bossWalk, self.bossAttack
+        return self.bossImage, tuple(self.bossImageDivide), tuple(self.bossImageScale), self.bossStandBy, self.bossWalk, self.bossAttack
 
     def _cpp_getSpellCardSize(self):
         return self.spellCardGroup.qsize()

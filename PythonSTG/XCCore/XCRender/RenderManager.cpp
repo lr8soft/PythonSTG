@@ -3,6 +3,7 @@
 #include <GL3/gl3w.h>
 #include <GLFW/glfw3.h>
 #include "../Enemy/EnemyObject.h"
+#include "../Boss/BossObject.h"
 #include "../Bullet/Bullet.h"
 #include "../Attack/IAttack.h"
 #include "../XCCollide/CollideInfo.h"
@@ -83,14 +84,25 @@ void RenderManager::RenderWork()
 					collideHelperP1->checkCollisionWithBullet(static_cast<Bullet*>(renderObject));
 				}
 			}
-			else if (renderObject->getCurrentType() == RenderObject::EnemyType && !strikeCollisionHelperGroup.empty()) {
-				std::list<RenderObject*>::iterator strikeBegin = strikeCollisionHelperGroup.begin();
-				std::list<RenderObject*>::iterator strikeEnd = strikeCollisionHelperGroup.end();
-				for (auto strike = strikeBegin; strike != strikeEnd; strike++) {
-					IAttack* pStrike = static_cast<IAttack*>(*strike);
-					pStrike->checkCollisonWithEnemy(static_cast<EnemyObject*>(renderObject));
+			if (!strikeCollisionHelperGroup.empty()) {
+				if (renderObject->getCurrentType() == RenderObject::EnemyType) {
+					std::list<RenderObject*>::iterator strikeBegin = strikeCollisionHelperGroup.begin();
+					std::list<RenderObject*>::iterator strikeEnd = strikeCollisionHelperGroup.end();
+					for (auto strike = strikeBegin; strike != strikeEnd; strike++) {
+						IAttack* pStrike = static_cast<IAttack*>(*strike);
+						pStrike->checkCollisonWithEnemy(static_cast<EnemyObject*>(renderObject));
+					}
+				}
+				else if (renderObject->getCurrentType() == RenderObject::BossType) {
+					std::list<RenderObject*>::iterator strikeBegin = strikeCollisionHelperGroup.begin();
+					std::list<RenderObject*>::iterator strikeEnd = strikeCollisionHelperGroup.end();
+					for (auto strike = strikeBegin; strike != strikeEnd; strike++) {
+						IAttack* pStrike = static_cast<IAttack*>(*strike);
+						//pStrike->checkCollisonWithEnemy(static_cast<BossObject*>(renderObject));
+					}
 				}
 			}
+	
 		}
 	
 		if (renderObject->getIsTerminate()) {
