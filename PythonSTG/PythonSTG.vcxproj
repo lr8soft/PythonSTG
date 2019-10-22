@@ -189,6 +189,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LaunchHelper.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="XCCore\Boss\Boss.h" />
     <ClInclude Include="XCCore\Boss\BossHelper.h" />
     <ClInclude Include="XCCore\Boss\BossObject.h" />
@@ -246,6 +248,12 @@
     <ClInclude Include="XCInterpreter\XCInterpreter.h" />
     <ClInclude Include="XCCore\XCRender\XCImageHelper.h" />
     <ClInclude Include="XCFrame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PythonSTG.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\pystg.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

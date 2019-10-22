@@ -52,6 +52,9 @@
     <Filter Include="XCCore\Boss">
       <UniqueIdentifier>{80d87d3d-c728-4f4e-b0bc-1e8ba341ac8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resouce">
+      <UniqueIdentifier>{37898c7c-a6c7-4c12-a0a6-82cefb500e41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -369,5 +372,21 @@
     <ClInclude Include="XCCore\UserInterface\BossInfoInterface.h">
       <Filter>XCCore\UserInterface</Filter>
     </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Resouce</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resouce</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\pystg.ico">
+      <Filter>Resouce</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PythonSTG.rc">
+      <Filter>Resouce</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
