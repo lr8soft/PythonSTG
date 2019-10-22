@@ -187,6 +187,10 @@
       <Filter>XCCore\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="pythonstg.cpp" />
+    <ClCompile Include="XCCore\Boss\BossHelper.cpp">
+      <Filter>XCCore\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Boss\Boss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -346,6 +350,12 @@
       <Filter>XCCore\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\Boss\BossHelper.h">
+      <Filter>XCCore\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Boss\Boss.h">
+      <Filter>XCCore\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Boss\SpellCard.h">
       <Filter>XCCore\Boss</Filter>
     </ClInclude>
   </ItemGroup>

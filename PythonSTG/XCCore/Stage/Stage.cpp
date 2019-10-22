@@ -45,15 +45,22 @@ void Stage::stageWork()
 	timer.Tick();
 	std::vector<Task*>::iterator stageBegin = stageTaskGroup.begin();
 	std::vector<Task*>::iterator stageEnd = stageTaskGroup.end();
+	bool allTaskWaitTarget = true;
 	for (auto task = stageBegin; task != stageEnd; task++) {
 		if (!(*task)->getTaskInit())
 			(*task)->TaskInit();
 
-		if(!(*task)->getTaskFinish())
+		if (!(*task)->getTaskFinish()) {
 			(*task)->TaskWork();
+			if (!(*task)->getIsTaskWaitingForTarget()) {
+				allTaskWaitTarget = false;
+			}
+		}
+			
 
 		if((*task)->getTaskFinish()) {
 			(*task)->TaskRelease();
+			delete *task;
 			if (std::next(task) == stageTaskGroup.end()) {
 				stageTaskGroup.erase(task);
 				break;
@@ -63,6 +70,21 @@ void Stage::stageWork()
 				stageEnd = stageTaskGroup.end();
 			}
 		}
+	}
+	if (allTaskWaitTarget) {
+		for (auto task = stageBegin; task != stageEnd; task++) {
+			(*task)->TaskRelease();
+			delete *task;
+			if (std::next(task) == stageTaskGroup.end()) {
+				stageTaskGroup.erase(task);
+				break;
+			}
+			else {
+				task = stageTaskGroup.erase(task);
+				stageEnd = stageTaskGroup.end();
+			}
+		}
+		stageTaskGroup.clear();
 	}
 	if (stageTaskGroup.empty()) {
 		stageFinish = true;

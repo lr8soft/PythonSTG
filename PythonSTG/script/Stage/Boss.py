@@ -65,7 +65,10 @@ class Boss:
         self.waitFrame = waitFrame
 
     def _cpp_getBossInfo(self):
-        return self.bossName, self.uuid, self.waitFrame, self.bossImage, self.bossImageDivide, self.bossStandBy, self.bossWalk, self.bossAttack
+        return self.bossName, self.uuid, self.waitFrame
+
+    def _cpp_getImageInfo(self):
+        return self.bossImage, self.bossImageDivide, self.bossStandBy, self.bossWalk, self.bossAttack
 
     def _cpp_getSpellCardSize(self):
         return self.spellCardGroup.qsize()
