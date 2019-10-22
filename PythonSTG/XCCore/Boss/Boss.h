@@ -6,9 +6,10 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
+
 class Boss :public Task{
 protected:
-
+	bool haveSpellCardAddToQueue = false;
 	std::vector<SpellCard*> spellCardGroup;
 	std::string bossName, currentUuid;
 

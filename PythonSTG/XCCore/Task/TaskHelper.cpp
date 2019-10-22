@@ -11,10 +11,10 @@ TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject 
 		int renderObjectSize;
 		PyArg_Parse(unitSizeInfo, "i", &renderObjectSize);
 
-		int waitFrame, workInterval, repeatTime;
-		PyArg_ParseTuple(unitDetailInfo, "iii", &waitFrame, &workInterval, &repeatTime);
+		int waitFrame, repeatTime;
+		PyArg_ParseTuple(unitDetailInfo, "ii", &waitFrame, &repeatTime);
 
-		unit = new TaskInsideUnit(uuid, waitFrame, workInterval, repeatTime);//R  E  L  E  A  S  E     P  L  E  A S  E
+		unit = new TaskInsideUnit(uuid, waitFrame, repeatTime);//R  E  L  E  A  S  E     P  L  E  A S  E
 		
 		std::list<std::list<RenderObject*>> renderGroupGroup;
 		for (int i = 0; i < repeatTime - 1;i++) {

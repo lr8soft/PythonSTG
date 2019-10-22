@@ -80,7 +80,7 @@ void GameMenu::checkKeyInput()
 				LaunchHelper::StartGame();
 				isWorkFinish = true;
 				break;
-			case 1:
+			case 2:
 				LaunchHelper::StartConfigHelper();
 				isWorkFinish = true;
 				break;

@@ -173,9 +173,6 @@
     <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\Task\TaskBoss.cpp">
-      <Filter>XCCore\Task</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\Menu\GameMenu.cpp">
       <Filter>XCCore\Menu</Filter>
     </ClCompile>
@@ -190,7 +187,12 @@
     <ClCompile Include="XCCore\Boss\BossHelper.cpp">
       <Filter>XCCore\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\Boss\Boss.cpp" />
+    <ClCompile Include="XCCore\Boss\Boss.cpp">
+      <Filter>XCCore\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Boss\SpellCard.cpp">
+      <Filter>XCCore\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -333,9 +335,6 @@
     <ClInclude Include="XCCore\XCRender\ParticleHelper.h">
       <Filter>XCCore\XCRender</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\Task\TaskBoss.h">
-      <Filter>XCCore\Task</Filter>
-    </ClInclude>
     <ClInclude Include="XCCore\Menu\IMenu.h">
       <Filter>XCCore\Menu</Filter>
     </ClInclude>
@@ -356,6 +355,9 @@
       <Filter>XCCore\Boss</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\Boss\SpellCard.h">
+      <Filter>XCCore\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Boss\BossObject.h">
       <Filter>XCCore\Boss</Filter>
     </ClInclude>
   </ItemGroup>

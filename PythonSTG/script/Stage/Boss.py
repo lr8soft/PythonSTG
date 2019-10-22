@@ -54,12 +54,12 @@ class Boss:
 
     def AddSpellCard(self, spellcard):
         if isinstance(spellcard, SpellCard):
-            self.spellCardTask.put(spellcard)
+            self.spellCardGroup.put(spellcard)
         else:
             raise Exception("Insert invalid spellcard.")
 
     def AddTargetUuid(self, uuid):
-        self.spellCardGroup.put(uuid)
+        self.targetUuid.put(uuid)
 
     def SetBossWaitFrame(self, waitFrame):
         self.waitFrame = waitFrame
@@ -68,12 +68,12 @@ class Boss:
         return self.bossName, self.uuid, self.waitFrame
 
     def _cpp_getImageInfo(self):
-        return self.bossImage, self.bossImageDivide, self.bossStandBy, self.bossWalk, self.bossAttack
+        return self.bossImage, tuple(self.bossImageDivide), self.bossStandBy, self.bossWalk, self.bossAttack
 
     def _cpp_getSpellCardSize(self):
         return self.spellCardGroup.qsize()
 
-    def _cpp_getSpellCardItem(self):
+    def _cpp_getSpellCardSingle(self):
         return self.spellCardGroup.get()
 
     def _cpp_getTargetUuidSize(self):

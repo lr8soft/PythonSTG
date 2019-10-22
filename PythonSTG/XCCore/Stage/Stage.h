@@ -4,7 +4,7 @@
 #include <Python.h>
 #include <GL/glcorearb.h>
 #include <string>
-#include <vector>
+#include <list>
 #include <atomic>
 #include "../Task/Task.h"
 #include "../../util/GameTimer.h"
@@ -15,15 +15,16 @@ private:
 	Background* stageBackground;
 
 	std::string stageUuid;
-	std::vector<Task*> stageTaskGroup;
+	std::list<Task*> stageTaskGroup;
 
 	XCGameTimer timer;
 	PyObject* itemStage;
 	bool stageFinish = false;
-	std::atomic_bool isStageInit = false;
+	bool isStageInit = false;
 public:
 	Stage() = delete;
 	Stage(std::string uuid, PyObject* item);
+	void addTask(Task* pTask);
 	void stageInit();
 	void stageWork();
 	void stageRelease();

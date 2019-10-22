@@ -8,6 +8,7 @@ from .Bullet.OvalBullet import OvalBullet
 from .Stage.Task import Task, TaskUnit
 from .Stage.TaskEnemy import TaskEnemy, EnemyColor
 from .Stage.XCStage import XCStage
+from .Stage.Boss import Boss, SpellCard
 
 
 # demo show how to create a custom stage
@@ -115,7 +116,7 @@ def setupMyStage():
     # task 3
     lastuuid = taskAfter.getUuid()
     lastuuid2 = taskAfter.getUuid()
-    for i in range(1, 100):
+    for i in range(1, 20):
         enemyAimPlayer = TaskEnemy(durationFrame=-1, intervalFrame=0)
         enemyAimPlayer.setInitCoord([0.5, 1.0, 0.0])
         enemyAimPlayer.setVelocity(1.0)
@@ -185,5 +186,27 @@ def setupMyStage():
         taskAimPlayer.addUnit(unit)
 
     stage0.addTask(taskAimPlayer)
+
+    #spellcard test
+    unit_spellcard = TaskUnit(repeatTime=3,waitFrame=10)
+    for j in range(0, 36):
+        bullet = CircleBullet()
+        bullet.setVelocity(0.6)
+        bullet.setAngle(j * 10)
+        bullet.setBulletColor(BulletColor.BLUE)
+        unit_spellcard.addBullet(bullet)
+
+    task_spellcard = Task(durationFrame=-1)
+    task_spellcard.addUnit(unit_spellcard)
+
+    spellcard = SpellCard()
+    spellcard.addTask(task_spellcard)
+
+    #boss
+    boss = Boss()
+    boss.AddTargetUuid(enemyTest.getUuid())
+    boss.AddSpellCard(spellcard)
+    stage0.addBoss(boss)
+
 
     return stage0 #返回创建的关卡

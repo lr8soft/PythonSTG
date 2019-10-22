@@ -81,7 +81,9 @@ void XCParticle::particleRender(glm::vec3 position, float scaleSize, glm::vec4 c
 		glm::mat4 view_mat;
 		view_mat = glm::translate(view_mat, position);
 		glUniformMatrix4fv(view_mat_loc, 1, GL_FALSE, glm::value_ptr(view_mat));
+
 		glUniform4fv(color_loc, 1, glm::value_ptr(color));
+	
 		glUniform1f(size_loc, scaleSize);
 
 		glDrawArrays(GL_POINTS, 0, 1);

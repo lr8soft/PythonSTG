@@ -1,9 +1,8 @@
-
-from . import XCInit
-from .Object.Player import Player
+import script.XCInit as XCInit
+from script.Object.Player import Player
 
 # demo stage 演示关卡
-from . import TestStage
+import script.TestStage as TestStage
 
 # PySTG Init
 # GameRANK show while winWidth / winHeight >= (16:10)
@@ -38,3 +37,6 @@ def PlayerInit():
     rin.setPlayerData(1.45, 0.1, 1.0)
     XCInit.addPlayerItem(rin)
     print("[XCCore]Player info init.")
+
+if __name__ == "__main__":
+    coreInitializer()

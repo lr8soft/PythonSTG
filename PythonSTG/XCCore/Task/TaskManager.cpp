@@ -20,6 +20,11 @@ TaskManager * TaskManager::getInstance()
 	return pRManager;
 }
 
+void TaskManager::AddTaskAsync(Task * pTask)
+{
+	asyncTaskGroup.push_back(pTask);
+}
+
 void TaskManager::AddStageItem(Stage * stage)
 {
 	stageQueue.push_back(stage);
@@ -45,22 +50,29 @@ void TaskManager::TaskWork()
 		if (!stageItem->getStageInit()) {
 			stageItem->stageInit();
 		}
+	
+		if (stageItem->getStageInit()) {
+			stageItem->stageWork();
+			RenderManager::getInstance()->SetBackgroundPointer(stageItem->getBackgroundPointer());
+		}	
 		if (stageItem->getStageFinish()) {
 			RenderManager::getInstance()->SetBackgroundPointer(nullptr);
 			stageQueue.erase(stageBegin);
 			delete stageItem;
 			return;
 		}
-		if (stageItem->getStageInit()) {
-			stageItem->stageWork();
-			RenderManager::getInstance()->SetBackgroundPointer(stageItem->getBackgroundPointer());
-		}
 	}
-	else {//empty
-		if (stageQueue.empty()) {
-			if(RenderManager::getInstance()->CheckRenderComplete(MenuUniformUUID)){
-				LaunchHelper::LoadGameMenu();
-			}	
+	if (!asyncTaskGroup.empty()) {
+		std::vector<Stage*>::iterator currentStage = stageQueue.begin();
+		auto asyncTaskEnd = asyncTaskGroup.end();
+		for (auto task = asyncTaskGroup.begin(); task != asyncTaskEnd; task++) {
+			(*currentStage)->addTask(*task);
 		}
+		asyncTaskGroup.clear();
+	}
+	if (stageQueue.empty()) {
+		if(RenderManager::getInstance()->CheckRenderComplete(MenuUniformUUID)){
+			LaunchHelper::LoadGameMenu();
+		}	
 	}
 }
