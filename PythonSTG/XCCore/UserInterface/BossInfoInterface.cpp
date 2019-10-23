@@ -66,7 +66,7 @@ void BossInfoInterface::UserInterfaceRender()
 			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1, 1));
 		glDisable(GL_BLEND);
 		fontHelper.FontUnicodeRender(spellCardName,
-			(1.0f - XCFrameInfo::FrameRight) / 2.0f + XCFrameInfo::FrameRight /1.35f, 1.0f - spellCardBackgroundHeight * 0.8f, 0.5f, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+			(1.0f - XCFrameInfo::FrameRight) / 2.0f + XCFrameInfo::FrameRight /(1.1f + spellCardName.length() * 0.02f), 1.0f - spellCardBackgroundHeight * 0.8f, 0.5f, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	}
 }
 
