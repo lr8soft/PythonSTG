@@ -11,7 +11,7 @@ protected:
 	XCFont fontHelper;
 	XCAdvImageHelper *spellCardStar, *spellcardBackground;
 	int spellCardCount = 3;
-	std::string spellCardName = "TestSpellCard", bossName = "TestBoss";
+	std::string spellCardName = "TSC", bossName = "TBOSS";
 	BossInfoInterface();
 
 	static BossInfoInterface* pInstance;

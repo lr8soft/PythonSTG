@@ -34,7 +34,7 @@ void BossInfoInterface::UserInterfaceRender()
 		fontHelper.SetHeightAndWidth(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
 		float starWidth = 0.03f;
 		float starHeight = 0.03f;
-		float startX = - (1.0f-XCFrameInfo::FrameRight) - starWidth;
+		float startX = - (1.0f-XCFrameInfo::FrameRight) - starWidth * 3.0f;
 		float startY = 1.0f - starHeight * 3;
 
 		fontHelper.FontUnicodeRender(bossName, (1.0f - XCFrameInfo::FrameRight)/2.0f + starWidth/2.3f, startY + starHeight * 2, 0.3f, glm::vec4(0.0f, 1.0f, 0.0f, 1.0));
@@ -43,7 +43,7 @@ void BossInfoInterface::UserInterfaceRender()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		for (int i = 0; i < spellCardCount;i++) {
 			glm::mat4 starMat;
-			starMat = glm::translate(starMat, glm::vec3(startX - starWidth * i, startY, 0.0f));
+			starMat = glm::translate(starMat, glm::vec3(startX + starWidth * i, startY, 0.0f));
 			starMat = glm::scale(starMat, glm::vec3(starWidth, starHeight, 1.0f));
 			spellCardStar->setMvpMatrix(starMat);
 			spellCardStar->Render(glm::vec3(), glm::vec4(0.0f,1.0f, 0.0f, 1.0f), 0.0f, glm::vec3(), glm::vec3(),

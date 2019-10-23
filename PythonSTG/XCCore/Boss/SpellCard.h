@@ -28,6 +28,7 @@ public:
 	float getSpellCardTime();
 	float getSpellCardHitPoint();
 	glm::vec2 getMovement();
+	std::string getSpellCardName();
 
 	bool haveAddToQueue();
 	bool getIsFinish();

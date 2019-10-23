@@ -102,6 +102,11 @@ glm::vec2 SpellCard::getMovement()
 	return movementPosition;
 }
 
+std::string SpellCard::getSpellCardName()
+{
+	return spellCardName;
+}
+
 bool SpellCard::haveAddToQueue()
 {
 	return isAddToQueue;
