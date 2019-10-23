@@ -206,7 +206,7 @@ def setupMyStage():
     boss = Boss()
     boss.AddTargetUuid(enemyTest.getUuid())
     boss.AddSpellCard(spellcard)
-    stage0.addBoss(boss)
+    #stage0.addBoss(boss)
 
 
     return stage0 #返回创建的关卡
