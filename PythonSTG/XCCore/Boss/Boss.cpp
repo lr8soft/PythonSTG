@@ -43,7 +43,7 @@ void Boss::taskSubWork()
 	else {
 		taskWait = false;
 		if (!haveAddRenderObjectToQueue) {
-			RenderManager::getInstance()->AddRenderObject(currentUuid, bossRenderObject, true);
+			RenderManager::getInstance()->AddRenderObject(currentUuid, bossRenderObject, false);
 			RenderManager::getInstance()->AddUserInterface(BossInfoInterfaceUuid, BossInfoInterface::getInstance());
 			haveAddRenderObjectToQueue = true;
 		}

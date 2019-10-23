@@ -20,6 +20,7 @@ void BossObject::Init()
 		damageNormal = AudioHelper::loadWavFromFile("assets/SE/se_damage00.wav");
 		damageFinal = AudioHelper::loadWavFromFile("assets/SE/se_damage01.wav");
 		bossExplode = AudioHelper::loadWavFromFile("assets/SE/se_enep01.wav");
+
 		isInit = true;
 	}
 }
@@ -52,6 +53,10 @@ void BossObject::Render()
 			float pi = 3.1415926f;
 			NowPosition.x += velocity * cos(angle / 180.0f * pi) * timer.getDeltaFrame();
 			NowPosition.y += velocity * sin(angle / 180.0f * pi) * timer.getDeltaFrame();
+			nowState = WalkState;
+		}
+		else {
+			nowState = StandByState;
 		}
 
 		bossImage->Render(glm::vec3(NowPosition,0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0, 0, 1), glm::vec3(scaleInfo[0], scaleInfo[1], 1.0f),
