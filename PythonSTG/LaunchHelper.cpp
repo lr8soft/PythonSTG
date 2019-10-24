@@ -26,6 +26,7 @@ void LaunchHelper::StartGame()
 
 void LaunchHelper::StartConfigHelper()
 {
+	system("PythonSTGConfig.exe");
 }
 
 void LaunchHelper::LoadGameMenu()

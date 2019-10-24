@@ -1,4 +1,4 @@
-from script.Stage.Task import Task
+from .Task import Task
 from enum import Enum
 
 
@@ -10,8 +10,8 @@ class EnemyColor(Enum):
 
 
 class TaskEnemy(Task):
-    def __init__(self, durationFrame=0, intervalFrame=0):
-        super().__init__(durationFrame, intervalFrame)
+    def __init__(self, durationFrame=0, intervalFrame=0, waitFrame = 0):
+        super().__init__(durationFrame, intervalFrame, waitFrame)
         self.isEnemyTask = True
 
         self.renderImage = "assets/Item/fairy.png"
@@ -61,7 +61,7 @@ class TaskEnemy(Task):
         self.enemyHealth = value
 
     def _cpp_getTaskInfo(self):
-        return self.uuid, self.duration, self.intervalFrame, self.isEnemyTask
+        return self.uuid, self.duration, self.intervalFrame, self.waitFrame, self.isEnemyTask
 
     def _cpp_getRenderInfo(self):
         return self.renderImage, tuple(self.divideInfo), tuple(self.scaleInfo), tuple(self.imageStandBy), tuple(

@@ -1,13 +1,14 @@
 import random
 
-from script.Bullet.Bullet import BulletColor
-from script.Bullet.CircleBullet import CircleBullet
-from script.Bullet.HugeBullet import HugeBullet
-from script.Bullet.RiceBullet import RiceBullet
-from script.Bullet.OvalBullet import OvalBullet
-from script.Stage.Task import Task, TaskUnit
-from script.Stage.TaskEnemy import TaskEnemy, EnemyColor
-from script.Stage.XCStage import XCStage
+from .Bullet.Bullet import BulletColor
+from .Bullet.CircleBullet import CircleBullet
+from .Bullet.HugeBullet import HugeBullet
+from .Bullet.RiceBullet import RiceBullet
+from .Bullet.OvalBullet import OvalBullet
+from .Stage.Task import Task, TaskUnit
+from .Stage.TaskEnemy import TaskEnemy, EnemyColor
+from .Stage.XCStage import XCStage
+from .Stage.Boss import Boss, SpellCard
 
 
 # demo show how to create a custom stage
@@ -16,7 +17,7 @@ from script.Stage.XCStage import XCStage
 def setupMyStage():
     stage0 = XCStage("Stage TEST")
     # task 0
-    enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)
     enemyTest.setInitCoord([0.0, 1.0, 0.0])
     enemyTest.setMovingTime(2.0)
     enemyTest.setAngle(270.0)
@@ -112,10 +113,33 @@ def setupMyStage():
     taskAfter.addUnit(unit2_1)
     stage0.addTask(taskAfter)
 
+
+    #spellcard test
+    unit_spellcard = TaskUnit(repeatTime=30,waitFrame=10)
+    for j in range(0, 36):
+        bullet = CircleBullet()
+        bullet.setVelocity(0.6)
+        bullet.setAngle(j * 10)
+        bullet.setBulletColor(BulletColor.BLUE)
+        unit_spellcard.addBullet(bullet)
+
+    task_spellcard = Task(durationFrame=-1)
+    task_spellcard.addUnit(unit_spellcard)
+
+    spellcard = SpellCard()
+    spellcard.setSpellCardHealthPoint(30.0)
+    spellcard.addTask(task_spellcard)
+
+    #boss
+    boss = Boss()
+    boss.AddTargetUuid(taskAfter.getUuid())
+    boss.AddSpellCard(spellcard)
+    stage0.addBoss(boss)
+
     # task 3
-    lastuuid = taskAfter.getUuid()
-    lastuuid2 = taskAfter.getUuid()
-    for i in range(1, 100):
+    lastuuid = task_spellcard.getUuid()
+    lastuuid2 = task_spellcard.getUuid()
+    for i in range(1, 10):
         enemyAimPlayer = TaskEnemy(durationFrame=-1, intervalFrame=0)
         enemyAimPlayer.setInitCoord([0.5, 1.0, 0.0])
         enemyAimPlayer.setVelocity(1.0)
@@ -168,8 +192,8 @@ def setupMyStage():
         stage0.addTask(enemyAimPlayer2)
 
     taskAimPlayer = Task(durationFrame=-1, intervalFrame=0)
-    taskAimPlayer.addTargetUuid(taskAfter.getUuid())
-    for k in range(1, 80):
+    taskAimPlayer.addTargetUuid(task_spellcard.getUuid())
+    for k in range(1, 40):
         unit = TaskUnit(waitFrame=k * 25)
         for c in range(1, 10):
             bullet = CircleBullet()
@@ -185,5 +209,7 @@ def setupMyStage():
         taskAimPlayer.addUnit(unit)
 
     stage0.addTask(taskAimPlayer)
+
+
 
     return stage0 #返回创建的关卡

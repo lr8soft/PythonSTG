@@ -11,10 +11,10 @@ TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject 
 		int renderObjectSize;
 		PyArg_Parse(unitSizeInfo, "i", &renderObjectSize);
 
-		int waitFrame, workInterval, repeatTime;
-		PyArg_ParseTuple(unitDetailInfo, "iii", &waitFrame, &workInterval, &repeatTime);
+		int waitFrame, repeatTime;
+		PyArg_ParseTuple(unitDetailInfo, "ii", &waitFrame, &repeatTime);
 
-		unit = new TaskInsideUnit(uuid, waitFrame, workInterval, repeatTime);//R  E  L  E  A  S  E     P  L  E  A S  E
+		unit = new TaskInsideUnit(uuid, waitFrame, repeatTime);//R  E  L  E  A  S  E     P  L  E  A S  E
 		
 		std::list<std::list<RenderObject*>> renderGroupGroup;
 		for (int i = 0; i < repeatTime - 1;i++) {
@@ -54,8 +54,8 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 		auto taskInfo = PyObject_CallMethod(taskObject, "_cpp_getTaskInfo", NULL);
 		auto sizeInfo = PyObject_CallMethod(taskObject, "_cpp_getUnitSize", NULL);
 		auto targetInfo = PyObject_CallMethod(taskObject, "_cpp_getTargetUuidSize", NULL);
-		const char *uuid; int  repeatTime, intervalFrame, isEnemyTask = 0;
-		PyArg_ParseTuple(taskInfo, "sii|p", &uuid, &repeatTime, &intervalFrame, &isEnemyTask);
+		const char *uuid; int  repeatTime, intervalFrame, waitFrame, isEnemyTask = 0;
+		PyArg_ParseTuple(taskInfo, "siii|p", &uuid, &repeatTime, &intervalFrame, &waitFrame, &isEnemyTask);
 
 		int targetUuidSize;
 		PyArg_Parse(targetInfo, "i", &targetUuidSize);
@@ -71,7 +71,7 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 		}
 
 		if (!isEnemyTask) {
-			task = new Task(uuid, targetUuid, repeatTime, intervalFrame);
+			task = new Task(uuid, targetUuid, repeatTime, intervalFrame, waitFrame);
 		}
 		else {
 			auto renderInfo = PyObject_CallMethod(taskObject, "_cpp_getRenderInfo", NULL);
@@ -83,7 +83,7 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 
 			float position[3], velocity, movingTime,acceleration, angle, angleAcceleration, maxHealth;
 			PyArg_ParseTuple(enemyInfo, "(fff)ffffff", &position[0], &position[1], &position[2], &velocity, &movingTime, &acceleration, &angle, &angleAcceleration, &maxHealth);
-			task = new TaskEnemy(uuid, targetUuid, repeatTime, intervalFrame, imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
+			task = new TaskEnemy(uuid, targetUuid, repeatTime, intervalFrame, waitFrame,imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
 				glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec2(sandByInfo[0], sandByInfo[1]), glm::vec2(walkInfo[0], walkInfo[1]),
 				glm::vec3(position[0], position[1], position[2]), velocity, movingTime, acceleration, angle, angleAcceleration, colorType, maxHealth);
 		}

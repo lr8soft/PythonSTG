@@ -1,4 +1,4 @@
-from script.Object.XCItem import XCItem
+from .XCItem import XCItem
 class Player(XCItem):
     def __init__(self, frameName = "Satsuki Rin"):
         super().__init__()

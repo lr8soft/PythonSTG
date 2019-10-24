@@ -49,6 +49,12 @@
     <Filter Include="XCCore\Menu">
       <UniqueIdentifier>{0b1f0165-e716-497e-a0ae-d9e4b7595711}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\Boss">
+      <UniqueIdentifier>{80d87d3d-c728-4f4e-b0bc-1e8ba341ac8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resouce">
+      <UniqueIdentifier>{37898c7c-a6c7-4c12-a0a6-82cefb500e41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -170,9 +176,6 @@
     <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\Task\TaskBoss.cpp">
-      <Filter>XCCore\Task</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\Menu\GameMenu.cpp">
       <Filter>XCCore\Menu</Filter>
     </ClCompile>
@@ -184,6 +187,21 @@
       <Filter>XCCore\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="pythonstg.cpp" />
+    <ClCompile Include="XCCore\Boss\BossHelper.cpp">
+      <Filter>XCCore\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Boss\Boss.cpp">
+      <Filter>XCCore\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Boss\SpellCard.cpp">
+      <Filter>XCCore\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Boss\BossObject.cpp">
+      <Filter>XCCore\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\UserInterface\BossInfoInterface.cpp">
+      <Filter>XCCore\UserInterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -326,9 +344,6 @@
     <ClInclude Include="XCCore\XCRender\ParticleHelper.h">
       <Filter>XCCore\XCRender</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\Task\TaskBoss.h">
-      <Filter>XCCore\Task</Filter>
-    </ClInclude>
     <ClInclude Include="XCCore\Menu\IMenu.h">
       <Filter>XCCore\Menu</Filter>
     </ClInclude>
@@ -342,5 +357,36 @@
     <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h">
       <Filter>XCCore\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="XCCore\Boss\BossHelper.h">
+      <Filter>XCCore\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Boss\Boss.h">
+      <Filter>XCCore\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Boss\SpellCard.h">
+      <Filter>XCCore\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Boss\BossObject.h">
+      <Filter>XCCore\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\UserInterface\BossInfoInterface.h">
+      <Filter>XCCore\UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Resouce</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resouce</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\pystg.ico">
+      <Filter>Resouce</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PythonSTG.rc">
+      <Filter>Resouce</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

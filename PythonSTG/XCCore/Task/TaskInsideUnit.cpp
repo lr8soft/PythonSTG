@@ -1,6 +1,6 @@
 #include "TaskInsideUnit.h"
 #include "../XCRender/RenderManager.h"
-TaskInsideUnit::TaskInsideUnit(std::string uuid, int wFrame, int wInterval, int rTime): parentUuid(uuid),waitFrame(wFrame), workInterval(wInterval), repeatTime(rTime)
+TaskInsideUnit::TaskInsideUnit(std::string uuid, int wFrame, int rTime): parentUuid(uuid),waitFrame(wFrame), repeatTime(rTime)
 {
 	nowFrame = wFrame;
 }

@@ -1,12 +1,11 @@
 from queue import Queue
-from script.Bullet.Bullet import Bullet
+from ..Bullet.Bullet import Bullet
 
 
 class TaskUnit:
-    def __init__(self, priority=6, waitFrame=0, workInterval=0, repeatTime=1):
+    def __init__(self, priority=6, waitFrame=0, repeatTime=1):
         self.priority = priority;
         self.waitFrame = waitFrame
-        self.workInterval = workInterval
         self.repeatTime = repeatTime
         self.bulletGroup = Queue()
 
@@ -17,7 +16,7 @@ class TaskUnit:
             raise Exception("Insert invalid bullet.")
 
     def _cpp_getUnitInfo(self):
-        return self.waitFrame, self.workInterval, self.repeatTime
+        return self.waitFrame, self.repeatTime
 
     def _cpp_getBulletSize(self):
         return self.bulletGroup.qsize()

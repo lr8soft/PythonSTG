@@ -25,6 +25,7 @@
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);\
 
 
+
 #define BlendColorOneStart \
 	glEnable(GL_BLEND); \
 	glBlendFunc(GL_SRC_COLOR, GL_ONE);\

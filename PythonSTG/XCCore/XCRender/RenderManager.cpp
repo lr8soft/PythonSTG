@@ -3,6 +3,7 @@
 #include <GL3/gl3w.h>
 #include <GLFW/glfw3.h>
 #include "../Enemy/EnemyObject.h"
+#include "../Boss/BossObject.h"
 #include "../Bullet/Bullet.h"
 #include "../Attack/IAttack.h"
 #include "../XCCollide/CollideInfo.h"
@@ -12,7 +13,7 @@
 RenderManager* RenderManager::pRenderManager = nullptr;
 RenderManager::RenderManager() {
 	auto coverInterface = CoverInterface::getInstance();
-	AddUserInterface("coverImage", coverInterface);
+	AddUserInterface("0", coverInterface);
 
 }
 
@@ -83,14 +84,25 @@ void RenderManager::RenderWork()
 					collideHelperP1->checkCollisionWithBullet(static_cast<Bullet*>(renderObject));
 				}
 			}
-			else if (renderObject->getCurrentType() == RenderObject::EnemyType && !strikeCollisionHelperGroup.empty()) {
-				std::list<RenderObject*>::iterator strikeBegin = strikeCollisionHelperGroup.begin();
-				std::list<RenderObject*>::iterator strikeEnd = strikeCollisionHelperGroup.end();
-				for (auto strike = strikeBegin; strike != strikeEnd; strike++) {
-					IAttack* pStrike = static_cast<IAttack*>(*strike);
-					pStrike->checkCollisonWithEnemy(static_cast<EnemyObject*>(renderObject));
+			if (!strikeCollisionHelperGroup.empty()) {
+				if (renderObject->getCurrentType() == RenderObject::EnemyType) {
+					std::list<RenderObject*>::iterator strikeBegin = strikeCollisionHelperGroup.begin();
+					std::list<RenderObject*>::iterator strikeEnd = strikeCollisionHelperGroup.end();
+					for (auto strike = strikeBegin; strike != strikeEnd; strike++) {
+						IAttack* pStrike = static_cast<IAttack*>(*strike);
+						pStrike->checkCollisionWithEnemy(static_cast<EnemyObject*>(renderObject));
+					}
+				}
+				else if (renderObject->getCurrentType() == RenderObject::BossType) {
+					std::list<RenderObject*>::iterator strikeBegin = strikeCollisionHelperGroup.begin();
+					std::list<RenderObject*>::iterator strikeEnd = strikeCollisionHelperGroup.end();
+					for (auto strike = strikeBegin; strike != strikeEnd; strike++) {
+						IAttack* pStrike = static_cast<IAttack*>(*strike);
+						pStrike->checkCollisionWithBoss(static_cast<BossObject*>(renderObject));
+					}
 				}
 			}
+	
 		}
 	
 		if (renderObject->getIsTerminate()) {
@@ -203,6 +215,19 @@ void RenderManager::solveAsyncCommand()
 				}		
 			}
 			break;
+		case RenderManager::tAllBullet:
+			{
+				std::unordered_multimap<std::string, RenderObject*>::iterator bulletBegin = renderObjectList.begin();
+				std::unordered_multimap<std::string, RenderObject*>::iterator bulletEnd = renderObjectList.end();
+				for (auto object = bulletBegin; object != bulletEnd; object++) {
+					RenderObject *renderObject = object->second;
+					if (renderObject->getCurrentType() == RenderObject::BulletType) {
+						Bullet* pBullet = static_cast<Bullet*>(renderObject);
+						pBullet->setBulletTerminate();
+					}
+				}
+			}
+			break;
 		default:
 			break;
 		}
@@ -247,6 +272,11 @@ void RenderManager::CleanUserInterface(const std::string & uuid)
 void RenderManager::TerminateBullet(const std::string& parentUuid)
 {
 	externCommandList.insert(std::make_pair(RenderManager::tBullet, parentUuid));
+}
+
+void RenderManager::TerminateAllBullet()
+{
+	externCommandList.insert(std::make_pair(RenderManager::tAllBullet, ""));
 }
 
 bool RenderManager::CheckRenderComplete(const std::string& uuid)

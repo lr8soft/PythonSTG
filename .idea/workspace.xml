@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e5e419c-fa07-405a-8b82-0fe439d18051" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/XCCore/Bullet/BulletHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/XCCore/Bullet/BulletHelper.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python2D/script/Bullet/OvalBullet.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python2D/script/Bullet/OvalBullet.py" afterDir="false" />
-    </list>
+    <list default="true" id="a92e44d4-e5ed-4e58-a998-055dd8b14259" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="PySTG" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -22,20 +21,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1RSmB7qzMUj4W63hKB6yVbjIFdF" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="1SYENKR21wCnbccQ6uFR95WhClq" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Python2D/script/Bullet" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/PythonSTG/script" />
+    <property name="settings.editor.selected.configurable" value="PyConsoleConfigurable.Python Console" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="PySTG" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="PySTG" />
+      </console-settings>
+    </option>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\PySTG\PySTG\Python2D\script\bullet" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="H:\PySTG\Python2D\script\Bullet" />
+      <recent name="F:\PySTG\PySTG\PythonSTG\script" />
+      <recent name="F:\PySTG\PySTG\PythonSTG\script\Stage" />
+      <recent name="F:\PySTG\PySTG\PythonSTG\script\Object" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -59,12 +63,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python2D/script" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PythonSTG/script" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python2D/script/XCCore.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PythonSTG/script/XCCore.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -84,47 +88,19 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7e5e419c-fa07-405a-8b82-0fe439d18051" name="Default Changelist" comment="" />
-      <created>1569668733532</created>
+      <changelist id="a92e44d4-e5ed-4e58-a998-055dd8b14259" name="Default Changelist" comment="" />
+      <created>1571732087877</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1569668733532</updated>
-      <workItem from="1569668746782" duration="1497000" />
-      <workItem from="1569681356683" duration="768000" />
-      <workItem from="1569740115517" duration="3529000" />
-      <workItem from="1569757115724" duration="11489000" />
-      <workItem from="1569802964756" duration="5048000" />
-      <workItem from="1570412407465" duration="72000" />
-      <workItem from="1570439442669" duration="2341000" />
-      <workItem from="1570447287857" duration="6839000" />
-      <workItem from="1570494036156" duration="490000" />
-      <workItem from="1570496553772" duration="2073000" />
-      <workItem from="1570501282016" duration="1566000" />
-      <workItem from="1570537019231" duration="1678000" />
-      <workItem from="1570538725550" duration="2083000" />
-      <workItem from="1570542467000" duration="206000" />
-      <workItem from="1570542760391" duration="41000" />
-      <workItem from="1570542973177" duration="1291000" />
-      <workItem from="1570588078634" duration="1385000" />
-      <workItem from="1570608771380" duration="1855000" />
-      <workItem from="1570624185576" duration="1894000" />
-      <workItem from="1570626707905" duration="4485000" />
-      <workItem from="1570669591231" duration="1854000" />
-      <workItem from="1570673169353" duration="147000" />
-      <workItem from="1570697848684" duration="199000" />
-      <workItem from="1570718012259" duration="12000" />
-      <workItem from="1570959155538" duration="2449000" />
-      <workItem from="1570965961062" duration="7213000" />
-      <workItem from="1571104040471" duration="12000" />
-      <workItem from="1571139806061" duration="5484000" />
-      <workItem from="1571145428293" duration="2101000" />
-      <workItem from="1571147555331" duration="3000" />
-      <workItem from="1571152605178" duration="71000" />
-      <workItem from="1571192335707" duration="1108000" />
-      <workItem from="1571213024980" duration="809000" />
-      <workItem from="1571224338800" duration="175000" />
-      <workItem from="1571225350920" duration="59000" />
-      <workItem from="1571234211818" duration="874000" />
+      <updated>1571732087877</updated>
+      <workItem from="1571732099684" duration="811000" />
+      <workItem from="1571740065701" duration="10384000" />
+      <workItem from="1571755773054" duration="1117000" />
+      <workItem from="1571811107892" duration="688000" />
+      <workItem from="1571836283268" duration="260000" />
+      <workItem from="1571925280169" duration="1795000" />
+      <workItem from="1571928221027" duration="61000" />
+      <workItem from="1571928378058" duration="1423000" />
     </task>
     <servers />
   </component>
@@ -145,6 +121,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/PySTG$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1571143027328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python2D/script" />
+    <SUITE FILE_PATH="coverage/PySTG$XCCore.coverage" NAME="XCCore Coverage Results" MODIFIED="1571742843991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PythonSTG/script" />
   </component>
 </project>

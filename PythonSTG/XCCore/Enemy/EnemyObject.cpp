@@ -119,7 +119,7 @@ void EnemyObject::hurtEnemy(float damage)
 	else {
 		AudioHelper::playFromBuffer(deadEffect.wavBuffer);
 		ParticleHelper* particleGroup = new ParticleHelper;
-		particleGroup->addNewParticle(20, 20.0f, 1.0f, 0.6f, glm::vec4(1.0f), NowPosition);
+		particleGroup->addNewParticle(20, 15.0f, 1.0f, 0.6f, glm::vec4(1.0f), NowPosition);
 		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 		
 		currentHealth = 0;

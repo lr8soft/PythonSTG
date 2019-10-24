@@ -2,9 +2,9 @@
 #include "../XCRender/XCImageHelper.h"
 #include "../XCRender/RenderManager.h"
 #include "TaskDispatcher.h"
-TaskEnemy::TaskEnemy(std::string taskUuid, std::vector<std::string> targetTaskUuid, int repeatTime, int intervalFrame,
+TaskEnemy::TaskEnemy(std::string taskUuid, std::vector<std::string> targetTaskUuid, int repeatTime, int intervalFrame, int waitFrame,
 	std::string enemyImage, glm::vec2 dInfo, glm::vec3 sInfo, glm::vec2 sbInfo, glm::vec2 wInfo,
-	glm::vec3 iCoord, float v, float mTime,float a, float agle, float agleA, int type, float hp):Task(taskUuid, targetTaskUuid, repeatTime, intervalFrame)
+	glm::vec3 iCoord, float v, float mTime,float a, float agle, float agleA, int type, float hp):Task(taskUuid, targetTaskUuid, repeatTime, intervalFrame, waitFrame)
 {
 	imagePath = enemyImage;
 	divideInfo = dInfo;
@@ -26,9 +26,7 @@ TaskEnemy::TaskEnemy(std::string taskUuid, std::vector<std::string> targetTaskUu
 void TaskEnemy::TaskInit()
 {
 	if (!taskIsInit) {
-		for (int i = 0; i < targetUUID.size(); i++) {
-			TaskDispatcher::addTask(targetUUID[i]);
-		}
+		TaskDispatcher::addTask(taskUUID);
 		auto iterBegin = subUnitGroup.begin();
 		auto iterEnd = subUnitGroup.end();
 		for (auto unit = iterBegin; unit != iterEnd; unit++) {
@@ -47,43 +45,50 @@ void TaskEnemy::TaskInit()
 
 void TaskEnemy::taskSubWork()
 {
-	if (taskNowDurationFrame < taskDurationFrame || taskDurationFrame < 0) {
-		if (taskAccumlateTime >= taskIntervalFrame) {
-			if (!haveImageAddInQueue) {
-				RenderManager::getInstance()->AddRenderObject(taskUUID, enemyImage);
-				haveImageAddInQueue = true;
-			}
-			else {
-				NowPosition = enemyImage->getNowPosition();
-			}
-			auto iterBegin = subUnitGroup.begin();
-			auto iterEnd = subUnitGroup.end();
-			for (auto unit = iterBegin; unit != iterEnd; unit++) {
-				if (!(*unit)->IsAddToQueue()) {
-					(*unit)->setBulletInitCoord(NowPosition[0], NowPosition[1], NowPosition[2]);
-					(*unit)->UnitWork();
-				}
-				if ((*unit)->IsAddToQueue()) {//release here
-					(*unit)->UnitRelease();
-					delete (*unit);
-					if (std::next(unit) == subUnitGroup.end()) {
-						subUnitGroup.erase(unit);
-						break;
-					}
-					else {
-						unit = subUnitGroup.erase(unit);
-						iterEnd = subUnitGroup.end();
-					}
-				}
-			}
-			if ( (subUnitGroup.empty() && RenderManager::getInstance()->CheckRenderComplete(taskUUID)) || enemyImage->getIsTerminate())
-				taskFinish = true;
-			taskNowDurationFrame++;
-		}
-		taskAccumlateTime++;
+	if (taskWaitFrame > 0) {
+		taskWaitFrame--;
+		taskWait = true;
 	}
 	else {
-		taskFinish = true;
+		taskWait = false;
+		if (taskNowDurationFrame < taskDurationFrame || taskDurationFrame < 0) {
+			if (taskAccumlateTime >= taskIntervalFrame) {
+				if (!haveImageAddInQueue) {
+					RenderManager::getInstance()->AddRenderObject(taskUUID, enemyImage);
+					haveImageAddInQueue = true;
+				}
+				else {
+					NowPosition = enemyImage->getNowPosition();
+				}
+				auto iterBegin = subUnitGroup.begin();
+				auto iterEnd = subUnitGroup.end();
+				for (auto unit = iterBegin; unit != iterEnd; unit++) {
+					if (!(*unit)->IsAddToQueue()) {
+						(*unit)->setBulletInitCoord(NowPosition[0], NowPosition[1], NowPosition[2]);
+						(*unit)->UnitWork();
+					}
+					if ((*unit)->IsAddToQueue()) {//release here
+						(*unit)->UnitRelease();
+						delete (*unit);
+						if (std::next(unit) == subUnitGroup.end()) {
+							subUnitGroup.erase(unit);
+							break;
+						}
+						else {
+							unit = subUnitGroup.erase(unit);
+							iterEnd = subUnitGroup.end();
+						}
+					}
+				}
+				if ((subUnitGroup.empty() && RenderManager::getInstance()->CheckRenderComplete(taskUUID)) || enemyImage->getIsTerminate())
+					taskFinish = true;
+				taskNowDurationFrame++;
+			}
+			taskAccumlateTime++;
+		}
+		else {
+			taskFinish = true;
+		}
 	}
 }
 

@@ -1,4 +1,5 @@
-from script.Bullet.OvalTypeBullet import OvalTypeBullet, BulletColor
+from .OvalTypeBullet import OvalTypeBullet, BulletColor
+
 
 class OvalBullet(OvalTypeBullet):
     def __init__(self):
@@ -14,5 +15,5 @@ class OvalBullet(OvalTypeBullet):
         super()._setReleaseParticleVelocity(0.6)
 
     def setBulletColor(self, color=BulletColor.BLUE):
-        self.divideInfo[3] =9 - color.value
+        self.divideInfo[3] = 9 - color.value
         self._ovalBullet_setReleaseColor(color)

@@ -1,7 +1,8 @@
 from queue import Queue
 from enum import Enum
-from script.Stage.Task import Task
+from .Task import Task
 import uuid
+from script.Stage.Boss import Boss
 
 
 class StageBackGround(Enum):
@@ -13,12 +14,19 @@ class XCStage:
     def __init__(self, stageName="Stage 0 No name"):
         self.__stageName = stageName
         self.__stageTask = Queue()
+        self.__stageBoss = Queue()
         self.__uuid = str(uuid.uuid1())
-        self.__background = StageBackGround.lake;
+        self.__background = StageBackGround.lake
 
     def addTask(self, task):
         if isinstance(task, Task):
             self.__stageTask.put(task)
+        else:
+            raise Exception("Insert invalid task.")
+
+    def addBoss(self, boss):
+        if isinstance(boss, Boss):
+            self.__stageBoss.put(boss)
         else:
             raise Exception("Insert invalid task.")
 
@@ -36,6 +44,12 @@ class XCStage:
 
     def _cpp_getTaskItem(self):
         return self.__stageTask.get()
+
+    def _cpp_getBossSize(self):
+        return self.__stageBoss.qsize()
+
+    def _cpp_getBossItem(self):
+        return self.__stageBoss.get()
 
     def _cpp_getUuid(self):
         return self.__uuid

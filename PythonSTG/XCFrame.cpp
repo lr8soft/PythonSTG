@@ -6,6 +6,8 @@
 #include "XCCore/XCRender/RenderManager.h"
 #include "XCFrameInfo.h"
 #include "util/ConfigManager.h"
+
+#include "util/ImageLoader.h"
 XCFrame* XCFrame::pInstance = nullptr;
 int XCFrame::FrameWidth, XCFrame::FrameHeight;
 
@@ -42,6 +44,8 @@ void XCFrame::FrameInit()
 	tscreen = glfwCreateWindow(1, 1, "ThreadInitHelper", nullptr, nullptr);
 	glfwWindowHint(GLFW_VISIBLE, GL_TRUE);
 	pscreen = glfwCreateWindow(FrameWidth, FrameHeight, XCFrameInfo::ScreenOriginTitle.c_str(), primaryMonitor, tscreen);
+
+	glfwSetWindowIcon(pscreen, 1, getApplicationIcon());
 	glfwMakeContextCurrent(pscreen);
 
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
@@ -149,4 +153,16 @@ XCFrame::XCFrame() {
 		XCFrameInfo::keyShoot = atoi(cfg.GetValue("shoot").c_str());
 		XCFrameInfo::keySlow = atoi(cfg.GetValue("slow").c_str());
 	}
+}
+
+GLFWimage * XCFrame::getApplicationIcon()
+{
+	static GLFWimage image;
+
+	int w = 0, h = 0, c = 0;
+	void* imageInfo = xc_ogl::ImageLoader::getTexturePointer("assets/UI/p2dicon.png", w, h, c);
+	image.height = h;
+	image.width = w;
+	image.pixels = (unsigned char*)imageInfo;
+	return &image;
 }

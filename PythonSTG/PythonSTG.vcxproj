@@ -80,6 +80,7 @@
       <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <UseUnicodeForAssemblerListing>
       </UseUnicodeForAssemblerListing>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x86\OpenAL32.lib;..\libs\x86\python36.lib;..\libs\x86\python36_d.lib;..\libs\x86\python3.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -145,6 +146,10 @@
     <ClCompile Include="XCCore\Background\Camera.cpp" />
     <ClCompile Include="XCCore\Background\Lake.cpp" />
     <ClCompile Include="XCCore\Background\MagicForest.cpp" />
+    <ClCompile Include="XCCore\Boss\Boss.cpp" />
+    <ClCompile Include="XCCore\Boss\BossHelper.cpp" />
+    <ClCompile Include="XCCore\Boss\BossObject.cpp" />
+    <ClCompile Include="XCCore\Boss\SpellCard.cpp" />
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp" />
     <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\OvalTypeBullet.cpp" />
@@ -153,11 +158,11 @@
     <ClCompile Include="XCCore\Menu\GameMenu.cpp" />
     <ClCompile Include="XCCore\Menu\PauseMenu.cpp" />
     <ClCompile Include="XCCore\Task\Task.cpp" />
-    <ClCompile Include="XCCore\Task\TaskBoss.cpp" />
     <ClCompile Include="XCCore\Task\TaskDispatcher.cpp" />
     <ClCompile Include="XCCore\Task\TaskHelper.cpp" />
     <ClCompile Include="XCCore\Task\TaskEnemy.cpp" />
     <ClCompile Include="XCCore\Task\TaskInsideUnit.cpp" />
+    <ClCompile Include="XCCore\UserInterface\BossInfoInterface.cpp" />
     <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp" />
     <ClCompile Include="XCCore\UserInterface\GameInfoInterface.cpp" />
     <ClCompile Include="XCCore\XCAudio\AudioHelper.cpp" />
@@ -184,6 +189,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LaunchHelper.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="XCCore\Boss\Boss.h" />
+    <ClInclude Include="XCCore\Boss\BossHelper.h" />
+    <ClInclude Include="XCCore\Boss\BossObject.h" />
+    <ClInclude Include="XCCore\Boss\SpellCard.h" />
     <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h" />
     <ClInclude Include="XCCore\Menu\PauseMenu.h" />
     <ClInclude Include="util\ConfigManager.h" />
@@ -206,11 +217,11 @@
     <ClInclude Include="XCCore\Menu\GameMenu.h" />
     <ClInclude Include="XCCore\Menu\IMenu.h" />
     <ClInclude Include="XCCore\Task\Task.h" />
-    <ClInclude Include="XCCore\Task\TaskBoss.h" />
     <ClInclude Include="XCCore\Task\TaskDispatcher.h" />
     <ClInclude Include="XCCore\Task\TaskHelper.h" />
     <ClInclude Include="XCCore\Task\TaskEnemy.h" />
     <ClInclude Include="XCCore\Task\TaskInsideUnit.h" />
+    <ClInclude Include="XCCore\UserInterface\BossInfoInterface.h" />
     <ClInclude Include="XCCore\UserInterface\CoverInterface.h" />
     <ClInclude Include="XCCore\UserInterface\GameInfoInterface.h" />
     <ClInclude Include="XCCore\UserInterface\IUserInterface.h" />
@@ -237,6 +248,12 @@
     <ClInclude Include="XCInterpreter\XCInterpreter.h" />
     <ClInclude Include="XCCore\XCRender\XCImageHelper.h" />
     <ClInclude Include="XCFrame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PythonSTG.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\pystg.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

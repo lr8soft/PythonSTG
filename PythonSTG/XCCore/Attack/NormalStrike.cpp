@@ -75,7 +75,38 @@ void NormalStrike::Release()
 	}
 }
 
-void NormalStrike::checkCollisonWithEnemy(EnemyObject * pEnemy)
+void NormalStrike::checkCollisionWithBoss(BossObject * pBoss)
+{
+	if (!pBoss->getIsTerminate() && !isFinish) {
+		glm::vec2 bossPosition = pBoss->getPosition();
+		float collisionRadius = pBoss->getBossCollisionRadius();
+
+		float halfWidth = scaleSize[1];
+		float halfHeight = scaleSize[0];
+		float width = halfWidth * 2;
+		float height = halfHeight * 2;
+
+		float distX = abs(bossPosition.x - NowPosition[0]);
+		float distY = abs(bossPosition.y - NowPosition[1]);
+
+		if (distX > (width / 2 + collisionRadius)) return; 
+		if (distY > (height / 2 + collisionRadius)) return; 
+
+		float cornerDistance_sq = pow((distX - width / 2), 2) + pow(distY - height / 2, 2);
+		if (distX <= (width / 2) || distY <= (height / 2) || cornerDistance_sq <= pow(collisionRadius, 2)) {
+			ParticleHelper* particleGroup = new ParticleHelper;
+			particleGroup->addNewParticle(6, 15.0f, 0.6f, 0.4f, glm::vec4(1.0f), glm::vec3(NowPosition[0], NowPosition[1],0.0f));
+			RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+
+			pBoss->hurtBossObject(0.2f);
+			velocity /= 3.0f;
+			finishTime = timer.getAccumlateTime();
+			isFinish = true;
+		}
+	}
+}
+
+void NormalStrike::checkCollisionWithEnemy(EnemyObject * pEnemy)
 {
 	if (!pEnemy->getIsTerminate() && !isFinish) {
 		glm::vec3 enemyPosition = pEnemy->getNowPosition();

@@ -23,7 +23,7 @@ protected:
 
 	virtual void taskSubWork() override;
 public:
-	TaskEnemy(std::string taskUuid, std::vector<std::string> targetTaskUuid, int repeatTime, int intervalFrame ,
+	TaskEnemy(std::string taskUuid, std::vector<std::string> targetTaskUuid, int repeatTime, int intervalFrame, int waitFrame,
 		std::string enemyImage, glm::vec2 divideInfo, glm::vec3 scaleInfo,glm::vec2 standbyInfo, glm::vec2 walkInfo,
 		glm::vec3 initCoord, float velocity, float movingTime, float acceleration, float angle, float angleAcceleration, int type, float enemyHealth);
 	virtual void TaskInit() override;

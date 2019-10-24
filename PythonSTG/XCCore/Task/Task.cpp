@@ -2,13 +2,15 @@
 #include "TaskDispatcher.h"
 #include "../XCRender/RenderManager.h"
 #include <thread>
-Task::Task(std::string taskUuid, std::vector<std::string> uuidForWaitTask, int repeatTime, int intervalFrame)
+Task::Task(std::string taskUuid, std::vector<std::string> uuidForWaitTask, int repeatTime, int intervalFrame, int waitFrame)
 {
 	taskUUID = taskUuid;
 	targetUUID.assign(uuidForWaitTask.begin(), uuidForWaitTask.end());
 
 	taskDurationFrame = repeatTime;
 	taskIntervalFrame = intervalFrame;
+
+	taskWaitFrame = waitFrame;
 }
 
 void Task::addSubUnit(TaskInsideUnit * unit)
@@ -19,9 +21,7 @@ void Task::addSubUnit(TaskInsideUnit * unit)
 void Task::TaskInit()
 {
 	if (!taskIsInit) {
-		for (int i = 0; i < targetUUID.size(); i++) {
-			TaskDispatcher::addTask(targetUUID[i]);
-		}
+		TaskDispatcher::addTask(taskUUID);
 		auto iterBegin = subUnitGroup.begin();
 		auto iterEnd = subUnitGroup.end();
 		for (auto unit = iterBegin; unit != iterEnd; unit++) {
@@ -33,35 +33,42 @@ void Task::TaskInit()
 
 void Task::taskSubWork()
 {
-	if (taskNowDurationFrame < taskDurationFrame || taskDurationFrame < 0) {
-		if (taskAccumlateTime >= taskIntervalFrame) {
-			auto iterBegin = subUnitGroup.begin();
-			auto iterEnd = subUnitGroup.end();
-			for (auto unit = iterBegin; unit != iterEnd; unit++) {
-				if (!(*unit)->IsAddToQueue()) {
-					(*unit)->UnitWork();
-				}
-				if ((*unit)->IsAddToQueue()) {//release here
-					(*unit)->UnitRelease();
-					delete (*unit);
-					if (std::next(unit) == subUnitGroup.end()) {
-						subUnitGroup.erase(unit);
-						break;
-					}
-					else {
-						unit = subUnitGroup.erase(unit);
-						iterEnd = subUnitGroup.end();
-					}
-				}
-			}
-			if (subUnitGroup.empty() && RenderManager::getInstance()->CheckRenderComplete(taskUUID))
-				taskFinish = true;
-			taskNowDurationFrame++;
-		}
-		taskAccumlateTime++;
+	if (taskWaitFrame > 0) {
+		taskWaitFrame--;
+		taskWait = true;
 	}
 	else {
-		taskFinish = true;
+		taskWait = false;
+		if (taskNowDurationFrame < taskDurationFrame || taskDurationFrame < 0) {
+			if (taskAccumlateTime >= taskIntervalFrame) {
+				auto iterBegin = subUnitGroup.begin();
+				auto iterEnd = subUnitGroup.end();
+				for (auto unit = iterBegin; unit != iterEnd; unit++) {
+					if (!(*unit)->IsAddToQueue()) {
+						(*unit)->UnitWork();
+					}
+					if ((*unit)->IsAddToQueue()) {//release here
+						(*unit)->UnitRelease();
+						delete (*unit);
+						if (std::next(unit) == subUnitGroup.end()) {
+							subUnitGroup.erase(unit);
+							break;
+						}
+						else {
+							unit = subUnitGroup.erase(unit);
+							iterEnd = subUnitGroup.end();
+						}
+					}
+				}
+				if (subUnitGroup.empty() && RenderManager::getInstance()->CheckRenderComplete(taskUUID))
+					taskFinish = true;
+				taskNowDurationFrame++;
+			}
+			taskAccumlateTime++;
+		}
+		else {
+			taskFinish = true;
+		}
 	}
 }
 
@@ -70,17 +77,20 @@ void Task::TaskWork()
 	if (taskIsInit) {
 		if (targetUUID.empty()) {
 			taskSubWork();
+			taskWaitForTarget = false;
 		}
 		else {
-			bool isTargetTaskFinish = true;
+			bool isAllTargetFinish = true;
 			for (int i = 0; i < targetUUID.size(); i++) {
-				bool isSubFinish = TaskDispatcher::getTaskFinish(targetUUID[i]);
-				if (!isSubFinish) {
-					isTargetTaskFinish = false;
+				bool isTargetFinish = TaskDispatcher::getTaskFinish(targetUUID[i]);
+				if (!isTargetFinish) {
+					isAllTargetFinish = false;
+					taskWaitForTarget = true;
 				}
 			}
-			if (isTargetTaskFinish) {
+			if (isAllTargetFinish) {
 				taskSubWork();
+				taskWaitForTarget = false;
 			}
 		}	
 	}
@@ -109,6 +119,16 @@ bool Task::getTaskFinish()
 bool Task::getTaskInit()
 {
 	return taskIsInit;
+}
+
+bool Task::getIsTaskWaiting()
+{
+	return taskWait;
+}
+
+bool Task::getIsTaskWaitingForTarget()
+{
+	return taskWaitForTarget;
 }
 
 std::string Task::getTaskUUID()

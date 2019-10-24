@@ -7,9 +7,10 @@
 class Task {
 protected:
 	std::string taskUUID;
-	int taskDurationFrame = -1, taskIntervalFrame = 0;
+	int taskDurationFrame = -1, taskIntervalFrame = 0, taskWaitFrame = 0;
 	int taskNowDurationFrame = 0, taskAccumlateTime = 0;
 	bool taskFinish = false, taskIsInit = false;
+	bool taskWait = false, taskWaitForTarget = false;
 
 	std::vector<std::string> targetUUID;
 	std::vector<TaskInsideUnit*> subUnitGroup;
@@ -18,7 +19,7 @@ protected:
 public:
 	/*while taskType==TaskWait, the task will wait for target task to end and start.
 	repeatTime == -1 means task will work repeatedly.*/
-	Task(std::string taskUuid, std::vector<std::string> targetTaskUuid, int repeatTime, int intervalFrame);
+	Task(std::string taskUuid, std::vector<std::string> targetTaskUuid, int repeatTime, int intervalFrame, int waitFrame);
 	void addSubUnit(TaskInsideUnit* unit);
 
 	virtual void TaskInit();
@@ -27,6 +28,9 @@ public:
 
 	bool getTaskFinish();
 	bool getTaskInit();
+
+	bool getIsTaskWaiting();
+	bool getIsTaskWaitingForTarget();
 	std::string getTaskUUID();
 };
 #endif

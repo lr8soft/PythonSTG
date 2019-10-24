@@ -8,14 +8,14 @@
 #include <string>
 class TaskInsideUnit {
 protected:
-	int waitFrame, workInterval = 0, repeatTime = 0, nowFrame = 0;
+	int waitFrame, repeatTime = 0, nowFrame = 0;
 	bool haveAddToQueue = false, isFinish = false;
 	std::list<RenderObject*> renderObjectGroup;
 	std::list<std::list<RenderObject*>> renderGroupManager;
 
 	std::string parentUuid;
 public:
-	TaskInsideUnit(std::string uuid,int waitFrame, int workInterval, int repeatTime);
+	TaskInsideUnit(std::string uuid,int waitFrame, int repeatTime);
 
 	virtual void UnitInit();
 	virtual void UnitWork();
