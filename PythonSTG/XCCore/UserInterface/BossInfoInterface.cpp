@@ -97,13 +97,6 @@ void BossInfoInterface::UserInterfaceRender()
 		bossHitPoint->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 1, 1, 1));
 		glDisable(GL_BLEND);
-
-		if (nowBossHitPoint > 0 ) {
-			nowBossHitPoint -= 0.01f;
-		}
-		else {
-			nowBossHitPoint = maxBossHitPoint;
-		}
 	}
 }
 

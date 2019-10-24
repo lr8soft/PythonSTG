@@ -32,7 +32,8 @@ protected:
 	float velocity = 0.8f;
 	float moveTime = 0.0f;
 
-	float nowHitPoint = 10.0f, maxHitPoint = 10.0f, spellCardTime = 0.0f;
+	bool isNowSpellCardHitPointClear = false;
+	float nowHitPoint = 100.0f, maxHitPoint = 100.0f, spellCardTime = 0.0f;
 	int spellCardCount = 1;
 
 	XCWavFile damageNormal, damageFinal, bossExplode;
@@ -47,5 +48,13 @@ public:
 	void setBossSpellCardCount(int count);
 	void setBossSpellCardTime(float time);
 	void setMovement(const glm::vec2& movemet);
+
+	void hurtBossObject(float damage);
+	bool getSpellCardHitPointClear();
+	glm::vec2 getPosition();
+	float getBossCollisionRadius();
+
+	void setSpellCardFinish(bool is);
+	void setBossFinish(bool is);
 };
 #endif

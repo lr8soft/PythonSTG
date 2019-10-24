@@ -26,9 +26,7 @@ TaskEnemy::TaskEnemy(std::string taskUuid, std::vector<std::string> targetTaskUu
 void TaskEnemy::TaskInit()
 {
 	if (!taskIsInit) {
-		for (int i = 0; i < targetUUID.size(); i++) {
-			TaskDispatcher::addTask(targetUUID[i]);
-		}
+		TaskDispatcher::addTask(taskUUID);
 		auto iterBegin = subUnitGroup.begin();
 		auto iterEnd = subUnitGroup.end();
 		for (auto unit = iterBegin; unit != iterEnd; unit++) {

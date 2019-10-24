@@ -90,7 +90,7 @@ void RenderManager::RenderWork()
 					std::list<RenderObject*>::iterator strikeEnd = strikeCollisionHelperGroup.end();
 					for (auto strike = strikeBegin; strike != strikeEnd; strike++) {
 						IAttack* pStrike = static_cast<IAttack*>(*strike);
-						pStrike->checkCollisonWithEnemy(static_cast<EnemyObject*>(renderObject));
+						pStrike->checkCollisionWithEnemy(static_cast<EnemyObject*>(renderObject));
 					}
 				}
 				else if (renderObject->getCurrentType() == RenderObject::BossType) {
@@ -98,7 +98,7 @@ void RenderManager::RenderWork()
 					std::list<RenderObject*>::iterator strikeEnd = strikeCollisionHelperGroup.end();
 					for (auto strike = strikeBegin; strike != strikeEnd; strike++) {
 						IAttack* pStrike = static_cast<IAttack*>(*strike);
-						//pStrike->checkCollisonWithEnemy(static_cast<BossObject*>(renderObject));
+						pStrike->checkCollisionWithBoss(static_cast<BossObject*>(renderObject));
 					}
 				}
 			}
@@ -215,6 +215,19 @@ void RenderManager::solveAsyncCommand()
 				}		
 			}
 			break;
+		case RenderManager::tAllBullet:
+			{
+				std::unordered_multimap<std::string, RenderObject*>::iterator bulletBegin = renderObjectList.begin();
+				std::unordered_multimap<std::string, RenderObject*>::iterator bulletEnd = renderObjectList.end();
+				for (auto object = bulletBegin; object != bulletEnd; object++) {
+					RenderObject *renderObject = object->second;
+					if (renderObject->getCurrentType() == RenderObject::BulletType) {
+						Bullet* pBullet = static_cast<Bullet*>(renderObject);
+						pBullet->setBulletTerminate();
+					}
+				}
+			}
+			break;
 		default:
 			break;
 		}
@@ -259,6 +272,11 @@ void RenderManager::CleanUserInterface(const std::string & uuid)
 void RenderManager::TerminateBullet(const std::string& parentUuid)
 {
 	externCommandList.insert(std::make_pair(RenderManager::tBullet, parentUuid));
+}
+
+void RenderManager::TerminateAllBullet()
+{
+	externCommandList.insert(std::make_pair(RenderManager::tAllBullet, ""));
 }
 
 bool RenderManager::CheckRenderComplete(const std::string& uuid)

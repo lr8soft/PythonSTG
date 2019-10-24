@@ -21,9 +21,7 @@ void Task::addSubUnit(TaskInsideUnit * unit)
 void Task::TaskInit()
 {
 	if (!taskIsInit) {
-		for (int i = 0; i < targetUUID.size(); i++) {
-			TaskDispatcher::addTask(targetUUID[i]);
-		}
+		TaskDispatcher::addTask(taskUUID);
 		auto iterBegin = subUnitGroup.begin();
 		auto iterEnd = subUnitGroup.end();
 		for (auto unit = iterBegin; unit != iterEnd; unit++) {
@@ -82,15 +80,15 @@ void Task::TaskWork()
 			taskWaitForTarget = false;
 		}
 		else {
-			bool isTargetTaskFinish = true;
+			bool isAllTargetFinish = true;
 			for (int i = 0; i < targetUUID.size(); i++) {
-				bool isSubFinish = TaskDispatcher::getTaskFinish(targetUUID[i]);
-				if (!isSubFinish) {
-					isTargetTaskFinish = false;
+				bool isTargetFinish = TaskDispatcher::getTaskFinish(targetUUID[i]);
+				if (!isTargetFinish) {
+					isAllTargetFinish = false;
 					taskWaitForTarget = true;
 				}
 			}
-			if (isTargetTaskFinish) {
+			if (isAllTargetFinish) {
 				taskSubWork();
 				taskWaitForTarget = false;
 			}

@@ -25,6 +25,8 @@ public:
 	Stage() = delete;
 	Stage(std::string uuid, PyObject* item);
 	void addTask(Task* pTask);
+	void removeTask(std::string &uuid);
+
 	void stageInit();
 	void stageWork();
 	void stageRelease();

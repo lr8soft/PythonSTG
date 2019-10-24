@@ -113,10 +113,33 @@ def setupMyStage():
     taskAfter.addUnit(unit2_1)
     stage0.addTask(taskAfter)
 
+
+    #spellcard test
+    unit_spellcard = TaskUnit(repeatTime=30,waitFrame=10)
+    for j in range(0, 36):
+        bullet = CircleBullet()
+        bullet.setVelocity(0.6)
+        bullet.setAngle(j * 10)
+        bullet.setBulletColor(BulletColor.BLUE)
+        unit_spellcard.addBullet(bullet)
+
+    task_spellcard = Task(durationFrame=-1)
+    task_spellcard.addUnit(unit_spellcard)
+
+    spellcard = SpellCard()
+    spellcard.setSpellCardHealthPoint(30.0)
+    spellcard.addTask(task_spellcard)
+
+    #boss
+    boss = Boss()
+    boss.AddTargetUuid(taskAfter.getUuid())
+    boss.AddSpellCard(spellcard)
+    stage0.addBoss(boss)
+
     # task 3
-    lastuuid = taskAfter.getUuid()
-    lastuuid2 = taskAfter.getUuid()
-    for i in range(1, 20):
+    lastuuid = task_spellcard.getUuid()
+    lastuuid2 = task_spellcard.getUuid()
+    for i in range(1, 10):
         enemyAimPlayer = TaskEnemy(durationFrame=-1, intervalFrame=0)
         enemyAimPlayer.setInitCoord([0.5, 1.0, 0.0])
         enemyAimPlayer.setVelocity(1.0)
@@ -169,8 +192,8 @@ def setupMyStage():
         stage0.addTask(enemyAimPlayer2)
 
     taskAimPlayer = Task(durationFrame=-1, intervalFrame=0)
-    taskAimPlayer.addTargetUuid(taskAfter.getUuid())
-    for k in range(1, 80):
+    taskAimPlayer.addTargetUuid(task_spellcard.getUuid())
+    for k in range(1, 40):
         unit = TaskUnit(waitFrame=k * 25)
         for c in range(1, 10):
             bullet = CircleBullet()
@@ -187,26 +210,6 @@ def setupMyStage():
 
     stage0.addTask(taskAimPlayer)
 
-    #spellcard test
-    unit_spellcard = TaskUnit(repeatTime=3,waitFrame=10)
-    for j in range(0, 36):
-        bullet = CircleBullet()
-        bullet.setVelocity(0.6)
-        bullet.setAngle(j * 10)
-        bullet.setBulletColor(BulletColor.BLUE)
-        unit_spellcard.addBullet(bullet)
-
-    task_spellcard = Task(durationFrame=-1)
-    task_spellcard.addUnit(unit_spellcard)
-
-    spellcard = SpellCard()
-    spellcard.addTask(task_spellcard)
-
-    #boss
-    boss = Boss()
-    boss.AddTargetUuid(enemyTest.getUuid())
-    boss.AddSpellCard(spellcard)
-    stage0.addBoss(boss)
 
 
     return stage0 #返回创建的关卡

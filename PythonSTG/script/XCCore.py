@@ -9,7 +9,7 @@ import script.TestStage as TestStage
 winWidth = 1280
 winHeight = 720
 
-winTitle = "Python2D v0.31"
+winTitle = "Python2D v0.31x"
 winScaleToMonitor = False
 winResize = False
 winFullScreen = False
@@ -37,6 +37,3 @@ def PlayerInit():
     rin.setPlayerData(1.45, 0.1, 1.0)
     XCInit.addPlayerItem(rin)
     print("[XCCore]Player info init.")
-
-if __name__ == "__main__":
-    coreInitializer()

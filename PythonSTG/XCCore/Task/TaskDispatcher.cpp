@@ -2,7 +2,11 @@
 std::map<std::string, bool> TaskDispatcher::StageTaskGroup;
 void TaskDispatcher::addTask(const std::string& uuid)
 {
-	StageTaskGroup.insert(std::make_pair(uuid, false));
+	if (StageTaskGroup.find(uuid)== StageTaskGroup.end())
+	{
+		StageTaskGroup.insert(std::make_pair(uuid, false));
+	}
+	
 }
 
 void TaskDispatcher::updateTask(const std::string& uuid, bool isFinsh)

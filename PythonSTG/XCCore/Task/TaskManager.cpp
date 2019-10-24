@@ -30,6 +30,11 @@ void TaskManager::AddStageItem(Stage * stage)
 	stageQueue.push_back(stage);
 }
 
+void TaskManager::CleanTaskAsync(std::string & uuid)
+{
+	asyncCleanGroup.push_back(uuid);
+}
+
 void TaskManager::CleanAllStage()
 {
 	std::vector<Stage*>::iterator stageBegin = stageQueue.begin();
@@ -70,6 +75,14 @@ void TaskManager::TaskWork()
 		}
 		asyncTaskGroup.clear();
 	}
+	if (!asyncCleanGroup.empty()) {
+		std::vector<Stage*>::iterator currentStage = stageQueue.begin();
+		std::vector<std::string>::iterator uuidEnd = asyncCleanGroup.begin();
+		for (auto uuid = asyncCleanGroup.begin(); uuid != uuidEnd; uuid++) {
+			(*currentStage)->removeTask(*uuid);
+		}
+	}
+
 	if (stageQueue.empty()) {
 		if(RenderManager::getInstance()->CheckRenderComplete(MenuUniformUUID)){
 			LaunchHelper::LoadGameMenu();

@@ -25,6 +25,7 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-	virtual void checkCollisonWithEnemy(EnemyObject* pEnemy) override;
+	virtual void checkCollisionWithEnemy(EnemyObject* pEnemy) override;
+	virtual void checkCollisionWithBoss(BossObject* pBoss) override;
 };
 #endif

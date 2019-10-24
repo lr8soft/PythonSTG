@@ -4,11 +4,14 @@
 #include <vector>
 #include <string>
 #include "../Task/Task.h"
+#include "../../util/GameTimer.h"
 #include <glm/glm.hpp>
 class SpellCard {
 protected:
+	XCGameTimer timer;
 	std::vector<Task*> taskGroup;
 	std::vector<std::string> taskUUIDGroup;
+
 
 	bool isSpellCard = true, isAddToQueue = false, isInit =false, isSpellCardFinish = false;
 	std::string uuid, spellCardName;

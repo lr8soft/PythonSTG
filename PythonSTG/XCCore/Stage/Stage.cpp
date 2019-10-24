@@ -18,6 +18,17 @@ void Stage::addTask(Task * pTask)
 	stageTaskGroup.push_back(pTask);
 }
 
+void Stage::removeTask(std::string & uuid)
+{
+	auto taskEnd = stageTaskGroup.end();
+	for (auto task = stageTaskGroup.begin(); task != taskEnd; task++) {
+		if ((*task)->getTaskUUID() == uuid) {
+			stageTaskGroup.erase(task);
+			break;
+		}
+	}
+}
+
 void Stage::stageInit()
 {
 	if (!isStageInit) {

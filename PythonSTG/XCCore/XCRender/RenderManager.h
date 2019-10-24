@@ -14,7 +14,7 @@
 class RenderManager {
 private:
 	enum insideCommand {
-		cRenderObject = 0, cAllRenderObject, tBullet, cUserInterface
+		cRenderObject = 0, cAllRenderObject, tBullet, cUserInterface, tAllBullet
 	};
 	std::unordered_multimap<std::string, RenderObject*> renderObjectList;
 	std::unordered_multimap<insideCommand, std::string> externCommandList;
@@ -40,6 +40,7 @@ public:
 	void CleanAllRenderObject();
 	void CleanUserInterface(const std::string& uuid);
 	void TerminateBullet(const std::string& parentUuid);
+	void TerminateAllBullet();
 	bool CheckRenderComplete(const std::string& parentUuid);
 
 	void AddRenderObject(const std::string& parentUuid,RenderObject* object, bool isAsynico = false);

@@ -53,21 +53,23 @@ void Boss::taskSubWork()
 			if (!(*spellCardBegin)->getIsFinish()) {
 				if (isNewSpellCard) {
 					BossInfoInterface::getInstance()->setBossName(bossName);
-					BossInfoInterface::getInstance()->setSpellCardCount(spellCardGroup.size()+11);
+					BossInfoInterface::getInstance()->setSpellCardCount(spellCardGroup.size());
 					BossInfoInterface::getInstance()->setSpellCardName((*spellCardBegin)->getSpellCardName());
 
 					bossRenderObject->setBossHitPoint((*spellCardBegin)->getSpellCardHitPoint());
 					bossRenderObject->setBossSpellCardCount(spellCardGroup.size());
 					bossRenderObject->setBossSpellCardTime((*spellCardBegin)->getSpellCardTime());
 					bossRenderObject->setMovement((*spellCardBegin)->getMovement());
+					bossRenderObject->setSpellCardFinish(false);
 					isNewSpellCard = false;
 				}
 				(*spellCardBegin)->SpellCardWork();
 			
 			}
-			if ((*spellCardBegin)->getIsFinish()) {
+			if ((*spellCardBegin)->getIsFinish() || bossRenderObject->getSpellCardHitPointClear()) {
 				(*spellCardBegin)->SpellCardRelease();
 				delete *spellCardBegin;
+				RenderManager::getInstance()->TerminateAllBullet();
 				spellCardGroup.erase(spellCardBegin);
 				isNewSpellCard = true;
 			}
@@ -102,9 +104,6 @@ void Boss::TaskRelease()
 			delete bossRenderObject;
 			bossRenderObject = nullptr;
 		}
-
-		bossRenderObject->Release();
-		delete bossRenderObject;
 		taskIsInit = false;
 	}
 }

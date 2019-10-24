@@ -43,14 +43,8 @@ void SpellCard::SpellCardWork()
 			isAddToQueue = true;			
 		}
 		else {
-			bool isTargetTaskFinish = true;
-			for (int i = 0; i < taskUUIDGroup.size(); i++) {
-				bool isSubFinish = TaskDispatcher::getTaskFinish(taskUUIDGroup[i]);
-				if (!isSubFinish) {
-					isTargetTaskFinish = false;
-				}
-			}
-			if (isTargetTaskFinish) {
+			timer.Tick();
+			if(timer.getAccumlateTime() > spellCardTime && spellCardTime >= 0){
 				isSpellCardFinish = true;
 			}
 		}
@@ -75,6 +69,12 @@ void SpellCard::SpellCardRelease()
 					task = taskGroup.erase(task);
 					taskEnd = taskGroup.end();
 				}
+			}
+		}
+		if (!taskUUIDGroup.empty()) {
+			auto uuidEnd = taskUUIDGroup.end();
+			for (auto uuiditer = taskUUIDGroup.begin(); uuiditer != uuidEnd; uuiditer++) {
+				TaskManager::getInstance()->CleanTaskAsync(*uuiditer);
 			}
 		}
 		isInit = false;
