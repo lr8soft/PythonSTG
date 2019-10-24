@@ -28,7 +28,7 @@ namespace xc_ogl {
 
 		int getTextureWidth();
 		int getTextureHeight();
-		static void* getTexturePointer(const char* tex,int &width,int &height,int &channels);
+		static void* getTexturePointer(const char* imagePath,int &width,int &height,int &channels);
 		GLuint getTextureBufferObjectHandle();
 	};
 }

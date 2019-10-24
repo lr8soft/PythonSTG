@@ -13,7 +13,7 @@
 RenderManager* RenderManager::pRenderManager = nullptr;
 RenderManager::RenderManager() {
 	auto coverInterface = CoverInterface::getInstance();
-	AddUserInterface("coverImage", coverInterface);
+	AddUserInterface("0", coverInterface);
 
 }
 

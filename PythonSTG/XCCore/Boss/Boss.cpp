@@ -53,7 +53,7 @@ void Boss::taskSubWork()
 			if (!(*spellCardBegin)->getIsFinish()) {
 				if (isNewSpellCard) {
 					BossInfoInterface::getInstance()->setBossName(bossName);
-					BossInfoInterface::getInstance()->setSpellCardCount(spellCardGroup.size());
+					BossInfoInterface::getInstance()->setSpellCardCount(spellCardGroup.size()+11);
 					BossInfoInterface::getInstance()->setSpellCardName((*spellCardBegin)->getSpellCardName());
 
 					bossRenderObject->setBossHitPoint((*spellCardBegin)->getSpellCardHitPoint());

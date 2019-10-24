@@ -3,6 +3,7 @@
 #define _BOSS_OBJECT_H_
 #include "../XCRender/RenderObject.h"
 #include "../XCRender/IRenderHelper.h"
+#include "../XCRender/XCImageHelper.h"
 #include "../XCAudio/AudioHelper.h"
 #include "../../util/GameTimer.h"
 #include <glm/glm.hpp>
@@ -16,7 +17,9 @@ protected:
 	BossState nowState = StandByState;
 	float nowImageIndex = 0.0f;
 	int nowImageState = 1;
+
 	IRenderHelper* bossImage;
+
 	glm::vec2 NowPosition = glm::vec2(0.0f, 1.2f);
 	glm::vec2 divideInfo;
 	glm::vec2 scaleInfo;

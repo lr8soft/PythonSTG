@@ -58,10 +58,12 @@ void BossObject::Render()
 		else {
 			nowState = StandByState;
 		}
+		
 
 		bossImage->Render(glm::vec3(NowPosition,0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0, 0, 1), glm::vec3(scaleInfo[0], scaleInfo[1], 1.0f),
 			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo[0], divideInfo[1], nowImageIndex, nowImageState));
 		glDisable(GL_BLEND);
+		
 	}
 }
 
@@ -69,8 +71,9 @@ void BossObject::Release()
 {
 	if (isInit) {
 		bossImage->Release();
+
 		delete bossImage;
-	
+		
 	}
 }
 

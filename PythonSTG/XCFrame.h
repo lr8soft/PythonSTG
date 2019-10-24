@@ -17,6 +17,8 @@ private:
 
 	XCGameTimer timer;
 	XCFrame();
+
+	GLFWimage* getApplicationIcon();
 public:
 	GLFWwindow* getScreen();
 	GLFWwindow* getThreadScreen();

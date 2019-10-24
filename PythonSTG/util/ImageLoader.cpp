@@ -96,7 +96,7 @@ int xc_ogl::ImageLoader::getTextureHeight()
 
 void * xc_ogl::ImageLoader::getTexturePointer(const char* tex, int &width, int &height, int &channels)
 {
-	stbi_set_flip_vertically_on_load(true);
+	stbi_set_flip_vertically_on_load(false);
 	void* texture_ptr = stbi_load(tex, &width, &height, &channels, STBI_rgb_alpha);
 	if (texture_ptr) {
 		return texture_ptr;

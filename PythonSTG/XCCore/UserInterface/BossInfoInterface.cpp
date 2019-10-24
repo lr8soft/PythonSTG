@@ -21,6 +21,7 @@ void BossInfoInterface::UserInterfaceInit()
 	if (!isInit) {
 		spellCardStar = new XCAdvImageHelper("assets/UI/spellcardStar.png");
 		spellcardBackground = new XCAdvImageHelper("assets/UI/spellcardbackground.png");
+		bossHitPoint = new XCAdvImageHelper("assets/UI/hitpointslot.png");
 
 		fontHelper.FontUnicodeInit(bossName);
 		fontHelper.FontUnicodeInit(spellCardName);
@@ -67,6 +68,42 @@ void BossInfoInterface::UserInterfaceRender()
 		glDisable(GL_BLEND);
 		fontHelper.FontUnicodeRender(spellCardName,
 			(1.0f - XCFrameInfo::FrameRight) / 2.0f + XCFrameInfo::FrameRight /(1.1f + spellCardName.length() * 0.02f), 1.0f - spellCardBackgroundHeight * 0.8f, 0.5f, glm::vec4(0.8f, 0.8f, 0.8f, 1.0f));
+
+		
+		float slotWidth = 0.12f;
+		float slotHeight = slotWidth * 6.0f;//0.72
+
+		float slotX = -1.0f + (1.0f - XCFrameInfo::FrameRight) / 2.0f;
+		float slotY = 0.0f;//(2.0f - slotHeight) / 2.0f;
+
+
+		float hpWidth = slotWidth;
+		float hpHeight = slotHeight * (nowBossHitPoint / maxBossHitPoint);
+		float hpX = -1.0f + (1.0f - XCFrameInfo::FrameRight) / 2.0f;
+		float hpY = -slotHeight + hpHeight;
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glm::mat4 nowHpMat;
+		nowHpMat = glm::translate(nowHpMat, glm::vec3(hpX, hpY, 0.0f));
+		nowHpMat = glm::scale(nowHpMat, glm::vec3(hpWidth, hpHeight, 1.0f));
+		bossHitPoint->setMvpMatrix(nowHpMat);
+		bossHitPoint->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 1, 2, 1));
+
+		glm::mat4 hpSlotMat;
+		hpSlotMat = glm::translate(hpSlotMat, glm::vec3(slotX, slotY, 0.0f));
+		hpSlotMat = glm::scale(hpSlotMat, glm::vec3(slotWidth, slotHeight, 1.0f));
+		bossHitPoint->setMvpMatrix(hpSlotMat);
+		bossHitPoint->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 2, 1, 1, 1));
+		glDisable(GL_BLEND);
+
+		if (nowBossHitPoint > 0 ) {
+			nowBossHitPoint -= 0.01f;
+		}
+		else {
+			nowBossHitPoint = maxBossHitPoint;
+		}
 	}
 }
 
@@ -75,7 +112,8 @@ void BossInfoInterface::UserInterfaceRelease()
 	if (isInit) {
 		spellCardStar->Release();
 		spellcardBackground->Release();
-		delete spellCardStar, spellcardBackground;
+		bossHitPoint->Release();
+		delete spellCardStar, spellcardBackground, bossHitPoint;
 		spellCardStar = nullptr;
 		spellcardBackground = nullptr;
 
@@ -94,6 +132,17 @@ void BossInfoInterface::setSpellCardName(std::string name)
 {
 	spellCardName = name;
 	fontHelper.FontUnicodeInit(name);
+}
+
+void BossInfoInterface::setSpellCardTime(int time)
+{
+	spellCardTime = time;
+}
+
+void BossInfoInterface::setBossHitPoint(float currentHP, float maxHP)
+{
+	nowBossHitPoint = currentHP;
+	maxBossHitPoint = maxHP;
 }
 
 void BossInfoInterface::setBossName(std::string name)

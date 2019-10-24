@@ -47,7 +47,7 @@ class SpellCard:
 class Boss:
     def __init__(self):
         self.spellCardGroup = Queue()
-        self.bossName = "TestBoss"
+        self.bossName = "TestBoss "
         self.targetUuid = Queue()
         self.uuid = str(uuid.uuid1())
         self.waitFrame = 0
