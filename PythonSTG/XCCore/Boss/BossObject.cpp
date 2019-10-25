@@ -74,7 +74,6 @@ void BossObject::Release()
 {
 	if (isInit) {
 		bossImage->Release();
-
 		delete bossImage;
 		
 	}

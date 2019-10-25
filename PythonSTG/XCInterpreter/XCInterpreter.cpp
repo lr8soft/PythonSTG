@@ -6,14 +6,15 @@
 #include <chrono>
 #include <future>
 using namespace std;
+InitInfo *XCInterpreter::gameInitInfo = nullptr;
 XCInterpreter::XCInterpreter()
 {
 
 	
 }
-InitInfo XCInterpreter::InterpreterThread()
+InitInfo* XCInterpreter::InterpreterThread()
 {
-	InitInfo info;
+	InitInfo* info = new InitInfo;
 	MultiThreadDefine
 	PyObject* mainScript = pyLoader.importModule("script.XCCore");
 	pyLoader.callObjectMethod(mainScript, "coreInitializer", NULL);
@@ -25,24 +26,18 @@ InitInfo XCInterpreter::InterpreterThread()
 	PyObject* scale  = pyLoader.getAttrib(mainScript, "winScaleToMonitor");
 	PyObject* fullscreen = pyLoader.getAttrib(mainScript, "winFullScreen");
 
-	info.winHeight = pyLoader.getSingleArg<int>(height);
-	info.winWidth = pyLoader.getSingleArg<int>(width);
-	info.winTitle = pyLoader.getSingleArg<const char*>(title);
+	info->winHeight = pyLoader.getSingleArg<int>(height);
+	info->winWidth = pyLoader.getSingleArg<int>(width);
+	info->winTitle = pyLoader.getSingleArg<const char*>(title);
 
 	int intValue;
 	PyArg_Parse(resize, "p", &intValue);
-	info.winResize = intValue;
+	info->winResize = intValue;
 	PyArg_Parse(scale, "p", &intValue);
-	info.winScale = intValue;
+	info->winScale = intValue;
 	PyArg_Parse(fullscreen, "p", &intValue);
-	info.winFullScreen = intValue;
-#ifdef _DEBUG
-	std::cout << "=======INIT INFO=======" << std::endl;
-	std::cout << "width:" << info.winWidth << " height:" << info.winHeight << std::endl;
-	std::cout << "resize:" << std::boolalpha << info.winResize << " scale:" << info.winScale << std::endl;
-	std::cout << "title:" << info.winTitle << std::endl;
-	std::cout << "=====================" << std::endl << std::endl;
-#endif
+	info->winFullScreen = intValue;
+
 	MultiThreadDefineEnd
 	return info;
 }
@@ -68,12 +63,6 @@ void XCInterpreter::parseStageItem()
 				Stage *stage = new Stage(uuid, pObject);
 				auto renderQueue = TaskManager::getInstance();
 				renderQueue->AddStageItem(stage);
-#ifndef _DEBUG
-				//Py_INCREF(retValue);
-#else
-				std::cout << "Stage Uuid:"<< uuid <<  std::endl;
-				//Py_IncRef(retValue);
-#endif
 
 			}
 		}
@@ -114,29 +103,20 @@ void XCInterpreter::parsePlayerEntity()
 					glm::vec3(1,0,0), 0.0f, moveSpeed, imageSwapInterval, basePower, standByRow, turnLeftRow, turnRightRow);
 
 				Player::addPlayerInstance(frameName, player);
-#ifndef _DEBUG
-				//Py_INCREF(retValue);
-#else
-				std::cout << "-------player entity item-------" << std::endl;
-				std::cout << "entityName:" << frameName << " speed:" << moveSpeed << " swapInterval:" << imageSwapInterval << " basePower:" << basePower << std::endl;
-				std::cout << "path:" << imagePath << " col:"<< imageCol << " row:"<< imageRow
-					<< " standbyRow:"<< standByRow << " tLeftRow:"<< turnLeftRow <<" tRightRow:"<< turnRightRow << std::endl;
-				
-				std::cout  <<"scale:" << scaleX << " " << scaleY << " " << scaleZ<< " uuid:"<< uuid << std::endl;
-				std::cout << "----------------------------\n" << std::endl;
-				//Py_IncRef(retValue);
-#endif
 
 			}
 		}
 	}
 }
 
-InitInfo XCInterpreter::getInitInfo()
+InitInfo* XCInterpreter::getInitInfo()
 {
-	std::cout << "[INFO] Now pyInterpreter start." << std::endl;
-	std::future<InitInfo> retFuture = std::async(&XCInterpreter::InterpreterThread, this);
-	return retFuture.get();
+	if (gameInitInfo == nullptr) {	
+		std::cout << "[INFO] Now Interpreter start." << std::endl;
+		std::future<InitInfo*> retFuture = std::async(&XCInterpreter::InterpreterThread, this);
+		gameInitInfo = retFuture.get();
+	}
+	return gameInitInfo;
 }
 void XCInterpreter::loadTaskManagerInfo()
 {
@@ -147,6 +127,9 @@ void XCInterpreter::loadTaskManagerInfo()
 }
 XCInterpreter::~XCInterpreter()
 {
-
+	if (gameInitInfo != nullptr) {
+		delete gameInitInfo;
+		gameInitInfo = nullptr;
+	}
 }
 

@@ -37,6 +37,10 @@ void SpellCard::SpellCardWork()
 			std::vector<Task*>::iterator taskEnd = taskGroup.end();
 			for (auto task = taskBegin; task != taskEnd; task++) {
 				taskUUIDGroup.push_back((*task)->getTaskUUID());
+				if (pBossObject != nullptr) {
+					auto pos = pBossObject->getPosition();
+					(*task)->setUnitInitCoord(pos.x, pos.y);
+				}
 				TaskManager::getInstance()->AddTaskAsync(*task);
 			}
 			taskGroup.clear();
@@ -85,6 +89,11 @@ void SpellCard::setMovementPosition(float x, float y)
 {
 	movementPosition.x = x;
 	movementPosition.y = y;
+}
+
+void SpellCard::setBossObject(BossObject * pObject)
+{
+	pBossObject = pObject;
 }
 
 float SpellCard::getSpellCardTime()

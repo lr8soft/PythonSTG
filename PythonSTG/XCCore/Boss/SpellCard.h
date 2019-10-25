@@ -5,6 +5,7 @@
 #include <string>
 #include "../Task/Task.h"
 #include "../../util/GameTimer.h"
+#include "../Boss/BossObject.h"
 #include <glm/glm.hpp>
 class SpellCard {
 protected:
@@ -17,6 +18,8 @@ protected:
 	std::string uuid, spellCardName;
 	float spellCardTime = 0.0f, spellCardHitPoint;
 
+	BossObject* pBossObject = nullptr;
+
 	glm::vec2 movementPosition = glm::vec2(-2.0f, -2.0f);
 public:
 	SpellCard(std::string parentUuid, std::string spellCardName, bool isSpellCard, float spellCardTime, float spellCardHitPoint);
@@ -27,6 +30,8 @@ public:
 	void SpellCardRelease();
 
 	void setMovementPosition(float x, float y);
+
+	void setBossObject(BossObject* pObject);
 
 	float getSpellCardTime();
 	float getSpellCardHitPoint();

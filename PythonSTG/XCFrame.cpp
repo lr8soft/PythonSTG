@@ -16,17 +16,17 @@ void XCFrame::FrameInit()
 {
 	ScriptLoader::initPythonEvon();
 	interpreter = new XCInterpreter;
-	InitInfo info = interpreter->getInitInfo();
-	FrameWidth = info.winWidth;
-	FrameHeight = info.winHeight;
-	XCFrameInfo::ScreenHeight = info.winHeight;
-	XCFrameInfo::ScreenWidth = info.winWidth;
+	InitInfo* info = interpreter->getInitInfo();
+	FrameWidth = info->winWidth;
+	FrameHeight = info->winHeight;
+	XCFrameInfo::ScreenHeight = info->winHeight;
+	XCFrameInfo::ScreenWidth = info->winWidth;
 
 	float smallSize = FrameWidth > FrameHeight ? FrameHeight : FrameWidth;
 	float absWidth = smallSize / (float)FrameWidth;
 	float absHeight = smallSize / (float)FrameHeight;
 
-	XCFrameInfo::ScreenOriginTitle = info.winTitle;
+	XCFrameInfo::ScreenOriginTitle = info->winTitle;
 	XCFrameInfo::FrameRight = absWidth;
 	XCFrameInfo::FrameLeft = -absWidth;
 	XCFrameInfo::FrameTop = absHeight;
@@ -36,10 +36,10 @@ void XCFrame::FrameInit()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);//ºËÐÄÄ£Ê½Å£ ±Æ
-	glfwWindowHint(GLFW_RESIZABLE, info.winResize);//No resizable.
-	glfwWindowHint(GLFW_SCALE_TO_MONITOR, info.winScale);//Auto change size
+	glfwWindowHint(GLFW_RESIZABLE, info->winResize);//No resizable.
+	glfwWindowHint(GLFW_SCALE_TO_MONITOR, info->winScale);//Auto change size
 
-	GLFWmonitor* primaryMonitor = info.winFullScreen ? glfwGetPrimaryMonitor() : nullptr;
+	GLFWmonitor* primaryMonitor = info->winFullScreen ? glfwGetPrimaryMonitor() : nullptr;
 	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
 	tscreen = glfwCreateWindow(1, 1, "ThreadInitHelper", nullptr, nullptr);
 	glfwWindowHint(GLFW_VISIBLE, GL_TRUE);

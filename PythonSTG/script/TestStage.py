@@ -115,7 +115,7 @@ def setupMyStage():
 
 
     #spellcard test
-    unit_spellcard = TaskUnit(repeatTime=30,waitFrame=10)
+    unit_spellcard = TaskUnit(repeatTime=100,waitFrame=10)
     for j in range(0, 36):
         bullet = CircleBullet()
         bullet.setVelocity(0.6)

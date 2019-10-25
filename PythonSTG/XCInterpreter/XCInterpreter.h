@@ -18,14 +18,16 @@ class XCInterpreter {
 private:
 	ScriptLoader pyLoader;
 	PyObject* scriptCore;
-	InitInfo InterpreterThread();
+	InitInfo* InterpreterThread();
+
+	static InitInfo* gameInitInfo;
 
 	void parseStageItem();
 	void parsePlayerEntity();
 public:
 	XCInterpreter();
 	~XCInterpreter();
-	InitInfo getInitInfo();
+	InitInfo* getInitInfo();
 	void loadTaskManagerInfo();
 };
 

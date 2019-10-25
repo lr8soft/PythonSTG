@@ -81,6 +81,7 @@ void TaskManager::TaskWork()
 		for (auto uuid = asyncCleanGroup.begin(); uuid != uuidEnd; uuid++) {
 			(*currentStage)->removeTask(*uuid);
 		}
+		asyncCleanGroup.clear();
 	}
 
 	if (stageQueue.empty()) {
