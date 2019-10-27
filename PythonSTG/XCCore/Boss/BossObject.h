@@ -31,6 +31,7 @@ protected:
 	const float speed = 0.8f;
 	float velocity = 0.8f;
 	float moveTime = 0.0f;
+	bool finishMoving = true;
 
 	bool isNowSpellCardHitPointClear = false;
 	float nowHitPoint = 100.0f, maxHitPoint = 100.0f, spellCardTime = 0.0f;
@@ -48,6 +49,7 @@ public:
 	void setBossSpellCardCount(int count);
 	void setBossSpellCardTime(float time);
 	void setMovement(const glm::vec2& movemet);
+	bool getFinishMovement();
 
 	void hurtBossObject(float damage);
 	bool getSpellCardHitPointClear();

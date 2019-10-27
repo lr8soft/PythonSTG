@@ -4,16 +4,7 @@ from script.Object.Player import Player
 # demo stage 演示关卡
 import script.TestStage as TestStage
 
-# PySTG Init
-# GameRANK show while winWidth / winHeight >= (16:10)
-winWidth = 1280
-winHeight = 720
-
 winTitle = "Python2D v0.31x"
-winScaleToMonitor = False
-winResize = False
-winFullScreen = False
-
 
 # PySTG default function
 def coreInitializer():

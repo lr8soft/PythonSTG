@@ -44,6 +44,15 @@ void SpellCard::SpellCardWork()
 		}
 		else {
 			timer.Tick();
+			if (!haveTaskCoordInit && pBossObject != nullptr) {
+				if (pBossObject->getFinishMovement()) {
+					auto pos = pBossObject->getPosition();
+					for (auto uuid : taskUUIDGroup) {
+						TaskManager::getInstance()->SetTaskInitCoord(uuid, pos.x, pos.y);
+					}
+					haveTaskCoordInit = true;
+				}
+			}
 			if(timer.getAccumlateTime() > spellCardTime && spellCardTime >= 0){
 				isSpellCardFinish = true;
 			}
@@ -85,6 +94,11 @@ void SpellCard::setMovementPosition(float x, float y)
 {
 	movementPosition.x = x;
 	movementPosition.y = y;
+}
+
+void SpellCard::setBossObject(BossObject * pObject)
+{
+	pBossObject = pObject;
 }
 
 float SpellCard::getSpellCardTime()

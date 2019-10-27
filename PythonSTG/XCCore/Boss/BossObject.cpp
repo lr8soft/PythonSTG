@@ -59,6 +59,7 @@ void BossObject::Render()
 			nowState = WalkState;
 		}
 		else {
+			finishMoving = true;
 			nowState = StandByState;
 		}
 		BossInfoInterface::getInstance()->setBossHitPoint(nowHitPoint, maxHitPoint);
@@ -74,7 +75,6 @@ void BossObject::Release()
 {
 	if (isInit) {
 		bossImage->Release();
-
 		delete bossImage;
 		
 	}
@@ -121,6 +121,12 @@ void BossObject::setMovement(const glm::vec2& movement)
 	moveTime = dist / abs(velocity);
 
 	timer.Clear();
+	finishMoving = false;
+}
+
+bool BossObject::getFinishMovement()
+{
+	return finishMoving;
 }
 
 void BossObject::hurtBossObject(float damage)

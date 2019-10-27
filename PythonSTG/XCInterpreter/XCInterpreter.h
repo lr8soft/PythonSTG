@@ -6,26 +6,22 @@
 #include <map>
 #include <mutex>
 struct InitInfo {
-	int winHeight;
-	int winWidth;
-	bool winResize;
-	bool winScale;
-	bool winFullScreen;
-	std::string winImage;
 	std::string winTitle;
 };
 class XCInterpreter {
 private:
 	ScriptLoader pyLoader;
 	PyObject* scriptCore;
-	InitInfo InterpreterThread();
+	InitInfo* InterpreterThread();
+
+	static InitInfo* gameInitInfo;
 
 	void parseStageItem();
 	void parsePlayerEntity();
 public:
 	XCInterpreter();
 	~XCInterpreter();
-	InitInfo getInitInfo();
+	InitInfo* getInitInfo();
 	void loadTaskManagerInfo();
 };
 

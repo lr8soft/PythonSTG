@@ -43,13 +43,14 @@
             this.rightKeyBox = new System.Windows.Forms.TextBox();
             this.slowKeyBox = new System.Windows.Forms.TextBox();
             this.isFullScreen = new System.Windows.Forms.CheckBox();
-            this.isScaleAuto = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.volumeKeyBox = new System.Windows.Forms.TextBox();
             this.shootKeyBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.resolutionBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -178,7 +179,7 @@
             // isFullScreen
             // 
             this.isFullScreen.AutoSize = true;
-            this.isFullScreen.Location = new System.Drawing.Point(31, 248);
+            this.isFullScreen.Location = new System.Drawing.Point(294, 260);
             this.isFullScreen.Margin = new System.Windows.Forms.Padding(4);
             this.isFullScreen.Name = "isFullScreen";
             this.isFullScreen.Size = new System.Drawing.Size(109, 19);
@@ -186,20 +187,9 @@
             this.isFullScreen.Text = "FullScreen";
             this.isFullScreen.UseVisualStyleBackColor = true;
             // 
-            // isScaleAuto
-            // 
-            this.isScaleAuto.AutoSize = true;
-            this.isScaleAuto.Location = new System.Drawing.Point(226, 248);
-            this.isScaleAuto.Margin = new System.Windows.Forms.Padding(4);
-            this.isScaleAuto.Name = "isScaleAuto";
-            this.isScaleAuto.Size = new System.Drawing.Size(93, 19);
-            this.isScaleAuto.TabIndex = 14;
-            this.isScaleAuto.Text = "AutoSize";
-            this.isScaleAuto.UseVisualStyleBackColor = true;
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(132, 289);
+            this.button1.Location = new System.Drawing.Point(132, 304);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(129, 39);
@@ -210,7 +200,8 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(269, 289);
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(274, 304);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(129, 39);
@@ -256,18 +247,39 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Shoot";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(28, 261);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(87, 15);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Resolution";
+            // 
+            // resolutionBox
+            // 
+            this.resolutionBox.FormattingEnabled = true;
+            this.resolutionBox.Items.AddRange(new object[] {
+            "1280x720",
+            "1920x1080"});
+            this.resolutionBox.Location = new System.Drawing.Point(130, 258);
+            this.resolutionBox.Name = "resolutionBox";
+            this.resolutionBox.Size = new System.Drawing.Size(140, 23);
+            this.resolutionBox.TabIndex = 22;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 357);
+            this.ClientSize = new System.Drawing.Size(456, 365);
+            this.Controls.Add(this.resolutionBox);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.volumeKeyBox);
             this.Controls.Add(this.shootKeyBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.isScaleAuto);
             this.Controls.Add(this.isFullScreen);
             this.Controls.Add(this.slowKeyBox);
             this.Controls.Add(this.rightKeyBox);
@@ -312,13 +324,14 @@
         private System.Windows.Forms.TextBox rightKeyBox;
         private System.Windows.Forms.TextBox slowKeyBox;
         private System.Windows.Forms.CheckBox isFullScreen;
-        private System.Windows.Forms.CheckBox isScaleAuto;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox volumeKeyBox;
         private System.Windows.Forms.TextBox shootKeyBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox resolutionBox;
     }
 }
 

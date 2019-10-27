@@ -32,13 +32,15 @@ void BossInfoInterface::UserInterfaceInit()
 void BossInfoInterface::UserInterfaceRender()
 {
 	if (isInit) {
+		float ScaleRate = (float)XCFrameInfo::ScreenHeight / 720.0f;
+
 		fontHelper.SetHeightAndWidth(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
 		float starWidth = 0.03f;
 		float starHeight = 0.03f;
-		float startX = - (1.0f-XCFrameInfo::FrameRight) - starWidth * 3.0f;
+		float startX =-1.0f + (1.0f - XCFrameInfo::FrameRight) + starWidth;
 		float startY = 1.0f - starHeight * 3;
 
-		fontHelper.FontUnicodeRender(bossName, (1.0f - XCFrameInfo::FrameRight)/2.0f + starWidth/2.3f, startY + starHeight * 2, 0.3f, glm::vec4(0.0f, 1.0f, 0.0f, 1.0));
+		fontHelper.FontUnicodeRender(bossName, (1.0f - XCFrameInfo::FrameRight)/2.0f + starWidth/2.3f, startY + starHeight * 2, 0.3f * ScaleRate, glm::vec4(0.0f, 1.0f, 0.0f, 1.0));
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -67,7 +69,7 @@ void BossInfoInterface::UserInterfaceRender()
 			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1, 1));
 		glDisable(GL_BLEND);
 		fontHelper.FontUnicodeRender(spellCardName,
-			(1.0f - XCFrameInfo::FrameRight) / 2.0f + XCFrameInfo::FrameRight /(1.1f + spellCardName.length() * 0.02f), 1.0f - spellCardBackgroundHeight * 0.8f, 0.5f, glm::vec4(0.8f, 0.8f, 0.8f, 1.0f));
+			(1.0f - XCFrameInfo::FrameRight) / 2.0f + XCFrameInfo::FrameRight /(1.1f + spellCardName.length() * 0.02f), 1.0f - spellCardBackgroundHeight * 0.8f, 0.5f * ScaleRate, glm::vec4(0.8f, 0.8f, 0.8f, 1.0f));
 
 		
 		float slotWidth = 0.12f;

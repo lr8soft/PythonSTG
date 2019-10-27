@@ -35,6 +35,17 @@ void TaskManager::CleanTaskAsync(std::string & uuid)
 	asyncCleanGroup.push_back(uuid);
 }
 
+void TaskManager::SetTaskInitCoord(std::string & uuid, float x, float y)
+{
+	std::vector<Stage*>::iterator stageBegin = stageQueue.begin();
+	std::vector<Stage*>::iterator stageEnd = stageQueue.end();
+	
+	if (stageBegin != stageEnd) {
+		Stage* stageItem = (*stageBegin);
+		stageItem->setTaskInitCoord(uuid, x, y);
+	}
+}
+
 void TaskManager::CleanAllStage()
 {
 	std::vector<Stage*>::iterator stageBegin = stageQueue.begin();
@@ -81,6 +92,7 @@ void TaskManager::TaskWork()
 		for (auto uuid = asyncCleanGroup.begin(); uuid != uuidEnd; uuid++) {
 			(*currentStage)->removeTask(*uuid);
 		}
+		asyncCleanGroup.clear();
 	}
 
 	if (stageQueue.empty()) {

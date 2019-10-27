@@ -15,17 +15,24 @@ Stage::Stage(std::string uuid, PyObject* item)
 
 void Stage::addTask(Task * pTask)
 {
-	stageTaskGroup.push_back(pTask);
+	stageTaskGroup.insert(std::make_pair(pTask->getTaskUUID(), pTask));
 }
 
 void Stage::removeTask(std::string & uuid)
 {
-	auto taskEnd = stageTaskGroup.end();
-	for (auto task = stageTaskGroup.begin(); task != taskEnd; task++) {
-		if ((*task)->getTaskUUID() == uuid) {
-			stageTaskGroup.erase(task);
-			break;
-		}
+	auto task = stageTaskGroup.find(uuid);
+	if (task != stageTaskGroup.end()) {
+		task->second->TaskRelease();
+		delete task->second;
+		stageTaskGroup.erase(task);
+	}
+}
+
+void Stage::setTaskInitCoord(std::string & uuid, float x, float y)
+{
+	auto task = stageTaskGroup.find(uuid);
+	if (task != stageTaskGroup.end()) {
+		task->second->setUnitInitCoord(x, y);
 	}
 }
 
@@ -47,7 +54,7 @@ void Stage::stageInit()
 				
 				Task* task = TaskHelper::parseTaskFromObject(pItem);
 				if (task!=nullptr) {
-					stageTaskGroup.push_back(task);
+					stageTaskGroup.insert(std::make_pair(task->getTaskUUID(), task));
 				}
 			}
 		}
@@ -59,7 +66,7 @@ void Stage::stageInit()
 
 				Boss* boss = BossHelper::parseBossFromObject(pItem);
 				if (boss != nullptr) {
-					stageTaskGroup.push_back(boss);
+					stageTaskGroup.insert(std::make_pair(boss->getTaskUUID(), boss));
 				}
 			}
 		}
@@ -74,46 +81,36 @@ void Stage::stageWork()
 {
 	if (isStageInit) {
 		timer.Tick();
-		std::list<Task*>::iterator stageBegin = stageTaskGroup.begin();
-		std::list<Task*>::iterator stageEnd = stageTaskGroup.end();
 		bool allTaskWaitTarget = true;
-		for (auto task = stageBegin; task != stageEnd; task++) {
-			if (!(*task)->getTaskInit())
-				(*task)->TaskInit();
+		for (auto task = stageTaskGroup.begin(); task != stageTaskGroup.end(); task++) {
+			if (!task->second->getTaskInit())
+				task->second->TaskInit();
 
-			if (!(*task)->getTaskFinish()) {
-				(*task)->TaskWork();
-				if (!(*task)->getIsTaskWaitingForTarget()) {
+			if (!task->second->getTaskFinish()) {
+				task->second->TaskWork();
+				if (!task->second->getIsTaskWaitingForTarget()) {
 					allTaskWaitTarget = false;
 				}
 			}
-
-
-			if ((*task)->getTaskFinish()) {
-				(*task)->TaskRelease();
-				delete *task;
-				if (std::next(task) == stageTaskGroup.end()) {
+			if (task->second->getTaskFinish()) {
+				task->second->TaskRelease();
+				delete task->second;
+				if (std::next(task) == stageTaskGroup.end())
+				{
 					stageTaskGroup.erase(task);
 					break;
 				}
 				else {
 					task = stageTaskGroup.erase(task);
-					stageEnd = stageTaskGroup.end();
+
 				}
 			}
 		}
 		if (allTaskWaitTarget) {
-			for (auto task = stageBegin; task != stageEnd; task++) {
-				(*task)->TaskRelease();
-				delete *task;
-				if (std::next(task) == stageTaskGroup.end()) {
-					stageTaskGroup.erase(task);
-					break;
-				}
-				else {
-					task = stageTaskGroup.erase(task);
-					stageEnd = stageTaskGroup.end();
-				}
+			auto taskEnd = stageTaskGroup.end();
+			for (auto task = stageTaskGroup.begin(); task != taskEnd; task++) {
+				task->second->TaskRelease();
+				delete task->second;
 			}
 			stageTaskGroup.clear();
 		}

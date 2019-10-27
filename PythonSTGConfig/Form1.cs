@@ -20,6 +20,7 @@ namespace PythonSTGConfig
         public FormMain()
         {
             InitializeComponent();
+
             upKeyBox.ReadOnly = true;
             downKeyBox.ReadOnly = true;
             leftKeyBox.ReadOnly = true;
@@ -27,6 +28,7 @@ namespace PythonSTGConfig
             specialKeyBox.ReadOnly = true;
             slowKeyBox.ReadOnly = true;
             shootKeyBox.ReadOnly = true;
+ 
         }
 
 
@@ -43,9 +45,14 @@ namespace PythonSTGConfig
             specialKeyBox.Text = configHelper.getValue("item");
             slowKeyBox.Text = configHelper.getValue("slow");
             shootKeyBox.Text = configHelper.getValue("shoot");
-
-            isScaleAuto.Checked = configHelper.getValue("scaleAuto") == "1" ? true : false;
+            resolutionBox.Text = configHelper.getValue("resolution");
+            volumeKeyBox.Text = configHelper.getValue("volume");
+         
             isFullScreen.Checked = configHelper.getValue("fullScreen") == "1" ? true : false;
+            if (resolutionBox.Text.Length == 0) {
+                resolutionBox.SelectedText = "1280x720";
+            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,7 +64,9 @@ namespace PythonSTGConfig
             configHelper.setValue("item", specialKeyBox.Text);
             configHelper.setValue("slow", slowKeyBox.Text);
             configHelper.setValue("shoot", shootKeyBox.Text);
-            configHelper.setValue("scaleAuto", isScaleAuto.Checked ? "1" : "0");
+            configHelper.setValue("resolution", resolutionBox.SelectedItem.ToString());
+            configHelper.setValue("volume", volumeKeyBox.Text);
+
             configHelper.setValue("fullScreen", isFullScreen.Checked ? "1" : "0");
             configHelper.FileSave();
             MessageBox.Show("Successfully saved.","PythonSTG", MessageBoxButtons.OK,MessageBoxIcon.Information);

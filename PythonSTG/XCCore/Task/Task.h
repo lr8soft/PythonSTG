@@ -12,6 +12,9 @@ protected:
 	bool taskFinish = false, taskIsInit = false;
 	bool taskWait = false, taskWaitForTarget = false;
 
+	float unitInitCoord[2] = {0.0f, 0.0f};
+	bool haveInitCoord = false;
+
 	std::vector<std::string> targetUUID;
 	std::vector<TaskInsideUnit*> subUnitGroup;
 
@@ -32,5 +35,9 @@ public:
 	bool getIsTaskWaiting();
 	bool getIsTaskWaitingForTarget();
 	std::string getTaskUUID();
+
+	void setUnitInitCoord(float x, float y);
+
+	bool operator==(const Task & obj2) const;
 };
 #endif

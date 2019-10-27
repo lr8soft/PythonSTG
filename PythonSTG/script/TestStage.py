@@ -115,7 +115,7 @@ def setupMyStage():
 
 
     #spellcard test
-    unit_spellcard = TaskUnit(repeatTime=30,waitFrame=10)
+    unit_spellcard = TaskUnit(repeatTime=10,waitFrame=20)
     for j in range(0, 36):
         bullet = CircleBullet()
         bullet.setVelocity(0.6)
@@ -130,15 +130,33 @@ def setupMyStage():
     spellcard.setSpellCardHealthPoint(30.0)
     spellcard.addTask(task_spellcard)
 
+    unit_spellcard2 =TaskUnit(repeatTime=10,waitFrame=20)
+    for j in range(0, 36):
+        bullet = CircleBullet()
+        bullet.setVelocity(0.6)
+        bullet.setAngle(j * 10 * random.random())
+        bullet.setBulletColor(BulletColor.RED)
+        unit_spellcard2.addBullet(bullet)
+
+    task_spellcard2 = Task(durationFrame=-1)
+    task_spellcard2.addUnit(unit_spellcard2)
+
+    spellcard2 = SpellCard()
+    spellcard2.setSpellCardHealthPoint(30.0)
+    spellcard2.setBossMovePosition([0.0, 0.0])
+    spellcard2.setSpellCardName("TestSpellCard ~ Lunatic")
+    spellcard2.addTask(task_spellcard2)
+
     #boss
     boss = Boss()
     boss.AddTargetUuid(taskAfter.getUuid())
     boss.AddSpellCard(spellcard)
+    boss.AddSpellCard(spellcard2)
     stage0.addBoss(boss)
 
     # task 3
-    lastuuid = task_spellcard.getUuid()
-    lastuuid2 = task_spellcard.getUuid()
+    lastuuid = task_spellcard2.getUuid()
+    lastuuid2 = task_spellcard2.getUuid()
     for i in range(1, 10):
         enemyAimPlayer = TaskEnemy(durationFrame=-1, intervalFrame=0)
         enemyAimPlayer.setInitCoord([0.5, 1.0, 0.0])
@@ -192,7 +210,7 @@ def setupMyStage():
         stage0.addTask(enemyAimPlayer2)
 
     taskAimPlayer = Task(durationFrame=-1, intervalFrame=0)
-    taskAimPlayer.addTargetUuid(task_spellcard.getUuid())
+    taskAimPlayer.addTargetUuid(task_spellcard2.getUuid())
     for k in range(1, 40):
         unit = TaskUnit(waitFrame=k * 25)
         for c in range(1, 10):

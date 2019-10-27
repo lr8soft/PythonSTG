@@ -45,6 +45,9 @@ void Task::taskSubWork()
 				auto iterEnd = subUnitGroup.end();
 				for (auto unit = iterBegin; unit != iterEnd; unit++) {
 					if (!(*unit)->IsAddToQueue()) {
+						if (haveInitCoord) {
+							(*unit)->setBulletInitCoord(unitInitCoord[0], unitInitCoord[1], 0.0f);
+						}
 						(*unit)->UnitWork();
 					}
 					if ((*unit)->IsAddToQueue()) {//release here
@@ -134,4 +137,23 @@ bool Task::getIsTaskWaitingForTarget()
 std::string Task::getTaskUUID()
 {
 	return taskUUID;
+}
+
+void Task::setUnitInitCoord(float x, float y)
+{
+	
+	unitInitCoord[0] = x;
+	unitInitCoord[1] = y;
+	haveInitCoord = true;
+}
+
+bool Task::operator==(const Task & obj2) const
+{
+	if (taskUUID == obj2.taskUUID) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	
 }

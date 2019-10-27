@@ -16,17 +16,16 @@ void XCFrame::FrameInit()
 {
 	ScriptLoader::initPythonEvon();
 	interpreter = new XCInterpreter;
-	InitInfo info = interpreter->getInitInfo();
-	FrameWidth = info.winWidth;
-	FrameHeight = info.winHeight;
-	XCFrameInfo::ScreenHeight = info.winHeight;
-	XCFrameInfo::ScreenWidth = info.winWidth;
+	InitInfo* info = interpreter->getInitInfo();
+
+	XCFrameInfo::ScreenHeight = FrameHeight;
+	XCFrameInfo::ScreenWidth = FrameWidth;
 
 	float smallSize = FrameWidth > FrameHeight ? FrameHeight : FrameWidth;
 	float absWidth = smallSize / (float)FrameWidth;
 	float absHeight = smallSize / (float)FrameHeight;
 
-	XCFrameInfo::ScreenOriginTitle = info.winTitle;
+	XCFrameInfo::ScreenOriginTitle = info->winTitle;
 	XCFrameInfo::FrameRight = absWidth;
 	XCFrameInfo::FrameLeft = -absWidth;
 	XCFrameInfo::FrameTop = absHeight;
@@ -36,10 +35,10 @@ void XCFrame::FrameInit()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);//ºËÐÄÄ£Ê½Å£ ±Æ
-	glfwWindowHint(GLFW_RESIZABLE, info.winResize);//No resizable.
-	glfwWindowHint(GLFW_SCALE_TO_MONITOR, info.winScale);//Auto change size
+	glfwWindowHint(GLFW_RESIZABLE, false);//No resizable.
+	glfwWindowHint(GLFW_SCALE_TO_MONITOR, false);//Auto change size
 
-	GLFWmonitor* primaryMonitor = info.winFullScreen ? glfwGetPrimaryMonitor() : nullptr;
+	GLFWmonitor* primaryMonitor = isFullScreen ? glfwGetPrimaryMonitor() : nullptr;
 	glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
 	tscreen = glfwCreateWindow(1, 1, "ThreadInitHelper", nullptr, nullptr);
 	glfwWindowHint(GLFW_VISIBLE, GL_TRUE);
@@ -144,6 +143,12 @@ XCFrame::XCFrame() {
 		cfg.AddNewInfo("special", std::to_string(GLFW_KEY_X));
 		cfg.AddNewInfo("item", std::to_string(GLFW_KEY_C));
 		cfg.AddNewInfo("slow", std::to_string(GLFW_KEY_LEFT_SHIFT));
+		cfg.AddNewInfo("fullScreen", std::to_string(0));
+		cfg.AddNewInfo("resolution", "1280x720");
+		cfg.AddNewInfo("volume", std::to_string(0.08));
+
+		FrameWidth = 1280;
+		FrameHeight = 720;
 	}
 	else {
 		XCFrameInfo::keyUp = atoi(cfg.GetValue("up").c_str());
@@ -152,7 +157,19 @@ XCFrame::XCFrame() {
 		XCFrameInfo::keyRight = atoi(cfg.GetValue("right").c_str());
 		XCFrameInfo::keyShoot = atoi(cfg.GetValue("shoot").c_str());
 		XCFrameInfo::keySlow = atoi(cfg.GetValue("slow").c_str());
+		AudioHelper::setVolume(atof(cfg.GetValue("volume").c_str()));
+
+		isFullScreen = atoi(cfg.GetValue("fullScreen").c_str());
+		std::string screenInfo = cfg.GetValue("resolution");
+
+		int divideIndex = screenInfo.find('x', 0);
+		std::string w = screenInfo.substr(0, divideIndex);
+		std::string h = screenInfo.substr(divideIndex + 1, screenInfo.size());
+
+		FrameWidth = atoi(w.c_str());
+		FrameHeight = atoi(h.c_str());
 	}
+	
 }
 
 GLFWimage * XCFrame::getApplicationIcon()

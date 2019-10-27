@@ -5,6 +5,7 @@
 #include <GL/glcorearb.h>
 #include <string>
 #include <list>
+#include <map>
 #include <atomic>
 #include "../Task/Task.h"
 #include "../../util/GameTimer.h"
@@ -15,7 +16,7 @@ private:
 	Background* stageBackground;
 
 	std::string stageUuid;
-	std::list<Task*> stageTaskGroup;
+	std::map<std::string, Task*> stageTaskGroup;
 
 	XCGameTimer timer;
 	PyObject* itemStage;
@@ -26,6 +27,7 @@ public:
 	Stage(std::string uuid, PyObject* item);
 	void addTask(Task* pTask);
 	void removeTask(std::string &uuid);
+	void setTaskInitCoord(std::string &uuid, float x, float y);
 
 	void stageInit();
 	void stageWork();
