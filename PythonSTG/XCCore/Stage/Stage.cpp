@@ -87,11 +87,14 @@ void Stage::stageWork()
 			if (task->second->getTaskFinish()) {
 				task->second->TaskRelease();
 				delete task->second;
-				if (std::next(task)!= stageTaskGroup.end()) {
-					task = stageTaskGroup.erase(task);
+				if (std::next(task) == stageTaskGroup.end())
+				{
+					stageTaskGroup.erase(task);
+					break;
 				}
 				else {
-					break;
+					task = stageTaskGroup.erase(task);
+
 				}
 			}
 		}

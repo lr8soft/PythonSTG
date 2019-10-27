@@ -33,12 +33,16 @@ void GameMenu::Render()
 		fontHelper.SetHeightAndWidth(XCFrameInfo::ScreenHeight, XCFrameInfo::ScreenWidth);
 
 		int nowIndex = 0;
+		float size1280x720 = 1.3f;
+		float interval = 0.012f;
+
+		float ScaleRate = (float)XCFrameInfo::ScreenHeight / 720.0f;
 		for (auto item = itemStart; item != itemEnd; item++, nowIndex++) {
 			if (nowSelectIndex == item->first) {
-				fontHelper.FontASCIIRender(item->second,startX - 0.012f *item->second.size(), startY, 1.3f, glm::vec4(1.0f));
+				fontHelper.FontASCIIRender(item->second,startX - interval *item->second.size(), startY, size1280x720 * ScaleRate, glm::vec4(1.0f));
 			}
 			else {
-				fontHelper.FontASCIIRender(item->second, startX - 0.012f *item->second.size(), startY, 1.3f, glm::vec4(0.8f, 0.8f, 0.8f, 1.0f));
+				fontHelper.FontASCIIRender(item->second, startX - interval*item->second.size(), startY, size1280x720 * ScaleRate, glm::vec4(0.8f, 0.8f, 0.8f, 1.0f));
 			}
 			startY -= 0.11f;
 		}

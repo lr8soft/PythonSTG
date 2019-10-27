@@ -32,6 +32,8 @@ void GameInfoInterface::UserInterfaceRender()
 {
 	if (isInit) {
 		if( (float)XCFrameInfo::ScreenWidth / (float)XCFrameInfo::ScreenHeight >= 1.6667f){//>scrren(16:10)
+			float ScaleRate = (float)XCFrameInfo::ScreenHeight / 720.0f;
+
 			BlendOneMinusAlphaStart
 			//rank render start
 			float rankWidth = (1.0f - XCFrameInfo::FrameRight) / 2.5f;
@@ -81,14 +83,14 @@ void GameInfoInterface::UserInterfaceRender()
 			static std::stringstream ss; ss.str(""); 
 			ss << std::setfill('0') << std::setw(10) << highScore << std::endl;
 			static std::string highscoreStr;  ss >> highscoreStr;
-			fontHelper.FontASCIIRender(highscoreStr, hsFontX, hsFontY, 0.5f, glm::vec4(0.8f,0.8f,0.8f, 0.6f));
+			fontHelper.FontASCIIRender(highscoreStr, hsFontX, hsFontY, 0.5f * ScaleRate, glm::vec4(0.8f,0.8f,0.8f, 0.6f));
 
 			float nsFontX = hsFontX;
 			float nsFontY = hsFontY - highScoreHeight * 1.3f;
 			ss.str("");
 			ss << std::setfill('0') << std::setw(10) << nowScore << std::endl;//////////test
 			static std::string nowscoreStr; ss >> nowscoreStr;
-			fontHelper.FontASCIIRender(nowscoreStr, nsFontX, nsFontY, 0.5f, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
+			fontHelper.FontASCIIRender(nowscoreStr, nsFontX, nsFontY, 0.5f * ScaleRate, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
 			
 			float nowLifeImageWidth = (1.0f - XCFrameInfo::FrameRight) / 4.0f;
 			float nowLifeImageHeight = nowLifeImageWidth / 3.0f;

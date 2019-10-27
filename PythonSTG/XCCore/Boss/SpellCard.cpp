@@ -39,7 +39,7 @@ void SpellCard::SpellCardWork()
 				taskUUIDGroup.push_back((*task)->getTaskUUID());
 				if (pBossObject != nullptr) {
 					auto pos = pBossObject->getPosition();
-					(*task)->setUnitInitCoord(pos.x, pos.y);
+					//(*task)->setUnitInitCoord(pos.x, pos.y);
 				}
 				TaskManager::getInstance()->AddTaskAsync(*task);
 			}

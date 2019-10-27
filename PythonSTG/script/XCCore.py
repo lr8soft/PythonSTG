@@ -5,9 +5,9 @@ from script.Object.Player import Player
 import script.TestStage as TestStage
 
 # PySTG Init
-# GameRANK show while winWidth / winHeight >= (16:10)
-winWidth = 1280
-winHeight = 720
+# GameRANK show while winWidth / winHeight == (16:10)
+winWidth = 1920
+winHeight = 1080
 
 winTitle = "Python2D v0.31x"
 winScaleToMonitor = False
