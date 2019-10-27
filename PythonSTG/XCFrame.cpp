@@ -145,6 +145,7 @@ XCFrame::XCFrame() {
 		cfg.AddNewInfo("slow", std::to_string(GLFW_KEY_LEFT_SHIFT));
 		cfg.AddNewInfo("fullScreen", std::to_string(0));
 		cfg.AddNewInfo("resolution", "1280x720");
+		cfg.AddNewInfo("volume", std::to_string(0.08));
 
 		FrameWidth = 1280;
 		FrameHeight = 720;
@@ -156,6 +157,7 @@ XCFrame::XCFrame() {
 		XCFrameInfo::keyRight = atoi(cfg.GetValue("right").c_str());
 		XCFrameInfo::keyShoot = atoi(cfg.GetValue("shoot").c_str());
 		XCFrameInfo::keySlow = atoi(cfg.GetValue("slow").c_str());
+		AudioHelper::setVolume(atof(cfg.GetValue("volume").c_str()));
 
 		isFullScreen = atoi(cfg.GetValue("fullScreen").c_str());
 		std::string screenInfo = cfg.GetValue("resolution");

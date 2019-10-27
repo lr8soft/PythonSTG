@@ -46,6 +46,7 @@ namespace PythonSTGConfig
             slowKeyBox.Text = configHelper.getValue("slow");
             shootKeyBox.Text = configHelper.getValue("shoot");
             resolutionBox.Text = configHelper.getValue("resolution");
+            volumeKeyBox.Text = configHelper.getValue("volume");
          
             isFullScreen.Checked = configHelper.getValue("fullScreen") == "1" ? true : false;
             if (resolutionBox.Text.Length == 0) {
@@ -64,6 +65,7 @@ namespace PythonSTGConfig
             configHelper.setValue("slow", slowKeyBox.Text);
             configHelper.setValue("shoot", shootKeyBox.Text);
             configHelper.setValue("resolution", resolutionBox.SelectedItem.ToString());
+            configHelper.setValue("volume", volumeKeyBox.Text);
 
             configHelper.setValue("fullScreen", isFullScreen.Checked ? "1" : "0");
             configHelper.FileSave();
