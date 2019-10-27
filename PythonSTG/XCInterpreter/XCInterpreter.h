@@ -6,12 +6,6 @@
 #include <map>
 #include <mutex>
 struct InitInfo {
-	int winHeight;
-	int winWidth;
-	bool winResize;
-	bool winScale;
-	bool winFullScreen;
-	std::string winImage;
 	std::string winTitle;
 };
 class XCInterpreter {

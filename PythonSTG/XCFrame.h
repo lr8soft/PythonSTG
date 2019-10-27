@@ -15,6 +15,8 @@ private:
 	static void FrameResize(GLFWwindow* screen, int w, int h);
 	static void FramePos(GLFWwindow* screen, int x, int y);
 
+	bool isFullScreen = false;
+
 	XCGameTimer timer;
 	XCFrame();
 

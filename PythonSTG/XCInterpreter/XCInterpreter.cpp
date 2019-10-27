@@ -19,24 +19,8 @@ InitInfo* XCInterpreter::InterpreterThread()
 	PyObject* mainScript = pyLoader.importModule("script.XCCore");
 	pyLoader.callObjectMethod(mainScript, "coreInitializer", NULL);
 
-	PyObject* height = pyLoader.getAttrib(mainScript, "winHeight");
-	PyObject* width = pyLoader.getAttrib(mainScript, "winWidth");
 	PyObject* title = pyLoader.getAttrib(mainScript, "winTitle");
-	PyObject* resize = pyLoader.getAttrib(mainScript, "winResize");
-	PyObject* scale  = pyLoader.getAttrib(mainScript, "winScaleToMonitor");
-	PyObject* fullscreen = pyLoader.getAttrib(mainScript, "winFullScreen");
-
-	info->winHeight = pyLoader.getSingleArg<int>(height);
-	info->winWidth = pyLoader.getSingleArg<int>(width);
 	info->winTitle = pyLoader.getSingleArg<const char*>(title);
-
-	int intValue;
-	PyArg_Parse(resize, "p", &intValue);
-	info->winResize = intValue;
-	PyArg_Parse(scale, "p", &intValue);
-	info->winScale = intValue;
-	PyArg_Parse(fullscreen, "p", &intValue);
-	info->winFullScreen = intValue;
 
 	MultiThreadDefineEnd
 	return info;

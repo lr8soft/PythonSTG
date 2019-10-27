@@ -8,8 +8,7 @@ using System.Text;
 
 namespace PythonSTGConfig
 {
-
-    class ConfigHelper
+    public class ConfigHelper
     {
         private Dictionary<string, string> keyValueSet = null;
         public ConfigHelper()
@@ -17,19 +16,23 @@ namespace PythonSTGConfig
             keyValueSet = new Dictionary<string, string>();
             FileLoad();
         }
-        public string getValue(string key) {
+        public string getValue(string key)
+        {
             string value = "";
-            if (keyValueSet.ContainsKey(key)) {
+            if (keyValueSet.ContainsKey(key))
+            {
                 value = keyValueSet[key];
                 Console.WriteLine(value);
             }
             return value;
         }
-        public void setValue(string key, string value) {
+        public void setValue(string key, string value)
+        {
             keyValueSet[key] = value;
         }
 
-        public void FileLoad() {
+        public void FileLoad()
+        {
             try
             {
                 StreamReader sr = new StreamReader("pystg.cfg", Encoding.Default);
@@ -66,18 +69,21 @@ namespace PythonSTGConfig
                     }
                 }
             }
-            catch (Exception expt) {
+            catch (Exception expt)
+            {
                 FileStream fileStream = new FileStream("pystg.cfg", FileMode.Create);
                 fileStream.Flush();
                 fileStream.Close();
             }
-  
+
         }
 
-        public void FileSave() {
+        public void FileSave()
+        {
             FileStream fileStream = new FileStream("pystg.cfg", FileMode.Create);
-            StreamWriter streamWriter = new StreamWriter(fileStream,Encoding.Default);
-            for (int index = 0; index < keyValueSet.Count; index++) {
+            StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.Default);
+            for (int index = 0; index < keyValueSet.Count; index++)
+            {
                 var pair = keyValueSet.ElementAt(index);
                 streamWriter.WriteLine('[' + pair.Key + "]=[" + pair.Value + "]");
                 streamWriter.Flush();
@@ -85,5 +91,6 @@ namespace PythonSTGConfig
             streamWriter.Close();
             fileStream.Close();
         }
+
     }
 }
