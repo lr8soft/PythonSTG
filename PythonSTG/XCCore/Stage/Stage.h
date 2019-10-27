@@ -27,6 +27,7 @@ public:
 	Stage(std::string uuid, PyObject* item);
 	void addTask(Task* pTask);
 	void removeTask(std::string &uuid);
+	void setTaskInitCoord(std::string &uuid, float x, float y);
 
 	void stageInit();
 	void stageWork();

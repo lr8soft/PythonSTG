@@ -24,11 +24,13 @@ void Boss::AddSpellCard(SpellCard * spellcard)
 void Boss::TaskInit()
 {
 	if (!taskIsInit) {
-		for (auto spellcard = spellCardGroup.begin(); spellcard != spellCardGroup.end(); spellcard++) {
-			(*spellcard)->SpellCardInit();
-		}
 		XCImageHelper* image = new XCImageHelper(imagePath, true);
 		bossRenderObject = new BossObject(image, divideInfo, scaleInfo, standByRow, walkRow, attackRow);
+
+		for (auto spellcard = spellCardGroup.begin(); spellcard != spellCardGroup.end(); spellcard++) {
+			(*spellcard)->SpellCardInit();
+			(*spellcard)->setBossObject(bossRenderObject);
+		}
 		taskIsInit = true;
 	}
 
@@ -52,7 +54,7 @@ void Boss::taskSubWork()
 		if (spellCardBegin != spellCardEnd) {
 			if (!(*spellCardBegin)->getIsFinish()) {
 				if (isNewSpellCard) {
-					(*spellCardBegin)->setBossObject(bossRenderObject);
+					
 					BossInfoInterface::getInstance()->setBossName(bossName);
 					BossInfoInterface::getInstance()->setSpellCardCount(spellCardGroup.size());
 					BossInfoInterface::getInstance()->setSpellCardName((*spellCardBegin)->getSpellCardName());
@@ -64,8 +66,11 @@ void Boss::taskSubWork()
 					bossRenderObject->setSpellCardFinish(false);
 					isNewSpellCard = false;
 				}
+				bool bossFinishMovement = bossRenderObject->getFinishMovement();
+				if (bossFinishMovement) {
+					(*spellCardBegin)->SpellCardWork();
+				}
 				
-				(*spellCardBegin)->SpellCardWork();
 			
 			}
 			if ((*spellCardBegin)->getIsFinish() || bossRenderObject->getSpellCardHitPointClear()) {

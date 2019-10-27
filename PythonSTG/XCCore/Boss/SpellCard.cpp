@@ -37,10 +37,6 @@ void SpellCard::SpellCardWork()
 			std::vector<Task*>::iterator taskEnd = taskGroup.end();
 			for (auto task = taskBegin; task != taskEnd; task++) {
 				taskUUIDGroup.push_back((*task)->getTaskUUID());
-				if (pBossObject != nullptr) {
-					auto pos = pBossObject->getPosition();
-					//(*task)->setUnitInitCoord(pos.x, pos.y);
-				}
 				TaskManager::getInstance()->AddTaskAsync(*task);
 			}
 			taskGroup.clear();
@@ -48,6 +44,15 @@ void SpellCard::SpellCardWork()
 		}
 		else {
 			timer.Tick();
+			if (!haveTaskCoordInit && pBossObject != nullptr) {
+				if (pBossObject->getFinishMovement()) {
+					auto pos = pBossObject->getPosition();
+					for (auto uuid : taskUUIDGroup) {
+						TaskManager::getInstance()->SetTaskInitCoord(uuid, pos.x, pos.y);
+					}
+					haveTaskCoordInit = true;
+				}
+			}
 			if(timer.getAccumlateTime() > spellCardTime && spellCardTime >= 0){
 				isSpellCardFinish = true;
 			}

@@ -28,6 +28,14 @@ void Stage::removeTask(std::string & uuid)
 	}
 }
 
+void Stage::setTaskInitCoord(std::string & uuid, float x, float y)
+{
+	auto task = stageTaskGroup.find(uuid);
+	if (task != stageTaskGroup.end()) {
+		task->second->setUnitInitCoord(x, y);
+	}
+}
+
 void Stage::stageInit()
 {
 	if (!isStageInit) {

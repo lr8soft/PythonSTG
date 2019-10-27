@@ -15,6 +15,7 @@ protected:
 
 
 	bool isSpellCard = true, isAddToQueue = false, isInit =false, isSpellCardFinish = false;
+	bool haveTaskCoordInit = false;
 	std::string uuid, spellCardName;
 	float spellCardTime = 0.0f, spellCardHitPoint;
 

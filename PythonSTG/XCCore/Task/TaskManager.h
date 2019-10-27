@@ -19,6 +19,7 @@ public:
 	void AddTaskAsync(Task* pTask);
 	void AddStageItem(Stage* stage);
 	void CleanTaskAsync(std::string &uuid);
+	void SetTaskInitCoord(std::string &uuid, float x, float y);
 
 	void CleanAllStage();
 	void TaskWork();
