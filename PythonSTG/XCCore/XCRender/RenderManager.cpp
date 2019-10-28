@@ -153,6 +153,7 @@ void RenderManager::RenderWork()
 	}
 	solveAsyncCommand();
 	solveAsyncObject();
+	
 }
 
 
@@ -253,6 +254,13 @@ void RenderManager::solveAsyncObject()
 void RenderManager::CleanRenderObject(const std::string& uuid)
 {
 	externCommandList.insert(std::make_pair(RenderManager::cRenderObject, uuid));
+
+	auto item = asyncRenderObjectList.find(uuid);
+	if (item != asyncRenderObjectList.end()) {
+		item->second->Release();
+		delete item->second;
+		asyncRenderObjectList.erase(item);
+	}
 }
 
 void RenderManager::CleanAllRenderObject()

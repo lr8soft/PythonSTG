@@ -70,8 +70,6 @@ void Boss::taskSubWork()
 				if (bossFinishMovement) {
 					(*spellCardBegin)->SpellCardWork();
 				}
-				
-			
 			}
 			if ((*spellCardBegin)->getIsFinish() || bossRenderObject->getSpellCardHitPointClear()) {
 				(*spellCardBegin)->SpellCardRelease();

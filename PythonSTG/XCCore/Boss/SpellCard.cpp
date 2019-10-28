@@ -69,23 +69,13 @@ void SpellCard::SpellCardRelease()
 			std::vector<Task*>::iterator taskEnd = taskGroup.end();
 			for (auto task = taskBegin; task != taskEnd; task++) {
 				(*task)->TaskRelease();
-				delete *task;
-				if (std::next(task) == taskGroup.end()) {
-					taskGroup.erase(task);
-					break;
-				}
-				else {
-					task = taskGroup.erase(task);
-					taskEnd = taskGroup.end();
-				}
 			}
+			taskGroup.clear();		
 		}
-		if (!taskUUIDGroup.empty()) {
-			auto uuidEnd = taskUUIDGroup.end();
-			for (auto uuiditer = taskUUIDGroup.begin(); uuiditer != uuidEnd; uuiditer++) {
-				TaskManager::getInstance()->CleanTaskAsync(*uuiditer);
-			}
+		for (auto uuid : taskUUIDGroup) {
+			TaskManager::getInstance()->CleanTaskAsync(uuid);
 		}
+		taskUUIDGroup.clear();
 		isInit = false;
 	}
 }
