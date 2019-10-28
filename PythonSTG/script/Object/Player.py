@@ -1,6 +1,6 @@
 from .XCItem import XCItem
 class Player(XCItem):
-    def __init__(self, frameName = "Satsuki Rin"):
+    def __init__(self, frameName = "Hakurei Reimu"):
         super().__init__()
         self._divideInfo = [8, 3]
         self._isFlexible = True
@@ -10,7 +10,7 @@ class Player(XCItem):
         self._playerTurnRightRow = 2
 
         self._moveSpeed = 1.45
-        self._imageSwapInterval = 0.08
+        self._imageSwapInterval = 0.1
         self._basePower = 1.0
 
         self._scaleSize = [0.06,0.08, 1.0] #3:4 img
