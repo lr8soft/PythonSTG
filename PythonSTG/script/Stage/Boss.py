@@ -66,6 +66,9 @@ class Boss:
         else:
             raise Exception("Insert invalid spellcard.")
 
+    def SetBossName(self, name):
+        self.bossName = name
+
     def AddTargetUuid(self, uuid):
         self.targetUuid.put(uuid)
 

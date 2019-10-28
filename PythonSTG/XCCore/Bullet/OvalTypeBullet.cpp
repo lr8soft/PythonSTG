@@ -92,7 +92,7 @@ void OvalTypeBullet::Release()
 bool OvalTypeBullet::BulletCollideWithPoint(float x, float y, bool &haveGraze)
 {
 	bool value = false;
-	if (isInit && timer.getAccumlateTime() >= 0.4f) {
+	if (isInit && timer.getAccumlateTime() >= 0.1f) {
 		x -= NowPosition[0];
 		y -= NowPosition[1];
 
