@@ -7,7 +7,7 @@ from .Bullet.RiceBullet import RiceBullet
 from .Bullet.OvalBullet import OvalBullet
 from .Stage.Task import Task, TaskUnit
 from .Stage.TaskEnemy import TaskEnemy, EnemyColor
-from .Stage.XCStage import XCStage
+from .Stage.XCStage import XCStage, StageRank
 from .Stage.Boss import Boss, SpellCard
 
 
@@ -16,6 +16,7 @@ from .Stage.Boss import Boss, SpellCard
 # 方法说明请阅读文档 PythonSTG 使用手册
 def setupMyStage():
     stage0 = XCStage("Stage TEST")
+    stage0.setStageRank(StageRank.Lunatic)
     # task 0
     enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)
     enemyTest.setInitCoord([0.0, 1.0, 0.0])

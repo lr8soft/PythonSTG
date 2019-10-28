@@ -7,6 +7,8 @@
 #include "../Bullet/BulletHelper.h"
 #include "../Boss/BossHelper.h"
 #include <GL3/gl3w.h>
+
+#include "../UserInterface/GameInfoInterface.h"
 Stage::Stage(std::string uuid, PyObject* item)
 {
 	itemStage = item;
@@ -42,10 +44,13 @@ void Stage::stageInit()
 		MultiThreadDefine
 		PyObject* taskSizeObj = PyObject_CallMethod(itemStage, "_cpp_getTaskSize", NULL);
 		PyObject* bossSizeObj = PyObject_CallMethod(itemStage, "_cpp_getBossSize", NULL);
-		PyObject* backgroundIdObj = PyObject_CallMethod(itemStage, "_cpp_getBackground", NULL);
+		PyObject* stageInfoObj = PyObject_CallMethod(itemStage, "_cpp_getStageInfo", NULL);
 		int taskSize = ScriptLoader::getSingleArg<int>(taskSizeObj);
 		int bossSize = ScriptLoader::getSingleArg<int>(bossSizeObj);
-		stageBackgroundID = ScriptLoader::getSingleArg<int>(backgroundIdObj);
+
+		const char* stageName;
+		PyArg_ParseTuple(stageInfoObj, "sii", &stageName, &stageRank, &stageBackgroundID);
+
 		if (taskSize > 0) {
 
 			for (int i = 0; i < taskSize; i++) {
@@ -82,6 +87,7 @@ void Stage::stageWork()
 	if (isStageInit) {
 		timer.Tick();
 		bool allTaskWaitTarget = true;
+		GameInfoInterface::getInstance()->setRank(stageRank);
 		for (auto task = stageTaskGroup.begin(); task != stageTaskGroup.end(); task++) {
 			if (!task->second->getTaskInit())
 				task->second->TaskInit();

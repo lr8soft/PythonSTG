@@ -12,7 +12,7 @@
 #include "../Background/BackgroundHelper.h"
 class Stage {
 private:
-	int stageBackgroundID = 0;
+	int stageBackgroundID = 0, stageRank = 2;
 	Background* stageBackground;
 
 	std::string stageUuid;
