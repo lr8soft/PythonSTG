@@ -109,8 +109,10 @@ void Task::TaskRelease()
 		(*unit)->UnitRelease();
 		delete (*unit);
 	}
-	RenderManager::getInstance()->CleanRenderObject(taskUUID);
 	subUnitGroup.clear();
+	RenderManager::getInstance()->CleanRenderObject(taskUUID);
+	
+	haveInitCoord = false;
 	taskIsInit = false;
 }
 

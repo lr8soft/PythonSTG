@@ -9,7 +9,7 @@
 class TaskInsideUnit {
 protected:
 	int waitFrame, repeatTime = 0, nowFrame = 0;
-	bool haveAddToQueue = false, isFinish = false;
+	bool haveAddToQueue = false, isFinish = false, isInit =false;
 	std::list<RenderObject*> renderObjectGroup;
 	std::list<std::list<RenderObject*>> renderGroupManager;
 

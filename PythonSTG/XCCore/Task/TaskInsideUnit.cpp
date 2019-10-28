@@ -7,42 +7,47 @@ TaskInsideUnit::TaskInsideUnit(std::string uuid, int wFrame, int rTime): parentU
 
 void TaskInsideUnit::UnitInit()
 {
+	if (!isInit) {
+		isInit = true;
+	}
 }
 
 void TaskInsideUnit::UnitWork()
 {
-	if (nowFrame > 0) {
-		nowFrame--;
-	}
-	else {
-		if (repeatTime > 0) {
-			if (!haveAddToQueue) {
-				auto iterBegin = renderObjectGroup.begin();
-				auto iterEnd = renderObjectGroup.end();
-				for (auto object = iterBegin; object != iterEnd; object++) {
-					RenderManager::getInstance()->AddRenderObject(parentUuid, *object);
-				}
-				renderObjectGroup.clear();
-
-				/*Refill render object*/
-				auto groupBegin = renderGroupManager.begin();
-				if (groupBegin != renderGroupManager.end()) {
-					std::list<RenderObject*> list = *groupBegin;
-					renderObjectGroup.assign(list.begin(), list.end());
-					renderGroupManager.erase(groupBegin);
-				}
-				else {
-					haveAddToQueue = true;
-				}
-
-				repeatTime--;
-				nowFrame = waitFrame;
-			}
+	if (isInit) {
+		if (nowFrame > 0) {
+			nowFrame--;
 		}
 		else {
-			haveAddToQueue = true;
-		}
+			if (repeatTime > 0) {
+				if (!haveAddToQueue) {
+					auto iterBegin = renderObjectGroup.begin();
+					auto iterEnd = renderObjectGroup.end();
+					for (auto object = iterBegin; object != iterEnd; object++) {
+						RenderManager::getInstance()->AddRenderObject(parentUuid, *object);
+					}
+					renderObjectGroup.clear();
 
+					/*Refill render object*/
+					auto groupBegin = renderGroupManager.begin();
+					if (groupBegin != renderGroupManager.end()) {
+						std::list<RenderObject*> list = *groupBegin;
+						renderObjectGroup.assign(list.begin(), list.end());
+						renderGroupManager.erase(groupBegin);
+					}
+					else {
+						haveAddToQueue = true;
+					}
+
+					repeatTime--;
+					nowFrame = waitFrame;
+				}
+			}
+			else {
+				haveAddToQueue = true;
+			}
+
+		}
 	}
 }
 
@@ -68,6 +73,7 @@ void TaskInsideUnit::UnitRelease()
 		}
 		renderGroupManager.clear();
 	}
+	isInit = false;
 }
 
 void TaskInsideUnit::addRenderObject(RenderObject * pObject)

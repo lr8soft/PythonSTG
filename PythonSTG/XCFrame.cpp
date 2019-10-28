@@ -134,6 +134,7 @@ bool XCFrame::getFrameTerminate()
 }
 XCFrame::XCFrame() {
 	xcstd::ConfigManager cfg("pystg.cfg");
+	std::cout << "[INFO]Internal version:"<< PythonSTGVersion << std::endl;
 	if (cfg.IsFirstRun()) {
 		cfg.AddNewInfo("up", std::to_string(GLFW_KEY_UP));
 		cfg.AddNewInfo("down", std::to_string(GLFW_KEY_DOWN));

@@ -30,7 +30,7 @@ void TaskManager::AddStageItem(Stage * stage)
 	stageQueue.push_back(stage);
 }
 
-void TaskManager::CleanTaskAsync(std::string & uuid)
+void TaskManager::CleanTaskAsync(std::string  uuid)
 {
 	asyncCleanGroup.push_back(uuid);
 }
@@ -78,8 +78,8 @@ void TaskManager::TaskWork()
 			return;
 		}
 	}
+	std::vector<Stage*>::iterator currentStage = stageQueue.begin();
 	if (!asyncTaskGroup.empty()) {
-		std::vector<Stage*>::iterator currentStage = stageQueue.begin();
 		auto asyncTaskEnd = asyncTaskGroup.end();
 		for (auto task = asyncTaskGroup.begin(); task != asyncTaskEnd; task++) {
 			(*currentStage)->addTask(*task);
@@ -87,8 +87,7 @@ void TaskManager::TaskWork()
 		asyncTaskGroup.clear();
 	}
 	if (!asyncCleanGroup.empty()) {
-		std::vector<Stage*>::iterator currentStage = stageQueue.begin();
-		std::vector<std::string>::iterator uuidEnd = asyncCleanGroup.begin();
+		std::vector<std::string>::iterator uuidEnd = asyncCleanGroup.end();
 		for (auto uuid = asyncCleanGroup.begin(); uuid != uuidEnd; uuid++) {
 			(*currentStage)->removeTask(*uuid);
 		}

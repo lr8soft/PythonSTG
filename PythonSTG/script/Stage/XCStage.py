@@ -10,6 +10,14 @@ class StageBackGround(Enum):
     magic_forest = 1
 
 
+class StageRank(Enum):
+    Easy = 1
+    Normal = 2
+    Hard = 3
+    Lunatic = 4
+    Extra = 5
+
+
 class XCStage:
     def __init__(self, stageName="Stage 0 No name"):
         self.__stageName = stageName
@@ -17,6 +25,7 @@ class XCStage:
         self.__stageBoss = Queue()
         self.__uuid = str(uuid.uuid1())
         self.__background = StageBackGround.lake
+        self.__rank = StageRank.Normal
 
     def addTask(self, task):
         if isinstance(task, Task):
@@ -33,11 +42,11 @@ class XCStage:
     def setBackGround(self, background):
         self.__background = background
 
-    def _cpp_getStageName(self):
-        return self.__stageName
+    def setStageRank(self, rank = StageRank.Normal):
+        self.__rank = rank
 
-    def _cpp_getBackground(self):
-        return self.__background.value
+    def _cpp_getStageInfo(self):
+        return self.__stageName, self.__rank.value, self.__background.value
 
     def _cpp_getTaskSize(self):
         return self.__stageTask.qsize()

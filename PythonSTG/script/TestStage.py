@@ -7,7 +7,7 @@ from .Bullet.RiceBullet import RiceBullet
 from .Bullet.OvalBullet import OvalBullet
 from .Stage.Task import Task, TaskUnit
 from .Stage.TaskEnemy import TaskEnemy, EnemyColor
-from .Stage.XCStage import XCStage
+from .Stage.XCStage import XCStage, StageRank
 from .Stage.Boss import Boss, SpellCard
 
 
@@ -16,6 +16,7 @@ from .Stage.Boss import Boss, SpellCard
 # 方法说明请阅读文档 PythonSTG 使用手册
 def setupMyStage():
     stage0 = XCStage("Stage TEST")
+    stage0.setStageRank(StageRank.Lunatic)
     # task 0
     enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)
     enemyTest.setInitCoord([0.0, 1.0, 0.0])
@@ -115,7 +116,7 @@ def setupMyStage():
 
 
     #spellcard test
-    unit_spellcard = TaskUnit(repeatTime=10,waitFrame=20)
+    unit_spellcard = TaskUnit(repeatTime=60,waitFrame=20)
     for j in range(0, 36):
         bullet = CircleBullet()
         bullet.setVelocity(0.6)
@@ -130,7 +131,7 @@ def setupMyStage():
     spellcard.setSpellCardHealthPoint(30.0)
     spellcard.addTask(task_spellcard)
 
-    unit_spellcard2 =TaskUnit(repeatTime=10,waitFrame=20)
+    unit_spellcard2 =TaskUnit(repeatTime=60,waitFrame=20)
     for j in range(0, 36):
         bullet = CircleBullet()
         bullet.setVelocity(0.6)
@@ -149,6 +150,7 @@ def setupMyStage():
 
     #boss
     boss = Boss()
+    boss.SetBossName("Fujiwara no Mokou")
     boss.AddTargetUuid(taskAfter.getUuid())
     boss.AddSpellCard(spellcard)
     boss.AddSpellCard(spellcard2)
@@ -174,8 +176,8 @@ def setupMyStage():
         enemyAimPlayer2.addTargetUuid(lastuuid2)
         lastuuid2 = enemyAimPlayer2.getUuid()
 
-        unit = TaskUnit(waitFrame= 15)
-        unit2 = TaskUnit(waitFrame= 15 )
+        unit = TaskUnit(waitFrame=15)
+        unit2 = TaskUnit(waitFrame=15)
         bullet = CircleBullet()
         bullet.setBulletColor(BulletColor.LIGHTBLUE)
         bullet.setVelocity(1.2)
@@ -190,8 +192,8 @@ def setupMyStage():
         enemyAimPlayer.addUnit(unit)
         enemyAimPlayer2.addUnit(unit2)
 
-        unit = TaskUnit(waitFrame= 15)
-        unit2 = TaskUnit(waitFrame= 15)
+        unit = TaskUnit(waitFrame=15)
+        unit2 = TaskUnit(waitFrame=15)
         bullet = CircleBullet()
         bullet.setBulletColor(BulletColor.LIGHTBLUE)
         bullet.setVelocity(1.5)
@@ -221,13 +223,12 @@ def setupMyStage():
                 bullet.setInitCoord([0.5, 1.0, 0.0])
             else:
                 bullet.setInitCoord([-0.5, 1.0, 0.0])
-            bullet.setAngle( (180 + c * 18) * random.random())
+            bullet.setAngle((180 + c * 18) * random.random())
             bullet.setVelocity(0.6)
             unit.addBullet(bullet)
         taskAimPlayer.addUnit(unit)
 
     stage0.addTask(taskAimPlayer)
-
 
 
     return stage0 #返回创建的关卡
