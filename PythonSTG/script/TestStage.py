@@ -17,6 +17,7 @@ from .Stage.Boss import Boss, SpellCard
 # 方法说明请阅读文档 PythonSTG 使用手册
 def setupMyStage():
     stage0 = XCStage("Stage TEST")
+    stage0.setBackGroundMusic("assets/Media/stage1.wav")
     stage0.setStageRank(StageRank.Lunatic)
     # task 0
     enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)

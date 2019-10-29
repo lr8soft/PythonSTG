@@ -26,6 +26,7 @@ class XCStage:
         self.__uuid = str(uuid.uuid1())
         self.__background = StageBackGround.lake
         self.__rank = StageRank.Normal
+        self.__music = ""
 
     def addTask(self, task):
         if isinstance(task, Task):
@@ -42,11 +43,14 @@ class XCStage:
     def setBackGround(self, background):
         self.__background = background
 
+    def setBackGroundMusic(self, musicPath):
+        self.__music = musicPath
+
     def setStageRank(self, rank = StageRank.Normal):
         self.__rank = rank
 
     def _cpp_getStageInfo(self):
-        return self.__stageName, self.__rank.value, self.__background.value
+        return self.__stageName, self.__rank.value, self.__background.value, self.__music
 
     def _cpp_getTaskSize(self):
         return self.__stageTask.qsize()

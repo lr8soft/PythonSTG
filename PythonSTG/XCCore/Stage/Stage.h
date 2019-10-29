@@ -7,6 +7,7 @@
 #include <list>
 #include <map>
 #include <atomic>
+#include "../XCAudio/AudioHelper.h"
 #include "../Task/Task.h"
 #include "../../util/GameTimer.h"
 #include "../Background/BackgroundHelper.h"
@@ -17,6 +18,7 @@ private:
 
 	std::string stageUuid;
 	std::map<std::string, Task*> stageTaskGroup;
+	ALuint bgmBuffer = 0;
 
 	XCGameTimer timer;
 	PyObject* itemStage;

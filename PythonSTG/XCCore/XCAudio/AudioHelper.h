@@ -53,6 +53,7 @@ public:
 	static void UnloadEvon();
 
 	static XCWavFile loadWavFromFile(const std::string& filename);
+	static ALuint loadWavByAlut(const std::string& filename);
 	static void setVolume(float volume);
 
 	static void playFromBuffer(ALuint buffer);
