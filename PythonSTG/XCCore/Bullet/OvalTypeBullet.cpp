@@ -92,12 +92,13 @@ void OvalTypeBullet::Release()
 bool OvalTypeBullet::BulletCollideWithPoint(float x, float y, bool &haveGraze)
 {
 	bool value = false;
-	if (isInit && timer.getAccumlateTime() >= 0.1f) {
+	if (isInit && timer.getAccumlateTime() >= 0.2f) {
 		x -= NowPosition[0];
 		y -= NowPosition[1];
 
-		float NewX = x * cos(angle) + y * sin(angle);
-		float NewY = -x * sin(angle) + y * cos(angle);
+		float theta = glm::radians(angle);
+		float NewX = x * cos(theta) + y * sin(theta);
+		float NewY = -x * sin(theta) + y * cos(theta);
 
 		float distance = pow(NewX, 2) + pow(NewY, 2);
 		float ovalParameter = pow(NewX, 2) / pow(collideSize.x, 2) + pow(NewY, 2) / pow(collideSize.y, 2);

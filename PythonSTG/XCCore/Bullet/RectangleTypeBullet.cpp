@@ -1,8 +1,13 @@
 #include "RectangleTypeBullet.h"
 #include "../../XCFrameInfo.h"
+#include "../XCCollide/CollideInfo.h"
+#include "../XCRender/ParticleHelper.h"
+#include "../XCRender/RenderManager.h"
 #include <GL3/gl3w.h>
 #include <iostream>
-RectangleTypeBullet::RectangleTypeBullet(std::string bulletImagePath, glm::vec4 dInfo, glm::vec3 sInfo,glm::vec3 cSize ,glm::vec3 initCoord, float v, float a, float agl, float incA, int rbTime, bool ap)
+RectangleTypeBullet::RectangleTypeBullet(std::string bulletImagePath, glm::vec4 dInfo, glm::vec3 sInfo,glm::vec3 cSize ,glm::vec3 initCoord,
+	float v, float a, float agl, float incA, int rbTime, bool ap,
+	int pDensity, float pFinishTime, float pVelocity, float pSize, glm::vec4 pColor)
 {
 	imagePath = bulletImagePath;
 
@@ -19,6 +24,12 @@ RectangleTypeBullet::RectangleTypeBullet(std::string bulletImagePath, glm::vec4 
 	increaseAngle = incA;
 	reBoundTime = rbTime;
 	aimToPlayer = ap;
+	//release part
+	particleDensity = pDensity;
+	particleFinishTime = pFinishTime;
+	particleVelocity = pVelocity;
+	particleSize = pSize;
+	particleColor = pColor;
 
 	//define current type
 	setCurrentType(BulletType);
@@ -36,10 +47,9 @@ void RectangleTypeBullet::Render()
 {
 	if (isInit) {
 		timer.Tick();
-		NowPosition[0] += velocity * cos(angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
-		NowPosition[1] += velocity * sin(angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
-		angle += increaseAngle * timer.getDeltaFrame();
-		velocity += acceleration * timer.getDeltaFrame();
+		auto pPlayerHelper1 = CollideInfo::getCollideHelper();
+		float* playerPos = (pPlayerHelper1 == nullptr ? nullptr : pPlayerHelper1->getPlayerPosition());
+		Bullet::solveBulletMovement(aimToPlayer, playerPos, velocity, angle, acceleration, increaseAngle, timer.getDeltaFrame());
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -63,11 +73,41 @@ void RectangleTypeBullet::Release()
 	}
 }
 
-bool RectangleTypeBullet::BulletCollideWithPoint(float x, float y, bool& haveGraze)
+bool RectangleTypeBullet::BulletCollideWithPoint(float x, float y, bool &haveGraze)
 {
-	return false;
+	bool value = false;
+	if (isInit && timer.getAccumlateTime() >= 0.2f) {
+		x -= NowPosition[0];
+		y -= NowPosition[1];
+
+		float theta = glm::radians(angle);
+		float NewX = x * cos(theta) + y * sin(theta);
+		float NewY = -x * sin(theta) + y * cos(theta);
+
+		float distance = pow(NewX, 2) + pow(NewY, 2);
+
+		if (!haveCheckGraze && distance <= CollideInfo::getGrazeDistance()) {
+			haveGraze = true;
+			haveCheckGraze = true;
+		}
+		float parameterX = collideSize.x;
+		float parameterY =  collideSize.y;
+		if (NewX >=  -parameterX && NewX <=  parameterX) {
+			if (NewY >= -parameterY && NewY <= parameterY) {
+				value = true;
+			}
+		}
+	
+	}
+
+	return value;
 }
 
 void RectangleTypeBullet::setBulletTerminate()
 {
+	ParticleHelper* particleGroup = new ParticleHelper;
+	particleGroup->addNewParticle(particleDensity, particleSize, particleVelocity, particleFinishTime, particleColor,
+		glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+	RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+	isWorkFinish = true;
 }

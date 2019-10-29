@@ -89,7 +89,7 @@ void CircleTypeBullet::Release()
 bool CircleTypeBullet::BulletCollideWithPoint(float x, float y,bool &haveGraze)
 {
 	bool value = false;
-	if (isInit && timer.getAccumlateTime() >=0.1f) {
+	if (isInit && timer.getAccumlateTime() >=0.2f) {
 		float distance = (x - NowPosition[0])*(x - NowPosition[0]) + (y - NowPosition[1])*(y - NowPosition[1]);
 		float parameter = collideSize[0] * collideSize[0];
 

@@ -17,8 +17,8 @@ Bullet * BulletHelper::getNewBulletObject(std::string bulletImage,std::string bu
 			particleDensity, particleFinishTime, particleVelocity, particleSize, particleColor);
 	}
 	else if (bulletType == "rectangleTypeBullet") {
-		/*bullet = new RectangleTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
-			particleDensity, particleFinishTime, particleVelocity, particleSize, particleColor);*/
+		bullet = new RectangleTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
+			particleDensity, particleFinishTime, particleVelocity, particleSize, particleColor);
 	}
 	return bullet;
 }

@@ -5,6 +5,7 @@ from .Bullet.CircleBullet import CircleBullet
 from .Bullet.HugeBullet import HugeBullet
 from .Bullet.RiceBullet import RiceBullet
 from .Bullet.OvalBullet import OvalBullet
+from .Bullet.CardBullet import CardBullet
 from .Stage.Task import Task, TaskUnit
 from .Stage.TaskEnemy import TaskEnemy, EnemyColor
 from .Stage.XCStage import XCStage, StageRank
@@ -118,10 +119,12 @@ def setupMyStage():
     #spellcard test
     unit_spellcard = TaskUnit(repeatTime=60,waitFrame=20)
     for j in range(0, 36):
-        bullet = CircleBullet()
-        bullet.setVelocity(0.6)
+        bullet = CardBullet()
+        bullet.setVelocity(0.6*(1+random.random()))
         bullet.setAngle(j * 10)
-        bullet.setBulletColor(BulletColor.BLUE)
+        bullet.setBulletColor(BulletColor.RED)
+        if j %2 == 0:
+            bullet.setBulletColorLight(True)
         unit_spellcard.addBullet(bullet)
 
     task_spellcard = Task(durationFrame=-1)
@@ -133,10 +136,12 @@ def setupMyStage():
 
     unit_spellcard2 =TaskUnit(repeatTime=60,waitFrame=20)
     for j in range(0, 36):
-        bullet = CircleBullet()
+        bullet = CardBullet()
         bullet.setVelocity(0.6)
-        bullet.setAngle(j * 10 * random.random())
+        bullet.setAngle(j * 10)
         bullet.setBulletColor(BulletColor.RED)
+        if j % 2 == 0:
+            bullet.setBulletColorLight(True)
         unit_spellcard2.addBullet(bullet)
 
     task_spellcard2 = Task(durationFrame=-1)
