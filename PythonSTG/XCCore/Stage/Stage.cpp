@@ -133,7 +133,7 @@ void Stage::stageWork()
 
 void Stage::stageRelease()
 {
-	
+	alDeleteBuffers(1, &bgmBuffer);
 	if (stageBackground != nullptr) {
 		
 		stageBackground->BackgroundRelease();

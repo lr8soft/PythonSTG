@@ -5,8 +5,8 @@
 #include <AL/alut.h>
 bool AudioHelper::isEvonInit = false;
 float AudioHelper::audioVolume = 0.08f;
-ALCdevice*  AudioHelper::device = nullptr;
-ALCcontext* AudioHelper::context = nullptr;
+//ALCdevice*  AudioHelper::device = nullptr;
+//ALCcontext* AudioHelper::context = nullptr;
 
 std::map<std::string, XCWavFile> AudioHelper::wavSourceGroup;
 std::map<ALuint, ALuint> AudioHelper::effectPlayingList;
@@ -48,12 +48,13 @@ void AudioHelper::UnloadEvon()
 		alDeleteSources(1, &work->second);
 	}
 
-	alcMakeContextCurrent(NULL);
-	alcDestroyContext(context);
-	alcCloseDevice(device);
+	//alcMakeContextCurrent(NULL);
+	//alcDestroyContext(context);
+	//alcCloseDevice(device);
 
-	context = nullptr;
-	device = nullptr;
+	//context = nullptr;
+	//device = nullptr;
+	alutExit();
 
 	std::cout << "[INFO]Now OpenAL environment unloaded.\n";
 	isEvonInit = false;
