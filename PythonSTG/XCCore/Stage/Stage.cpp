@@ -48,9 +48,10 @@ void Stage::stageInit()
 		int taskSize = ScriptLoader::getSingleArg<int>(taskSizeObj);
 		int bossSize = ScriptLoader::getSingleArg<int>(bossSizeObj);
 
-		const char* stageName;
-		PyArg_ParseTuple(stageInfoObj, "sii", &stageName, &stageRank, &stageBackgroundID);
-
+		const char* stageName, *stageMusic;
+		PyArg_ParseTuple(stageInfoObj, "siis", &stageName, &stageRank, &stageBackgroundID, &stageMusic);
+		bgmBuffer = AudioHelper::loadWavByAlut(stageMusic);
+		
 		if (taskSize > 0) {
 
 			for (int i = 0; i < taskSize; i++) {
@@ -79,6 +80,8 @@ void Stage::stageInit()
 		stageBackground = BackgroundHelper::getBackgroundByID(stageBackgroundID);
 		stageBackground->BackgroundInit();
 		isStageInit = true;
+
+		
 	}
 }
 
@@ -88,6 +91,7 @@ void Stage::stageWork()
 		timer.Tick();
 		bool allTaskWaitTarget = true;
 		GameInfoInterface::getInstance()->setRank(stageRank);
+		AudioHelper::playFromBuffer(bgmBuffer);
 		for (auto task = stageTaskGroup.begin(); task != stageTaskGroup.end(); task++) {
 			if (!task->second->getTaskInit())
 				task->second->TaskInit();
@@ -121,6 +125,7 @@ void Stage::stageWork()
 			stageTaskGroup.clear();
 		}
 		if (stageTaskGroup.empty()) {
+			AudioHelper::stopByBuffer(bgmBuffer);
 			stageFinish = true;
 		}
 	}
@@ -128,7 +133,9 @@ void Stage::stageWork()
 
 void Stage::stageRelease()
 {
+	alDeleteBuffers(1, &bgmBuffer);
 	if (stageBackground != nullptr) {
+		
 		stageBackground->BackgroundRelease();
 		delete stageBackground;
 	}

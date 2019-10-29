@@ -1,3 +1,5 @@
+#include <chrono>
+#include <future>
 #include "RenderManager.h"
 #include "../../XCFrame.h"
 #include <GL3/gl3w.h>
@@ -14,7 +16,6 @@ RenderManager* RenderManager::pRenderManager = nullptr;
 RenderManager::RenderManager() {
 	auto coverInterface = CoverInterface::getInstance();
 	AddUserInterface("0", coverInterface);
-
 }
 
 
@@ -28,6 +29,7 @@ RenderManager * RenderManager::getInstance()
 
 void RenderManager::AddRenderObject(const std::string& parentUuid, RenderObject * object, bool isAsyncio)
 {
+	//addToInitList(parentUuid, object);
 	if (!isAsyncio) {
 		renderObjectList.insert(std::make_pair(parentUuid, object));
 		object->Init();
@@ -239,10 +241,7 @@ void RenderManager::solveAsyncCommand()
 void RenderManager::solveAsyncObject()
 {
 	if (asyncRenderObjectList.empty()) return;
-	std::unordered_multimap<std::string, RenderObject*>::iterator obegin = asyncRenderObjectList.begin();
-	std::unordered_multimap<std::string, RenderObject*>::iterator oend = asyncRenderObjectList.end();
-
-	for (auto object = obegin; object != oend; object++) {
+	for (auto object = asyncRenderObjectList.begin(); object != asyncRenderObjectList.end(); object++) {
 		renderObjectList.insert(std::make_pair(object->first, object->second));
 		if (object->first == StrikeRenderGroupUuid) {
 			strikeCollisionHelperGroup.push_back(object->second);

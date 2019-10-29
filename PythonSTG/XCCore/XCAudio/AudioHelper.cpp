@@ -2,10 +2,11 @@
 #include <iostream>
 #include <string>
 #include <thread>
+#include <AL/alut.h>
 bool AudioHelper::isEvonInit = false;
 float AudioHelper::audioVolume = 0.08f;
-ALCdevice*  AudioHelper::device = nullptr;
-ALCcontext* AudioHelper::context = nullptr;
+//ALCdevice*  AudioHelper::device = nullptr;
+//ALCcontext* AudioHelper::context = nullptr;
 
 std::map<std::string, XCWavFile> AudioHelper::wavSourceGroup;
 std::map<ALuint, ALuint> AudioHelper::effectPlayingList;
@@ -13,22 +14,23 @@ std::map<ALuint, ALuint> AudioHelper::effectPlayingList;
 void AudioHelper::EvonInit()
 {
 	if (!isEvonInit) {
-		device = alcOpenDevice(NULL);
-		if (device==nullptr) {
-			std::cout << "[ERROR]Failed to init openal device.\n";
-		}
-		else {
-			ALCcontext* context = alcCreateContext(device, NULL);
-			if (context == nullptr) {
-				std::cout << "[ERROR]Failed to create openal context.\n";
-			}
-			else {
-				alcMakeContextCurrent(context);
-				std::cout << "[INFO]Now OpenAL environment init.\n";	
-				isEvonInit = true;		
-			}
-		}
-		alGetError(); //clear all error
+		//device = alcOpenDevice(NULL);
+		//if (device==nullptr) {
+		//	std::cout << "[ERROR]Failed to init openal device.\n";
+		//}
+		//else {
+		//	ALCcontext* context = alcCreateContext(device, NULL);
+		//	if (context == nullptr) {
+		//		std::cout << "[ERROR]Failed to create openal context.\n";
+		//	}
+		//	else {
+		//		alcMakeContextCurrent(context);
+		//		std::cout << "[INFO]Now OpenAL environment init.\n";	
+		//		isEvonInit = true;		
+		//	}
+		//}
+		//alGetError(); //clear all error
+		alutInit(NULL, NULL);
 	}
 
 }
@@ -46,12 +48,13 @@ void AudioHelper::UnloadEvon()
 		alDeleteSources(1, &work->second);
 	}
 
-	alcMakeContextCurrent(NULL);
-	alcDestroyContext(context);
-	alcCloseDevice(device);
+	//alcMakeContextCurrent(NULL);
+	//alcDestroyContext(context);
+	//alcCloseDevice(device);
 
-	context = nullptr;
-	device = nullptr;
+	//context = nullptr;
+	//device = nullptr;
+	alutExit();
 
 	std::cout << "[INFO]Now OpenAL environment unloaded.\n";
 	isEvonInit = false;
@@ -75,6 +78,18 @@ XCWavFile AudioHelper::loadWavFromFile(const std::string& filename)
 		}
 	}
 	return wavFile;
+}
+
+ALuint AudioHelper::loadWavByAlut(const std::string & filename)
+{
+	ALuint buffer = alutCreateBufferFromFile(filename.c_str());
+	if (!alIsBuffer(buffer)) {
+		std::cout << "[ERROR]Failed to load audio file " << filename << '\n';
+	}
+	else {
+		std::cout << "[INFO] Load audio from file " << filename << std::endl;
+	}
+	return  buffer;
 }
 
 void AudioHelper::setVolume(float volume)

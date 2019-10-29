@@ -39,8 +39,8 @@ struct XCWavFile {
 class AudioHelper {
 private:
 	static bool isEvonInit;
-	static ALCdevice* device;
-	static ALCcontext* context;
+	//static ALCdevice* device;
+	//static ALCcontext* context;
 	static float audioVolume;
 
 	static std::map<std::string, XCWavFile> wavSourceGroup;
@@ -53,6 +53,7 @@ public:
 	static void UnloadEvon();
 
 	static XCWavFile loadWavFromFile(const std::string& filename);
+	static ALuint loadWavByAlut(const std::string& filename);
 	static void setVolume(float volume);
 
 	static void playFromBuffer(ALuint buffer);
