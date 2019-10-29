@@ -72,8 +72,8 @@ void RenderManager::RenderWork()
 		}
 
 	}
-	std::unordered_multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
-	std::unordered_multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
+	std::multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
+	std::multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
 	for (auto object = renderBegin; object != renderEnd; object++) {
 		RenderObject *renderObject = object->second;
 		if (!renderObject->getIsTerminate()) {
@@ -170,8 +170,8 @@ void RenderManager::solveAsyncCommand()
 		{
 		case RenderManager::cRenderObject:
 			{
-				std::unordered_multimap<std::string, RenderObject*>::iterator targetBegin = renderObjectList.find(uuid);
-				std::unordered_multimap<std::string, RenderObject*>::iterator targetEnd = renderObjectList.end();
+				std::map<std::string, RenderObject*>::iterator targetBegin = renderObjectList.find(uuid);
+				std::map<std::string, RenderObject*>::iterator targetEnd = renderObjectList.end();
 				for (auto object = targetBegin; object != targetEnd; object = renderObjectList.find(uuid)) {
 					RenderObject *renderObject = object->second;
 					renderObject->Release();
@@ -190,8 +190,8 @@ void RenderManager::solveAsyncCommand()
 			break;
 		case RenderManager::cAllRenderObject:
 			{
-				std::unordered_multimap<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
-				std::unordered_multimap<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
+				std::map<std::string, RenderObject*>::iterator renderBegin = renderObjectList.begin();
+				std::map<std::string, RenderObject*>::iterator renderEnd = renderObjectList.end();
 				for (auto object = renderBegin; object != renderEnd; object++) {
 					RenderObject *renderObject = object->second;
 					renderObject->Release();
@@ -203,8 +203,8 @@ void RenderManager::solveAsyncCommand()
 			break;
 		case RenderManager::tBullet:
 			{
-				std::unordered_multimap<std::string, RenderObject*>::iterator bulletBegin = renderObjectList.begin();
-				std::unordered_multimap<std::string, RenderObject*>::iterator bulletEnd = renderObjectList.end();
+				std::map<std::string, RenderObject*>::iterator bulletBegin = renderObjectList.begin();
+				std::map<std::string, RenderObject*>::iterator bulletEnd = renderObjectList.end();
 				for (auto object = bulletBegin; object != bulletEnd; object++) {
 					if (object->first == uuid) {
 						RenderObject *renderObject = object->second;
@@ -218,8 +218,8 @@ void RenderManager::solveAsyncCommand()
 			break;
 		case RenderManager::tAllBullet:
 			{
-				std::unordered_multimap<std::string, RenderObject*>::iterator bulletBegin = renderObjectList.begin();
-				std::unordered_multimap<std::string, RenderObject*>::iterator bulletEnd = renderObjectList.end();
+				std::map<std::string, RenderObject*>::iterator bulletBegin = renderObjectList.begin();
+				std::map<std::string, RenderObject*>::iterator bulletEnd = renderObjectList.end();
 				for (auto object = bulletBegin; object != bulletEnd; object++) {
 					RenderObject *renderObject = object->second;
 					if (renderObject->getCurrentType() == RenderObject::BulletType) {

@@ -78,7 +78,6 @@ class Bullet:
 
     def _setRenderSize(self, size=[0.1, 0.1, 0.1]):
         self.scaleSize = size
-        self.collideSize = size
 
     def _setCollideSize(self, size):
         self.collideSize = size

@@ -16,7 +16,7 @@ private:
 	enum insideCommand {
 		cRenderObject = 0, cAllRenderObject, tBullet, cUserInterface, tAllBullet
 	};
-	std::unordered_multimap<std::string, RenderObject*> renderObjectList;
+	std::multimap<std::string, RenderObject*> renderObjectList;
 	std::unordered_multimap<insideCommand, std::string> externCommandList;
 	std::unordered_multimap<std::string, RenderObject*> asyncRenderObjectList;
 

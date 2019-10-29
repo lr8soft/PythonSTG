@@ -95,7 +95,7 @@ void NormalStrike::checkCollisionWithBoss(BossObject * pBoss)
 		float cornerDistance_sq = pow((distX - width / 2), 2) + pow(distY - height / 2, 2);
 		if (distX <= (width / 2) || distY <= (height / 2) || cornerDistance_sq <= pow(collisionRadius, 2)) {
 			ParticleHelper* particleGroup = new ParticleHelper;
-			particleGroup->addNewParticle(6, 15.0f, 0.6f, 0.4f, glm::vec4(1.0f), glm::vec3(NowPosition[0], NowPosition[1],0.0f));
+			particleGroup->addNewParticle(6, 12.0f, 0.6f, 0.4f, glm::vec4(1.0f), glm::vec3(NowPosition[0], NowPosition[1],0.0f));
 			RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 
 			pBoss->hurtBossObject(0.2f);
@@ -116,7 +116,7 @@ void NormalStrike::checkCollisionWithEnemy(EnemyObject * pEnemy)
 		if (enemyPosition[0] <= NowPosition[0] + halfWidth && enemyPosition[0] >= NowPosition[0] - halfWidth){
 			if (enemyPosition[1] <= NowPosition[1] + halfHeight && enemyPosition[1] >= lastY - halfHeight) {
 				ParticleHelper* particleGroup = new ParticleHelper;
-				particleGroup->addNewParticle(6, 15.0f, 0.6f, 0.4f, glm::vec4(1.0f), enemyPosition);
+				particleGroup->addNewParticle(6, 12.0f, 0.6f, 0.4f, glm::vec4(1.0f), enemyPosition);
 				RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 
 				pEnemy->hurtEnemy(0.2f);
