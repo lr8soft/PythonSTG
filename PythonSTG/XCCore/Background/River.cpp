@@ -12,7 +12,7 @@ void River::bankRender()
 		model = glm::scale(model, glm::vec3(1.0f));
 		river_bank->setMvpMatrix(model);
 		river_bank->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 0, renderY));
 	}
 }
 void River::bedRender()
@@ -24,7 +24,7 @@ void River::bedRender()
 		model = glm::scale(model, glm::vec3(1.0f));
 		river_bed->setMvpMatrix(model);
 		river_bed->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 0, renderY));
 	}
 }
 void River::treeRender()
@@ -32,37 +32,37 @@ void River::treeRender()
 	static glm::vec3 reshape = glm::vec3(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1.0f);
 	{
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(-0.5f, 0.5f, 0.0f)*reshape);
+		model = glm::translate(model, glm::vec3(-0.7f, 0.5f, 0.0f)*reshape);
 		model = glm::scale(model, glm::vec3(0.5f));
 		river_tree->setMvpMatrix(model);
 		river_tree->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 0, treeY));
 	}
 	{
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(-0.5f, -0.5f, 0.0f)*reshape);
+		model = glm::translate(model, glm::vec3(-0.7f, -0.5f, 0.0f)*reshape);
 		model = glm::scale(model, glm::vec3(0.5f));
 		river_tree->setMvpMatrix(model);
 		river_tree->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 0, treeY));
 	}
 	{
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.0f)*reshape);
+		model = glm::translate(model, glm::vec3(0.7f, 0.5f, 0.0f)*reshape);
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0,1,0));
 		model = glm::scale(model, glm::vec3(0.5f));
 		river_tree->setMvpMatrix(model);
 		river_tree->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 0, treeY_offset));
 	}
 	{
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.5f, -0.5f, 0.0f)*reshape);
+		model = glm::translate(model, glm::vec3(0.7f, -0.5f, 0.0f)*reshape);
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0, 1, 0));
 		model = glm::scale(model, glm::vec3(0.5f));
 		river_tree->setMvpMatrix(model);
 		river_tree->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY+0.2f));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 0, treeY_offset));
 	}
 }
 void River::waterRender()
@@ -74,7 +74,16 @@ void River::waterRender()
 		model = glm::scale(model, glm::vec3(1.0f));
 		river_water->setMvpMatrix(model);
 		river_water->Render(glm::vec3(0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY+0.2f));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 0, renderY));
+	}
+}
+void River::coordIncrease(float & count, float offset)
+{
+	if (count < 1.0f) {
+		count += offset;
+	}
+	else {
+		count = 0.0f;
 	}
 }
 void River::BackgroundInit()
@@ -99,13 +108,9 @@ void River::BackgroundRender()
 			treeRender();
 		}
 		BlendEnd
-		if (renderX < 1.0f && renderY < 1.0f) {
-			renderY += 0.0006f;
-		}
-		else {
-			renderX = 0.0f;
-			renderY = 0.0f;
-		}
+		coordIncrease(renderY, 0.0006f);
+		coordIncrease(treeY, 0.0009f);
+		coordIncrease(treeY_offset, 0.0009f);
 	}
 }
 

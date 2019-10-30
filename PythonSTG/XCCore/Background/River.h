@@ -8,12 +8,13 @@
 class River : public Background {
 private:
 	XCAdvImageHelper *river_bank , *river_bed, *river_tree, *river_water;
-	float renderX = 0.0f, renderY = 0.0f, renderX1 = 0.0f, renderX2 = 0.5f;
+	float renderY = 0.0f, treeY = 0.0f, treeY_offset = 0.5f;
 	bool isInit = false;
 	void bankRender();
 	void bedRender();
 	void treeRender();
 	void waterRender();
+	void coordIncrease(float &count, float offset);
 public:
 	virtual void BackgroundInit();
 	virtual void BackgroundRender();
