@@ -100,7 +100,7 @@ void River::BackgroundInit()
 void River::BackgroundRender()
 {
 	if (isInit) {
-		BlendNormalStart
+		BlendOneMinusAlphaStart
 		{
 			bedRender();
 			waterRender();
@@ -110,7 +110,7 @@ void River::BackgroundRender()
 		BlendEnd
 		coordIncrease(renderY, 0.0006f);
 		coordIncrease(treeY, 0.0009f);
-		coordIncrease(treeY_offset, 0.0009f);
+		coordIncrease(treeY_offset, 0.001f);
 	}
 }
 

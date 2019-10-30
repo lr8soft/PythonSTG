@@ -109,32 +109,8 @@ void LakeBackground::renderLeafImage()
 	BlendOneMinusAlphaColorStart
 	{
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.5f, 0.5f, 0.0f)*reshape);
-		model = glm::scale(model, glm::vec3(0.5f));
-		leef->setMvpMatrix(model);
-		leef->Render(glm::vec3(0.0f), glm::vec4(0.37f, 1.0f, 1.0f, 1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
-	}
-	{
-		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.5f, -0.5f, 0.0f)*reshape);
-		model = glm::scale(model, glm::vec3(0.5f));
-		leef->setMvpMatrix(model);
-		leef->Render(glm::vec3(0.0f), glm::vec4(0.37f, 1.0f, 1.0f, 1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
-	}
-	{
-		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(-0.5f, -0.5f, 0.0f)*reshape);
-		model = glm::scale(model, glm::vec3(0.5f));
-		leef->setMvpMatrix(model);
-		leef->Render(glm::vec3(0.0f), glm::vec4(0.37f, 1.0f, 1.0f, 1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
-	}
-	{
-		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(-0.5f, 0.5f, 0.0f)*reshape);
-		model = glm::scale(model, glm::vec3(0.5f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)*reshape);
+		model = glm::scale(model, glm::vec3(1.0f));
 		leef->setMvpMatrix(model);
 		leef->Render(glm::vec3(0.0f), glm::vec4(0.37f, 1.0f, 1.0f, 1.0f), 0.0f, glm::vec3(0), glm::vec3(0.0f),
 			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, renderX, renderY));
