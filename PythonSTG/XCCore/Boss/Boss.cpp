@@ -1,8 +1,10 @@
 #include "Boss.h"
 #include "../XCRender/XCImageHelper.h"
+#include "../Task/TaskManager.h"
+#include "../Task/TaskDispatcher.h"
 #include "../XCRender/RenderManager.h"
 #include "../UserInterface/BossInfoInterface.h"
-Boss::Boss(std::string uid, std::vector<std::string>& targetUUID,std::string bName, int wFrame,
+Boss::Boss(std::string uid, std::vector<std::string>& targetUUID,std::string bName, std::string musicPath,int wFrame,
 	std::string imgPath, glm::vec2 dInfo, glm::vec2 sInfo, int sbRow, int wRow, int aRow):Task(uid,targetUUID, 1, 0, wFrame)
 {
 	bossName = bName;
@@ -14,6 +16,11 @@ Boss::Boss(std::string uid, std::vector<std::string>& targetUUID,std::string bNa
 	standByRow = sbRow;
 	walkRow = wRow;
 	attackRow = aRow;
+
+	if (!musicPath.empty()) {
+		haveBossMusic = true;
+		bossMusicPath = musicPath;
+	}
 }
 
 void Boss::AddSpellCard(SpellCard * spellcard)
@@ -31,9 +38,47 @@ void Boss::TaskInit()
 			(*spellcard)->SpellCardInit();
 			(*spellcard)->setBossObject(bossRenderObject);
 		}
+
+		if (haveBossMusic) {
+			bossMusic = AudioHelper::loadWavByAlut(bossMusicPath);
+			stageMusic = TaskManager::getInstance()->getCurrentStageMusic();
+		}
+
 		taskIsInit = true;
 	}
 
+}
+
+void Boss::TaskWork()
+{
+	if (taskIsInit) {
+		if (targetUUID.empty()) {
+			taskSubWork();
+			taskWaitForTarget = false;
+			if (haveBossMusic) {
+				AudioHelper::stopByBuffer(stageMusic);
+				AudioHelper::playFromBuffer(bossMusic);
+			}
+		}
+		else {
+			bool isAllTargetFinish = true;
+			for (int i = 0; i < targetUUID.size(); i++) {
+				bool isTargetFinish = TaskDispatcher::getTaskFinish(targetUUID[i]);
+				if (!isTargetFinish) {
+					isAllTargetFinish = false;
+					taskWaitForTarget = true;
+				}
+			}
+			if (isAllTargetFinish) {
+				taskSubWork();
+				taskWaitForTarget = false;
+				if (haveBossMusic) {
+					AudioHelper::stopByBuffer(stageMusic);
+					AudioHelper::playFromBuffer(bossMusic);
+				}
+			}
+		}
+	}
 }
 
 void Boss::taskSubWork()
@@ -108,6 +153,12 @@ void Boss::TaskRelease()
 			bossRenderObject->Release();
 			delete bossRenderObject;
 			bossRenderObject = nullptr;
+		}
+
+		if (haveBossMusic) {
+			AudioHelper::playFromBuffer(stageMusic);
+			AudioHelper::stopByBuffer(bossMusic);
+			alDeleteBuffers(1, &bossMusic);
 		}
 		taskIsInit = false;
 	}
