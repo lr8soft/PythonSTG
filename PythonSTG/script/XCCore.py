@@ -4,7 +4,7 @@ from script.Object.Player import Player
 # demo stage 演示关卡
 import script.TestStage as TestStage
 
-winTitle = "PythonSTG v0.32-update1"
+winTitle = "PythonSTG v0.33"
 
 # PySTG default function
 def coreInitializer():

@@ -157,6 +157,7 @@ def setupMyStage():
     #boss
     boss = Boss()
     boss.SetBossName("Fujiwara no Mokou")
+    boss.SetBossMusic("assets/Media/boss1.wav")
     boss.AddTargetUuid(taskAfter.getUuid())
     boss.AddSpellCard(spellcard)
     boss.AddSpellCard(spellcard2)

@@ -38,6 +38,11 @@ void Stage::setTaskInitCoord(std::string & uuid, float x, float y)
 	}
 }
 
+ALuint Stage::getStageMusic()
+{
+	return bgmBuffer;
+}
+
 void Stage::stageInit()
 {
 	if (!isStageInit) {

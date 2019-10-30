@@ -46,6 +46,19 @@ void TaskManager::SetTaskInitCoord(std::string & uuid, float x, float y)
 	}
 }
 
+ALuint TaskManager::getCurrentStageMusic()
+{
+	ALuint buffer = 0;
+	std::vector<Stage*>::iterator stageBegin = stageQueue.begin();
+	std::vector<Stage*>::iterator stageEnd = stageQueue.end();
+
+	if (stageBegin != stageEnd) {
+		Stage* stageItem = (*stageBegin);
+		buffer = stageItem->getStageMusic();
+	}
+	return buffer;
+}
+
 void TaskManager::CleanAllStage()
 {
 	std::vector<Stage*>::iterator stageBegin = stageQueue.begin();

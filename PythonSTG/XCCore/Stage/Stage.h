@@ -30,6 +30,7 @@ public:
 	void addTask(Task* pTask);
 	void removeTask(std::string &uuid);
 	void setTaskInitCoord(std::string &uuid, float x, float y);
+	ALuint getStageMusic();
 
 	void stageInit();
 	void stageWork();

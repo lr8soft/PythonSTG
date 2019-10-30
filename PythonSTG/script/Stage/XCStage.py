@@ -8,6 +8,7 @@ from script.Stage.Boss import Boss
 class StageBackGround(Enum):
     lake = 0
     magic_forest = 1
+    river = 2
 
 
 class StageRank(Enum):

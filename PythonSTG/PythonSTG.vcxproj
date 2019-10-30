@@ -146,6 +146,7 @@
     <ClCompile Include="XCCore\Background\Camera.cpp" />
     <ClCompile Include="XCCore\Background\Lake.cpp" />
     <ClCompile Include="XCCore\Background\MagicForest.cpp" />
+    <ClCompile Include="XCCore\Background\River.cpp" />
     <ClCompile Include="XCCore\Boss\Boss.cpp" />
     <ClCompile Include="XCCore\Boss\BossHelper.cpp" />
     <ClCompile Include="XCCore\Boss\BossObject.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="LaunchHelper.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource1.h" />
+    <ClInclude Include="XCCore\Background\River.h" />
     <ClInclude Include="XCCore\Boss\Boss.h" />
     <ClInclude Include="XCCore\Boss\BossHelper.h" />
     <ClInclude Include="XCCore\Boss\BossObject.h" />

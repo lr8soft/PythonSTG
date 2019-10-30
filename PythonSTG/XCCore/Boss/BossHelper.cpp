@@ -10,8 +10,8 @@ Boss * BossHelper::parseBossFromObject(PyObject * pBossPyObject)
 		auto spellCardSizeObject = PyObject_CallMethod(pBossPyObject, "_cpp_getSpellCardSize", NULL);
 		auto targetUuidObject = PyObject_CallMethod(pBossPyObject, "_cpp_getTargetUuidSize", NULL);
 
-		const char* bossName, *uuid; int waitFrame;
-		PyArg_ParseTuple(bossInfoObject, "ssi", &bossName, &uuid, &waitFrame);
+		const char* bossName, *uuid, *music; int waitFrame;
+		PyArg_ParseTuple(bossInfoObject, "ssis", &bossName, &uuid, &waitFrame, &music);
 
 		const char* imagePath; int divideCols, divideRows, standByRow, walkRow, attackRow; float scaleX, scaleY;
 		PyArg_ParseTuple(imageInfoObject, "s(ii)(ff)iii", &imagePath, &divideCols, &divideRows, &scaleX, &scaleY, &standByRow, &walkRow, &attackRow);
@@ -27,7 +27,7 @@ Boss * BossHelper::parseBossFromObject(PyObject * pBossPyObject)
 			targetUuidGroup.push_back(tuuid);
 		}
 
-		pBoss = new Boss(uuid, targetUuidGroup, bossName, waitFrame,
+		pBoss = new Boss(uuid, targetUuidGroup, bossName, music, waitFrame,
 			imagePath,glm::vec2(divideCols, divideRows), glm::vec2(scaleX, scaleY), standByRow, walkRow, attackRow);
 
 		int spellCardSize = 0;

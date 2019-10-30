@@ -51,6 +51,7 @@ class Boss:
         self.targetUuid = Queue()
         self.uuid = str(uuid.uuid1())
         self.waitFrame = 0
+        self.music = ""
 
 
         self.bossImage = "assets/Boss/TestBoss.png"
@@ -69,6 +70,9 @@ class Boss:
     def SetBossName(self, name):
         self.bossName = name
 
+    def SetBossMusic(self, musicPath):
+        self.music = musicPath
+
     def AddTargetUuid(self, uuid):
         self.targetUuid.put(uuid)
 
@@ -76,7 +80,7 @@ class Boss:
         self.waitFrame = waitFrame
 
     def _cpp_getBossInfo(self):
-        return self.bossName, self.uuid, self.waitFrame
+        return self.bossName, self.uuid, self.waitFrame, self.music
 
     def _cpp_getImageInfo(self):
         return self.bossImage, tuple(self.bossImageDivide), tuple(self.bossImageScale), self.bossStandBy, self.bossWalk, self.bossAttack

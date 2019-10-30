@@ -202,6 +202,9 @@
     <ClCompile Include="XCCore\UserInterface\BossInfoInterface.cpp">
       <Filter>XCCore\UserInterface</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\Background\River.cpp">
+      <Filter>XCCore\Background</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -377,6 +380,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resouce</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Background\River.h">
+      <Filter>XCCore\Background</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
