@@ -119,7 +119,7 @@ void Player::PlayerRender()
 				isHitTime = false;
 			}
 		}
-			
+		GameInfoInterface::getInstance()->setNowScore(playerScore);
 		///////////test
 	}
 }
@@ -167,6 +167,8 @@ void Player::grazePlayer()
 	ParticleHelper* particleGroup = new ParticleHelper;
 	particleGroup->addNewParticle(1, 12.0f, 0.6f, 0.6f, glm::vec4(1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 	RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+
+	playerScore += 50;
 }
 
 void Player::playerKeyCheck()

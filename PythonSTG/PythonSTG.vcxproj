@@ -156,6 +156,7 @@
     <ClCompile Include="XCCore\Bullet\OvalTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Enemy\EnemyObject.cpp" />
+    <ClCompile Include="XCCore\Item\Item.cpp" />
     <ClCompile Include="XCCore\Menu\GameMenu.cpp" />
     <ClCompile Include="XCCore\Menu\PauseMenu.cpp" />
     <ClCompile Include="XCCore\Task\Task.cpp" />
@@ -173,8 +174,7 @@
     <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp" />
     <ClCompile Include="XCCore\XCRender\XCFont.cpp" />
-    <ClCompile Include="XCCore\Item\Item.cpp" />
-    <ClCompile Include="XCCore\Item\Player.cpp" />
+    <ClCompile Include="XCCore\Player\Player.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.cpp" />
     <ClCompile Include="XCCore\XCRender\IRenderHelper.cpp" />
     <ClCompile Include="XCCore\Task\TaskManager.cpp" />
@@ -198,6 +198,7 @@
     <ClInclude Include="XCCore\Boss\BossObject.h" />
     <ClInclude Include="XCCore\Boss\SpellCard.h" />
     <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h" />
+    <ClInclude Include="XCCore\Item\Item.h" />
     <ClInclude Include="XCCore\Menu\PauseMenu.h" />
     <ClInclude Include="util\ConfigManager.h" />
     <ClInclude Include="util\GameTimer.h" />
@@ -235,8 +236,7 @@
     <ClInclude Include="XCCore\XCRender\ParticleHelper.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h" />
     <ClInclude Include="XCCore\XCRender\XCFont.h" />
-    <ClInclude Include="XCCore\Item\Item.h" />
-    <ClInclude Include="XCCore\Item\Player.h" />
+    <ClInclude Include="XCCore\Player\Player.h" />
     <ClInclude Include="XCCore\XCRender\BlendHelper.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.h" />
     <ClInclude Include="XCCore\XCRender\IRenderHelper.h" />

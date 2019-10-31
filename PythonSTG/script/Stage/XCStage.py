@@ -25,7 +25,7 @@ class XCStage:
         self.__stageTask = Queue()
         self.__stageBoss = Queue()
         self.__uuid = str(uuid.uuid1())
-        self.__background = StageBackGround.lake
+        self.__background = StageBackGround.river
         self.__rank = StageRank.Normal
         self.__music = ""
 

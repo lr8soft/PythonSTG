@@ -1,7 +1,7 @@
 #include "Stage.h"
 #include "../../XCInterpreter/ScriptLoader.h"
 #include "../XCRender/XCImageHelper.h"
-#include "../Item/Player.h"
+#include "../Player/Player.h"
 
 #include "../Task/TaskHelper.h"
 #include "../Bullet/BulletHelper.h"

@@ -148,7 +148,7 @@ void BossObject::hurtBossObject(float damage)
 		AudioHelper::playFromBuffer(bossExplode.wavBuffer);
 
 		ParticleHelper* particleGroup = new ParticleHelper;
-		particleGroup->addNewParticle(60, 15.0f, 1.2f, 1.0f, glm::vec4(1.0f), glm::vec3(NowPosition, 0.0f));
+		particleGroup->addNewParticle(120, 12.0f, 1.2f, 1.0f, glm::vec4(1.0f), glm::vec3(NowPosition, 0.0f));
 		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 	}
 }

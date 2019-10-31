@@ -3,7 +3,7 @@
 #include "../XCRender/ParticleHelper.h"
 #include <GL3/gl3w.h>
 #include "../../XCFrameInfo.h"
-
+#include "../Item/Item.h"
 EnemyObject::EnemyObject(IRenderHelper *ptr, glm::vec2 dInfo, glm::vec3 sInfo, glm::vec2 sbInfo, glm::vec2 wInfo,
 	glm::vec3 iCoord, float v, float mTime,float a, float agle, float agleA, int type, float health)
 {
@@ -122,6 +122,9 @@ void EnemyObject::hurtEnemy(float damage)
 		particleGroup->addNewParticle(20, 12.0f, 1.0f, 0.6f, glm::vec4(1.0f), NowPosition);
 		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 		
+		Item* item = new Item(NowPosition, Item::PointType, 0.1f);
+		RenderManager::getInstance()->AddRenderObject(ItemUniformUuid, item);
+
 		currentHealth = 0;
 		isWorkFinish = true;
 	}

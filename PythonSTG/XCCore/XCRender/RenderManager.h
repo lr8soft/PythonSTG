@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include "../UserInterface/IUserInterface.h"
 #include "../Background/Background.h"
-#include "../Item/Player.h"
+#include "../Player/Player.h"
 #include "RenderObject.h"
 
 #define StrikeRenderGroupUuid "StrikeGroupUniformUUID"

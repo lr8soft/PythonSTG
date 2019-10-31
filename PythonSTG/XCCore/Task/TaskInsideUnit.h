@@ -1,7 +1,6 @@
 #pragma once
 #ifndef _TASKINSIDE_UNIT_H_
 #define _TASKINSIDE_UNIT_H_
-#include "../Item/Item.h"
 #include "../XCRender/RenderObject.h"
 #include "../Bullet/Bullet.h"
 #include <list>

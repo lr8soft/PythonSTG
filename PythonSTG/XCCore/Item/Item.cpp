@@ -1,86 +1,73 @@
 #include "Item.h"
+#include "../XCRender/XCImageHelper.h"
 #include "../../XCFrameInfo.h"
-#include <GLFW/glfw3.h>
-Item::Item(IRenderHelper* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle)
+#include <GL3/gl3w.h>
+Item::Item(const glm::vec2& generateCoord, ItemType itemType, float v)
 {
-	renderHelper = image;
-	divideInfo = dInfo;
-	scaleSize = sSize;
-	rotateWork = rWork;
-	rotateAngle = rAngle;
-	coverColor = color;
+	NowPosition = generateCoord;
+	currentType = itemType;
+	velocity = v;
+
+	divideInfo = glm::vec4();
+	divideInfo.x = 4;
+	divideInfo.y = 5;
+	switch (itemType) {
+	case ItemType::PointType:
+		divideInfo.z = 2;
+		divideInfo.w = 5;
+		break;
+	case ItemType::BombType:
+		divideInfo.z = 2;
+		divideInfo.w = 1;
+		break;
+	case ItemType::PowerType:
+		divideInfo.z = 1;
+		divideInfo.w = 5;
+		break;
+	case ItemType::FullPowerType:
+		divideInfo.z = 2;
+		divideInfo.w = 4;
+		break;
+	case ItemType::LifeType:
+		divideInfo.z = 1;
+		divideInfo.w = 2;
+		break;
+	}
+	setCurrentType(ObjectType::ItemType);
 }
 
-void Item::ItemInit()
+void Item::Init()
 {
-	auto randSeed = glfwGetTimerValue();
-	srand(randSeed);
-	if (rand() % 2 ==0) {
-		NowPosition[0] += (float)rand() / RAND_MAX /10.0f / 3.0f;
-		if (rand() % 2 == 0) {
-			NowPosition[1] += (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		}
-		else {
-			NowPosition[1] -= (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		}
-	}
-	else {
-		NowPosition[0] -= (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		if (rand() % 2 == 0) {
-			NowPosition[1] += (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		}
-		else {
-			NowPosition[1] -= (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		}
-	}
-	
-}
-
-void Item::ItemRender()
-{
-	if (renderHelper != nullptr) {
-		itemTimer.Tick();
-
-		NowPosition[1] -= XCFrameInfo::defaultGravity * itemTimer.getDeltaFrame();
-		renderHelper->Render(
-			glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]),
-			coverColor,
-			rotateAngle,
-			rotateWork,
-			scaleSize,
-			IRenderHelper::GetSpecificTexWithRate(
-				XCFrameInfo::FrameRight, XCFrameInfo::FrameTop,divideInfo[0], divideInfo[1], divideInfo[2], divideInfo[3])
-		);
-
-		checkOutOfScreen();
+	if (!isInit) {
+		itemImage = new XCImageHelper("assets/Item/item.png", true);
+		isInit = true;
 	}
 }
-void Item::checkOutOfScreen()
+
+void Item::Render()
 {
-	if (NowPosition[1] > scaleSize[1] + XCFrameInfo::FrameTop || NowPosition[1] < -(scaleSize[1] + XCFrameInfo::FrameTop)
-		|| NowPosition[0] > scaleSize[0] + XCFrameInfo::FrameRight || NowPosition[0] < -(scaleSize[0] + XCFrameInfo::FrameRight)) {
-		itemWorkFinish = true;
+	if (isInit) {
+		timer.Tick();
+		NowPosition.y -= velocity * timer.getDeltaFrame();
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		itemImage->Render(glm::vec3(NowPosition, 0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0, 0, 1), glm::vec3(0.05f),
+			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo.x, divideInfo.y, divideInfo.z, divideInfo.w));
+		glDisable(GL_BLEND);
+
+		if (NowPosition.y - 0.05f< -1.0f ) {
+			isWorkFinish = true;
+		}
 	}
 }
-void Item::ItemRelease()
-{
-	renderHelper->Release();
-	delete renderHelper;
-}
 
-bool Item::getIsFinish()
+void Item::Release()
 {
-	return itemWorkFinish;
-}
+	if (isInit) {
+		itemImage->Release();
+		delete itemImage;
 
-float * Item::getPosition()
-{
-	return NowPosition;
-}
-
-void Item::setPosition(float x, float y, float z)
-{
-	NowPosition[0] = x;
-	NowPosition[1] = y;
-	NowPosition[2] = z;
+		isInit = false;
+	}
 }

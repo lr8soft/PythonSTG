@@ -1,35 +1,32 @@
 #pragma once
-#ifndef _XCItem_
-#define _XCItem_
+#ifndef _ITEM_H_
+#define _ITEM_H_
+#include <glm/glm.hpp>
+#include "../XCRender/RenderObject.h"
 #include "../XCRender/IRenderHelper.h"
 #include "../../util/GameTimer.h"
-#include <glm/glm.hpp>
-#include <string>
-class Item {
-protected:
-	bool itemWorkFinish = false;
-	XCGameTimer itemTimer;
-
-	IRenderHelper* renderHelper;
-	glm::vec4 divideInfo;
-	glm::vec4 coverColor;
-	glm::vec3 scaleSize;
-	glm::vec3 rotateWork;
-	float rotateAngle = 0.0f;
-
-	float NowPosition[3] = {0.0f, 0.0f, 0.0f};
-
-	void checkOutOfScreen();
+#define ItemUniformUuid "ItemUniformUUID"
+class Item :public RenderObject {
 public:
-	Item(IRenderHelper* image, glm::vec4 divideInfo, glm::vec4 coverColor ,glm::vec3 scaleSize, 
-		glm::vec3 rotateWork ,float renderRotateAngle);
+	enum ItemType {
+		PointType = 0, PowerType, FullPowerType, LifeType, BombType
+	};
+protected:
+	XCGameTimer timer;
 
-	virtual void ItemInit();
-	virtual void ItemRender();
-	virtual void ItemRelease();
+	ItemType currentType;
+	glm::vec2 NowPosition;
+	glm::vec4 divideInfo;
+	float velocity;
 
-	bool getIsFinish();
-	float* getPosition();
-	void setPosition(float x, float y, float z);
+	IRenderHelper* itemImage;
+public:
+	Item(const glm::vec2& generateCoord, ItemType itemType, float fallVelocity);
+	virtual void Init() override;
+	virtual void Render() override;
+	virtual void Release() override;
+
+	//void checkCollideWithPlayer();
 };
+
 #endif

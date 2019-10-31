@@ -18,6 +18,7 @@ private:
 	bool isHitTime = false;
 	double HitProtectTime = 3.0f;
 	double lastHitTime = 0;
+	long playerScore = 0.0;
 	long double lastShootTime = 0;
 
 	glm::vec4 divideInfo;

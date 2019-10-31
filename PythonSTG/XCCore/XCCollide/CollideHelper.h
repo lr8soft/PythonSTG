@@ -1,7 +1,7 @@
 #pragma once
 #ifndef _COLLIDE_HELPER_H_
 #define _COLLIDE_HELPER_H_
-#include "../Item/Player.h"
+#include "../Player/Player.h"
 #include "../Bullet/Bullet.h"
 class CollideHelper {
 private:
