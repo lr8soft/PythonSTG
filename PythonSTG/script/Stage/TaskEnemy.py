@@ -1,12 +1,19 @@
 from .Task import Task
 from enum import Enum
-
+from queue import Queue
 
 class EnemyColor(Enum):
     Yellow = 1
     Blue = 2
     Green = 3
     Red = 4
+
+class DropItem(Enum):
+    Point = 0
+    Power = 1
+    FullPower = 2
+    Life = 3
+    Bomb = 4
 
 
 class TaskEnemy(Task):
@@ -29,8 +36,15 @@ class TaskEnemy(Task):
         self.incAngle = 0.0
         self.enemyHealth = 5.0
 
+        self.itemType = Queue()
+        self.itemCount = Queue()
+
     def _setEnemyImage(self, path="assets/Item/fairy.png"):
         self.renderImage = path
+
+    def setItemDrop(self, item = DropItem.Point, count = 5):
+        self.itemType.put(item.value)
+        self.itemCount.put(count)
 
     def setColorType(self, color=EnemyColor.Red):
         self.colorType = color
@@ -70,3 +84,9 @@ class TaskEnemy(Task):
     def _cpp_getEnemyInfo(self):
         return tuple(
             self.position), self.velocity, self.movingTime, self.acceleration, self.angle, self.incAngle, self.enemyHealth
+
+    def _cpp_getDropItemSize(self):
+        return self.itemCount.qsize()
+
+    def _cpp_getDropItem(self):
+        return self.itemType.get(), self.itemCount.get()

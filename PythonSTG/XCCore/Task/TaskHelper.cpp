@@ -54,6 +54,8 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 		auto taskInfo = PyObject_CallMethod(taskObject, "_cpp_getTaskInfo", NULL);
 		auto sizeInfo = PyObject_CallMethod(taskObject, "_cpp_getUnitSize", NULL);
 		auto targetInfo = PyObject_CallMethod(taskObject, "_cpp_getTargetUuidSize", NULL);
+	
+
 		const char *uuid; int  repeatTime, intervalFrame, waitFrame, isEnemyTask = 0;
 		PyArg_ParseTuple(taskInfo, "siii|p", &uuid, &repeatTime, &intervalFrame, &waitFrame, &isEnemyTask);
 
@@ -76,6 +78,18 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 		else {
 			auto renderInfo = PyObject_CallMethod(taskObject, "_cpp_getRenderInfo", NULL);
 			auto enemyInfo = PyObject_CallMethod(taskObject, "_cpp_getEnemyInfo", NULL);
+			auto dropInfo = PyObject_CallMethod(taskObject, "_cpp_getDropItemSize", NULL);//_cpp_getDropItemSize;
+
+			int dropItemSize = 0;
+			PyArg_Parse(dropInfo, "i", &dropItemSize);
+
+			if (dropItemSize > 0) {
+				for (int i = 0; i < dropItemSize; i++) {
+					auto dropItem = PyObject_CallMethod(taskObject, "_cpp_getDropItem", NULL);
+					int type, count;
+					PyArg_ParseTuple(dropItem, "ii", &type, &count);
+				}
+			}
 
 			const char* imagePath; int divideInfo[2]; float scaleInfo[3]; int sandByInfo[2]; int walkInfo[2]; int colorType;
 			PyArg_ParseTuple(renderInfo, "s(ii)(fff)(ii)(ii)i", &imagePath, &divideInfo[0], &divideInfo[1], &scaleInfo[0], &scaleInfo[1], &scaleInfo[2],
