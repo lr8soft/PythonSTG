@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "../Task/Task.h"
+#include "../Item/ItemHelper.h"
 #include "../../util/GameTimer.h"
 #include "../Boss/BossObject.h"
 #include <glm/glm.hpp>
@@ -22,6 +23,8 @@ protected:
 	BossObject* pBossObject = nullptr;
 
 	glm::vec2 movementPosition = glm::vec2(-2.0f, -2.0f);
+
+	std::vector<DropItem>* dropItemList = nullptr;
 public:
 	SpellCard(std::string parentUuid, std::string spellCardName, bool isSpellCard, float spellCardTime, float spellCardHitPoint);
 	void AddSpellCardTask(Task *pTask);
@@ -33,6 +36,8 @@ public:
 	void setMovementPosition(float x, float y);
 
 	void setBossObject(BossObject* pObject);
+	void setDropItem(std::vector<DropItem>* pItem);
+	std::vector<DropItem>* getDropItem();
 
 	float getSpellCardTime();
 	float getSpellCardHitPoint();

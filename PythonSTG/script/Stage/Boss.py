@@ -1,8 +1,12 @@
 from .Task import Task, TaskUnit, Queue
+from ..Helper.DropItemHelper import DropItem, DropItemHelper
 import uuid
 
-class SpellCard:
+
+class SpellCard(DropItemHelper):
     def __init__(self):
+        DropItemHelper.__init__(self)
+
         self.spellCardName = "No Name"
         self.spellCardTime = 30.0
         self.spellCardHealthPoint = 50.0
@@ -10,19 +14,19 @@ class SpellCard:
         self.spellCardTask = Queue()
         self.bossMoveTo = [0.0, 0.6]
 
-    def setSpellCardName(self,name):
+    def setSpellCardName(self, name):
         self.spellCardName = name
 
-    def setIsSpellCard(self,isSpellCard = True):
+    def setIsSpellCard(self, isSpellCard=True):
         self.isSpellCard = isSpellCard
 
-    def setSpellCardTime(self, time = 30.0):
+    def setSpellCardTime(self, time=30.0):
         self.spellCardTime = time
 
-    def setSpellCardHealthPoint(self, hp = 50.0):
+    def setSpellCardHealthPoint(self, hp=50.0):
         self.spellCardHealthPoint = hp
 
-    def setBossMovePosition(self, pos = [0.0, 0.8]):
+    def setBossMovePosition(self, pos=[0.0, 0.8]):
         self.bossMoveTo = pos;
 
     def addTask(self, task):
@@ -32,7 +36,7 @@ class SpellCard:
             raise Exception("Insert invalid task.")
 
     def _cpp_getSpellCardInfo(self):
-        return self.spellCardName,  self.isSpellCard, self.spellCardTime, self.spellCardHealthPoint
+        return self.spellCardName, self.isSpellCard, self.spellCardTime, self.spellCardHealthPoint
 
     def _cpp_getBossMovePosition(self):
         return tuple(self.bossMoveTo)
@@ -52,7 +56,6 @@ class Boss:
         self.uuid = str(uuid.uuid1())
         self.waitFrame = 0
         self.music = ""
-
 
         self.bossImage = "assets/Boss/TestBoss.png"
         self.bossImageDivide = [4, 3]
@@ -83,7 +86,8 @@ class Boss:
         return self.bossName, self.uuid, self.waitFrame, self.music
 
     def _cpp_getImageInfo(self):
-        return self.bossImage, tuple(self.bossImageDivide), tuple(self.bossImageScale), self.bossStandBy, self.bossWalk, self.bossAttack
+        return self.bossImage, tuple(self.bossImageDivide), tuple(
+            self.bossImageScale), self.bossStandBy, self.bossWalk, self.bossAttack
 
     def _cpp_getSpellCardSize(self):
         return self.spellCardGroup.qsize()

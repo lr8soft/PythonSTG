@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include "../Enemy/EnemyObject.h"
 #include "../Boss/BossObject.h"
+#include "../Item/Item.h"
 #include "../Bullet/Bullet.h"
 #include "../Attack/IAttack.h"
 #include "../XCCollide/CollideInfo.h"
@@ -84,6 +85,13 @@ void RenderManager::RenderWork()
 				auto collideHelperP1 = CollideInfo::getCollideHelper();
 				if (collideHelperP1 != nullptr) {
 					collideHelperP1->checkCollisionWithBullet(static_cast<Bullet*>(renderObject));
+				}
+			}
+			else if(renderObject->getCurrentType()==RenderObject::ItemType){
+				auto collideHelperP1 = CollideInfo::getCollideHelper();
+				if (collideHelperP1 != nullptr) {
+					Item* item = static_cast<Item*>(renderObject);
+					item->checkCollideWithPlayer(collideHelperP1);
 				}
 			}
 			if (!strikeCollisionHelperGroup.empty()) {

@@ -16,9 +16,6 @@
     <Filter Include="XCCore\Bullet">
       <UniqueIdentifier>{6cd208d4-5bef-491f-8964-9c237709af33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XCCore\Item">
-      <UniqueIdentifier>{43fd9bff-7c18-403e-a0c5-5ca4cf4aaad0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="XCCore\Stage">
       <UniqueIdentifier>{ac940bd2-e2a1-4200-bd83-f5234c0035c6}</UniqueIdentifier>
     </Filter>
@@ -55,6 +52,15 @@
     <Filter Include="Resouce">
       <UniqueIdentifier>{37898c7c-a6c7-4c12-a0a6-82cefb500e41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XCCore\XCRender\ParticleEffect">
+      <UniqueIdentifier>{dd765bb2-a0bc-4f31-82c7-23a63826b703}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore\Player">
+      <UniqueIdentifier>{43fd9bff-7c18-403e-a0c5-5ca4cf4aaad0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XCCore\Item">
+      <UniqueIdentifier>{9ced1f15-8bde-4e47-8beb-93d3a600c8b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="util\ConfigManager.cpp">
@@ -86,12 +92,6 @@
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
     <ClCompile Include="XCFrameInfo.cpp" />
-    <ClCompile Include="XCCore\Item\Item.cpp">
-      <Filter>XCCore\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="XCCore\Item\Player.cpp">
-      <Filter>XCCore\Item</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\Stage\Stage.cpp">
       <Filter>XCCore\Stage</Filter>
     </ClCompile>
@@ -143,9 +143,6 @@
     <ClCompile Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.cpp">
       <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp">
-      <Filter>XCCore\XCRender\SpecialEffect</Filter>
-    </ClCompile>
     <ClCompile Include="XCCore\UserInterface\CoverInterface.cpp">
       <Filter>XCCore\UserInterface</Filter>
     </ClCompile>
@@ -172,9 +169,6 @@
     </ClCompile>
     <ClCompile Include="XCCore\Attack\NormalStrike.cpp">
       <Filter>XCCore\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp">
-      <Filter>XCCore\XCRender</Filter>
     </ClCompile>
     <ClCompile Include="XCCore\Menu\GameMenu.cpp">
       <Filter>XCCore\Menu</Filter>
@@ -204,6 +198,24 @@
     </ClCompile>
     <ClCompile Include="XCCore\Background\River.cpp">
       <Filter>XCCore\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp">
+      <Filter>XCCore\XCRender\ParticleEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp">
+      <Filter>XCCore\XCRender\ParticleEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Player\Player.cpp">
+      <Filter>XCCore\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Item\Item.cpp">
+      <Filter>XCCore\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Item\ItemHelper.cpp">
+      <Filter>XCCore\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\XCRender\AbsorbParticleHelper.cpp">
+      <Filter>XCCore\XCRender\ParticleEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,12 +253,6 @@
     <ClInclude Include="XCFrameInfo.h" />
     <ClInclude Include="XCCore\Bullet\Bullet.h">
       <Filter>XCCore\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\Item\Item.h">
-      <Filter>XCCore\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\Item\Player.h">
-      <Filter>XCCore\Item</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\Stage\Stage.h">
       <Filter>XCCore\Stage</Filter>
@@ -308,9 +314,6 @@
     <ClInclude Include="XCCore\XCRender\SpecialEffect\ISpecialEffect.h">
       <Filter>XCCore\XCRender\SpecialEffect</Filter>
     </ClInclude>
-    <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h">
-      <Filter>XCCore\XCRender\SpecialEffect</Filter>
-    </ClInclude>
     <ClInclude Include="XCCore\UserInterface\CoverInterface.h">
       <Filter>XCCore\UserInterface</Filter>
     </ClInclude>
@@ -343,9 +346,6 @@
     </ClInclude>
     <ClInclude Include="XCCore\Attack\NormalStrike.h">
       <Filter>XCCore\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="XCCore\XCRender\ParticleHelper.h">
-      <Filter>XCCore\XCRender</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\Menu\IMenu.h">
       <Filter>XCCore\Menu</Filter>
@@ -383,6 +383,24 @@
     </ClInclude>
     <ClInclude Include="XCCore\Background\River.h">
       <Filter>XCCore\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h">
+      <Filter>XCCore\XCRender\ParticleEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\ParticleHelper.h">
+      <Filter>XCCore\XCRender\ParticleEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Player\Player.h">
+      <Filter>XCCore\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Item\Item.h">
+      <Filter>XCCore\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Item\ItemHelper.h">
+      <Filter>XCCore\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\AbsorbParticleHelper.h">
+      <Filter>XCCore\XCRender\ParticleEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

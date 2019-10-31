@@ -1,86 +1,117 @@
 #include "Item.h"
+#include <GL3/gl3w.h>
+#include "../XCRender/XCImageHelper.h"
 #include "../../XCFrameInfo.h"
-#include <GLFW/glfw3.h>
-Item::Item(IRenderHelper* image, glm::vec4 dInfo, glm::vec4 color, glm::vec3 sSize, glm::vec3 rWork, float rAngle)
+#include "../XCRender/AbsorbParticleHelper.h"
+#include "../XCRender/RenderManager.h"
+
+Item::Item(const glm::vec2& generateCoord, ItemType itemType, float v, float a, bool exp)
 {
-	renderHelper = image;
-	divideInfo = dInfo;
-	scaleSize = sSize;
-	rotateWork = rWork;
-	rotateAngle = rAngle;
-	coverColor = color;
+	NowPosition = generateCoord;
+	currentType = itemType;
+	velocity = v;
+	angle = a;
+	explodeEffect = exp;
+
+	divideInfo = glm::vec4();
+	divideInfo.x = 4;
+	divideInfo.y = 5;
+	switch (itemType) {
+	case ItemType::PointType:
+		divideInfo.z = 2;
+		divideInfo.w = 5;
+		break;
+	case ItemType::BombType:
+		divideInfo.z = 2;
+		divideInfo.w = 1;
+		break;
+	case ItemType::PowerType:
+		divideInfo.z = 1;
+		divideInfo.w = 5;
+		break;
+	case ItemType::FullPowerType:
+		divideInfo.z = 2;
+		divideInfo.w = 4;
+		break;
+	case ItemType::LifeType:
+		divideInfo.z = 1;
+		divideInfo.w = 2;
+		break;
+	}
+	setCurrentType(ObjectType::ItemType);
 }
 
-void Item::ItemInit()
+void Item::Init()
 {
-	auto randSeed = glfwGetTimerValue();
-	srand(randSeed);
-	if (rand() % 2 ==0) {
-		NowPosition[0] += (float)rand() / RAND_MAX /10.0f / 3.0f;
-		if (rand() % 2 == 0) {
-			NowPosition[1] += (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		}
-		else {
-			NowPosition[1] -= (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		}
-	}
-	else {
-		NowPosition[0] -= (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		if (rand() % 2 == 0) {
-			NowPosition[1] += (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		}
-		else {
-			NowPosition[1] -= (float)rand() / RAND_MAX / 10.0f / 3.0f;
-		}
-	}
-	
-}
-
-void Item::ItemRender()
-{
-	if (renderHelper != nullptr) {
-		itemTimer.Tick();
-
-		NowPosition[1] -= XCFrameInfo::defaultGravity * itemTimer.getDeltaFrame();
-		renderHelper->Render(
-			glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]),
-			coverColor,
-			rotateAngle,
-			rotateWork,
-			scaleSize,
-			IRenderHelper::GetSpecificTexWithRate(
-				XCFrameInfo::FrameRight, XCFrameInfo::FrameTop,divideInfo[0], divideInfo[1], divideInfo[2], divideInfo[3])
-		);
-
-		checkOutOfScreen();
+	if (!isInit) {
+		itemImage = new XCImageHelper("assets/Item/item.png", true);
+		isInit = true;
 	}
 }
-void Item::checkOutOfScreen()
+
+void Item::Render()
 {
-	if (NowPosition[1] > scaleSize[1] + XCFrameInfo::FrameTop || NowPosition[1] < -(scaleSize[1] + XCFrameInfo::FrameTop)
-		|| NowPosition[0] > scaleSize[0] + XCFrameInfo::FrameRight || NowPosition[0] < -(scaleSize[0] + XCFrameInfo::FrameRight)) {
-		itemWorkFinish = true;
+	if (isInit) {
+		timer.Tick();
+		if (explodeEffect && timer.getAccumlateTime() < 0.3f) {
+			NowPosition.x += 0.2f * cos(angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
+			NowPosition.y += 0.2f * sin(angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
+		}
+		NowPosition.y -= velocity * timer.getDeltaFrame();
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		itemImage->Render(glm::vec3(NowPosition, 0.0f), glm::vec4(1.0f), 0.0f, glm::vec3(0, 0, 1), glm::vec3(0.05f),
+			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo.x, divideInfo.y, divideInfo.z, divideInfo.w));
+		glDisable(GL_BLEND);
+
+		if (NowPosition.y + 0.1f< -1.0f ) {
+			isWorkFinish = true;
+		}
 	}
 }
-void Item::ItemRelease()
+
+void Item::Release()
 {
-	renderHelper->Release();
-	delete renderHelper;
+	if (isInit) {
+		itemImage->Release();
+		delete itemImage;
+
+		isInit = false;
+	}
 }
 
-bool Item::getIsFinish()
+void Item::checkCollideWithPlayer(CollideHelper * helper)
 {
-	return itemWorkFinish;
-}
-
-float * Item::getPosition()
-{
-	return NowPosition;
-}
-
-void Item::setPosition(float x, float y, float z)
-{
-	NowPosition[0] = x;
-	NowPosition[1] = y;
-	NowPosition[2] = z;
+	if (!isWorkFinish) {
+		float *pos = helper->getPlayerPosition();
+		float x = *(pos), y = *(pos + 1);
+		AbsorbParticleHelper* particleHelper = new AbsorbParticleHelper;
+		float dist = pow(pow(x - NowPosition.x, 2) + pow(y - NowPosition.y, 2), 0.5f);
+		if (dist < 0.1f || y> 0.7f) {
+			switch (currentType) {
+			case ItemType::PointType:
+				helper->addPlayerPoint();
+				particleHelper->addNewParticle(9, 14.0f, 1.0f, 0.6f, glm::vec4(0.3, 0.3, 0.8, 1.0f), NowPosition, glm::vec2(x, y));
+				break;
+			case ItemType::BombType:
+				helper->addPlayerBomb();
+				particleHelper->addNewParticle(24, 18.0f, 1.0f, 1.0f, glm::vec4(0.0, 0.6, 0.3, 1.0f), NowPosition, glm::vec2(x, y));
+				break;
+			case ItemType::PowerType:
+				helper->addPlayerPower();
+				particleHelper->addNewParticle(9, 14.0f, 1.0f, 0.6f, glm::vec4(0.8, 0.01, 0.01, 1.0f), NowPosition, glm::vec2(x, y));
+				break;
+			case ItemType::FullPowerType:
+				particleHelper->addNewParticle(24, 18.0f, 1.0f, 1.0f, glm::vec4(0.8, 0.6, 0.01, 1.0f), NowPosition, glm::vec2(x, y));
+				break;
+			case ItemType::LifeType:
+				helper->addPlayerLife();
+				particleHelper->addNewParticle(24, 18.0f, 1.0f, 1.0f, glm::vec4(0.9, 0.01, 0.01, 1.0f), NowPosition, glm::vec2(x, y));
+				break;
+			}
+			RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleHelper);
+			isWorkFinish = true;
+		}
+	}
 }

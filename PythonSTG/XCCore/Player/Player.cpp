@@ -56,6 +56,7 @@ void Player::PlayerInit()
 
 		playerHurtAudio = AudioHelper::loadWavFromFile("assets/SE/se_pldead00.wav");
 		playerGrazeAudio = AudioHelper::loadWavFromFile("assets/SE/se_graze.wav");
+		playerExtentAudio = AudioHelper::loadWavFromFile("assets/SE/se_extend.wav");
 
 		isInit = true;
 	}
@@ -119,7 +120,7 @@ void Player::PlayerRender()
 				isHitTime = false;
 			}
 		}
-			
+		GameInfoInterface::getInstance()->setNowScore(playerScore);
 		///////////test
 	}
 }
@@ -167,6 +168,40 @@ void Player::grazePlayer()
 	ParticleHelper* particleGroup = new ParticleHelper;
 	particleGroup->addNewParticle(1, 12.0f, 0.6f, 0.6f, glm::vec4(1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
 	RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+
+	playerScore += 50;
+}
+
+void Player::addPower()
+{
+}
+
+void Player::addPoint()
+{
+	playerScore += 200;
+}
+
+void Player::addLife()
+{
+	if (nowLife < maxLife) {
+		nowLife++;
+		AudioHelper::playFromBuffer(playerExtentAudio.wavBuffer);	
+	}
+	else {
+		if (nowBomb < maxBomb) {
+			nowBomb++;
+		}
+	}
+	GameInfoInterface::setNowLife(nowLife);
+	GameInfoInterface::setNowBomb(nowBomb);
+}
+
+void Player::addBomb()
+{
+	if (nowBomb < maxBomb) {
+		nowBomb++;
+	}
+	GameInfoInterface::setNowBomb(nowBomb);
 }
 
 void Player::playerKeyCheck()

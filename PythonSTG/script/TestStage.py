@@ -7,7 +7,7 @@ from .Bullet.RiceBullet import RiceBullet
 from .Bullet.OvalBullet import OvalBullet
 from .Bullet.CardBullet import CardBullet
 from .Stage.Task import Task, TaskUnit
-from .Stage.TaskEnemy import TaskEnemy, EnemyColor
+from .Stage.TaskEnemy import TaskEnemy, EnemyColor, DropItem
 from .Stage.XCStage import XCStage, StageRank
 from .Stage.Boss import Boss, SpellCard
 
@@ -21,6 +21,8 @@ def setupMyStage():
     stage0.setStageRank(StageRank.Lunatic)
     # task 0
     enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)
+    enemyTest.addItemDrop(DropItem.Point, 15)
+    enemyTest.addItemDrop(DropItem.Power, 15)
     enemyTest.setInitCoord([0.0, 1.0, 0.0])
     enemyTest.setMovingTime(2.0)
     enemyTest.setAngle(270.0)
@@ -36,6 +38,8 @@ def setupMyStage():
     enemyTest.addUnit(unit0)
     # bullet group 1
     enemyTest2 = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    enemyTest2.addItemDrop(DropItem.Point, 15)
+    enemyTest2.addItemDrop(DropItem.Power, 15)
     enemyTest2.setMovingTime(2.0)
     enemyTest2.setAngle(270.0)
     enemyTest2.setVelocity(0.2)
@@ -63,6 +67,8 @@ def setupMyStage():
     enemyTest2.addUnit(unit1)
 
     enemyTest3 = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    enemyTest3.addItemDrop(DropItem.Point, 15)
+    enemyTest3.addItemDrop(DropItem.Power, 15)
     enemyTest3.setMovingTime(2.0)
     enemyTest3.setAngle(270.0)
     enemyTest3.setVelocity(0.2)
@@ -75,6 +81,8 @@ def setupMyStage():
 
     # task 2
     taskAfter = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    taskAfter.addItemDrop(DropItem.Point, 35)
+    taskAfter.addItemDrop(DropItem.Power, 35)
     taskAfter.setColorType(EnemyColor.Blue)
     taskAfter.setInitCoord([0.0, 1.0, 0.0])
     taskAfter.setMovingTime(2.0)
@@ -132,6 +140,7 @@ def setupMyStage():
     task_spellcard.addUnit(unit_spellcard)
 
     spellcard = SpellCard()
+    spellcard.addItemDrop(DropItem.Life, 1)
     spellcard.setSpellCardHealthPoint(30.0)
     spellcard.addTask(task_spellcard)
 
@@ -149,6 +158,7 @@ def setupMyStage():
     task_spellcard2.addUnit(unit_spellcard2)
 
     spellcard2 = SpellCard()
+    spellcard2.addItemDrop(DropItem.Bomb, 1)
     spellcard2.setSpellCardHealthPoint(30.0)
     spellcard2.setBossMovePosition([0.0, 0.0])
     spellcard2.setSpellCardName("TestSpellCard ~ Lunatic")

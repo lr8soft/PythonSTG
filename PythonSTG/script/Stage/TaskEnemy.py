@@ -1,5 +1,7 @@
 from .Task import Task
+from ..Helper.DropItemHelper import DropItemHelper, DropItem
 from enum import Enum
+from queue import Queue
 
 
 class EnemyColor(Enum):
@@ -9,9 +11,11 @@ class EnemyColor(Enum):
     Red = 4
 
 
-class TaskEnemy(Task):
-    def __init__(self, durationFrame=0, intervalFrame=0, waitFrame = 0):
-        super().__init__(durationFrame, intervalFrame, waitFrame)
+class TaskEnemy(Task, DropItemHelper):
+    def __init__(self, durationFrame=0, intervalFrame=0, waitFrame=0):
+        Task.__init__(self, durationFrame, intervalFrame, waitFrame)
+        DropItemHelper.__init__(self)
+
         self.isEnemyTask = True
 
         self.renderImage = "assets/Item/fairy.png"

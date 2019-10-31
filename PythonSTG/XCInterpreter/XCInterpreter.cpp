@@ -1,7 +1,7 @@
 #include "XCInterpreter.h"
 #include "../XCCore/Task/TaskManager.h"
 #include "../XCCore/Stage/Stage.h"
-#include "../XCCore/Item/Player.h"
+#include "../XCCore/Player/Player.h"
 #include <string>
 #include <chrono>
 #include <future>

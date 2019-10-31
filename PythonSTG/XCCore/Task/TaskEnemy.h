@@ -2,6 +2,7 @@
 #ifndef _TASK_INSIDE_ENEMY_UNIT_H_
 #define _TASK_INSIDE_ENEMY_UNIT_H_
 #include "../Enemy/EnemyObject.h"
+#include "../Item/ItemHelper.h"
 #include "TaskInsideUnit.h"
 #include "Task.h"
 class TaskEnemy : public Task {
@@ -19,7 +20,7 @@ protected:
 	float nowLife = 0.0f;
 
 	EnemyObject* enemyImage = nullptr;
-
+	std::vector<DropItem>* dropItemList = nullptr;
 
 	virtual void taskSubWork() override;
 public:
@@ -28,5 +29,7 @@ public:
 		glm::vec3 initCoord, float velocity, float movingTime, float acceleration, float angle, float angleAcceleration, int type, float enemyHealth);
 	virtual void TaskInit() override;
 	virtual void TaskRelease() override;
+
+	void setItemDrop(std::vector<DropItem>* pList);
 };
 #endif

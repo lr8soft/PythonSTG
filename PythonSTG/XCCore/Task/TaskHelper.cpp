@@ -1,5 +1,6 @@
 #include "TaskHelper.h"
 #include "../Bullet/BulletHelper.h"
+#include "../Item/ItemHelper.h"
 #include "TaskEnemy.h"
 TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject * unitObject)
 {
@@ -54,6 +55,8 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 		auto taskInfo = PyObject_CallMethod(taskObject, "_cpp_getTaskInfo", NULL);
 		auto sizeInfo = PyObject_CallMethod(taskObject, "_cpp_getUnitSize", NULL);
 		auto targetInfo = PyObject_CallMethod(taskObject, "_cpp_getTargetUuidSize", NULL);
+	
+
 		const char *uuid; int  repeatTime, intervalFrame, waitFrame, isEnemyTask = 0;
 		PyArg_ParseTuple(taskInfo, "siii|p", &uuid, &repeatTime, &intervalFrame, &waitFrame, &isEnemyTask);
 
@@ -86,6 +89,12 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 			task = new TaskEnemy(uuid, targetUuid, repeatTime, intervalFrame, waitFrame,imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
 				glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec2(sandByInfo[0], sandByInfo[1]), glm::vec2(walkInfo[0], walkInfo[1]),
 				glm::vec3(position[0], position[1], position[2]), velocity, movingTime, acceleration, angle, angleAcceleration, colorType, maxHealth);
+
+			std::vector<DropItem>* itemVector = ItemHelper::getItemDropFromObject(taskObject);
+			if (itemVector != nullptr) {
+				TaskEnemy* t = static_cast<TaskEnemy*>(task);
+				t->setItemDrop(itemVector);
+			}
 		}
 		
 		int unitSize;
