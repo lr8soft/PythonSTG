@@ -2,11 +2,13 @@
 #include "../XCRender/XCImageHelper.h"
 #include "../../XCFrameInfo.h"
 #include <GL3/gl3w.h>
-Item::Item(const glm::vec2& generateCoord, ItemType itemType, float v)
+Item::Item(const glm::vec2& generateCoord, ItemType itemType, float v, float a, bool exp)
 {
 	NowPosition = generateCoord;
 	currentType = itemType;
 	velocity = v;
+	angle = a;
+	explodeEffect = exp;
 
 	divideInfo = glm::vec4();
 	divideInfo.x = 4;
@@ -48,6 +50,10 @@ void Item::Render()
 {
 	if (isInit) {
 		timer.Tick();
+		if (explodeEffect && timer.getAccumlateTime() < 0.3f) {
+			NowPosition.x += 0.2f * cos(angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
+			NowPosition.y += 0.2f * sin(angle / 180.0f * 3.1415926f) * timer.getDeltaFrame();
+		}
 		NowPosition.y -= velocity * timer.getDeltaFrame();
 
 		glEnable(GL_BLEND);
@@ -56,7 +62,7 @@ void Item::Render()
 			IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, divideInfo.x, divideInfo.y, divideInfo.z, divideInfo.w));
 		glDisable(GL_BLEND);
 
-		if (NowPosition.y - 0.05f< -1.0f ) {
+		if (NowPosition.y + 0.1f< -1.0f ) {
 			isWorkFinish = true;
 		}
 	}

@@ -157,6 +157,7 @@
     <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Enemy\EnemyObject.cpp" />
     <ClCompile Include="XCCore\Item\Item.cpp" />
+    <ClCompile Include="XCCore\Item\ItemHelper.cpp" />
     <ClCompile Include="XCCore\Menu\GameMenu.cpp" />
     <ClCompile Include="XCCore\Menu\PauseMenu.cpp" />
     <ClCompile Include="XCCore\Task\Task.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="XCCore\Boss\SpellCard.h" />
     <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h" />
     <ClInclude Include="XCCore\Item\Item.h" />
+    <ClInclude Include="XCCore\Item\ItemHelper.h" />
     <ClInclude Include="XCCore\Menu\PauseMenu.h" />
     <ClInclude Include="util\ConfigManager.h" />
     <ClInclude Include="util\GameTimer.h" />

@@ -208,7 +208,12 @@
     <ClCompile Include="XCCore\Player\Player.cpp">
       <Filter>XCCore\Player</Filter>
     </ClCompile>
-    <ClCompile Include="XCCore\Item\Item.cpp" />
+    <ClCompile Include="XCCore\Item\Item.cpp">
+      <Filter>XCCore\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="XCCore\Item\ItemHelper.cpp">
+      <Filter>XCCore\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -386,6 +391,9 @@
       <Filter>XCCore\Player</Filter>
     </ClInclude>
     <ClInclude Include="XCCore\Item\Item.h">
+      <Filter>XCCore\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Item\ItemHelper.h">
       <Filter>XCCore\Item</Filter>
     </ClInclude>
   </ItemGroup>

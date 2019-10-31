@@ -17,11 +17,12 @@ protected:
 	ItemType currentType;
 	glm::vec2 NowPosition;
 	glm::vec4 divideInfo;
-	float velocity;
+	float velocity, angle;
+	bool explodeEffect = false;
 
 	IRenderHelper* itemImage;
 public:
-	Item(const glm::vec2& generateCoord, ItemType itemType, float fallVelocity);
+	Item(const glm::vec2& generateCoord, ItemType itemType, float fallVelocity, float angle, bool expande = false);
 	virtual void Init() override;
 	virtual void Render() override;
 	virtual void Release() override;
