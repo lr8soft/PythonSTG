@@ -16,6 +16,9 @@ public:
 	void checkCollisionWithBullet(Bullet *pBullet);
 	float* getPlayerPosition();
 
-	
+	void addPlayerLife();
+	void addPlayerBomb();
+	void addPlayerPoint();
+	void addPlayerPower();
 };
 #endif

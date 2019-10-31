@@ -2,6 +2,7 @@
 #ifndef _ITEM_H_
 #define _ITEM_H_
 #include <glm/glm.hpp>
+#include "../XCCollide/CollideHelper.h"
 #include "../XCRender/RenderObject.h"
 #include "../XCRender/IRenderHelper.h"
 #include "../../util/GameTimer.h"
@@ -27,7 +28,7 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-	//void checkCollideWithPlayer();
+	void checkCollideWithPlayer(CollideHelper *helper);
 };
 
 #endif

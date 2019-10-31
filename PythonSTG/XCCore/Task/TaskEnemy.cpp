@@ -36,6 +36,7 @@ void TaskEnemy::TaskInit()
 		XCImageHelper *image = new XCImageHelper(imagePath, true);
 		enemyImage = new EnemyObject(image, divideInfo, scaleInfo, standbyInfo, walkInfo,
 			NowPosition, velocity, movingTime,acceleration, angle, angleAcceleration, colorType, nowLife);
+		enemyImage->setDropItem(dropItemList);
 		enemyImage->Init();
 		taskIsInit = true;
 	}
@@ -114,7 +115,16 @@ void TaskEnemy::TaskRelease()
 		enemyImage->Release();
 		delete enemyImage;
 	}
+
+	if (dropItemList!=nullptr) {
+		delete dropItemList;
+	}
 	taskIsInit = false;
+}
+
+void TaskEnemy::setItemDrop(std::vector<DropItem>* pList)
+{
+	dropItemList = pList;
 }
 
 

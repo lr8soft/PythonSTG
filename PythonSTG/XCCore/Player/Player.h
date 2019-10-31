@@ -32,7 +32,7 @@ private:
 	float NowPosition[3] = { 0.0f ,-0.5f ,0.0f };
 
 	DecisionPointSpecialEffect* specialEffectDecision;
-	XCWavFile playerHurtAudio, playerGrazeAudio;
+	XCWavFile playerHurtAudio, playerGrazeAudio, playerExtentAudio;
 
 	bool isInit = false, renderDecisionPoint = false;
 	const char* playerFrameName, *playerImage;
@@ -65,5 +65,10 @@ public:
 	float* getPosition();
 	void hurtPlayer();
 	void grazePlayer();
+
+	void addPower();
+	void addPoint();
+	void addLife();
+	void addBomb();
 };
 #endif

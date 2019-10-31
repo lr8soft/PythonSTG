@@ -1,6 +1,7 @@
 #include "BossHelper.h"
 #include <vector>
 #include "../Task/TaskHelper.h"
+#include "../Item/ItemHelper.h"
 Boss * BossHelper::parseBossFromObject(PyObject * pBossPyObject)
 {
 	Boss* pBoss = nullptr;
@@ -72,6 +73,11 @@ SpellCard * BossHelper::parseSpellCardFromObject(std::string parentUuid, PyObjec
 			if (task != nullptr) {
 				spellCard->AddSpellCardTask(task);
 			}
+		}
+
+		std::vector<DropItem>* itemVector = ItemHelper::getItemDropFromObject(spellCardPyObject);
+		if (itemVector != nullptr) {
+			spellCard->setDropItem(itemVector);
 		}
 
 	}

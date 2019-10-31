@@ -214,6 +214,9 @@
     <ClCompile Include="XCCore\Item\ItemHelper.cpp">
       <Filter>XCCore\Item</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\XCRender\AbsorbParticleHelper.cpp">
+      <Filter>XCCore\XCRender\ParticleEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -395,6 +398,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\Item\ItemHelper.h">
       <Filter>XCCore\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\AbsorbParticleHelper.h">
+      <Filter>XCCore\XCRender\ParticleEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

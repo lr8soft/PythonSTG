@@ -75,6 +75,9 @@ void SpellCard::SpellCardRelease()
 		for (auto uuid : taskUUIDGroup) {
 			TaskManager::getInstance()->CleanTaskAsync(uuid);
 		}
+		if (dropItemList != nullptr) {
+			delete dropItemList;
+		}
 		taskUUIDGroup.clear();
 		isInit = false;
 	}
@@ -89,6 +92,16 @@ void SpellCard::setMovementPosition(float x, float y)
 void SpellCard::setBossObject(BossObject * pObject)
 {
 	pBossObject = pObject;
+}
+
+void SpellCard::setDropItem(std::vector<DropItem>* pItem)
+{
+	dropItemList = pItem;
+}
+
+std::vector<DropItem>* SpellCard::getDropItem()
+{
+	return dropItemList;
 }
 
 float SpellCard::getSpellCardTime()

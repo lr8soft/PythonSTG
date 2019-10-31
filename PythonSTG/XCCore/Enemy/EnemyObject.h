@@ -5,6 +5,7 @@
 #include "../XCRender/IRenderHelper.h"
 #include "../XCAudio/AudioHelper.h"
 #include "../../util/GameTimer.h"
+#include "../Item/ItemHelper.h"
 #include <glm/glm.hpp>
 class EnemyObject :public RenderObject {
 private:
@@ -19,6 +20,8 @@ private:
 	float velocity = 0.0f, acceleration = 0.0f, angle = 0.0f, angleAcceleration = 0.0f, movingTime = -1.0f;
 	float currentHealth = 0.0f;
 
+	std::vector<DropItem>* dropItemList = nullptr;
+
 	XCWavFile deadEffect;
 public:
 	EnemyObject(IRenderHelper*, glm::vec2 divideInfo, glm::vec3 scaleInfo, glm::vec2 standbyInfo, glm::vec2 walkInfo,
@@ -29,5 +32,6 @@ public:
 
 	glm::vec3 getNowPosition();
 	void hurtEnemy(float damage);
+	void setDropItem(std::vector<DropItem>* pItem);
 };
 #endif

@@ -4,6 +4,7 @@
 #include "../Task/TaskDispatcher.h"
 #include "../XCRender/RenderManager.h"
 #include "../UserInterface/BossInfoInterface.h"
+#include "../Item/ItemHelper.h"
 Boss::Boss(std::string uid, std::vector<std::string>& targetUUID,std::string bName, std::string musicPath,int wFrame,
 	std::string imgPath, glm::vec2 dInfo, glm::vec2 sInfo, int sbRow, int wRow, int aRow):Task(uid,targetUUID, 1, 0, wFrame)
 {
@@ -117,6 +118,13 @@ void Boss::taskSubWork()
 				}
 			}
 			if ((*spellCardBegin)->getIsFinish() || bossRenderObject->getSpellCardHitPointClear()) {
+				auto item = (*spellCardBegin)->getDropItem();
+				if (item != nullptr) {
+					for (auto item : *item) {
+						ItemHelper::GenerateItemGroup(bossRenderObject->getPosition(), item.count, (Item::ItemType)item.type, true);
+					}
+				}
+
 				(*spellCardBegin)->SpellCardRelease();
 				delete *spellCardBegin;
 				RenderManager::getInstance()->TerminateAllBullet();

@@ -121,9 +121,19 @@ void EnemyObject::hurtEnemy(float damage)
 		ParticleHelper* particleGroup = new ParticleHelper;
 		particleGroup->addNewParticle(20, 12.0f, 1.0f, 0.6f, glm::vec4(1.0f), NowPosition);
 		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
-		ItemHelper::GenerateItemGroup(NowPosition, 5, Item::PointType, true);
+
+		if (dropItemList != nullptr) {
+			for (auto item : *dropItemList) {
+				ItemHelper::GenerateItemGroup(NowPosition, item.count, (Item::ItemType)item.type, true);
+			}
+		}
 
 		currentHealth = 0;
 		isWorkFinish = true;
 	}
+}
+
+void EnemyObject::setDropItem(std::vector<DropItem>* pItem)
+{
+	dropItemList = pItem;
 }

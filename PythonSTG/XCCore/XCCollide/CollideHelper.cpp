@@ -31,3 +31,23 @@ float * CollideHelper::getPlayerPosition()
 	position[2] = *(srcPostion + 2);
 	return position;
 }
+
+void CollideHelper::addPlayerLife()
+{
+	pPlayer->addLife();
+}
+
+void CollideHelper::addPlayerBomb()
+{
+	pPlayer->addBomb();
+}
+
+void CollideHelper::addPlayerPoint()
+{
+	pPlayer->addPoint();
+}
+
+void CollideHelper::addPlayerPower()
+{
+	pPlayer->addPower();
+}

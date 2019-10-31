@@ -1,5 +1,6 @@
 #include "TaskHelper.h"
 #include "../Bullet/BulletHelper.h"
+#include "../Item/ItemHelper.h"
 #include "TaskEnemy.h"
 TaskInsideUnit * TaskHelper::parseTaskUnitFromObject(std::string uuid, PyObject * unitObject)
 {
@@ -78,18 +79,6 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 		else {
 			auto renderInfo = PyObject_CallMethod(taskObject, "_cpp_getRenderInfo", NULL);
 			auto enemyInfo = PyObject_CallMethod(taskObject, "_cpp_getEnemyInfo", NULL);
-			auto dropInfo = PyObject_CallMethod(taskObject, "_cpp_getDropItemSize", NULL);//_cpp_getDropItemSize;
-
-			int dropItemSize = 0;
-			PyArg_Parse(dropInfo, "i", &dropItemSize);
-
-			if (dropItemSize > 0) {
-				for (int i = 0; i < dropItemSize; i++) {
-					auto dropItem = PyObject_CallMethod(taskObject, "_cpp_getDropItem", NULL);
-					int type, count;
-					PyArg_ParseTuple(dropItem, "ii", &type, &count);
-				}
-			}
 
 			const char* imagePath; int divideInfo[2]; float scaleInfo[3]; int sandByInfo[2]; int walkInfo[2]; int colorType;
 			PyArg_ParseTuple(renderInfo, "s(ii)(fff)(ii)(ii)i", &imagePath, &divideInfo[0], &divideInfo[1], &scaleInfo[0], &scaleInfo[1], &scaleInfo[2],
@@ -100,6 +89,12 @@ Task * TaskHelper::parseTaskFromObject(PyObject * taskObject)
 			task = new TaskEnemy(uuid, targetUuid, repeatTime, intervalFrame, waitFrame,imagePath, glm::vec2(divideInfo[0], divideInfo[1]),
 				glm::vec3(scaleInfo[0], scaleInfo[1], scaleInfo[2]), glm::vec2(sandByInfo[0], sandByInfo[1]), glm::vec2(walkInfo[0], walkInfo[1]),
 				glm::vec3(position[0], position[1], position[2]), velocity, movingTime, acceleration, angle, angleAcceleration, colorType, maxHealth);
+
+			std::vector<DropItem>* itemVector = ItemHelper::getItemDropFromObject(taskObject);
+			if (itemVector != nullptr) {
+				TaskEnemy* t = static_cast<TaskEnemy*>(task);
+				t->setItemDrop(itemVector);
+			}
 		}
 		
 		int unitSize;
