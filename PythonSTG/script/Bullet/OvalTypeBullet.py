@@ -4,21 +4,16 @@ from .Bullet import Bullet, BulletColor, abstractmethod
 class OvalTypeBullet(Bullet):
     def __init__(self):
         super().__init__()
-        self.divideInfo = [1, 1, 1, 1]
-        super()._setCollideSize([0.055, 0.0275, 0.055])
-        super()._setRenderSize([0.055, 0.055, 0.055])
+        super()._setCollideSize([0.055, 0.0275])
+        super()._setRenderSize([0.055, 0.055])
         self.bulletType = "ovalTypeBullet"
-        self.bulletImage = ""
 
     @abstractmethod
     def setBulletColor(self, color=BulletColor.BLUE):
         pass
 
-    def setBulletImage(self, bulletImagePath):
-        self.bulletImage = bulletImagePath
-
-    def _cpp_getInitRenderInfo(self):
-        return self.bulletImage, self.bulletType, tuple(self.divideInfo), tuple(self.scaleSize), tuple(self.collideSize)
+    def _cpp_getBulletInfo(self):
+        return self.bulletType
 
     def _ovalBullet_setReleaseColor(self, color=BulletColor.BLUE):
         if color == BulletColor.LIGHTGREEN:

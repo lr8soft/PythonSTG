@@ -278,7 +278,7 @@ void Player::setPlayerDirection(int direction)
 {
 	playerNowState = direction;
 	if (playerNowState == playerLastState) {
-		float interval = divideInfo[0] - 0.1f;
+		float interval = divideInfo[0] - imageSwapTime;
 		if (playerSameStateTime < interval) {
 			playerSameStateTime += imageSwapTime;
 		}

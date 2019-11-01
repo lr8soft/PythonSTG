@@ -1,4 +1,5 @@
 #include "XCInterpreter.h"
+#include "ImageParseHelper.h"
 #include "../XCCore/Task/TaskManager.h"
 #include "../XCCore/Stage/Stage.h"
 #include "../XCCore/Player/Player.h"
@@ -68,23 +69,20 @@ void XCInterpreter::parsePlayerEntity()
 			PyArg_Parse(retValue, "O", &pObject);
 
 			if (pObject != nullptr) {
-				PyObject* imageData = PyObject_CallMethod(pObject, "_cpp_getInitRenderInfo", NULL);
 				PyObject* playerData = PyObject_CallMethod(pObject, "_cpp_getPlayerData", NULL);
 				PyObject* uuidData = PyObject_CallMethod(pObject, "_cpp_getUUID", NULL);
 
-				const char* imagePath;
-				float scaleX, scaleY, scaleZ;
-				int imageCol, imageRow, standByRow, turnLeftRow, turnRightRow;
-				PyArg_ParseTuple(imageData, "s(ii)(fff)(iii)", &imagePath, &imageCol, &imageRow, &scaleX, &scaleY, &scaleZ,&standByRow, &turnLeftRow, &turnRightRow);
+				ImageInfo imgInfo = ImageParseHelper::parseImageHelperFromObject(pObject);
 
 				const char* frameName;
-				float moveSpeed, imageSwapInterval, basePower;
-				PyArg_ParseTuple(playerData, "sfff", &frameName, &moveSpeed, &imageSwapInterval ,&basePower);
+				float moveSpeed, basePower;
+				PyArg_ParseTuple(playerData, "sff", &frameName, &moveSpeed ,&basePower);
 				
 				const char* uuid;
 				PyArg_Parse(uuidData, "s", &uuid);
-				Player* player = new Player(imagePath, glm::vec4(imageCol, imageRow, 0, 0), glm::vec4(1.0f), glm::vec3(scaleX, scaleY, scaleZ),
-					glm::vec3(1,0,0), 0.0f, moveSpeed, imageSwapInterval, basePower, standByRow, turnLeftRow, turnRightRow);
+				Player* player = new Player(imgInfo.imagePath, glm::vec4(imgInfo.divideColumn, imgInfo.divideRow, 0, 0),
+					glm::vec4(1.0f), glm::vec3(imgInfo.zoomX, imgInfo.zoomY, 1.0f),
+					glm::vec3(1,0,0), 0.0f, moveSpeed, imgInfo.swapSpeed, basePower, imgInfo.specialRow1, imgInfo.specialRow2, imgInfo.specialRow3);
 
 				Player::addPlayerInstance(frameName, player);
 

@@ -1,41 +1,34 @@
-from .XCItem import XCItem
-class Player(XCItem):
-    def __init__(self, frameName = "Hakurei Reimu"):
+from ..Helper.ImageHelper import ImageHelper
+import uuid
+
+
+class Player(ImageHelper):
+    def __init__(self, frameName="Hakurei Reimu"):
         super().__init__()
-        self._divideInfo = [8, 3]
-        self._isFlexible = True
+        super()._setImagePath("assets/Item/player.png")
+        super()._setZoomInfo([0.06, 0.08])
+        super()._setDivideInfo(divideType=[8, 3], divideOffset=[0.0, 0.0])
+        super()._setSpecialRow(specialRow1=3, specialRow2=1, specialRow3=2)
+
+        self._uuid = str(uuid.uuid1())
         self._playerFrameName = frameName
-        self._playerStandByRow = 3
-        self._playerTurnLeftRow = 1
-        self._playerTurnRightRow = 2
 
         self._moveSpeed = 1.45
-        self._imageSwapInterval = 0.1
         self._basePower = 1.0
 
-        self._scaleSize = [0.06,0.08, 1.0] #3:4 img
+    def setPlayerImage(self, imagePath, imageColsAndRows=[8, 3], scaleSize=[0.06, 0.08], standByRow=1, turnLeftRow=2, turnRightRow=3):
+        super()._setImagePath(imagePath)
+        super()._setDivideInfo(divideType=imageColsAndRows, divideOffset=[0.0, 0.0])
+        super()._setZoomInfo(scaleSize)
+        super()._setSpecialRow(specialRow1=standByRow, specialRow2=turnLeftRow, specialRow3=turnRightRow)
 
-
-    def setPlayerImage(self, imagePath, imageColsAndRows = [8, 3], scaleSize = [0.06,0.08, 1.0], standByRow = 1, turnLeftRow = 2, turnRightRow = 3):
-        super().setImage(imagePath,imageColsAndRows,scaleSize,True)
-        self._playerStandByRow = standByRow
-        self._playerTurnLeftRow = turnLeftRow
-        self._playerTurnRightRow = turnRightRow
-
-    def setPlayerData(self, moveSpeed = 1.45, imageSwapInterval=0.08, basePower = 1.0):
+    def setPlayerData(self, moveSpeed=1.45, imageSwapInterval=0.08, basePower=1.0):
         self._moveSpeed = moveSpeed
         self._imageSwapInterval = imageSwapInterval
         self._basePower = basePower
 
-    #for cpp recall
-    def _cpp_getInitRenderInfo(self):
-        return (self._imagePath, tuple(self._divideInfo),tuple(self._scaleSize),
-                (self._playerStandByRow, self._playerTurnLeftRow, self._playerTurnRightRow))
-
     def _cpp_getPlayerData(self):
-        return (self._playerFrameName, self._moveSpeed, self._imageSwapInterval, self._basePower)
+        return (self._playerFrameName, self._moveSpeed, self._basePower)
 
-
-
-
-
+    def _cpp_getUUID(self):
+        return self._uuid

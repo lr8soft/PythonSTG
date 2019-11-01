@@ -184,6 +184,7 @@
     <ClCompile Include="XCCore\XCRender\XCColorBlockHelper.cpp" />
     <ClCompile Include="XCCore\Stage\Stage.cpp" />
     <ClCompile Include="XCFrameInfo.cpp" />
+    <ClCompile Include="XCInterpreter\ImageParseHelper.cpp" />
     <ClCompile Include="XCInterpreter\ScriptLoader.cpp" />
     <ClCompile Include="XCInterpreter\XCInterpreter.cpp" />
     <ClCompile Include="XCCore\XCRender\XCImageHelper.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="XCCore\XCRender\XCColorBlockHelper.h" />
     <ClInclude Include="XCCore\Stage\Stage.h" />
     <ClInclude Include="XCFrameInfo.h" />
+    <ClInclude Include="XCInterpreter\ImageParseHelper.h" />
     <ClInclude Include="XCInterpreter\ScriptLoader.h" />
     <ClInclude Include="XCInterpreter\XCInterpreter.h" />
     <ClInclude Include="XCCore\XCRender\XCImageHelper.h" />

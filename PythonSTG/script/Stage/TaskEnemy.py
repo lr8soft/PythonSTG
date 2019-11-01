@@ -1,5 +1,6 @@
 from .Task import Task
 from ..Helper.DropItemHelper import DropItemHelper, DropItem
+from ..Helper.ImageHelper import ImageHelper
 from enum import Enum
 from queue import Queue
 
@@ -11,19 +12,18 @@ class EnemyColor(Enum):
     Red = 4
 
 
-class TaskEnemy(Task, DropItemHelper):
+class TaskEnemy(Task, DropItemHelper, ImageHelper):
     def __init__(self, durationFrame=0, intervalFrame=0, waitFrame=0):
         Task.__init__(self, durationFrame, intervalFrame, waitFrame)
         DropItemHelper.__init__(self)
+        ImageHelper.__init__(self)
 
+        super()._setImagePath("assets/Item/fairy.png")
+        super()._setZoomInfo([0.06, 0.06])
+        super()._setDivideInfo(divideType=[12, 4], divideOffset=[0.0, 0.0])
+        super()._setSpecialColumn(specialCol1=[1, 5], specialCol2=[6, 12]) # start - end (column)
+        super()._setSelectImage(coord=[1, 4])
         self.isEnemyTask = True
-
-        self.renderImage = "assets/Item/fairy.png"
-        self.scaleInfo = [0.06, 0.06, 0.06]
-        self.divideInfo = [12, 4]
-        self.colorType = EnemyColor.Red  # row
-        self.imageStandBy = [1, 5]  # start - end (column)
-        self.imageWalk = [6, 12]  # start - end (column)
 
         self.position = [0.0, 0.0, 0.0]
         self.movingTime = -1.0
@@ -34,10 +34,10 @@ class TaskEnemy(Task, DropItemHelper):
         self.enemyHealth = 5.0
 
     def _setEnemyImage(self, path="assets/Item/fairy.png"):
-        self.renderImage = path
+        super()._setImagePath(path)
 
     def setColorType(self, color=EnemyColor.Red):
-        self.colorType = color
+        super()._setSelectImage(coord=[1, color.value])
 
     def setInitCoord(self, coord=[0.0, 0.0, 0.0]):
         self.position = coord
@@ -67,10 +67,5 @@ class TaskEnemy(Task, DropItemHelper):
     def _cpp_getTaskInfo(self):
         return self.uuid, self.duration, self.intervalFrame, self.waitFrame, self.isEnemyTask
 
-    def _cpp_getRenderInfo(self):
-        return self.renderImage, tuple(self.divideInfo), tuple(self.scaleInfo), tuple(self.imageStandBy), tuple(
-            self.imageWalk), self.colorType.value
-
     def _cpp_getEnemyInfo(self):
-        return tuple(
-            self.position), self.velocity, self.movingTime, self.acceleration, self.angle, self.incAngle, self.enemyHealth
+        return tuple(self.position), self.velocity, self.movingTime, self.acceleration, self.angle, self.incAngle, self.enemyHealth

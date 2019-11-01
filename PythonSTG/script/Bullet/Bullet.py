@@ -1,5 +1,6 @@
 from abc import abstractmethod
 from enum import Enum
+from ..Helper.ImageHelper import ImageHelper
 
 
 class BulletColor(Enum):
@@ -13,8 +14,9 @@ class BulletColor(Enum):
     WHITE = 8
 
 
-class Bullet:
+class Bullet(ImageHelper):
     def __init__(self):
+        ImageHelper.__init__(self)
         self.position = [0.0, 0.0, 0.0]
         self.acceleration = 0.0
         self.velocity = 0.3
@@ -31,6 +33,9 @@ class Bullet:
         self.releaseParticleLifeTime = 0.5
         self.releaseParticleVelocity = 0.6
         self.releaseParticleSize = 15
+
+    def setBulletImage(self, bulletImagePath):
+        super()._setImagePath(bulletImagePath)
 
     def setInitCoord(self, coord=[0.0, 0.0, 0.0]):
         self.position = coord
@@ -76,24 +81,22 @@ class Bullet:
     def _setReleaseParticleSize(self, size=15):
         self.releaseParticleSize = size
 
-    def _setRenderSize(self, size=[0.1, 0.1, 0.1]):
-        self.scaleSize = size
+    def _setRenderSize(self, size=[0.05, 0.05]):
+        super()._setZoomInfo(size)
 
     def _setCollideSize(self, size):
         self.collideSize = size
 
     # recall function for cpp init
+    @abstractmethod
+    def _cpp_getBulletInfo(self):
+        pass
+
     def _cpp_getInitCoord(self):
         return tuple(self.position)
 
     def _cpp_getGenerateInfo(self):
-        return self.velocity, self.acceleration, self.angle, self.incAngle, self.reboundCount, self.aimToPlayer
-
-    @abstractmethod
-    def _cpp_getInitRenderInfo(self):
-        pass
-
-    # return self.bulletType, tuple(self.divideInfo), tuple(self.scaleSize)
+        return self.velocity, self.acceleration, self.angle, self.incAngle, self.reboundCount, self.aimToPlayer, tuple(self.collideSize)
 
     def _cpp_getReleaseParticleInfo(self):
         return self.releaseParticleDensity, self.releaseParticleLifeTime, self.releaseParticleVelocity, self.releaseParticleSize, \
