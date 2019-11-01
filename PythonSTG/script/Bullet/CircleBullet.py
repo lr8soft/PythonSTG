@@ -4,8 +4,9 @@ from .CircleTypeBullet import CircleTypeBullet, BulletColor
 class CircleBullet(CircleTypeBullet):
     def __init__(self):
         super().__init__()
-        self.divideInfo = [8, 1, 6, 1]
-        super()._setRenderSize([0.055, 0.055, 0.055])
+        super()._setDivideInfo(divideType=[8, 1], divideOffset=[0.0, 0.0])
+        super()._setSelectImage(coord=[6, 1])
+        super()._setRenderSize([0.055, 0.055])
         super()._setCollideSize([0.05, 0.05, 0.05])
         super().setBulletImage("assets/Bullet/bullet0.png")
 
@@ -15,5 +16,5 @@ class CircleBullet(CircleTypeBullet):
         super()._setReleaseParticleVelocity(0.6)
 
     def setBulletColor(self, color=BulletColor.BLUE):
-        self.divideInfo[2] = color.value
+        super()._setSelectImage(coord=[color.value, 1])
         self._circleBullet_setReleaseColor(color)

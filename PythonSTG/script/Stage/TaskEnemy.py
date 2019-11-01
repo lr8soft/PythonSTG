@@ -1,5 +1,6 @@
 from .Task import Task
 from ..Helper.DropItemHelper import DropItemHelper, DropItem
+from ..Helper.ImageHelper import ImageHelper
 from enum import Enum
 from queue import Queue
 

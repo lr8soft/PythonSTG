@@ -4,8 +4,9 @@ from .CircleTypeBullet import CircleTypeBullet, BulletColor
 class HugeBullet(CircleTypeBullet):
     def __init__(self):
         super().__init__()
-        self.divideInfo = [4, 2, 1, 2]
-        super()._setRenderSize([0.16, 0.16, 0.16])
+        super()._setDivideInfo(divideType=[4, 2], divideOffset=[0.0, 0.0])
+        super()._setSelectImage(coord=[4, 2])
+        super()._setRenderSize([0.16, 0.16])
         super()._setCollideSize([0.1, 0.1, 0.1])
         super().setBulletImage("assets/Bullet/hugeBullet.png")
 
@@ -17,18 +18,18 @@ class HugeBullet(CircleTypeBullet):
     def setBulletColor(self, color=BulletColor.BLUE):
         super()._circleBullet_setReleaseColor(color)
         if color == BulletColor.RED:
-            self.divideInfo = [4, 2, 1, 2]
+            super()._setSelectImage(coord=[1, 2])
         elif color == BulletColor.PURPLE:
-            self.divideInfo = [4, 2, 2, 2]
+            super()._setSelectImage(coord=[2, 2])
         elif color == BulletColor.BLUE:
-            self.divideInfo = [4, 2, 3, 2]
+            super()._setSelectImage(coord=[3, 2])
         elif color == BulletColor.LIGHTBLUE:
-            self.divideInfo = [4, 2, 4, 2]
+            super()._setSelectImage(coord=[4, 2])
         elif color == BulletColor.LIGHTGREEN:
-            self.divideInfo = [4, 2, 1, 1]
+            super()._setSelectImage(coord=[1, 1])
         elif color == BulletColor.YELLOW:
-            self.divideInfo = [4, 2, 2, 1]
+            super()._setSelectImage(coord=[2, 1])
         elif color == BulletColor.ORANGE:
-            self.divideInfo = [4, 2, 3, 1]
+            super()._setSelectImage(coord=[3, 1])
         elif color == BulletColor.WHITE:
-            self.divideInfo = [4, 2, 4, 1]
+            super()._setSelectImage(coord=[4, 1])
