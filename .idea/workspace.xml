@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a92e44d4-e5ed-4e58-a998-055dd8b14259" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonSTG/PythonSTG.aps" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonSTG/PythonSTG.rc" beforeDir="false" afterPath="$PROJECT_DIR$/PythonSTG/PythonSTG.rc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonSTG/XCCore/Task/TaskHelper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PythonSTG/XCCore/Task/TaskHelper.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonSTG/pystg.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/PythonSTG/pystg.cfg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonSTG/script/Stage/TaskEnemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonSTG/script/Stage/TaskEnemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonSTG/manuals/PythonSTG 使用手册 v0.11.docx" beforeDir="false" afterPath="$PROJECT_DIR$/PythonSTG/manuals/PythonSTG 使用手册 v0.11.docx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
