@@ -51,3 +51,13 @@ void CollideHelper::addPlayerPower()
 {
 	pPlayer->addPower();
 }
+
+void CollideHelper::addPlayerMoonPoint()
+{
+	pPlayer->addMoonPoint();
+}
+
+bool CollideHelper::getPlayerIsMoonState()
+{
+	return pPlayer->getIsMoonState();
+}

@@ -10,14 +10,15 @@
 class Item :public RenderObject {
 public:
 	enum ItemType {
-		PointType = 0, PowerType, FullPowerType, LifeType, BombType
+		PointType = 0, PowerType, FullPowerType, LifeType, BombType, MoonPointType, MoonPointMirror,  MoonPointUp
 	};
+
 protected:
 	XCGameTimer timer;
 
 	ItemType currentType;
 	glm::vec2 NowPosition;
-	glm::vec4 divideInfo;
+	glm::vec4 ItemDivideInfo;
 	float velocity, angle;
 	bool explodeEffect = false;
 

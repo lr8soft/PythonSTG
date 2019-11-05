@@ -2,7 +2,9 @@
 #ifndef _GAME_INFO_INTERFACE_H_
 #define _GAME_INFO_INTERFACE_H_
 #include "IUserInterface.h"
+#include "../../util/GameTimer.h"
 #include "../XCRender/XCAdvImageHelper.h"
+#include "../XCRender/XCFlexibleImageHelper.h"
 #include "../XCRender/XCFont.h"
 #define GameInfoUIUuid "gameInfo"
 class GameInfoInterface :public IUserInterface{
@@ -13,10 +15,19 @@ protected:
 	int gameRank = 4;
 	long nowScore = 0, highScore = LONG_MAX;
 
+	float spellCardRemainTime = 0.0f;
+
+	XCGameTimer timer;
+
 	static int nowLife , maxLife ;
 	static int nowBomb , maxBomb ;
 
-	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2, *lifeBombImage;
+	long moonPoint = 0, maxMoonPoint = 50;
+	int moonLevel = 0, maxLevel = 100;
+	float moonIndex = 0.0f;
+
+	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2, *lifeBombImage, *moonUIImage;
+	XCFlexibleImageHelper *moonUIContext;
 	static GameInfoInterface* pInterface;
 
 	XCFont fontHelper;
@@ -35,11 +46,15 @@ public:
 	void setRank(int rank);
 	void setNowScore(long score);
 	void setHightScore(long score);
+	void setSpellCardRemainTime(float time);
 
 	static void setNowBomb(int count);
 	static void setNowLife(int life);
 
 	static void setMaxBomb(int  count);
 	static void setMaxLife(int count);
+
+	void setMoonPoint(long currentPoint, long maxPoint);
+	void setMoonLevel(int level, int maxLevel);
 };
 #endif

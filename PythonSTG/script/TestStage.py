@@ -6,6 +6,7 @@ from .Bullet.HugeBullet import HugeBullet
 from .Bullet.RiceBullet import RiceBullet
 from .Bullet.OvalBullet import OvalBullet
 from .Bullet.CardBullet import CardBullet
+from .Bullet.LaserBullet import LaserBullet
 from .Stage.Task import Task, TaskUnit
 from .Stage.TaskEnemy import TaskEnemy, EnemyColor, DropItem
 from .Stage.XCStage import XCStage, StageRank
@@ -21,7 +22,7 @@ def setupMyStage():
     stage0.setStageRank(StageRank.Lunatic)
     # task 0
     enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)
-    enemyTest.addItemDrop(DropItem.Point, 15)
+    enemyTest.addItemDrop(DropItem.MoonPoint, 15)
     enemyTest.addItemDrop(DropItem.Power, 15)
     enemyTest.setInitCoord([0.0, 1.0, 0.0])
     enemyTest.setMovingTime(2.0)
@@ -38,7 +39,7 @@ def setupMyStage():
     enemyTest.addUnit(unit0)
     # bullet group 1
     enemyTest2 = TaskEnemy(durationFrame=-1, intervalFrame=0)
-    enemyTest2.addItemDrop(DropItem.Point, 15)
+    enemyTest2.addItemDrop(DropItem.MoonPoint, 15)
     enemyTest2.addItemDrop(DropItem.Power, 15)
     enemyTest2.setMovingTime(2.0)
     enemyTest2.setAngle(270.0)
@@ -67,7 +68,7 @@ def setupMyStage():
     enemyTest2.addUnit(unit1)
 
     enemyTest3 = TaskEnemy(durationFrame=-1, intervalFrame=0)
-    enemyTest3.addItemDrop(DropItem.Point, 15)
+    enemyTest3.addItemDrop(DropItem.MoonPoint, 15)
     enemyTest3.addItemDrop(DropItem.Power, 15)
     enemyTest3.setMovingTime(2.0)
     enemyTest3.setAngle(270.0)
@@ -81,7 +82,7 @@ def setupMyStage():
 
     # task 2
     taskAfter = TaskEnemy(durationFrame=-1, intervalFrame=0)
-    taskAfter.addItemDrop(DropItem.Point, 35)
+    taskAfter.addItemDrop(DropItem.MoonPoint, 15)
     taskAfter.addItemDrop(DropItem.Power, 35)
     taskAfter.setColorType(EnemyColor.Blue)
     taskAfter.setInitCoord([0.0, 1.0, 0.0])
@@ -178,6 +179,8 @@ def setupMyStage():
     lastuuid2 = task_spellcard2.getUuid()
     for i in range(1, 10):
         enemyAimPlayer = TaskEnemy(durationFrame=-1, intervalFrame=0)
+        enemyAimPlayer.addItemDrop(DropItem.MoonPoint, 3)
+        enemyAimPlayer.setHealthValue(1.0)
         enemyAimPlayer.setInitCoord([0.5, 1.0, 0.0])
         enemyAimPlayer.setVelocity(1.0)
         enemyAimPlayer.setAngle(225.0)
@@ -186,7 +189,9 @@ def setupMyStage():
         lastuuid = enemyAimPlayer.getUuid()
 
         enemyAimPlayer2 = TaskEnemy(durationFrame=-1, intervalFrame=0)
+        enemyAimPlayer2.addItemDrop(DropItem.MoonPoint, 3)
         enemyAimPlayer2.setInitCoord([-0.5, 1.0, 0.0])
+        enemyAimPlayer2.setHealthValue(1.0)
         enemyAimPlayer2.setVelocity(1.0)
         enemyAimPlayer2.setAngle(315.0)
         enemyAimPlayer2.setAngleAcceleration(20)

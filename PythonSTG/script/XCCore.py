@@ -4,7 +4,7 @@ from script.Object.Player import Player
 # demo stage 演示关卡
 import script.TestStage as TestStage
 
-winTitle = "PythonSTG v0.35release"
+winTitle = "PythonSTG v0.36-rc1"
 
 # PySTG default function
 def coreInitializer():
@@ -28,4 +28,3 @@ def PlayerInit():
     rin.setPlayerData(1.45, 0.1, 1.0)
     XCInit.addPlayerItem(rin)
     print("[XCCore]Player info init.")
-

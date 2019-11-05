@@ -13,7 +13,7 @@ private:
 	bool itemWorkFinish = false;
 	XCGameTimer itemTimer;
 
-	IRenderHelper* renderHelper;
+	IRenderHelper* renderHelper, *moonEffectHelper;
 
 	bool isHitTime = false;
 	double HitProtectTime = 3.0f;
@@ -32,9 +32,9 @@ private:
 	float NowPosition[3] = { 0.0f ,-0.5f ,0.0f };
 
 	DecisionPointSpecialEffect* specialEffectDecision;
-	XCWavFile playerHurtAudio, playerGrazeAudio, playerExtentAudio;
+	XCWavFile playerHurtAudio, playerGrazeAudio, playerExtentAudio, playerMoonAudio;
 
-	bool isInit = false, renderDecisionPoint = false;
+	bool isInit = false, renderDecisionPoint = false, isMoonState = false;
 	const char* playerFrameName, *playerImage;
 	float basePower = 1.0f;
 	float baseSpeed = 1.45f;
@@ -46,6 +46,10 @@ private:
 
 	int maxLife = 8, maxBomb = 8;
 	int nowLife = 2, nowBomb = 2;
+
+	float moonPoint = 0.0f, maxMoonPoint = 30.0f;
+	int moonLevel = 0, maxMoonLevel = 12;
+	double lastStartMoonTime = 0.0;
 
 	void playerKeyCheck(); 
 	void setPlayerDirection(int direction);
@@ -70,5 +74,8 @@ public:
 	void addPoint();
 	void addLife();
 	void addBomb();
+	void addMoonPoint();
+
+	bool getIsMoonState();
 };
 #endif

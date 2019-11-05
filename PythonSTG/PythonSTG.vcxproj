@@ -153,6 +153,7 @@
     <ClCompile Include="XCCore\Boss\SpellCard.cpp" />
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp" />
     <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp" />
+    <ClCompile Include="XCCore\Bullet\LaserTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\OvalTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Enemy\EnemyObject.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="XCCore\XCRender\RenderManager.cpp" />
     <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp" />
+    <ClCompile Include="XCCore\XCRender\XCFlexibleImageHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\XCFont.cpp" />
     <ClCompile Include="XCCore\Player\Player.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.cpp" />
@@ -200,6 +202,7 @@
     <ClInclude Include="XCCore\Boss\BossHelper.h" />
     <ClInclude Include="XCCore\Boss\BossObject.h" />
     <ClInclude Include="XCCore\Boss\SpellCard.h" />
+    <ClInclude Include="XCCore\Bullet\LaserTypeBullet.h" />
     <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h" />
     <ClInclude Include="XCCore\Item\Item.h" />
     <ClInclude Include="XCCore\Item\ItemHelper.h" />
@@ -240,6 +243,7 @@
     <ClInclude Include="XCCore\XCRender\ParticleHelper.h" />
     <ClInclude Include="XCCore\XCRender\AbsorbParticleHelper.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h" />
+    <ClInclude Include="XCCore\XCRender\XCFlexibleImageHelper.h" />
     <ClInclude Include="XCCore\XCRender\XCFont.h" />
     <ClInclude Include="XCCore\Player\Player.h" />
     <ClInclude Include="XCCore\XCRender\BlendHelper.h" />

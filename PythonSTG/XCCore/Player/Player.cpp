@@ -50,6 +50,8 @@ void Player::PlayerInit()
 {
 	if (!isInit) {
 		renderHelper = new XCImageHelper(playerImage, true);
+		moonEffectHelper = new XCImageHelper("assets/UI/specialeffect.png", true);
+
 		specialEffectDecision = new DecisionPointSpecialEffect;
 		specialEffectDecision->SpecialEffectInit();
 
@@ -57,6 +59,7 @@ void Player::PlayerInit()
 		playerHurtAudio = AudioHelper::loadWavFromFile("assets/SE/se_pldead00.wav");
 		playerGrazeAudio = AudioHelper::loadWavFromFile("assets/SE/se_graze.wav");
 		playerExtentAudio = AudioHelper::loadWavFromFile("assets/SE/se_extend.wav");
+		playerMoonAudio = AudioHelper::loadWavFromFile("assets/SE/se_ch01.wav");//se_ch01;
 
 		isInit = true;
 	}
@@ -120,7 +123,34 @@ void Player::PlayerRender()
 				isHitTime = false;
 			}
 		}
+
+		if (isMoonState) {
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			moonEffectHelper->Render(glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]),glm::vec4(1.0f),
+				glm::radians(itemTimer.getAccumlateTime() * 45.0f), glm::vec3(0, 0, 1), glm::vec3(0.25f * XCFrameInfo::FrameRight, 0.25f * XCFrameInfo::FrameTop, 0.25f),
+				IRenderHelper::GetSpecificTexture(1, 1, 1, 1));
+			glDisable(GL_BLEND);
+			ParticleHelper* particleGroup = new ParticleHelper;
+			particleGroup->addNewParticle(1, 12.0f, 1.8f, 0.6f, glm::vec4(1.0f, 0.9f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+			RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+
+			if (moonPoint - itemTimer.getDeltaFrame() * 2.0f> 0) {
+				moonPoint -= itemTimer.getDeltaFrame() * 2.0f;
+			}
+			else {
+				if (moonLevel > 0) {
+					moonLevel--;
+					moonPoint = maxMoonPoint;
+				}
+				else {
+					isMoonState = false;
+				}
+			}
+		}
 		GameInfoInterface::getInstance()->setNowScore(playerScore);
+		GameInfoInterface::getInstance()->setMoonLevel(moonLevel, maxMoonLevel);
+		GameInfoInterface::getInstance()->setMoonPoint(moonPoint, maxMoonPoint);
 		///////////test
 	}
 }
@@ -129,7 +159,8 @@ void Player::PlayerRelease()
 {
 	renderHelper->Release();
 	specialEffectDecision->SpecialEffectRelease();
-	delete renderHelper, specialEffectDecision;
+	moonEffectHelper->Release();
+	delete renderHelper, specialEffectDecision, moonEffectHelper;
 	isInit = false;
 }
 
@@ -141,22 +172,33 @@ float * Player::getPosition()
 void Player::hurtPlayer()
 {
 	if (itemTimer.getAccumlateTime() - lastHitTime > HitProtectTime || lastHitTime == 0) {
-		lastHitTime = itemTimer.getAccumlateTime();
-		AudioHelper::playFromBuffer(playerHurtAudio.wavBuffer);
+		if (!isMoonState) {
+			lastHitTime = itemTimer.getAccumlateTime();
+			AudioHelper::playFromBuffer(playerHurtAudio.wavBuffer);
 
-		ParticleHelper* particleGroup = new ParticleHelper;
-		particleGroup->addNewParticle(150, 25.0f, 1.6f, 0.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
-		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
-		isHitTime = true;
+			ParticleHelper* particleGroup = new ParticleHelper;
+			particleGroup->addNewParticle(150, 25.0f, 1.6f, 0.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+			RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+			isHitTime = true;
 
 	
-		if (nowLife -1 >=0) {
-			nowLife--;
-		}else{
-			nowLife = 8;
+			if (nowLife -1 >=0) {
+				nowLife--;
+			}else{
+				nowLife = 8;
+			}
+			GameInfoInterface::setMaxLife(maxLife);
+			GameInfoInterface::setNowLife(nowLife);
+
 		}
-		GameInfoInterface::setMaxLife(maxLife);
-		GameInfoInterface::setNowLife(nowLife);
+		else {
+			if(moonPoint - 20.0f >= 0.0f)
+				moonPoint -= 20.0f;
+			else {
+				moonPoint = 0.0f;
+			}
+		}
+
 	}
 		
 }
@@ -174,6 +216,13 @@ void Player::grazePlayer()
 
 void Player::addPower()
 {
+	if (basePower < 4.0f) {
+		basePower += 0.1f;
+	}
+	else {
+		basePower = 4.0f;
+	}
+	
 }
 
 void Player::addPoint()
@@ -202,6 +251,28 @@ void Player::addBomb()
 		nowBomb++;
 	}
 	GameInfoInterface::setNowBomb(nowBomb);
+}
+
+void Player::addMoonPoint()
+{
+	if (moonLevel < maxMoonLevel) {
+		if (moonPoint < maxMoonPoint) {
+			moonPoint += 1.0f;
+		}
+		else {
+			moonPoint = 0.0f;
+			moonLevel++;
+			AudioHelper::playFromBuffer(playerMoonAudio.wavBuffer);
+		}
+	}
+	else {
+		moonLevel = maxMoonLevel;
+	}
+}
+
+bool Player::getIsMoonState()
+{
+	return isMoonState;
 }
 
 void Player::playerKeyCheck()
@@ -265,6 +336,18 @@ void Player::playerKeyCheck()
 			GameInfoInterface::setMaxBomb(maxBomb);
 			GameInfoInterface::setNowBomb(--nowBomb);
 		}
+	}
+	if (glfwGetKey(screen, XCFrameInfo::keyItem2) == GLFW_PRESS && itemTimer.getAccumlateTime() > lastStartMoonTime + 0.22f) {
+		if (!isMoonState) {
+			if (moonLevel > 0) {
+				AudioHelper::playFromBuffer(playerMoonAudio.wavBuffer);
+				isMoonState = true;
+			}
+		}
+		else {
+			isMoonState = false;
+		}
+		lastStartMoonTime = itemTimer.getAccumlateTime();
 	}
 	if (!have_player_change_state) {
 		if (playerNowState != PLAYER_TURNRIGHT && playerNowState != PLAYER_TURNLEFT)

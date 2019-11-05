@@ -9,7 +9,7 @@ private:
 
 	long nowScore = 0;
 	long nowGraze = 0;
-
+	long nowMoonPoint = 0;
 
 public:
 	CollideHelper(Player *player);
@@ -20,5 +20,8 @@ public:
 	void addPlayerBomb();
 	void addPlayerPoint();
 	void addPlayerPower();
+	void addPlayerMoonPoint();
+
+	bool getPlayerIsMoonState();
 };
 #endif
