@@ -125,7 +125,7 @@ void Item::checkCollideWithPlayer(CollideHelper * helper)
 			case ItemType::MoonPointType:
 			case ItemType::MoonPointMirror:
 			case ItemType::MoonPointUp:
-				helper->addPlayerPoint();
+				helper->addPlayerMoonPoint();
 				particleHelper->addNewParticle(9, 14.0f, 1.0f, 0.6f, glm::vec4(0.3, 0.3, 1.0, 1.0f), NowPosition, glm::vec2(x, y));
 				break;
 

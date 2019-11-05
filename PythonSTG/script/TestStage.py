@@ -32,7 +32,6 @@ def setupMyStage():
     unit0 = TaskUnit(waitFrame=60, repeatTime=3)
     for j in range(0, 36):
         bullet = OvalBullet()
-        bullet.setLaserLength(1.5)
         bullet.setVelocity(0.6)
         bullet.setAngle(j * 10)
         bullet.setBulletColor(BulletColor.BLUE)

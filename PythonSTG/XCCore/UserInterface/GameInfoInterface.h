@@ -2,6 +2,7 @@
 #ifndef _GAME_INFO_INTERFACE_H_
 #define _GAME_INFO_INTERFACE_H_
 #include "IUserInterface.h"
+#include "../../util/GameTimer.h"
 #include "../XCRender/XCAdvImageHelper.h"
 #include "../XCRender/XCFont.h"
 #define GameInfoUIUuid "gameInfo"
@@ -15,11 +16,14 @@ protected:
 
 	float spellCardRemainTime = 0.0f;
 
+	XCGameTimer timer;
+
 	static int nowLife , maxLife ;
 	static int nowBomb , maxBomb ;
 
-	long moonPoint = 0;
-	int moonLevel = 0;
+	long moonPoint = 0, maxMoonPoint = 50;
+	int moonLevel = 0, maxLevel = 100;
+	float moonIndex = 0.0f;
 
 	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2, *lifeBombImage, *moonUIImage, *moonUIContext;
 	static GameInfoInterface* pInterface;
@@ -48,7 +52,7 @@ public:
 	static void setMaxBomb(int  count);
 	static void setMaxLife(int count);
 
-	void setMoonPoint(long currentPoint);
-	void setMoonLevel(int level);
+	void setMoonPoint(long currentPoint, long maxPoint);
+	void setMoonLevel(int level, int maxLevel);
 };
 #endif

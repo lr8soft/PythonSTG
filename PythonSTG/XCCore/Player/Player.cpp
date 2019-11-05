@@ -144,6 +144,8 @@ void Player::PlayerRender()
 			}
 		}
 		GameInfoInterface::getInstance()->setNowScore(playerScore);
+		GameInfoInterface::getInstance()->setMoonLevel(moonLevel, maxMoonLevel);
+		GameInfoInterface::getInstance()->setMoonPoint(moonPoint, maxMoonPoint);
 		///////////test
 	}
 }

@@ -34,6 +34,7 @@ void GameInfoInterface::UserInterfaceInit()
 void GameInfoInterface::UserInterfaceRender()
 {
 	if (isInit) {
+		timer.Tick();
 		//if( (float)XCFrameInfo::ScreenWidth / (float)XCFrameInfo::ScreenHeight >= 1.6667f){//>scrren(16:10)
 			float ScaleRate = (float)XCFrameInfo::ScreenHeight / 720.0f;
 
@@ -125,12 +126,13 @@ void GameInfoInterface::UserInterfaceRender()
 			renderPlayerLife(nowLifeImageX + nowLifeImageWidth / 2.0f, nowLifeImageY );
 			renderPlayerBomb(nowLifeImageX + nowLifeImageWidth / 2.0f, nowBombImageY);
 
-			float moonWidth = (1.0f - XCFrameInfo::FrameRight) / 2.0f;
+			float moonWidth = (1.0f - XCFrameInfo::FrameRight) / 1.5f;
 			float moonHeight = moonWidth / 2.3091f;//³ýÒÔ¿í³¤±È
 			float moonX = -1.0f + (1.0f - XCFrameInfo::FrameRight) + moonWidth / 1.5f;
 			float moonY = -1.0f + moonHeight * 1.5f;
 			BlendOneMinusAlphaStart
 			{
+
 				glm::mat4 moonMatrix;
 				moonMatrix = glm::translate(moonMatrix, glm::vec3(moonX, moonY, 0.0f));
 				moonMatrix = glm::scale(moonMatrix, glm::vec3(moonWidth, moonHeight, 1.0f));
@@ -138,8 +140,31 @@ void GameInfoInterface::UserInterfaceRender()
 				moonUIImage->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 					IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1, 1));
 
+				float specialX = -1.0f + (1.0f - XCFrameInfo::FrameRight) + moonWidth / 1.6f;
+				glm::mat4 contextMatrix;
+				contextMatrix = glm::translate(contextMatrix, glm::vec3(specialX, moonY, 0.0f));
+				contextMatrix = glm::scale(contextMatrix, glm::vec3(moonWidth * 0.5826f, moonWidth/ 30.8f  * 0.5f, 1.0f));
+				moonUIContext->setMvpMatrix(contextMatrix);
+				moonUIContext->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+					IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 2, 1, 2));
+
+				float nowPointWidth = (moonWidth * 0.5826f) * (moonPoint * 1.0f/ maxMoonPoint * 1.0f);
+				float nowPointX = specialX - (moonWidth * 0.5826f - nowPointWidth) / 2.0f;
+				glm::mat4 contextMatrix2;
+				contextMatrix2 = glm::translate(contextMatrix2, glm::vec3(nowPointX, -1.0f + moonHeight * 1.28f, 0.0f));
+				contextMatrix2 = glm::scale(contextMatrix2, glm::vec3(nowPointWidth, moonWidth / 30.8f  * 0.8f, 1.0f));
+				moonUIContext->setMvpMatrix(contextMatrix2);
+				moonUIContext->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+					IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 2, moonIndex, 1));
+
 				fontHelper.FontASCIIRender(std::to_string(moonLevel),
-					(1.0f - XCFrameInfo::FrameRight) + moonWidth / 1.5f, moonHeight * 1.5f, 0.1f * ScaleRate, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
+					(1.0f - XCFrameInfo::FrameRight) / 2.0f + moonWidth / 3.6f, moonHeight * 0.85f, 0.3f * ScaleRate, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
+				if (moonIndex < 1.0f) {
+					moonIndex += timer.getDeltaFrame() / 10.0f;
+				}
+				else {
+					moonIndex = 0.0f;
+				}
 			}
 			BlendEnd
 	}
@@ -261,12 +286,14 @@ void GameInfoInterface::setMaxLife(int count)
 }
 
 
-void GameInfoInterface::setMoonPoint(long currentPoint)
+void GameInfoInterface::setMoonPoint(long currentPoint, long max)
 {
 	moonPoint = currentPoint;
+	maxMoonPoint = max;
 }
 
-void GameInfoInterface::setMoonLevel(int level)
+void GameInfoInterface::setMoonLevel(int level, int max)
 {
 	moonLevel = level;
+	maxLevel = max;
 }

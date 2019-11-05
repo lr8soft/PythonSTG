@@ -48,7 +48,7 @@ private:
 	int nowLife = 2, nowBomb = 2;
 
 	int moonPoint = 0, maxMoonPoint = 50;
-	int moonLevel = 100, maxMoonLevel = 100;
+	int moonLevel = 0, maxMoonLevel = 100;
 	double lastStartMoonTime = 0.0;
 
 	void playerKeyCheck(); 
