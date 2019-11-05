@@ -24,6 +24,7 @@ public:
 	virtual void Release() override;
 
 	void setShaderUniform1f(std::string varName, float value);
+	void setShaderUniform2fv(std::string varName, float* pData);
 	void setShaderUniform4fv(std::string varName, float* pData);
 	void setShaderUniformMatrix(std::string varName, float *pData);
 

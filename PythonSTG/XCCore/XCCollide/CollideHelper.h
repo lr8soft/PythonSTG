@@ -21,5 +21,7 @@ public:
 	void addPlayerPoint();
 	void addPlayerPower();
 	void addPlayerMoonPoint();
+
+	bool getPlayerIsMoonState();
 };
 #endif

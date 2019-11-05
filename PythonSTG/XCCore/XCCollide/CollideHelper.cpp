@@ -56,3 +56,8 @@ void CollideHelper::addPlayerMoonPoint()
 {
 	pPlayer->addMoonPoint();
 }
+
+bool CollideHelper::getPlayerIsMoonState()
+{
+	return pPlayer->getIsMoonState();
+}

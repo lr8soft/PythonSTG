@@ -131,6 +131,10 @@ void Player::PlayerRender()
 				glm::radians(itemTimer.getAccumlateTime() * 45.0f), glm::vec3(0, 0, 1), glm::vec3(0.25f * XCFrameInfo::FrameRight, 0.25f * XCFrameInfo::FrameTop, 0.25f),
 				IRenderHelper::GetSpecificTexture(1, 1, 1, 1));
 			glDisable(GL_BLEND);
+			ParticleHelper* particleGroup = new ParticleHelper;
+			particleGroup->addNewParticle(1, 12.0f, 1.8f, 0.6f, glm::vec4(1.0f, 0.9f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+			RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+
 			if (moonPoint - itemTimer.getDeltaFrame() * 2.0f> 0) {
 				moonPoint -= itemTimer.getDeltaFrame() * 2.0f;
 			}
@@ -258,15 +262,17 @@ void Player::addMoonPoint()
 		else {
 			moonPoint = 0.0f;
 			moonLevel++;
-
-			ParticleHelper* particleGroup = new ParticleHelper;
-			particleGroup->addNewParticle(30, 12.0f, 0.6f, 0.6f, glm::vec4(0.3, 0.3, 1.0, 1.0f), glm::vec3(-0.8f, -0.8f, 1.0f));
-			RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+			AudioHelper::playFromBuffer(playerMoonAudio.wavBuffer);
 		}
 	}
 	else {
 		moonLevel = maxMoonLevel;
 	}
+}
+
+bool Player::getIsMoonState()
+{
+	return isMoonState;
 }
 
 void Player::playerKeyCheck()

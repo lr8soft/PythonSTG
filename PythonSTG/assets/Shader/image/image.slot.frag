@@ -12,7 +12,7 @@ void main(){
 
     if(float(tex_coord.x) >= minX && float(tex_coord.x) <= maxX){
         if(float(tex_coord.y) >= minY && float(tex_coord.y) <= maxY){
-            render_color = texture(tex, tex_coord);
+            render_color = texture(tex, tex_coord + offset_info);
         }
     }
 }

@@ -100,7 +100,7 @@ void Item::checkCollideWithPlayer(CollideHelper * helper)
 		float x = *(pos), y = *(pos + 1);
 		AbsorbParticleHelper* particleHelper = new AbsorbParticleHelper;
 		float dist = pow(pow(x - NowPosition.x, 2) + pow(y - NowPosition.y, 2), 0.5f);
-		if (dist < 0.1f || y> 0.7f) {
+		if (dist < 0.1f || y> 0.65f || helper->getPlayerIsMoonState()) {
 			switch (currentType) {
 			case ItemType::PointType:
 				helper->addPlayerPoint();

@@ -83,6 +83,14 @@ void XCFlexibleImageHelper::setShaderUniform1f(std::string varName, float value)
 	glUseProgram(0);
 }
 
+void XCFlexibleImageHelper::setShaderUniform2fv(std::string varName, float * pData)
+{
+	glUseProgram(ProgramHandle);
+	auto location = glGetUniformLocation(ProgramHandle, varName.c_str());
+	glUniform2fv(location, 1, pData);
+	glUseProgram(0);
+}
+
 void XCFlexibleImageHelper::setShaderUniform4fv(std::string varName, float * pData)
 {
 	glUseProgram(ProgramHandle);
