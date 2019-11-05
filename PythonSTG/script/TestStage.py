@@ -179,6 +179,8 @@ def setupMyStage():
     lastuuid2 = task_spellcard2.getUuid()
     for i in range(1, 10):
         enemyAimPlayer = TaskEnemy(durationFrame=-1, intervalFrame=0)
+        enemyAimPlayer.addItemDrop(DropItem.MoonPoint, 3)
+        enemyAimPlayer.setHealthValue(1.0)
         enemyAimPlayer.setInitCoord([0.5, 1.0, 0.0])
         enemyAimPlayer.setVelocity(1.0)
         enemyAimPlayer.setAngle(225.0)
@@ -187,7 +189,9 @@ def setupMyStage():
         lastuuid = enemyAimPlayer.getUuid()
 
         enemyAimPlayer2 = TaskEnemy(durationFrame=-1, intervalFrame=0)
+        enemyAimPlayer2.addItemDrop(DropItem.MoonPoint, 3)
         enemyAimPlayer2.setInitCoord([-0.5, 1.0, 0.0])
+        enemyAimPlayer2.setHealthValue(1.0)
         enemyAimPlayer2.setVelocity(1.0)
         enemyAimPlayer2.setAngle(315.0)
         enemyAimPlayer2.setAngleAcceleration(20)

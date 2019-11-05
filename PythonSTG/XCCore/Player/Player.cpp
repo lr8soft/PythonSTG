@@ -130,8 +130,8 @@ void Player::PlayerRender()
 				glm::radians(itemTimer.getAccumlateTime() * 45.0f), glm::vec3(0, 0, 1), glm::vec3(0.25f * XCFrameInfo::FrameRight, 0.25f * XCFrameInfo::FrameTop, 0.25f),
 				IRenderHelper::GetSpecificTexture(1, 1, 1, 1));
 			glDisable(GL_BLEND);
-			if (moonPoint - 1 > 0) {
-				moonPoint--;
+			if (moonPoint - itemTimer.getDeltaFrame()> 0) {
+				moonPoint -= itemTimer.getDeltaFrame();
 			}
 			else {
 				if (moonLevel > 0) {
@@ -167,22 +167,33 @@ float * Player::getPosition()
 void Player::hurtPlayer()
 {
 	if (itemTimer.getAccumlateTime() - lastHitTime > HitProtectTime || lastHitTime == 0) {
-		lastHitTime = itemTimer.getAccumlateTime();
-		AudioHelper::playFromBuffer(playerHurtAudio.wavBuffer);
+		if (!isMoonState) {
+			lastHitTime = itemTimer.getAccumlateTime();
+			AudioHelper::playFromBuffer(playerHurtAudio.wavBuffer);
 
-		ParticleHelper* particleGroup = new ParticleHelper;
-		particleGroup->addNewParticle(150, 25.0f, 1.6f, 0.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
-		RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
-		isHitTime = true;
+			ParticleHelper* particleGroup = new ParticleHelper;
+			particleGroup->addNewParticle(150, 25.0f, 1.6f, 0.6f, glm::vec4(1.0f, 0.1f, 0.1f, 1.0f), glm::vec3(NowPosition[0], NowPosition[1], NowPosition[2]));
+			RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
+			isHitTime = true;
 
 	
-		if (nowLife -1 >=0) {
-			nowLife--;
-		}else{
-			nowLife = 8;
+			if (nowLife -1 >=0) {
+				nowLife--;
+			}else{
+				nowLife = 8;
+			}
+			GameInfoInterface::setMaxLife(maxLife);
+			GameInfoInterface::setNowLife(nowLife);
+
 		}
-		GameInfoInterface::setMaxLife(maxLife);
-		GameInfoInterface::setNowLife(nowLife);
+		else {
+			if(moonPoint - 20.0f >= 0.0f)
+				moonPoint -= 20.0f;
+			else {
+				moonPoint = 0.0f;
+			}
+		}
+
 	}
 		
 }
@@ -241,10 +252,10 @@ void Player::addMoonPoint()
 {
 	if (moonLevel < maxMoonLevel) {
 		if (moonPoint < maxMoonPoint) {
-			moonPoint += 1;
+			moonPoint += 1.0f;
 		}
 		else {
-			moonPoint = 0;
+			moonPoint = 0.0f;
 			moonLevel++;
 		}
 	}

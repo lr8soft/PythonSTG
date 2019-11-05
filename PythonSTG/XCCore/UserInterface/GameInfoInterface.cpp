@@ -141,9 +141,11 @@ void GameInfoInterface::UserInterfaceRender()
 					IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1, 1));
 
 				float specialX = -1.0f + (1.0f - XCFrameInfo::FrameRight) + moonWidth / 1.6f;
+				float nowLevelWidth = (moonWidth * 0.5826f) * (moonLevel * 1.0f / maxLevel * 1.0f);
+				float nowLevelX = specialX - (moonWidth * 0.5826f - nowLevelWidth) / 2.0f;
 				glm::mat4 contextMatrix;
-				contextMatrix = glm::translate(contextMatrix, glm::vec3(specialX, moonY, 0.0f));
-				contextMatrix = glm::scale(contextMatrix, glm::vec3(moonWidth * 0.5826f, moonWidth/ 30.8f  * 0.5f, 1.0f));
+				contextMatrix = glm::translate(contextMatrix, glm::vec3(nowLevelX, moonY, 0.0f));
+				contextMatrix = glm::scale(contextMatrix, glm::vec3(nowLevelWidth, moonWidth/ 30.8f  * 0.5f, 1.0f));
 				moonUIContext->setMvpMatrix(contextMatrix);
 				moonUIContext->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
 					IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 2, 1, 2));
