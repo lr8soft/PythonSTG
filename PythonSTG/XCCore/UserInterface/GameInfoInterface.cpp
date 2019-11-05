@@ -24,7 +24,7 @@ void GameInfoInterface::UserInterfaceInit()
 		lifeBombImage = new XCAdvImageHelper("assets/UI/lifebomb.png");
 
 		moonUIImage = new XCAdvImageHelper("assets/UI/pointslot.png");
-		moonUIContext = new XCAdvImageHelper("assets/UI/uistick.png");
+		moonUIContext = new XCFlexibleImageHelper("assets/Shader/image/image.slot", "assets/UI/uistick.png");
 
 		fontHelper.FontASCIIInit();
 		isInit = true;
@@ -141,23 +141,32 @@ void GameInfoInterface::UserInterfaceRender()
 					IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1, 1));
 
 				float specialX = -1.0f + (1.0f - XCFrameInfo::FrameRight) + moonWidth / 1.6f;
-				float nowLevelWidth = (moonWidth * 0.5826f) * (moonLevel * 1.0f / maxLevel * 1.0f);
-				float nowLevelX = specialX - (moonWidth * 0.5826f - nowLevelWidth) / 2.0f;
+				float nowLevelWidth = (moonWidth * 0.5826f);//* (moonLevel * 1.0f / maxLevel * 1.0f);
+				float nowLevelX = specialX; //- (moonWidth * 0.5826f - nowLevelWidth) / 2.0f;
 				glm::mat4 contextMatrix;
-				contextMatrix = glm::translate(contextMatrix, glm::vec3(nowLevelX, moonY, 0.0f));
-				contextMatrix = glm::scale(contextMatrix, glm::vec3(nowLevelWidth, moonWidth/ 30.8f  * 0.5f, 1.0f));
-				moonUIContext->setMvpMatrix(contextMatrix);
-				moonUIContext->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
-					IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 2, 1, 2));
+				contextMatrix = glm::translate(contextMatrix, glm::vec3(nowLevelX, -1.0f + moonHeight * 1.56f, 0.0f));
+				contextMatrix = glm::scale(contextMatrix, glm::vec3(nowLevelWidth, moonWidth / 30.8f  * 0.5f, 1.0f));
+				//contextMatrix = glm::scale(contextMatrix, glm::vec3(nowLevelWidth, moonWidth/ 30.8f  * 0.5f, 1.0f));
 
-				float nowPointWidth = (moonWidth * 0.5826f) * (moonPoint * 1.0f/ maxMoonPoint * 1.0f);
-				float nowPointX = specialX - (moonWidth * 0.5826f - nowPointWidth) / 2.0f;
+				float levelPercent = (float)moonLevel / (float)maxLevel;
+				glm::vec4 nowLevelLimit(0.0f, levelPercent, 0.0f, 1.0f);
+				moonUIContext->setShaderUniform4fv("limit_info", glm::value_ptr(nowLevelLimit));
+				moonUIContext->setShaderUniformMatrix("mvp_mat", glm::value_ptr(contextMatrix));
+				moonUIContext->Render(IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 2, 1, 2));
+
+
+
+				float nowPointWidth = (moonWidth * 0.5826f);//* (moonPoint * 1.0f/ maxMoonPoint * 1.0f);
+				float nowPointX = -1.0f + (1.0f - XCFrameInfo::FrameRight) + moonWidth / 1.58f;
 				glm::mat4 contextMatrix2;
 				contextMatrix2 = glm::translate(contextMatrix2, glm::vec3(nowPointX, -1.0f + moonHeight * 1.28f, 0.0f));
-				contextMatrix2 = glm::scale(contextMatrix2, glm::vec3(nowPointWidth, moonWidth / 30.8f  * 0.8f, 1.0f));
-				moonUIContext->setMvpMatrix(contextMatrix2);
-				moonUIContext->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
-					IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 2, moonIndex, 1));
+				contextMatrix2 = glm::scale(contextMatrix2, glm::vec3(nowPointWidth, moonWidth / 30.8f, 1.0f));
+
+				float pointPercent = (float)moonPoint / (float)maxMoonPoint;
+				glm::vec4 nowPointLimit(0.0f, pointPercent, 0.0f, 1.0f);
+				moonUIContext->setShaderUniform4fv("limit_info", glm::value_ptr(nowPointLimit));
+				moonUIContext->setShaderUniformMatrix("mvp_mat", glm::value_ptr(contextMatrix2));
+				moonUIContext->Render(IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 2, 1, 1));
 
 				fontHelper.FontASCIIRender(std::to_string(moonLevel),
 					(1.0f - XCFrameInfo::FrameRight) / 2.0f + moonWidth / 3.6f, moonHeight * 0.85f, 0.3f * ScaleRate, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));

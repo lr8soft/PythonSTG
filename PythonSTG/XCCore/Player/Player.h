@@ -32,7 +32,7 @@ private:
 	float NowPosition[3] = { 0.0f ,-0.5f ,0.0f };
 
 	DecisionPointSpecialEffect* specialEffectDecision;
-	XCWavFile playerHurtAudio, playerGrazeAudio, playerExtentAudio;
+	XCWavFile playerHurtAudio, playerGrazeAudio, playerExtentAudio, playerMoonAudio;
 
 	bool isInit = false, renderDecisionPoint = false, isMoonState = false;
 	const char* playerFrameName, *playerImage;

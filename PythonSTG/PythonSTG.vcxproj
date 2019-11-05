@@ -176,6 +176,7 @@
     <ClCompile Include="XCCore\XCRender\RenderManager.cpp" />
     <ClCompile Include="XCCore\XCRender\ParticleHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\XCParticle.cpp" />
+    <ClCompile Include="XCCore\XCRender\XCFlexibleImageHelper.cpp" />
     <ClCompile Include="XCCore\XCRender\XCFont.cpp" />
     <ClCompile Include="XCCore\Player\Player.cpp" />
     <ClCompile Include="XCCore\XCRender\SpecialEffect\DecisionPointSE.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="XCCore\XCRender\ParticleHelper.h" />
     <ClInclude Include="XCCore\XCRender\AbsorbParticleHelper.h" />
     <ClInclude Include="XCCore\XCRender\SpecialEffect\XCParticle.h" />
+    <ClInclude Include="XCCore\XCRender\XCFlexibleImageHelper.h" />
     <ClInclude Include="XCCore\XCRender\XCFont.h" />
     <ClInclude Include="XCCore\Player\Player.h" />
     <ClInclude Include="XCCore\XCRender\BlendHelper.h" />

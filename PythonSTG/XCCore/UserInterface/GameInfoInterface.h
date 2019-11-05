@@ -4,6 +4,7 @@
 #include "IUserInterface.h"
 #include "../../util/GameTimer.h"
 #include "../XCRender/XCAdvImageHelper.h"
+#include "../XCRender/XCFlexibleImageHelper.h"
 #include "../XCRender/XCFont.h"
 #define GameInfoUIUuid "gameInfo"
 class GameInfoInterface :public IUserInterface{
@@ -25,7 +26,8 @@ protected:
 	int moonLevel = 0, maxLevel = 100;
 	float moonIndex = 0.0f;
 
-	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2, *lifeBombImage, *moonUIImage, *moonUIContext;
+	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2, *lifeBombImage, *moonUIImage;
+	XCFlexibleImageHelper *moonUIContext;
 	static GameInfoInterface* pInterface;
 
 	XCFont fontHelper;

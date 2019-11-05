@@ -223,6 +223,9 @@
     <ClCompile Include="XCCore\Bullet\LaserTypeBullet.cpp">
       <Filter>XCCore\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\XCRender\XCFlexibleImageHelper.cpp">
+      <Filter>XCCore\XCRender</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -413,6 +416,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\Bullet\LaserTypeBullet.h">
       <Filter>XCCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\XCRender\XCFlexibleImageHelper.h">
+      <Filter>XCCore\XCRender</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

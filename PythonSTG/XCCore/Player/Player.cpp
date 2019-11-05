@@ -59,6 +59,7 @@ void Player::PlayerInit()
 		playerHurtAudio = AudioHelper::loadWavFromFile("assets/SE/se_pldead00.wav");
 		playerGrazeAudio = AudioHelper::loadWavFromFile("assets/SE/se_graze.wav");
 		playerExtentAudio = AudioHelper::loadWavFromFile("assets/SE/se_extend.wav");
+		playerMoonAudio = AudioHelper::loadWavFromFile("assets/SE/se_ch01.wav");//se_ch01;
 
 		isInit = true;
 	}
@@ -130,8 +131,8 @@ void Player::PlayerRender()
 				glm::radians(itemTimer.getAccumlateTime() * 45.0f), glm::vec3(0, 0, 1), glm::vec3(0.25f * XCFrameInfo::FrameRight, 0.25f * XCFrameInfo::FrameTop, 0.25f),
 				IRenderHelper::GetSpecificTexture(1, 1, 1, 1));
 			glDisable(GL_BLEND);
-			if (moonPoint - itemTimer.getDeltaFrame()> 0) {
-				moonPoint -= itemTimer.getDeltaFrame();
+			if (moonPoint - itemTimer.getDeltaFrame() * 2.0f> 0) {
+				moonPoint -= itemTimer.getDeltaFrame() * 2.0f;
 			}
 			else {
 				if (moonLevel > 0) {
@@ -257,6 +258,10 @@ void Player::addMoonPoint()
 		else {
 			moonPoint = 0.0f;
 			moonLevel++;
+
+			ParticleHelper* particleGroup = new ParticleHelper;
+			particleGroup->addNewParticle(30, 12.0f, 0.6f, 0.6f, glm::vec4(0.3, 0.3, 1.0, 1.0f), glm::vec3(-0.8f, -0.8f, 1.0f));
+			RenderManager::getInstance()->AddRenderObject(ParticleGroupUuid, particleGroup);
 		}
 	}
 	else {
@@ -329,6 +334,7 @@ void Player::playerKeyCheck()
 	if (glfwGetKey(screen, XCFrameInfo::keyItem2) == GLFW_PRESS && itemTimer.getAccumlateTime() > lastStartMoonTime + 0.22f) {
 		if (!isMoonState) {
 			if (moonLevel > 0) {
+				AudioHelper::playFromBuffer(playerMoonAudio.wavBuffer);
 				isMoonState = true;
 			}
 		}
