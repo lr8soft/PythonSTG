@@ -8,6 +8,9 @@ class DropItem(Enum):
     FullPower = 2
     Life = 3
     Bomb = 4
+    MoonPoint = 5
+    MoonPointMirror = 6
+    MoonPointUp = 7
 
 
 class DropItemHelper:

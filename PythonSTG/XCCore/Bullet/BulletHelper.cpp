@@ -2,6 +2,7 @@
 #include "CircleTypeBullet.h"
 #include "OvalTypeBullet.h"
 #include "RectangleTypeBullet.h"
+#include "LaserTypeBullet.h"
 #include "../../XCInterpreter/ScriptLoader.h"
 #include "../../XCInterpreter/ImageParseHelper.h"
 Bullet * BulletHelper::getNewBulletObject(std::string bulletImage,std::string bulletType, glm::vec4 divideInfo, glm::vec3 scaleInfo, glm::vec3 collideSize,
@@ -19,6 +20,10 @@ Bullet * BulletHelper::getNewBulletObject(std::string bulletImage,std::string bu
 	}
 	else if (bulletType == "rectangleTypeBullet") {
 		bullet = new RectangleTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
+			particleDensity, particleFinishTime, particleVelocity, particleSize, particleColor);
+	}
+	else if (bulletType == "laserTypeBullet") {
+		bullet = new LaserTypeBullet(bulletImage, divideInfo, scaleInfo, collideSize, initCoord, velocity, acceleration, angle, increateAngle, reboundTime, aimPlayer,
 			particleDensity, particleFinishTime, particleVelocity, particleSize, particleColor);
 	}
 	return bullet;

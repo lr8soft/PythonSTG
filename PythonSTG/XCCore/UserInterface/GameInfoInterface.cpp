@@ -23,6 +23,9 @@ void GameInfoInterface::UserInterfaceInit()
 		playerInfoImage2 = new XCAdvImageHelper("assets/UI/playerInfo2.png");
 		lifeBombImage = new XCAdvImageHelper("assets/UI/lifebomb.png");
 
+		moonUIImage = new XCAdvImageHelper("assets/UI/pointslot.png");
+		moonUIContext = new XCAdvImageHelper("assets/UI/uistick.png");
+
 		fontHelper.FontASCIIInit();
 		isInit = true;
 	}
@@ -31,7 +34,7 @@ void GameInfoInterface::UserInterfaceInit()
 void GameInfoInterface::UserInterfaceRender()
 {
 	if (isInit) {
-		if( (float)XCFrameInfo::ScreenWidth / (float)XCFrameInfo::ScreenHeight >= 1.6667f){//>scrren(16:10)
+		//if( (float)XCFrameInfo::ScreenWidth / (float)XCFrameInfo::ScreenHeight >= 1.6667f){//>scrren(16:10)
 			float ScaleRate = (float)XCFrameInfo::ScreenHeight / 720.0f;
 
 			BlendOneMinusAlphaStart
@@ -121,7 +124,24 @@ void GameInfoInterface::UserInterfaceRender()
 
 			renderPlayerLife(nowLifeImageX + nowLifeImageWidth / 2.0f, nowLifeImageY );
 			renderPlayerBomb(nowLifeImageX + nowLifeImageWidth / 2.0f, nowBombImageY);
-		}
+
+			float moonWidth = (1.0f - XCFrameInfo::FrameRight) / 2.0f;
+			float moonHeight = moonWidth / 2.3091f;//³ýÒÔ¿í³¤±È
+			float moonX = -1.0f + (1.0f - XCFrameInfo::FrameRight) + moonWidth / 1.5f;
+			float moonY = -1.0f + moonHeight * 1.5f;
+			BlendOneMinusAlphaStart
+			{
+				glm::mat4 moonMatrix;
+				moonMatrix = glm::translate(moonMatrix, glm::vec3(moonX, moonY, 0.0f));
+				moonMatrix = glm::scale(moonMatrix, glm::vec3(moonWidth, moonHeight, 1.0f));
+				moonUIImage->setMvpMatrix(moonMatrix);
+				moonUIImage->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
+					IRenderHelper::GetSpecificTexWithRate(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1, 1));
+
+				fontHelper.FontASCIIRender(std::to_string(moonLevel),
+					(1.0f - XCFrameInfo::FrameRight) + moonWidth / 1.5f, moonHeight * 1.5f, 0.1f * ScaleRate, glm::vec4(0.8f, 0.8f, 0.8f, 0.6f));
+			}
+			BlendEnd
 	}
 }
 
@@ -215,6 +235,11 @@ void GameInfoInterface::setHightScore(long score)
 	highScore = score;
 }
 
+void GameInfoInterface::setSpellCardRemainTime(float time)
+{
+	spellCardRemainTime = time;
+}
+
 void GameInfoInterface::setNowBomb(int count)
 {
 	nowBomb = count;
@@ -233,4 +258,15 @@ void GameInfoInterface::setMaxBomb(int count)
 void GameInfoInterface::setMaxLife(int count)
 {
 	maxLife = count;
+}
+
+
+void GameInfoInterface::setMoonPoint(long currentPoint)
+{
+	moonPoint = currentPoint;
+}
+
+void GameInfoInterface::setMoonLevel(int level)
+{
+	moonLevel = level;
 }

@@ -7,7 +7,7 @@
 #include "util/GameTimer.h"
 class XCFrame {
 private:
-	const char* PythonSTGVersion = "v0.35release";
+	const char* PythonSTGVersion = "v0.36";
 	std::atomic_bool isFrameTerminate = false;
 	GLFWwindow* pscreen = nullptr, *tscreen = nullptr;
 	static XCFrame* pInstance;

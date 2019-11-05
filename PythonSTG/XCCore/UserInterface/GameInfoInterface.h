@@ -13,10 +13,15 @@ protected:
 	int gameRank = 4;
 	long nowScore = 0, highScore = LONG_MAX;
 
+	float spellCardRemainTime = 0.0f;
+
 	static int nowLife , maxLife ;
 	static int nowBomb , maxBomb ;
 
-	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2, *lifeBombImage;
+	long moonPoint = 0;
+	int moonLevel = 0;
+
+	XCAdvImageHelper *rankImage, *playerInfoImage1, *playerInfoImage2, *lifeBombImage, *moonUIImage, *moonUIContext;
 	static GameInfoInterface* pInterface;
 
 	XCFont fontHelper;
@@ -35,11 +40,15 @@ public:
 	void setRank(int rank);
 	void setNowScore(long score);
 	void setHightScore(long score);
+	void setSpellCardRemainTime(float time);
 
 	static void setNowBomb(int count);
 	static void setNowLife(int life);
 
 	static void setMaxBomb(int  count);
 	static void setMaxLife(int count);
+
+	void setMoonPoint(long currentPoint);
+	void setMoonLevel(int level);
 };
 #endif

@@ -153,6 +153,7 @@
     <ClCompile Include="XCCore\Boss\SpellCard.cpp" />
     <ClCompile Include="XCCore\Bullet\BulletHelper.cpp" />
     <ClCompile Include="XCCore\Bullet\CircleTypeBullet.cpp" />
+    <ClCompile Include="XCCore\Bullet\LaserTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\OvalTypeBullet.cpp" />
     <ClCompile Include="XCCore\Bullet\RectangleTypeBullet.cpp" />
     <ClCompile Include="XCCore\Enemy\EnemyObject.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="XCCore\Boss\BossHelper.h" />
     <ClInclude Include="XCCore\Boss\BossObject.h" />
     <ClInclude Include="XCCore\Boss\SpellCard.h" />
+    <ClInclude Include="XCCore\Bullet\LaserTypeBullet.h" />
     <ClInclude Include="XCCore\Bullet\OvalTypeBullet.h" />
     <ClInclude Include="XCCore\Item\Item.h" />
     <ClInclude Include="XCCore\Item\ItemHelper.h" />

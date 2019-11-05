@@ -51,3 +51,7 @@ void CollideHelper::addPlayerPower()
 {
 	pPlayer->addPower();
 }
+
+void CollideHelper::addPlayerMoonPoint()
+{
+}

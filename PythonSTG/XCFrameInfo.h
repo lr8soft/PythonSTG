@@ -8,7 +8,7 @@ public:
 	static int ScreenWidth, ScreenHeight;
 	static std::string ScreenOriginTitle;
 
-	static int keyUp, keyDown, keyLeft, keyRight, keyShoot, keyItem, keySlow;
+	static int keyUp, keyDown, keyLeft, keyRight, keyShoot, keyItem, keySlow, keyItem2;
 	static float defaultGravity;
 };
 #endif
