@@ -6,10 +6,11 @@ from .Bullet.HugeBullet import HugeBullet
 from .Bullet.RiceBullet import RiceBullet
 from .Bullet.OvalBullet import OvalBullet
 from .Bullet.CardBullet import CardBullet
-from .Bullet.LaserBullet import LaserBullet
+
 from .Stage.Task import Task, TaskUnit
-from .Stage.TaskEnemy import TaskEnemy, EnemyColor, DropItem
-from .Stage.XCStage import XCStage, StageRank
+from .Stage.Enemy.FairyEnemy import FairyEnemy, EnemyColor, DropItem
+from .Stage.Enemy.DarkButterflyFairy import DarkButterflyFairyEnemy
+from .Stage.XCStage import XCStage, StageRank, StageBackGround
 from .Stage.Boss import Boss, SpellCard
 
 
@@ -17,11 +18,12 @@ from .Stage.Boss import Boss, SpellCard
 # 演示如何创建并返回一个自定义关卡
 # 方法说明请阅读文档 PythonSTG 使用手册
 def setupMyStage():
-    stage0 = XCStage("Stage TEST")
+    stage0 = XCStage("Stage 1")
     stage0.setBackGroundMusic("assets/Media/stage1.wav")
+    stage0.setBackGround(background=StageBackGround.magic_forest)
     stage0.setStageRank(StageRank.Lunatic)
     # task 0
-    enemyTest = TaskEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)
+    enemyTest = FairyEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)
     enemyTest.addItemDrop(DropItem.MoonPoint, 15)
     enemyTest.addItemDrop(DropItem.Power, 15)
     enemyTest.setInitCoord([0.0, 1.0, 0.0])
@@ -38,7 +40,7 @@ def setupMyStage():
         unit0.addBullet(bullet)
     enemyTest.addUnit(unit0)
     # bullet group 1
-    enemyTest2 = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    enemyTest2 = FairyEnemy(durationFrame=-1, intervalFrame=0)
     enemyTest2.addItemDrop(DropItem.MoonPoint, 15)
     enemyTest2.addItemDrop(DropItem.Power, 15)
     enemyTest2.setMovingTime(2.0)
@@ -67,7 +69,7 @@ def setupMyStage():
             unit2.addBullet(bullet)
     enemyTest2.addUnit(unit1)
 
-    enemyTest3 = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    enemyTest3 = FairyEnemy(durationFrame=-1, intervalFrame=0)
     enemyTest3.addItemDrop(DropItem.MoonPoint, 15)
     enemyTest3.addItemDrop(DropItem.Power, 15)
     enemyTest3.setMovingTime(2.0)
@@ -81,7 +83,7 @@ def setupMyStage():
     stage0.addTask(enemyTest3)
 
     # task 2
-    taskAfter = TaskEnemy(durationFrame=-1, intervalFrame=0)
+    taskAfter = DarkButterflyFairyEnemy(durationFrame=-1, intervalFrame=0)
     taskAfter.addItemDrop(DropItem.MoonPoint, 15)
     taskAfter.addItemDrop(DropItem.Power, 35)
     taskAfter.setColorType(EnemyColor.Blue)
@@ -178,7 +180,7 @@ def setupMyStage():
     lastuuid = task_spellcard2.getUuid()
     lastuuid2 = task_spellcard2.getUuid()
     for i in range(1, 10):
-        enemyAimPlayer = TaskEnemy(durationFrame=-1, intervalFrame=0)
+        enemyAimPlayer = FairyEnemy(durationFrame=-1, intervalFrame=0)
         enemyAimPlayer.addItemDrop(DropItem.MoonPoint, 3)
         enemyAimPlayer.setHealthValue(1.0)
         enemyAimPlayer.setInitCoord([0.5, 1.0, 0.0])
@@ -188,7 +190,7 @@ def setupMyStage():
         enemyAimPlayer.addTargetUuid(lastuuid)
         lastuuid = enemyAimPlayer.getUuid()
 
-        enemyAimPlayer2 = TaskEnemy(durationFrame=-1, intervalFrame=0)
+        enemyAimPlayer2 = FairyEnemy(durationFrame=-1, intervalFrame=0)
         enemyAimPlayer2.addItemDrop(DropItem.MoonPoint, 3)
         enemyAimPlayer2.setInitCoord([-0.5, 1.0, 0.0])
         enemyAimPlayer2.setHealthValue(1.0)

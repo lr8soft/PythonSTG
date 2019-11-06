@@ -18,13 +18,7 @@ class TaskEnemy(Task, DropItemHelper, ImageHelper):
         DropItemHelper.__init__(self)
         ImageHelper.__init__(self)
 
-        super()._setImagePath("assets/Item/fairy.png")
-        super()._setZoomInfo([0.06, 0.06])
-        super()._setDivideInfo(divideType=[12, 4], divideOffset=[0.0, 0.0])
-        super()._setSpecialColumn(specialCol1=[1, 5], specialCol2=[6, 12]) # start - end (column)
-        super()._setSelectImage(coord=[1, 4])
         self.isEnemyTask = True
-
         self.position = [0.0, 0.0, 0.0]
         self.movingTime = -1.0
         self.acceleration = 0.0
@@ -33,7 +27,7 @@ class TaskEnemy(Task, DropItemHelper, ImageHelper):
         self.incAngle = 0.0
         self.enemyHealth = 5.0
 
-    def _setEnemyImage(self, path="assets/Item/fairy.png"):
+    def _setEnemyImage(self, path):
         super()._setImagePath(path)
 
     def setColorType(self, color=EnemyColor.Red):

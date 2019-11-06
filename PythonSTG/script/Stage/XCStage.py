@@ -41,7 +41,7 @@ class XCStage:
         else:
             raise Exception("Insert invalid task.")
 
-    def setBackGround(self, background):
+    def setBackGround(self, background = StageBackGround.river):
         self.__background = background
 
     def setBackGroundMusic(self, musicPath):

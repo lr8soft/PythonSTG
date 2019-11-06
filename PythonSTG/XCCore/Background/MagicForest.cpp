@@ -13,7 +13,7 @@ void MagicForest::BackgroundInit()
 		mask = new XCAdvImageHelper("assets/Background/magicforest/mask.png");
 		ground = new XCAdvImageHelper("assets/Background/magicforest/ground.png");
 
-		float offset = 1.5f;
+		float offset = 2.0f;
 		camera.setPosition(glm::vec3(0.0f, 0.0f - offset, 2.0f));
 		camera.setTarget(glm::vec3(0.0f, 1.155f - offset,0.0f));
 		camera.setUp(glm::vec3(0.0f,2.0f - offset, 3.155f));
@@ -24,7 +24,7 @@ void MagicForest::BackgroundInit()
 void MagicForest::BackgroundRender()
 {
 	if (isInit) {
-		BlendNormalStart
+		BlendOneMinusAlphaStart
 		renderGroundImage();
 		renderMaskImage();
 		BlendEnd
@@ -34,6 +34,13 @@ void MagicForest::BackgroundRender()
 		}
 		else {
 			renderY = 0.0f;
+		}
+
+		if (maskY < 1.0f) {
+			maskY += 0.0012f;
+		}
+		else {
+			maskY = 0.0f;
 		}
 	}
 }
@@ -107,7 +114,7 @@ void MagicForest::renderMaskImage()
 		model = glm::scale(model, glm::vec3(1.0f));
 		mask->setMvpMatrix(projecetion* view * model);
 		mask->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, maskY));
 	}
 	{
 		glm::mat4 model;
@@ -115,7 +122,7 @@ void MagicForest::renderMaskImage()
 		model = glm::scale(model, glm::vec3(1.0f));
 		mask->setMvpMatrix(projecetion* view * model);
 		mask->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, maskY));
 	}
 	{
 		glm::mat4 model;
@@ -123,7 +130,7 @@ void MagicForest::renderMaskImage()
 		model = glm::scale(model, glm::vec3(1.0f));
 		mask->setMvpMatrix(projecetion* view * model);
 		mask->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, maskY));
 	}
 	{
 		glm::mat4 model;
@@ -131,7 +138,7 @@ void MagicForest::renderMaskImage()
 		model = glm::scale(model, glm::vec3(1.0f));
 		mask->setMvpMatrix(projecetion* view * model);
 		mask->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, maskY));
 	}
 	{
 		glm::mat4 model;
@@ -139,7 +146,7 @@ void MagicForest::renderMaskImage()
 		model = glm::scale(model, glm::vec3(1.0f));
 		mask->setMvpMatrix(projecetion* view * model);
 		mask->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, maskY));
 	}
 	{
 		glm::mat4 model;
@@ -147,7 +154,7 @@ void MagicForest::renderMaskImage()
 		model = glm::scale(model, glm::vec3(1.0f));
 		mask->setMvpMatrix(projecetion* view * model);
 		mask->Render(glm::vec3(), glm::vec4(1.0f), 0.0f, glm::vec3(), glm::vec3(),
-			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, renderY));
+			IRenderHelper::GetSpecificTexWithRatef(XCFrameInfo::FrameRight, XCFrameInfo::FrameTop, 1, 1, 1.0f, maskY));
 	}
 }
 
