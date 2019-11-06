@@ -142,6 +142,7 @@
     <ClCompile Include="util\ImageLoader.cpp" />
     <ClCompile Include="util\ShaderReader.cpp" />
     <ClCompile Include="XCCore\Attack\NormalStrike.cpp" />
+    <ClCompile Include="XCCore\Attack\TraceStrike.cpp" />
     <ClCompile Include="XCCore\Background\BackgroundHelper.cpp" />
     <ClCompile Include="XCCore\Background\Camera.cpp" />
     <ClCompile Include="XCCore\Background\Lake.cpp" />
@@ -191,12 +192,13 @@
     <ClCompile Include="XCInterpreter\XCInterpreter.cpp" />
     <ClCompile Include="XCCore\XCRender\XCImageHelper.cpp" />
     <ClCompile Include="XCFrame.cpp" />
-    <ClCompile Include="pythonstg.cpp" />
+    <ClCompile Include="PythonSTG.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LaunchHelper.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource1.h" />
+    <ClInclude Include="XCCore\Attack\TraceStrike.h" />
     <ClInclude Include="XCCore\Background\River.h" />
     <ClInclude Include="XCCore\Boss\Boss.h" />
     <ClInclude Include="XCCore\Boss\BossHelper.h" />

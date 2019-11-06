@@ -180,7 +180,6 @@
     <ClCompile Include="XCCore\Bullet\OvalTypeBullet.cpp">
       <Filter>XCCore\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="pythonstg.cpp" />
     <ClCompile Include="XCCore\Boss\BossHelper.cpp">
       <Filter>XCCore\Boss</Filter>
     </ClCompile>
@@ -226,6 +225,10 @@
     <ClCompile Include="XCCore\XCRender\XCFlexibleImageHelper.cpp">
       <Filter>XCCore\XCRender</Filter>
     </ClCompile>
+    <ClCompile Include="XCCore\Attack\TraceStrike.cpp">
+      <Filter>XCCore\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonSTG.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\ConfigManager.h">
@@ -419,6 +422,9 @@
     </ClInclude>
     <ClInclude Include="XCCore\XCRender\XCFlexibleImageHelper.h">
       <Filter>XCCore\XCRender</Filter>
+    </ClInclude>
+    <ClInclude Include="XCCore\Attack\TraceStrike.h">
+      <Filter>XCCore\Attack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,9 +9,7 @@ class MagicForest : public Background {
 private:
 	Camera camera;
 	XCAdvImageHelper *ground, *mask;
-	float renderX = 0.0f, renderY = 0.0f, waterX = 1.0f, waterY = 1.0f;
-	
-
+	float renderX = 0.0f, renderY = 0.0f, maskX = 1.0f, maskY = 0.0f;
 
 	glm::vec4 lakeColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec4 waterColor = glm::vec4(0.37f, 1.0f, 1.0f, 0.65f);
