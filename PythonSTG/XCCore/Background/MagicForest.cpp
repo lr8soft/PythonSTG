@@ -160,4 +160,11 @@ void MagicForest::renderMaskImage()
 
 void MagicForest::BackgroundRelease()
 {
+	if (isInit) {
+		mask->Release();
+		ground->Release();
+
+		delete mask, ground;
+		isInit = false;
+	}
 }

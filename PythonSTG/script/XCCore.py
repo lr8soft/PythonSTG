@@ -4,7 +4,7 @@ from script.Object.Player import Player
 # demo stage 演示关卡
 import script.TestStage as TestStage
 
-winTitle = "东方月隐谭～Disappearing Moon [PySTG v0.36-release]"
+winTitle = "PySTG v0.36-release"
 
 # PySTG default function
 def coreInitializer():

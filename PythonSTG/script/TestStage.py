@@ -20,7 +20,7 @@ from .Stage.Boss import Boss, SpellCard
 def setupMyStage():
     stage0 = XCStage("Stage 1")
     stage0.setBackGroundMusic("assets/Media/stage1.wav")
-    stage0.setBackGround(background=StageBackGround.magic_forest)
+    stage0.setBackGround(background=StageBackGround.river)
     stage0.setStageRank(StageRank.Lunatic)
     # task 0
     enemyTest = FairyEnemy(durationFrame=-1, intervalFrame=0, waitFrame=60)
