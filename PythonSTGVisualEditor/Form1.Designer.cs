@@ -1,4 +1,6 @@
-﻿namespace PythonSTGVisualEditor
+﻿using System;
+
+namespace PythonSTGVisualEditor
 {
     partial class Form1
     {
@@ -28,6 +30,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Task");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("TaskType", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("CircleBullet");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("OvalBullet");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("RiceBullet");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("CardBullet");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("BulletType", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6});
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("FairyEnemy");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("ButterflyFairyEnemy");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("EnemyType", new System.Windows.Forms.TreeNode[] {
+            treeNode8,
+            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Stage Group");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开OToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,12 +64,17 @@
             this.粘贴PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.测试SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.运行RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.带控制台运行CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.检查更新UToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainContainer = new System.Windows.Forms.SplitContainer();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.toolContainer = new System.Windows.Forms.SplitContainer();
+            this.ComponentTree = new System.Windows.Forms.TreeView();
             this.AttributeBox = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.AttributeList = new System.Windows.Forms.ListView();
+            this.scriptContext = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
             this.mainContainer.Panel1.SuspendLayout();
             this.mainContainer.Panel2.SuspendLayout();
@@ -57,6 +82,7 @@
             this.toolContainer.Panel1.SuspendLayout();
             this.toolContainer.Panel2.SuspendLayout();
             this.toolContainer.SuspendLayout();
+            this.AttributeBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -114,6 +140,7 @@
             this.退出XToolStripMenuItem.Name = "退出XToolStripMenuItem";
             this.退出XToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
             this.退出XToolStripMenuItem.Text = "退出(X)";
+            this.退出XToolStripMenuItem.Click += new System.EventHandler(this.退出XToolStripMenuItem_Click);
             // 
             // 编辑EToolStripMenuItem
             // 
@@ -172,15 +199,45 @@
             // 
             // 测试SToolStripMenuItem
             // 
+            this.测试SToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.运行RToolStripMenuItem,
+            this.带控制台运行CToolStripMenuItem});
             this.测试SToolStripMenuItem.Name = "测试SToolStripMenuItem";
             this.测试SToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
             this.测试SToolStripMenuItem.Text = "测试(S)";
             // 
+            // 运行RToolStripMenuItem
+            // 
+            this.运行RToolStripMenuItem.Name = "运行RToolStripMenuItem";
+            this.运行RToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.运行RToolStripMenuItem.Text = "运行(R)";
+            // 
+            // 带控制台运行CToolStripMenuItem
+            // 
+            this.带控制台运行CToolStripMenuItem.Name = "带控制台运行CToolStripMenuItem";
+            this.带控制台运行CToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.带控制台运行CToolStripMenuItem.Text = "带控制台运行(C)";
+            // 
             // 帮助HToolStripMenuItem
             // 
+            this.帮助HToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.检查更新UToolStripMenuItem,
+            this.关于AToolStripMenuItem});
             this.帮助HToolStripMenuItem.Name = "帮助HToolStripMenuItem";
             this.帮助HToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.帮助HToolStripMenuItem.Text = "帮助(H)";
+            // 
+            // 检查更新UToolStripMenuItem
+            // 
+            this.检查更新UToolStripMenuItem.Name = "检查更新UToolStripMenuItem";
+            this.检查更新UToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.检查更新UToolStripMenuItem.Text = "检查更新(U)";
+            // 
+            // 关于AToolStripMenuItem
+            // 
+            this.关于AToolStripMenuItem.Name = "关于AToolStripMenuItem";
+            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.关于AToolStripMenuItem.Text = "关于(A)";
             // 
             // mainContainer
             // 
@@ -194,19 +251,10 @@
             // 
             // mainContainer.Panel2
             // 
-            this.mainContainer.Panel2.Controls.Add(this.treeView1);
+            this.mainContainer.Panel2.Controls.Add(this.scriptContext);
             this.mainContainer.Size = new System.Drawing.Size(834, 472);
             this.mainContainer.SplitterDistance = 200;
             this.mainContainer.TabIndex = 2;
-            // 
-            // treeView1
-            // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(30);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(630, 472);
-            this.treeView1.TabIndex = 0;
             // 
             // toolContainer
             // 
@@ -217,7 +265,7 @@
             // 
             // toolContainer.Panel1
             // 
-            this.toolContainer.Panel1.Controls.Add(this.groupBox1);
+            this.toolContainer.Panel1.Controls.Add(this.ComponentTree);
             // 
             // toolContainer.Panel2
             // 
@@ -226,9 +274,44 @@
             this.toolContainer.SplitterDistance = 250;
             this.toolContainer.TabIndex = 0;
             // 
+            // ComponentTree
+            // 
+            this.ComponentTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComponentTree.Location = new System.Drawing.Point(0, 0);
+            this.ComponentTree.Name = "ComponentTree";
+            treeNode1.Name = "TaskNode";
+            treeNode1.Text = "Task";
+            treeNode2.Name = "TaskRoot";
+            treeNode2.Text = "TaskType";
+            treeNode3.Name = "CircleBulletNode";
+            treeNode3.Text = "CircleBullet";
+            treeNode4.Name = "OvalBulletNode";
+            treeNode4.Text = "OvalBullet";
+            treeNode5.Name = "RiceBulletNode";
+            treeNode5.Text = "RiceBullet";
+            treeNode6.Name = "CardBulletNode";
+            treeNode6.Text = "CardBullet";
+            treeNode7.Name = "BulletNodeRoot";
+            treeNode7.Text = "BulletType";
+            treeNode8.Name = "FairyEnemyNode";
+            treeNode8.Text = "FairyEnemy";
+            treeNode9.Name = "ButterflyFairyEnemyNode";
+            treeNode9.Text = "ButterflyFairyEnemy";
+            treeNode10.Name = "EnemyTypeRoot";
+            treeNode10.Text = "EnemyType";
+            this.ComponentTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode7,
+            treeNode10});
+            this.ComponentTree.Size = new System.Drawing.Size(200, 250);
+            this.ComponentTree.TabIndex = 0;
+            this.ComponentTree.DoubleClick += new System.EventHandler(this.ComponentTree_DoubleClick);
+            // 
             // AttributeBox
             // 
+            this.AttributeBox.Controls.Add(this.AttributeList);
             this.AttributeBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AttributeBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AttributeBox.Location = new System.Drawing.Point(0, 0);
             this.AttributeBox.Name = "AttributeBox";
             this.AttributeBox.Size = new System.Drawing.Size(200, 218);
@@ -236,15 +319,28 @@
             this.AttributeBox.TabStop = false;
             this.AttributeBox.Text = "属性";
             // 
-            // groupBox1
+            // AttributeList
             // 
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 250);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "内容";
+            this.AttributeList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AttributeList.HideSelection = false;
+            this.AttributeList.Location = new System.Drawing.Point(3, 21);
+            this.AttributeList.Name = "AttributeList";
+            this.AttributeList.Size = new System.Drawing.Size(194, 194);
+            this.AttributeList.TabIndex = 0;
+            this.AttributeList.UseCompatibleStateImageBehavior = false;
+            // 
+            // scriptContext
+            // 
+            this.scriptContext.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scriptContext.Location = new System.Drawing.Point(0, 0);
+            this.scriptContext.Margin = new System.Windows.Forms.Padding(30);
+            this.scriptContext.Name = "scriptContext";
+            treeNode11.Name = "StageGroupRoot";
+            treeNode11.Text = "Stage Group";
+            this.scriptContext.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            this.scriptContext.Size = new System.Drawing.Size(630, 472);
+            this.scriptContext.TabIndex = 0;
             // 
             // Form1
             // 
@@ -264,6 +360,7 @@
             this.toolContainer.Panel1.ResumeLayout(false);
             this.toolContainer.Panel2.ResumeLayout(false);
             this.toolContainer.ResumeLayout(false);
+            this.AttributeBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,10 +385,15 @@
         private System.Windows.Forms.ToolStripMenuItem 粘贴PToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 删除XToolStripMenuItem;
         private System.Windows.Forms.SplitContainer mainContainer;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView scriptContext;
         private System.Windows.Forms.SplitContainer toolContainer;
         private System.Windows.Forms.GroupBox AttributeBox;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TreeView ComponentTree;
+        private System.Windows.Forms.ListView AttributeList;
+        private System.Windows.Forms.ToolStripMenuItem 运行RToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 带控制台运行CToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 检查更新UToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 关于AToolStripMenuItem;
     }
 }
 

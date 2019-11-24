@@ -30,5 +30,21 @@ namespace PythonSTGVisualEditor
         {
 
         }
+
+        private void 退出XToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void ComponentTree_DoubleClick(object sender, EventArgs e)
+        {
+            TreeView treeView = (TreeView)sender;
+            TreeNode node = treeView.SelectedNode;
+            if (node.Parent != null) {//No root node
+                Console.WriteLine(node.Text);
+   
+            }
+            
+        }
     }
 }
