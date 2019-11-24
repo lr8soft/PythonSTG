@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace PythonSTGVisualEditor
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
         }
@@ -41,7 +41,13 @@ namespace PythonSTGVisualEditor
             TreeView treeView = (TreeView)sender;
             TreeNode node = treeView.SelectedNode;
             if (node.Parent != null) {//No root node
-                Console.WriteLine(node.Text);
+                switch (node.Text) {
+                    case "Task":
+                        FormTask formTask = new FormTask();
+                        formTask.Show();
+                        break;
+
+                }
    
             }
             

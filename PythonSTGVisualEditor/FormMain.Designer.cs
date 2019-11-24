@@ -2,7 +2,7 @@
 
 namespace PythonSTGVisualEditor
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -48,7 +48,8 @@ namespace PythonSTGVisualEditor
             treeNode8,
             treeNode9});
             System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Stage Group");
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            this.menuGroup = new System.Windows.Forms.MenuStrip();
             this.fileFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开OToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +76,7 @@ namespace PythonSTGVisualEditor
             this.AttributeBox = new System.Windows.Forms.GroupBox();
             this.AttributeList = new System.Windows.Forms.ListView();
             this.scriptContext = new System.Windows.Forms.TreeView();
-            this.menuStrip1.SuspendLayout();
+            this.menuGroup.SuspendLayout();
             this.mainContainer.Panel1.SuspendLayout();
             this.mainContainer.Panel2.SuspendLayout();
             this.mainContainer.SuspendLayout();
@@ -85,19 +86,21 @@ namespace PythonSTGVisualEditor
             this.AttributeBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // menuGroup
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.menuGroup.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuGroup.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileFToolStripMenuItem,
             this.编辑EToolStripMenuItem,
             this.测试SToolStripMenuItem,
             this.帮助HToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(834, 28);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuGroup.Location = new System.Drawing.Point(0, 0);
+            this.menuGroup.Name = "menuGroup";
+            this.menuGroup.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
+            this.menuGroup.Size = new System.Drawing.Size(873, 30);
+            this.menuGroup.TabIndex = 1;
+            this.menuGroup.Text = "menuStrip1";
             // 
             // fileFToolStripMenuItem
             // 
@@ -242,7 +245,8 @@ namespace PythonSTGVisualEditor
             // mainContainer
             // 
             this.mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainContainer.Location = new System.Drawing.Point(0, 28);
+            this.mainContainer.Location = new System.Drawing.Point(0, 30);
+            this.mainContainer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.mainContainer.Name = "mainContainer";
             // 
             // mainContainer.Panel1
@@ -252,14 +256,15 @@ namespace PythonSTGVisualEditor
             // mainContainer.Panel2
             // 
             this.mainContainer.Panel2.Controls.Add(this.scriptContext);
-            this.mainContainer.Size = new System.Drawing.Size(834, 472);
-            this.mainContainer.SplitterDistance = 200;
+            this.mainContainer.Size = new System.Drawing.Size(873, 532);
+            this.mainContainer.SplitterDistance = 209;
             this.mainContainer.TabIndex = 2;
             // 
             // toolContainer
             // 
             this.toolContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolContainer.Location = new System.Drawing.Point(0, 0);
+            this.toolContainer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.toolContainer.Name = "toolContainer";
             this.toolContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -270,14 +275,16 @@ namespace PythonSTGVisualEditor
             // toolContainer.Panel2
             // 
             this.toolContainer.Panel2.Controls.Add(this.AttributeBox);
-            this.toolContainer.Size = new System.Drawing.Size(200, 472);
-            this.toolContainer.SplitterDistance = 250;
+            this.toolContainer.Size = new System.Drawing.Size(209, 532);
+            this.toolContainer.SplitterDistance = 281;
+            this.toolContainer.SplitterWidth = 5;
             this.toolContainer.TabIndex = 0;
             // 
             // ComponentTree
             // 
             this.ComponentTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComponentTree.Location = new System.Drawing.Point(0, 0);
+            this.ComponentTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComponentTree.Name = "ComponentTree";
             treeNode1.Name = "TaskNode";
             treeNode1.Text = "Task";
@@ -303,7 +310,7 @@ namespace PythonSTGVisualEditor
             treeNode2,
             treeNode7,
             treeNode10});
-            this.ComponentTree.Size = new System.Drawing.Size(200, 250);
+            this.ComponentTree.Size = new System.Drawing.Size(209, 281);
             this.ComponentTree.TabIndex = 0;
             this.ComponentTree.DoubleClick += new System.EventHandler(this.ComponentTree_DoubleClick);
             // 
@@ -313,8 +320,10 @@ namespace PythonSTGVisualEditor
             this.AttributeBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AttributeBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AttributeBox.Location = new System.Drawing.Point(0, 0);
+            this.AttributeBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AttributeBox.Name = "AttributeBox";
-            this.AttributeBox.Size = new System.Drawing.Size(200, 218);
+            this.AttributeBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.AttributeBox.Size = new System.Drawing.Size(209, 246);
             this.AttributeBox.TabIndex = 0;
             this.AttributeBox.TabStop = false;
             this.AttributeBox.Text = "属性";
@@ -323,9 +332,10 @@ namespace PythonSTGVisualEditor
             // 
             this.AttributeList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AttributeList.HideSelection = false;
-            this.AttributeList.Location = new System.Drawing.Point(3, 21);
+            this.AttributeList.Location = new System.Drawing.Point(3, 24);
+            this.AttributeList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AttributeList.Name = "AttributeList";
-            this.AttributeList.Size = new System.Drawing.Size(194, 194);
+            this.AttributeList.Size = new System.Drawing.Size(203, 218);
             this.AttributeList.TabIndex = 0;
             this.AttributeList.UseCompatibleStateImageBehavior = false;
             // 
@@ -333,27 +343,30 @@ namespace PythonSTGVisualEditor
             // 
             this.scriptContext.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scriptContext.Location = new System.Drawing.Point(0, 0);
-            this.scriptContext.Margin = new System.Windows.Forms.Padding(30);
+            this.scriptContext.Margin = new System.Windows.Forms.Padding(34, 40, 34, 40);
             this.scriptContext.Name = "scriptContext";
             treeNode11.Name = "StageGroupRoot";
             treeNode11.Text = "Stage Group";
             this.scriptContext.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode11});
-            this.scriptContext.Size = new System.Drawing.Size(630, 472);
+            this.scriptContext.Size = new System.Drawing.Size(660, 532);
             this.scriptContext.TabIndex = 0;
             // 
-            // Form1
+            // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 500);
+            this.ClientSize = new System.Drawing.Size(873, 562);
             this.Controls.Add(this.mainContainer);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Controls.Add(this.menuGroup);
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuGroup;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Name = "FormMain";
             this.Text = "PySTG VisualEditor";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuGroup.ResumeLayout(false);
+            this.menuGroup.PerformLayout();
             this.mainContainer.Panel1.ResumeLayout(false);
             this.mainContainer.Panel2.ResumeLayout(false);
             this.mainContainer.ResumeLayout(false);
@@ -367,7 +380,7 @@ namespace PythonSTGVisualEditor
         }
 
         #endregion
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuGroup;
         private System.Windows.Forms.ToolStripMenuItem fileFToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开OToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 保存SToolStripMenuItem;
