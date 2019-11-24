@@ -11,7 +11,7 @@ namespace PythonSTGVisualEditor
         public int taskDuration { get; set; }
         public int taskInterval { get; set; }
         public int taskWaitFrame { get; set; }
-        public List<string> varName = new List<string>();
+        public List<string> targetVarName = new List<string>();
 
         public override string ToString()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PythonSTGVisualEditor.SpecialNode;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,10 +39,36 @@ namespace PythonSTGVisualEditor
 
         private void ComponentTree_DoubleClick(object sender, EventArgs e)
         {
+            TreeView rScriptContext = scriptContext;
             TreeView treeView = (TreeView)sender;
-            TreeNode node = treeView.SelectedNode;
-            if (node.Parent != null) {//No root node
-                switch (node.Text) {
+
+            TreeNode toolSelectNode = treeView.SelectedNode;
+            TreeNode toolSelectParent = treeView.SelectedNode.Parent;
+            
+            TreeNode scriptSelectNode = rScriptContext.SelectedNode;
+            if (toolSelectParent != null) {//No root node
+                switch (toolSelectNode.Text) {
+                    case "Stage":
+                        if (scriptSelectNode != null) {
+
+                            if (scriptSelectNode.Text == scriptContext.Nodes[0].Text)
+                            {
+                                StageNode newNode = new StageNode();
+                                newNode.Name = "Stage";
+                                newNode.Text = "Stage 1";
+                                scriptSelectNode.Nodes.AddRange(new TreeNode[] {
+                                 newNode});
+                            }
+                            else {
+                                MessageBox.Show("只能在Stage Group节点下新建Stage!", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("未选择节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        break;
+
                     case "Task":
                         FormTask formTask = new FormTask();
                         formTask.Show();
