@@ -25,7 +25,7 @@ namespace PythonSTGVisualEditor.SpecialNode
             stageDisplayName = displayName;
 
             Name = stageVarName;
-            Text = "[StageName]:" + displayName + "  [Rank]: " + stageRank;
+            Text = string.Format("[StageName:{0} Rank:{1}]", displayName, stageRank);
         }
 
         public void setBackground(string info) {

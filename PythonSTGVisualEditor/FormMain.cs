@@ -71,8 +71,19 @@ namespace PythonSTGVisualEditor
                         break;
 
                     case "Task":
-                        FormTask formTask = new FormTask();
-                        formTask.Show();
+                        if (scriptSelectNode != null && scriptSelectNode is StageNode)
+                        {
+                            Task task = FormTask.Execute();
+                            if (task != null)
+                            {
+                                TaskNode taskNode = new TaskNode(task);
+                                scriptSelectNode.Nodes.AddRange(new TreeNode[] {
+                                taskNode});
+                            }
+                        }
+                        else {
+                            MessageBox.Show("只能在Stage下添加Task节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         break;
 
                 }
