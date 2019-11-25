@@ -31,11 +31,12 @@ def setupMyStage():
     enemyTest.setAngle(270.0)
     enemyTest.setVelocity(0.2)
     # bullet group 0
-    unit0 = TaskUnit(waitFrame=60, repeatTime=3)
-    for j in range(0, 36):
+    unit0 = TaskUnit(waitFrame=60, repeatTime=1)
+    for j in range(0, 3600):
         bullet = OvalBullet()
         bullet.setVelocity(0.6)
-        bullet.setAngle(j * 10)
+        bullet.setAngle(j / 10)
+        bullet.setRebound(-1)
         bullet.setBulletColor(BulletColor.BLUE)
         unit0.addBullet(bullet)
     enemyTest.addUnit(unit0)
@@ -48,23 +49,25 @@ def setupMyStage():
     enemyTest2.setVelocity(0.2)
     enemyTest2.setInitCoord([-0.5, 1.0, 0.0])
 
-    unit1 = TaskUnit(waitFrame=120, repeatTime=3)
-    unit2 = TaskUnit(waitFrame=120, repeatTime=3)
+    unit1 = TaskUnit(waitFrame=120, repeatTime=1)
+    unit2 = TaskUnit(waitFrame=120, repeatTime=1)
     for i in range(0, 72):
         if i % 2 == 0:
-            bullet = OvalBullet()
+            bullet = CircleBullet()
             bullet.setInitCoord([0.5, 0.5, 0.0])
+            bullet.setRebound(-1)
             bullet.setVelocity(0.6)
             bullet.setBulletColor(BulletColor.ORANGE)
             bullet.setAngle(i * 5)
             bullet.setAngleAcceleration(20)
             unit1.addBullet(bullet)
         else:
-            bullet = OvalBullet()
+            bullet = CircleBullet()
             bullet.setInitCoord([-0.5, -0.5, 0.0])
             bullet.setVelocity(0.6)
+            bullet.setRebound(-1)
             bullet.setBulletColor(BulletColor.PURPLE)
-            bullet.setAngle(i * 10)
+            bullet.setAngle(i * 5)
             bullet.setAngleAcceleration(-20)
             unit2.addBullet(bullet)
     enemyTest2.addUnit(unit1)

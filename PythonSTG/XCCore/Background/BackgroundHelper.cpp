@@ -14,7 +14,7 @@ Background * BackgroundHelper::getBackgroundByID(int id)
 		pBackground = new River; break;
 
 	default:
-		pBackground = new LakeBackground;
+		pBackground = nullptr;
 	}
 	return pBackground;
 }

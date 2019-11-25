@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace PythonSTGVisualEditor
 {
@@ -37,7 +38,7 @@ namespace PythonSTGVisualEditor
             Application.Exit();
         }
 
-        private void ComponentTree_DoubleClick(object sender, EventArgs e)
+        private void ToolTree_DoubleClickEvent(object sender, EventArgs e)
         {
             TreeView rScriptContext = scriptContext;
             TreeView treeView = (TreeView)sender;
@@ -53,9 +54,9 @@ namespace PythonSTGVisualEditor
 
                             if (scriptSelectNode.Text == scriptContext.Nodes[0].Text)
                             {
-                                StageNode newNode = new StageNode();
-                                newNode.Name = "Stage";
-                                newNode.Text = "Stage 1";
+                                string varName = Interaction.InputBox("输入关卡变量名:", "Input value");
+                                string displayName = Interaction.InputBox("输入关卡显示名称:", "Input value");
+                                StageNode newNode = new StageNode(varName, displayName);
                                 scriptSelectNode.Nodes.AddRange(new TreeNode[] {
                                  newNode});
                             }
@@ -78,6 +79,57 @@ namespace PythonSTGVisualEditor
    
             }
             
+        }
+
+        private void ScriptTree_DoubleClick(object sender, EventArgs e)
+        {
+            TreeView scriptContext = (TreeView)sender;
+            TreeNode currentNode = scriptContext.SelectedNode;
+            if (currentNode != null) {
+                if (currentNode is StageNode) {
+                    StageNode stageNode = (StageNode)currentNode;
+                    string varName = Interaction.InputBox("输入关卡变量名:", "Input value", stageNode.getVarName());
+                    string displayName = Interaction.InputBox("输入关卡显示名称:", "Input value", stageNode.getDisplayName());
+                    if (varName.Length > 0 && displayName.Length > 0) {
+                        stageNode.setNodeInfo(varName, displayName);
+                    }
+                }
+            }
+        }
+
+        private void nodeMoveUp_Click(object sender, EventArgs e)
+        {
+            TreeView rScriptContext = scriptContext;
+            TreeNode currentNode = rScriptContext.SelectedNode;
+            if (currentNode != null && currentNode.Parent != null) {
+                TreeNode parentNode = currentNode.Parent;
+                int index = parentNode.Nodes.IndexOf(currentNode);
+                if (index > 0) {
+                    parentNode.Nodes.Remove(currentNode);
+                    parentNode.Nodes.Insert(--index, currentNode);
+                }
+            }
+        }
+
+        private void nodeMoveDown_Click(object sender, EventArgs e)
+        {
+            TreeView rScriptContext = scriptContext;
+            TreeNode currentNode = rScriptContext.SelectedNode;
+            if (currentNode != null && currentNode.Parent != null)
+            {
+                TreeNode parentNode = currentNode.Parent;
+                int index = currentNode.Parent.Nodes.IndexOf(currentNode);
+                if (index + 1 < parentNode.GetNodeCount(true))
+                {
+                    parentNode.Nodes.Remove(currentNode);
+                    parentNode.Nodes.Insert(++index, currentNode);
+                }
+            }
+        }
+
+        private void 复制CToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

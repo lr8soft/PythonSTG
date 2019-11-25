@@ -9,6 +9,7 @@ class StageBackGround(Enum):
     lake = 0
     magic_forest = 1
     river = 2
+    none = 3
 
 
 class StageRank(Enum):

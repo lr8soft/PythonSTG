@@ -83,7 +83,10 @@ void Stage::stageInit()
 		}
 		MultiThreadDefineEnd
 		stageBackground = BackgroundHelper::getBackgroundByID(stageBackgroundID);
-		stageBackground->BackgroundInit();
+		if (stageBackground != nullptr) {
+			stageBackground->BackgroundInit();
+		}
+		
 		isStageInit = true;
 
 		
