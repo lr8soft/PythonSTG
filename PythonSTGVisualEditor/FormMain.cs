@@ -85,9 +85,19 @@ namespace PythonSTGVisualEditor
                             MessageBox.Show("只能在Stage下添加Task节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         break;
-
+                    default:
+                        if (toolSelectParent.Text == "BulletType" && scriptSelectNode is TaskNode)
+                        {
+                            BulletNode bulletNode = new BulletNode("testBullet", toolSelectNode.Text);
+                            scriptSelectNode.Nodes.AddRange(new TreeNode[] {
+                                bulletNode});
+                        }
+                        else
+                        {
+                            MessageBox.Show("只能在Task下添加Bullet节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        break;
                 }
-   
             }
             
         }
@@ -155,7 +165,7 @@ namespace PythonSTGVisualEditor
             string pythonScript = "";
 
             TreeView ScriptContext = scriptContext;
-            TreeNode treeNode = ScriptContext.SelectedNode;
+            TreeNode treeNode = ScriptContext.TopNode;
             if (treeNode!=null) {
                 foreach (TreeNode node in treeNode.Nodes) {
                     if (node is StageNode) {
@@ -163,9 +173,19 @@ namespace PythonSTGVisualEditor
                         pythonScript += stageNode.getInitScript();
 
                         foreach (TreeNode taskNodeTemp in stageNode.Nodes) {
-                            if (taskNodeTemp is TaskNode) {
+                            if (taskNodeTemp is TaskNode)
+                            {
                                 TaskNode taskNode = (TaskNode)taskNodeTemp;
                                 pythonScript += taskNode.storageTask.GetInitScript();
+
+                                foreach (TreeNode bulletNodeTemp in taskNode.Nodes)
+                                {
+                                    if (bulletNodeTemp is BulletNode)
+                                    {
+                                        BulletNode bulletNode = (BulletNode)bulletNodeTemp;
+                                        pythonScript += bulletNode.GetBullet().getInitScript();
+                                    }
+                                }
                             }
                         }
                     }

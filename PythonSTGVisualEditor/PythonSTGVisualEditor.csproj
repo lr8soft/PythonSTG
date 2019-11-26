@@ -87,9 +87,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecialNode\BulletNode.cs" />
     <Compile Include="SpecialNode\StageNode.cs" />
     <Compile Include="SpecialNode\TaskNode.cs" />
-    <Compile Include="Task.cs" />
+    <Compile Include="Sturcture\Bullet.cs" />
+    <Compile Include="Sturcture\Task.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
