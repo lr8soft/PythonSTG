@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PythonSTGVisualEditor.Sturcture
 {
-    public class Bullet
+    public class Bullet : IPythonScript
     {
         public enum BulletColor {
             RED, PURPLE, BLUE, LIGHTBLUE, LIGHTGREEN, YELLOW, ORANGE, WHITE
@@ -47,7 +47,7 @@ namespace PythonSTGVisualEditor.Sturcture
             return bulletClassName;
         }
 
-        public string getInitScript() {
+        public string GetInitScript() {
             return string.Format(bulletInitScript, 
                 bulletVarName, bulletClassName, posX.ToString(), posY.ToString(),
                 reBound.ToString(), velocity.ToString(), bulletColor.ToString(), angle.ToString(), angleAcceleration.ToString(), 

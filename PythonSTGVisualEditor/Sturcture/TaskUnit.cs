@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PythonSTGVisualEditor.Sturcture
 {
-    public class TaskUnit:ICloneable
+    public class TaskUnit : ICloneable, IPythonScript
     {
         public string unitVarName { get; set; }
 

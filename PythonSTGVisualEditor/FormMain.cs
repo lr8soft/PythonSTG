@@ -209,12 +209,19 @@ namespace PythonSTGVisualEditor
                                 TaskNode taskNode = (TaskNode)taskNodeTemp;
                                 pythonScript += taskNode.storageTask.GetInitScript();
 
-                                foreach (TreeNode bulletNodeTemp in taskNode.Nodes)
-                                {
-                                    if (bulletNodeTemp is BulletNode)
-                                    {
-                                        BulletNode bulletNode = (BulletNode)bulletNodeTemp;
-                                        pythonScript += bulletNode.GetBullet().getInitScript();
+                                foreach (TreeNode unitNodeTemp in taskNode.Nodes) {
+                                    if (unitNodeTemp is TaskUnitNode) {
+                                        TaskUnitNode taskUnitNode = (TaskUnitNode)unitNodeTemp;
+                                        pythonScript += taskUnitNode.storageUnit.GetInitScript();
+
+                                        foreach (TreeNode bulletNodeTemp in taskNode.Nodes)
+                                        {
+                                            if (bulletNodeTemp is BulletNode)
+                                            {
+                                                BulletNode bulletNode = (BulletNode)bulletNodeTemp;
+                                                pythonScript += bulletNode.GetBullet().GetInitScript();
+                                            }
+                                        }
                                     }
                                 }
                             }

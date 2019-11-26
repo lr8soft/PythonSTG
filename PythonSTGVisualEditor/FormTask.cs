@@ -13,7 +13,6 @@ namespace PythonSTGVisualEditor
     public partial class FormTask : Form
     {
         public DialogResult Result { get; set; }
-        public Task TaskResult { get; set; }
 
         private Task currentTask;
         public FormTask(Task task)
@@ -47,7 +46,6 @@ namespace PythonSTGVisualEditor
         }
 
         private void updateTaskInfo(string rootName, string lastValue, string value) {
-            TreeView treeView = TaskAttributeTree;
             switch (rootName) {
                 case "TaskName":
                     currentTask.taskVarName = value;
@@ -142,27 +140,25 @@ namespace PythonSTGVisualEditor
             }
         }
 
-
-
         private TreeNode varNameNode;
-        private System.Windows.Forms.TreeNode durationNode;
-        private System.Windows.Forms.TreeNode intervalNode;
-        private System.Windows.Forms.TreeNode waitframeNode;
-        private System.Windows.Forms.TreeNode targetNodeParent;
+        private TreeNode durationNode;
+        private TreeNode intervalNode;
+        private TreeNode waitframeNode;
+        private TreeNode targetNodeParent;
         private void InitCustomizedComponent() {
-            varNameNode = new System.Windows.Forms.TreeNode("task1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Task变量名", new System.Windows.Forms.TreeNode[] {
+            varNameNode = new TreeNode("task1");
+            TreeNode treeNode2 = new TreeNode("Task变量名", new TreeNode[] {
             varNameNode});
-            durationNode = new System.Windows.Forms.TreeNode("-1");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("持续帧数(-1永久持续)", new System.Windows.Forms.TreeNode[] {
+            durationNode = new TreeNode("-1");
+            TreeNode treeNode4 = new TreeNode("持续帧数(-1永久持续)", new TreeNode[] {
             durationNode});
-            intervalNode = new System.Windows.Forms.TreeNode("0");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("间隔帧数", new System.Windows.Forms.TreeNode[] {
+            intervalNode = new TreeNode("0");
+            TreeNode treeNode6 = new TreeNode("间隔帧数", new TreeNode[] {
             intervalNode});
-            waitframeNode = new System.Windows.Forms.TreeNode("0");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("等待帧数", new System.Windows.Forms.TreeNode[] {
+            waitframeNode = new TreeNode("0");
+            TreeNode treeNode8 = new TreeNode("等待帧数", new TreeNode[] {
             waitframeNode});
-            targetNodeParent = new System.Windows.Forms.TreeNode("等待目标变量");
+            targetNodeParent = new TreeNode("等待目标变量");
 
             varNameNode.Name = "varName";
             varNameNode.Text = "task1";
@@ -182,7 +178,7 @@ namespace PythonSTGVisualEditor
             treeNode8.Text = "等待帧数";
             targetNodeParent.Name = "TaskTarget";
             targetNodeParent.Text = "等待目标变量";
-            this.TaskAttributeTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            this.TaskAttributeTree.Nodes.AddRange(new TreeNode[] {
             treeNode2,
             treeNode4,
             treeNode6,

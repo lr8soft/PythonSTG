@@ -14,12 +14,12 @@ namespace PythonSTGVisualEditor
     public partial class FormTaskUnit : Form
     {
         public DialogResult Result { get; set; }
-        public TaskUnit UnitResult { get; set; }
         private TaskUnit currentUnit;
         public FormTaskUnit()
         {
             InitializeComponent();
             InitCustomizedComponent();
+
             currentUnit = new TaskUnit();
             currentUnit.unitVarName = "unit1";
             currentUnit.waitFrame = 0;
@@ -70,6 +70,7 @@ namespace PythonSTGVisualEditor
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
+                    Console.WriteLine(form.currentUnit.unitVarName);
                     return form.currentUnit;
                 }
                 else
@@ -101,7 +102,7 @@ namespace PythonSTGVisualEditor
             TreeView treeView = UnitAttributeTree;
             switch (rootName)
             {
-                case "UnitVarName":
+                case "UnitName":
                     currentUnit.unitVarName = value;
                     break;
                 case "UnitRepeatTime":
@@ -118,7 +119,7 @@ namespace PythonSTGVisualEditor
         private System.Windows.Forms.TreeNode waitFrame;
         private void InitCustomizedComponent()
         {
-            varName = new System.Windows.Forms.TreeNode("taskunit1");
+            varName = new System.Windows.Forms.TreeNode("unit1");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("TaskUnit变量名", new System.Windows.Forms.TreeNode[] {
             varName});
             repeatTime = new System.Windows.Forms.TreeNode("1");

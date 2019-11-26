@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PythonSTGVisualEditor
 {
-    public class Task : ICloneable
+    public class Task : ICloneable, IPythonScript
     {
         public string taskVarName { get; set; }
         public int taskDuration { get; set; }
