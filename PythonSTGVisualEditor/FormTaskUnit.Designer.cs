@@ -1,6 +1,6 @@
 ﻿namespace PythonSTGVisualEditor
 {
-    partial class FormTask
+    partial class FormTaskUnit
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTask));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTaskUnit));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.TaskAttributeTree = new System.Windows.Forms.TreeView();
+            this.UnitAttributeTree = new System.Windows.Forms.TreeView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -45,28 +44,30 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.TaskAttributeTree);
+            this.splitContainer1.Panel1.Controls.Add(this.UnitAttributeTree);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
             this.splitContainer1.Size = new System.Drawing.Size(502, 303);
-            this.splitContainer1.SplitterDistance = 362;
-            this.splitContainer1.TabIndex = 1;
+            this.splitContainer1.SplitterDistance = 346;
+            this.splitContainer1.TabIndex = 2;
             // 
-            // TaskAttributeTree
+            // UnitAttributeTree
             // 
-            this.TaskAttributeTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TaskAttributeTree.Location = new System.Drawing.Point(0, 0);
-            this.TaskAttributeTree.Name = "TaskAttributeTree";
-         
-            this.TaskAttributeTree.Size = new System.Drawing.Size(362, 303);
-            this.TaskAttributeTree.TabIndex = 1;
-            this.TaskAttributeTree.DoubleClick += new System.EventHandler(this.TaskAttributeTree_DoubleClick);
+            this.UnitAttributeTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UnitAttributeTree.Location = new System.Drawing.Point(0, 0);
+            this.UnitAttributeTree.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.UnitAttributeTree.Name = "UnitAttributeTree";
+
+            this.UnitAttributeTree.Size = new System.Drawing.Size(346, 303);
+            this.UnitAttributeTree.TabIndex = 1;
+            this.UnitAttributeTree.DoubleClick += new System.EventHandler(this.UnitAttributeTree_DoubleClick);
             // 
             // flowLayoutPanel1
             // 
@@ -74,8 +75,9 @@
             this.flowLayoutPanel1.Controls.Add(this.btnCancel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(136, 303);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(152, 303);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btnSubmit
@@ -83,9 +85,10 @@
             this.btnSubmit.AutoSize = true;
             this.btnSubmit.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSubmit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSubmit.Location = new System.Drawing.Point(3, 3);
+            this.btnSubmit.Location = new System.Drawing.Point(3, 4);
+            this.btnSubmit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(129, 54);
+            this.btnSubmit.Size = new System.Drawing.Size(145, 72);
             this.btnSubmit.TabIndex = 1;
             this.btnSubmit.Text = "提交";
             this.btnSubmit.UseVisualStyleBackColor = true;
@@ -96,15 +99,16 @@
             this.btnCancel.AutoSize = true;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCancel.Location = new System.Drawing.Point(3, 63);
+            this.btnCancel.Location = new System.Drawing.Point(3, 84);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(129, 52);
+            this.btnCancel.Size = new System.Drawing.Size(145, 69);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // FormTask
+            // FormTaskUnit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -113,8 +117,8 @@
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "FormTask";
-            this.Text = " Task 设置";
+            this.Name = "FormTaskUnit";
+            this.Text = "TaskUnit 设置";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
@@ -127,10 +131,9 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView TaskAttributeTree;
+        private System.Windows.Forms.TreeView UnitAttributeTree;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Button btnCancel;
-
     }
 }

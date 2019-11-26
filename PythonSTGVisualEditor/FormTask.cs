@@ -19,6 +19,8 @@ namespace PythonSTGVisualEditor
         public FormTask(Task task)
         {
             InitializeComponent();
+            InitCustomizedComponent();
+
             currentTask = (Task)task.Clone();
 
             varNameNode.Text = currentTask.taskVarName;
@@ -35,6 +37,8 @@ namespace PythonSTGVisualEditor
         public FormTask()
         {
             InitializeComponent();
+            InitCustomizedComponent();
+
             currentTask = new Task();
             currentTask.taskVarName = "task1";
             currentTask.taskDuration = -1;
@@ -136,6 +140,54 @@ namespace PythonSTGVisualEditor
                     return null;
                 }
             }
+        }
+
+
+
+        private TreeNode varNameNode;
+        private System.Windows.Forms.TreeNode durationNode;
+        private System.Windows.Forms.TreeNode intervalNode;
+        private System.Windows.Forms.TreeNode waitframeNode;
+        private System.Windows.Forms.TreeNode targetNodeParent;
+        private void InitCustomizedComponent() {
+            varNameNode = new System.Windows.Forms.TreeNode("task1");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Task变量名", new System.Windows.Forms.TreeNode[] {
+            varNameNode});
+            durationNode = new System.Windows.Forms.TreeNode("-1");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("持续帧数(-1永久持续)", new System.Windows.Forms.TreeNode[] {
+            durationNode});
+            intervalNode = new System.Windows.Forms.TreeNode("0");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("间隔帧数", new System.Windows.Forms.TreeNode[] {
+            intervalNode});
+            waitframeNode = new System.Windows.Forms.TreeNode("0");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("等待帧数", new System.Windows.Forms.TreeNode[] {
+            waitframeNode});
+            targetNodeParent = new System.Windows.Forms.TreeNode("等待目标变量");
+
+            varNameNode.Name = "varName";
+            varNameNode.Text = "task1";
+            treeNode2.Name = "TaskName";
+            treeNode2.Text = "Task变量名";
+            durationNode.Name = "duration";
+            durationNode.Text = "-1";
+            treeNode4.Name = "TaskDuration";
+            treeNode4.Text = "持续帧数(-1永久持续)";
+            intervalNode.Name = "interval";
+            intervalNode.Text = "0";
+            treeNode6.Name = "TaskInterval";
+            treeNode6.Text = "间隔帧数";
+            waitframeNode.Name = "waitFrame";
+            waitframeNode.Text = "0";
+            treeNode8.Name = "TaskWaitFrame";
+            treeNode8.Text = "等待帧数";
+            targetNodeParent.Name = "TaskTarget";
+            targetNodeParent.Text = "等待目标变量";
+            this.TaskAttributeTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4,
+            treeNode6,
+            treeNode8,
+            targetNodeParent});
         }
     }
 }

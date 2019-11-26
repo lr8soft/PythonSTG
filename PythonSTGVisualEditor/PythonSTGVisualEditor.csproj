@@ -85,18 +85,29 @@
     <Compile Include="FormTask.Designer.cs">
       <DependentUpon>FormTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTaskUnit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTaskUnit.Designer.cs">
+      <DependentUpon>FormTaskUnit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecialNode\BulletNode.cs" />
     <Compile Include="SpecialNode\StageNode.cs" />
     <Compile Include="SpecialNode\TaskNode.cs" />
+    <Compile Include="SpecialNode\TaskUnitNode.cs" />
     <Compile Include="Sturcture\Bullet.cs" />
     <Compile Include="Sturcture\Task.cs" />
+    <Compile Include="Sturcture\TaskUnit.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTask.resx">
       <DependentUpon>FormTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTaskUnit.resx">
+      <DependentUpon>FormTaskUnit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

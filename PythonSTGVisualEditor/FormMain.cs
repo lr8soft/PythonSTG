@@ -8,11 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using PythonSTGVisualEditor.Sturcture;
 
 namespace PythonSTGVisualEditor
 {
     public partial class FormMain : Form
     {
+        public static string fileSavePath = null;
         public FormMain()
         {
             InitializeComponent();
@@ -85,16 +87,35 @@ namespace PythonSTGVisualEditor
                             MessageBox.Show("只能在Stage下添加Task节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         break;
-                    default:
-                        if (toolSelectParent.Text == "BulletType" && scriptSelectNode is TaskNode)
+                    case "TaskUnit":
+                        if (scriptSelectNode != null && scriptSelectNode is TaskNode)
                         {
-                            BulletNode bulletNode = new BulletNode("testBullet", toolSelectNode.Text);
-                            scriptSelectNode.Nodes.AddRange(new TreeNode[] {
-                                bulletNode});
+                            TaskUnit taskunit = FormTaskUnit.Execute();
+                            if (taskunit != null)
+                            {
+                                TaskUnitNode taskNode = new TaskUnitNode(taskunit);
+                                scriptSelectNode.Nodes.AddRange(new TreeNode[] {
+                                taskNode});
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("只能在Task下添加Bullet节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("只能在Task下添加TaskUnit节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        break;
+                    default:
+                        if (toolSelectParent.Text == "BulletType")
+                        {
+                            if (scriptSelectNode is TaskUnitNode)
+                            {
+                                BulletNode bulletNode = new BulletNode("testBullet", toolSelectNode.Text);
+                                scriptSelectNode.Nodes.AddRange(new TreeNode[] {
+                                bulletNode});
+                            }
+                            else {
+                                MessageBox.Show("只能在TaskUnit下添加Bullet节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
                         }
                         break;
                 }
@@ -120,6 +141,16 @@ namespace PythonSTGVisualEditor
                     if (newTask != null) {
                         taskNode.storageTask = newTask;
                         taskNode.updateNodeInfo();
+                    }
+                }
+                else if (currentNode is TaskUnitNode)
+                {
+                    TaskUnitNode unitNode = (TaskUnitNode)currentNode;
+                    TaskUnit newUnit = FormTaskUnit.Execute(unitNode.storageUnit);
+                    if (newUnit != null)
+                    {
+                        unitNode.storageUnit = newUnit;
+                        unitNode.updateNodeInfo();
                     }
                 }
             }
@@ -192,6 +223,17 @@ namespace PythonSTGVisualEditor
                 }
             }
             MessageBox.Show(pythonScript, "Generate script",MessageBoxButtons.OK ,MessageBoxIcon.Information);
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+            dialog.Title = "选择文件";
+            dialog.Filter = "PythonSTG工程文件(*.pstgproj)|*.pstgproj";
+            if (dialog.ShowDialog() == DialogResult.OK) {
+                fileSavePath = dialog.FileName;
+            }
         }
     }
 }
