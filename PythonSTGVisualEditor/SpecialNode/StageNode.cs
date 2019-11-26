@@ -12,8 +12,8 @@ namespace PythonSTGVisualEditor.SpecialNode
         private const string stageInitScript = "{0}= XCStage(\"{1}\")\r\n" +
             "{0}.setBackGround(StageBackGround.{2})\r\n" +
             "{0}.setStageRank(StageRank.{3})\r\n";
-        private const string stageAddTaskScript = "{0}.addTask({1})";
-        private const string stageSetMusicScript = "{0}.setBackGroundMusic({1})";
+        private const string stageAddTaskScript = "{0}.addTask({1})\r\n";
+        private const string stageSetMusicScript = "{0}.setBackGroundMusic({1})\r\n";
         public StageNode(string varName, string displayName) : base()
         {
             setNodeInfo(varName, displayName);

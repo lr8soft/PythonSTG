@@ -56,28 +56,28 @@ namespace PythonSTGVisualEditor
             System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Stage Group");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.menuGroup = new System.Windows.Forms.MenuStrip();
-            this.fileFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.撤销UToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.重做RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.剪切TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.复制CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.粘贴PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.测试SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.运行RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.带控制台运行CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.生成BToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.生成Python脚本GToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.检查更新UToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buildToolMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.generatePythonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainContainer = new System.Windows.Forms.SplitContainer();
             this.toolContainer = new System.Windows.Forms.SplitContainer();
             this.ComponentTree = new System.Windows.Forms.TreeView();
@@ -88,9 +88,9 @@ namespace PythonSTGVisualEditor
             this.nodeMoveUp = new System.Windows.Forms.ToolStripMenuItem();
             this.nodeMoveDown = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.剪切ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.复制CToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.粘贴PToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyRToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteRToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuGroup.SuspendLayout();
             this.mainContainer.Panel1.SuspendLayout();
             this.mainContainer.Panel2.SuspendLayout();
@@ -107,11 +107,11 @@ namespace PythonSTGVisualEditor
             this.menuGroup.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.menuGroup.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuGroup.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileFToolStripMenuItem,
-            this.editEToolStripMenuItem,
-            this.测试SToolStripMenuItem,
-            this.生成BToolStripMenuItem,
-            this.帮助HToolStripMenuItem});
+            this.fileToolMenu,
+            this.editToolMenu,
+            this.testToolMenu,
+            this.buildToolMenu,
+            this.helpToolMenu});
             this.menuGroup.Location = new System.Drawing.Point(0, 0);
             this.menuGroup.Name = "menuGroup";
             this.menuGroup.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
@@ -119,160 +119,161 @@ namespace PythonSTGVisualEditor
             this.menuGroup.TabIndex = 1;
             this.menuGroup.Text = "menuStrip1";
             // 
-            // fileFToolStripMenuItem
+            // fileToolMenu
             // 
-            this.fileFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openOToolStripMenuItem,
-            this.saveSToolStripMenuItem,
+            this.fileToolMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.exitXToolStripMenuItem});
-            this.fileFToolStripMenuItem.Name = "fileFToolStripMenuItem";
-            this.fileFToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
-            this.fileFToolStripMenuItem.Text = "文件(&F)";
-            this.fileFToolStripMenuItem.Click += new System.EventHandler(this.fileFToolStripMenuItem_Click);
+            this.exitToolStripMenuItem});
+            this.fileToolMenu.Name = "fileToolMenu";
+            this.fileToolMenu.Size = new System.Drawing.Size(69, 24);
+            this.fileToolMenu.Text = "文件(&F)";
+            this.fileToolMenu.Click += new System.EventHandler(this.fileFToolStripMenuItem_Click);
             // 
-            // openOToolStripMenuItem
+            // openToolStripMenuItem
             // 
-            this.openOToolStripMenuItem.Name = "openOToolStripMenuItem";
-            this.openOToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
-            this.openOToolStripMenuItem.Text = "打开(&O)";
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.openToolStripMenuItem.Text = "打开(&O)";
             // 
-            // saveSToolStripMenuItem
+            // saveToolStripMenuItem
             // 
-            this.saveSToolStripMenuItem.Name = "saveSToolStripMenuItem";
-            this.saveSToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
-            this.saveSToolStripMenuItem.Text = "保存(&S)";
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.saveToolStripMenuItem.Text = "保存(&S)";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.saveAsToolStripMenuItem.Text = "另存为(&A)";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(213, 6);
             // 
-            // exitXToolStripMenuItem
+            // exitToolStripMenuItem
             // 
-            this.exitXToolStripMenuItem.Name = "exitXToolStripMenuItem";
-            this.exitXToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
-            this.exitXToolStripMenuItem.Text = "退出(&X)";
-            this.exitXToolStripMenuItem.Click += new System.EventHandler(this.退出XToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.exitToolStripMenuItem.Text = "退出(&X)";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitProgramme);
             // 
-            // editEToolStripMenuItem
+            // editToolMenu
             // 
-            this.editEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.撤销UToolStripMenuItem,
-            this.重做RToolStripMenuItem,
+            this.editToolMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cancelToolStripMenuItem,
+            this.redoRToolStripMenuItem,
             this.toolStripMenuItem2,
-            this.剪切TToolStripMenuItem,
-            this.复制CToolStripMenuItem,
-            this.粘贴PToolStripMenuItem,
-            this.删除XToolStripMenuItem});
-            this.editEToolStripMenuItem.Name = "editEToolStripMenuItem";
-            this.editEToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
-            this.editEToolStripMenuItem.Text = "编辑(&E)";
+            this.cutToolStripMenuItem,
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.editToolMenu.Name = "editToolMenu";
+            this.editToolMenu.Size = new System.Drawing.Size(69, 24);
+            this.editToolMenu.Text = "编辑(&E)";
             // 
-            // 撤销UToolStripMenuItem
+            // cancelToolStripMenuItem
             // 
-            this.撤销UToolStripMenuItem.Name = "撤销UToolStripMenuItem";
-            this.撤销UToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
-            this.撤销UToolStripMenuItem.Text = "撤销(&U)";
+            this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
+            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.cancelToolStripMenuItem.Text = "撤销(&U)";
             // 
-            // 重做RToolStripMenuItem
+            // redoRToolStripMenuItem
             // 
-            this.重做RToolStripMenuItem.Name = "重做RToolStripMenuItem";
-            this.重做RToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
-            this.重做RToolStripMenuItem.Text = "重做(&R)";
+            this.redoRToolStripMenuItem.Name = "redoRToolStripMenuItem";
+            this.redoRToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.redoRToolStripMenuItem.Text = "重做(&R)";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(213, 6);
             // 
             // 剪切TToolStripMenuItem
             // 
-            this.剪切TToolStripMenuItem.Name = "剪切TToolStripMenuItem";
-            this.剪切TToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
-            this.剪切TToolStripMenuItem.Text = "剪切(&T)";
+            this.cutToolStripMenuItem.Name = "剪切TToolStripMenuItem";
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.cutToolStripMenuItem.Text = "剪切(&T)";
             // 
             // 复制CToolStripMenuItem
             // 
-            this.复制CToolStripMenuItem.Name = "复制CToolStripMenuItem";
-            this.复制CToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
-            this.复制CToolStripMenuItem.Text = "复制(&C)";
-            this.复制CToolStripMenuItem.Click += new System.EventHandler(this.复制CToolStripMenuItem_Click);
+            this.copyToolStripMenuItem.Name = "复制CToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.copyToolStripMenuItem.Text = "复制(&C)";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copy);
             // 
             // 粘贴PToolStripMenuItem
             // 
-            this.粘贴PToolStripMenuItem.Name = "粘贴PToolStripMenuItem";
-            this.粘贴PToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
-            this.粘贴PToolStripMenuItem.Text = "粘贴(&P)";
+            this.pasteToolStripMenuItem.Name = "粘贴PToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.pasteToolStripMenuItem.Text = "粘贴(&P)";
             // 
             // 删除XToolStripMenuItem
             // 
-            this.删除XToolStripMenuItem.Name = "删除XToolStripMenuItem";
-            this.删除XToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
-            this.删除XToolStripMenuItem.Text = "删除(&D)";
+            this.deleteToolStripMenuItem.Name = "删除XToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.deleteToolStripMenuItem.Text = "删除(&D)";
             // 
-            // 测试SToolStripMenuItem
+            // testToolMenu
             // 
-            this.测试SToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.运行RToolStripMenuItem,
-            this.带控制台运行CToolStripMenuItem});
-            this.测试SToolStripMenuItem.Name = "测试SToolStripMenuItem";
-            this.测试SToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
-            this.测试SToolStripMenuItem.Text = "测试(&S)";
+            this.testToolMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.runToolStripMenuItem,
+            this.runConsoleToolStripMenuItem});
+            this.testToolMenu.Name = "testToolMenu";
+            this.testToolMenu.Size = new System.Drawing.Size(70, 24);
+            this.testToolMenu.Text = "测试(&S)";
             // 
             // 运行RToolStripMenuItem
             // 
-            this.运行RToolStripMenuItem.Name = "运行RToolStripMenuItem";
-            this.运行RToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
-            this.运行RToolStripMenuItem.Text = "运行(&R)";
+            this.runToolStripMenuItem.Name = "运行RToolStripMenuItem";
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.runToolStripMenuItem.Text = "运行(&R)";
             // 
             // 带控制台运行CToolStripMenuItem
             // 
-            this.带控制台运行CToolStripMenuItem.Name = "带控制台运行CToolStripMenuItem";
-            this.带控制台运行CToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
-            this.带控制台运行CToolStripMenuItem.Text = "带控制台运行(&C)";
+            this.runConsoleToolStripMenuItem.Name = "带控制台运行CToolStripMenuItem";
+            this.runConsoleToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.runConsoleToolStripMenuItem.Text = "带控制台运行(&C)";
             // 
-            // 生成BToolStripMenuItem
+            // buildToolMenu
             // 
-            this.生成BToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.生成Python脚本GToolStripMenuItem});
-            this.生成BToolStripMenuItem.Name = "生成BToolStripMenuItem";
-            this.生成BToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
-            this.生成BToolStripMenuItem.Text = "生成(&B)";
+            this.buildToolMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generatePythonToolStripMenuItem});
+            this.buildToolMenu.Name = "buildToolMenu";
+            this.buildToolMenu.Size = new System.Drawing.Size(70, 24);
+            this.buildToolMenu.Text = "生成(&B)";
             // 
             // 生成Python脚本GToolStripMenuItem
             // 
-            this.生成Python脚本GToolStripMenuItem.Name = "生成Python脚本GToolStripMenuItem";
-            this.生成Python脚本GToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.生成Python脚本GToolStripMenuItem.Text = "生成Python脚本(&G)";
+            this.generatePythonToolStripMenuItem.Name = "生成Python脚本GToolStripMenuItem";
+            this.generatePythonToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.generatePythonToolStripMenuItem.Text = "生成Python脚本(&G)";
+            this.generatePythonToolStripMenuItem.Click += new System.EventHandler(this.generatePythonScript);
             // 
-            // 帮助HToolStripMenuItem
+            // helpToolMenu
             // 
-            this.帮助HToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.检查更新UToolStripMenuItem,
-            this.关于AToolStripMenuItem});
-            this.帮助HToolStripMenuItem.Name = "帮助HToolStripMenuItem";
-            this.帮助HToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
-            this.帮助HToolStripMenuItem.Text = "帮助(&H)";
+            this.helpToolMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.helpToolMenu.Name = "helpToolMenu";
+            this.helpToolMenu.Size = new System.Drawing.Size(73, 24);
+            this.helpToolMenu.Text = "帮助(&H)";
             // 
             // 检查更新UToolStripMenuItem
             // 
-            this.检查更新UToolStripMenuItem.Name = "检查更新UToolStripMenuItem";
-            this.检查更新UToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
-            this.检查更新UToolStripMenuItem.Text = "检查更新(&U)";
+            this.updateToolStripMenuItem.Name = "检查更新UToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.updateToolStripMenuItem.Text = "检查更新(&U)";
             // 
             // 关于AToolStripMenuItem
             // 
-            this.关于AToolStripMenuItem.Name = "关于AToolStripMenuItem";
-            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
-            this.关于AToolStripMenuItem.Text = "关于(&A)";
+            this.aboutToolStripMenuItem.Name = "关于AToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.aboutToolStripMenuItem.Text = "关于(&A)";
             // 
             // mainContainer
             // 
@@ -402,9 +403,9 @@ namespace PythonSTGVisualEditor
             this.nodeMoveUp,
             this.nodeMoveDown,
             this.toolStripMenuItem3,
-            this.剪切ToolStripMenuItem,
-            this.复制CToolStripMenuItem1,
-            this.粘贴PToolStripMenuItem1});
+            this.cutRToolStripMenuItem,
+            this.copyRToolStripMenuItem1,
+            this.pasteRToolStripMenuItem1});
             this.nodeRightClickMenu.Name = "nodeRightClickMenu";
             this.nodeRightClickMenu.Size = new System.Drawing.Size(130, 130);
             // 
@@ -429,21 +430,21 @@ namespace PythonSTGVisualEditor
             // 
             // 剪切ToolStripMenuItem
             // 
-            this.剪切ToolStripMenuItem.Name = "剪切ToolStripMenuItem";
-            this.剪切ToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
-            this.剪切ToolStripMenuItem.Text = "剪切(&T)";
+            this.cutRToolStripMenuItem.Name = "剪切ToolStripMenuItem";
+            this.cutRToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.cutRToolStripMenuItem.Text = "剪切(&T)";
             // 
             // 复制CToolStripMenuItem1
             // 
-            this.复制CToolStripMenuItem1.Name = "复制CToolStripMenuItem1";
-            this.复制CToolStripMenuItem1.Size = new System.Drawing.Size(129, 24);
-            this.复制CToolStripMenuItem1.Text = "复制(&C)";
+            this.copyRToolStripMenuItem1.Name = "复制CToolStripMenuItem1";
+            this.copyRToolStripMenuItem1.Size = new System.Drawing.Size(129, 24);
+            this.copyRToolStripMenuItem1.Text = "复制(&C)";
             // 
             // 粘贴PToolStripMenuItem1
             // 
-            this.粘贴PToolStripMenuItem1.Name = "粘贴PToolStripMenuItem1";
-            this.粘贴PToolStripMenuItem1.Size = new System.Drawing.Size(129, 24);
-            this.粘贴PToolStripMenuItem1.Text = "粘贴(&P)";
+            this.pasteRToolStripMenuItem1.Name = "粘贴PToolStripMenuItem1";
+            this.pasteRToolStripMenuItem1.Size = new System.Drawing.Size(129, 24);
+            this.pasteRToolStripMenuItem1.Text = "粘贴(&P)";
             // 
             // FormMain
             // 
@@ -475,41 +476,41 @@ namespace PythonSTGVisualEditor
 
         #endregion
         private System.Windows.Forms.MenuStrip menuGroup;
-        private System.Windows.Forms.ToolStripMenuItem fileFToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openOToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolMenu;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem exitXToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editEToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 测试SToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 帮助HToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 撤销UToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 重做RToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolMenu;
+        private System.Windows.Forms.ToolStripMenuItem testToolMenu;
+        private System.Windows.Forms.ToolStripMenuItem helpToolMenu;
+        private System.Windows.Forms.ToolStripMenuItem cancelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem redoRToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem 剪切TToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 复制CToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 粘贴PToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 删除XToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.SplitContainer mainContainer;
         private System.Windows.Forms.TreeView scriptContext;
         private System.Windows.Forms.SplitContainer toolContainer;
         private System.Windows.Forms.GroupBox AttributeBox;
         private System.Windows.Forms.TreeView ComponentTree;
         private System.Windows.Forms.ListView AttributeList;
-        private System.Windows.Forms.ToolStripMenuItem 运行RToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 带控制台运行CToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 检查更新UToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 关于AToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 生成BToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 生成Python脚本GToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runConsoleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buildToolMenu;
+        private System.Windows.Forms.ToolStripMenuItem generatePythonToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip nodeRightClickMenu;
         private System.Windows.Forms.ToolStripMenuItem nodeMoveUp;
         private System.Windows.Forms.ToolStripMenuItem nodeMoveDown;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem 剪切ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 复制CToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 粘贴PToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem cutRToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyRToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem pasteRToolStripMenuItem1;
     }
 }
 

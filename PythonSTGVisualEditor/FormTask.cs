@@ -19,7 +19,17 @@ namespace PythonSTGVisualEditor
         public FormTask(Task task)
         {
             InitializeComponent();
-            currentTask = task;
+            currentTask = (Task)task.Clone();
+
+            varNameNode.Text = currentTask.taskVarName;
+            durationNode.Text = currentTask.taskDuration.ToString();
+            intervalNode.Text = currentTask.taskInterval.ToString();
+            waitframeNode.Text = currentTask.taskWaitFrame.ToString();
+
+            foreach (string varName in task.targetVarName) {
+                targetNodeParent.Nodes.AddRange(new TreeNode[] {
+                new TreeNode(varName)});
+            }
         }
 
         public FormTask()
@@ -32,7 +42,7 @@ namespace PythonSTGVisualEditor
             currentTask.taskWaitFrame = 0;
         }
 
-        private void updateTaskInfo(string rootName, string value) {
+        private void updateTaskInfo(string rootName, string lastValue, string value) {
             TreeView treeView = TaskAttributeTree;
             switch (rootName) {
                 case "TaskName":
@@ -48,6 +58,7 @@ namespace PythonSTGVisualEditor
                     currentTask.taskWaitFrame = int.Parse(value);
                     break;
                 case "TaskTarget":
+                    currentTask.targetVarName.Remove(lastValue);
                     currentTask.targetVarName.Add(value);
                     break;
 
@@ -64,8 +75,9 @@ namespace PythonSTGVisualEditor
                 string value = Interaction.InputBox("输入值:", "Input value", currentValue);
                 if (value.Length > 0)
                 {
+                    string lastValue = node.Text;
                     node.Text = value;
-                    updateTaskInfo(node.Parent.Name, value);
+                    updateTaskInfo(node.Parent.Name, lastValue, value);
                 }
             }
             else {
@@ -74,7 +86,7 @@ namespace PythonSTGVisualEditor
                     string value = Interaction.InputBox("输入值:", "Input value");
                     if (value.Length > 0) {
                         node.Nodes.AddRange(new TreeNode[] { new TreeNode(value) });
-                        updateTaskInfo(node.Name, value);
+                        updateTaskInfo(node.Name, null, value);
                     }
                 }
             }
@@ -97,6 +109,22 @@ namespace PythonSTGVisualEditor
         public static Task Execute()
         {
             using (var form = new FormTask())
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    return form.currentTask;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static Task Execute(Task task)
+        {
+            using (var form = new FormTask(task))
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)

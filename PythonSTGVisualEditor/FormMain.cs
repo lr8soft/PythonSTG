@@ -33,7 +33,7 @@ namespace PythonSTGVisualEditor
 
         }
 
-        private void 退出XToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitProgramme(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -104,6 +104,13 @@ namespace PythonSTGVisualEditor
                     if (varName.Length > 0 && displayName.Length > 0) {
                         stageNode.setNodeInfo(varName, displayName);
                     }
+                } else if (currentNode is TaskNode) {
+                    TaskNode taskNode = (TaskNode)currentNode;
+                    Task newTask = FormTask.Execute(taskNode.storageTask);
+                    if (newTask != null) {
+                        taskNode.storageTask = newTask;
+                        taskNode.updateNodeInfo();
+                    }
                 }
             }
         }
@@ -138,9 +145,33 @@ namespace PythonSTGVisualEditor
             }
         }
 
-        private void 复制CToolStripMenuItem_Click(object sender, EventArgs e)
+        private void copy(object sender, EventArgs e)
         {
 
+        }
+
+        private void generatePythonScript(object sender, EventArgs e)
+        {
+            string pythonScript = "";
+
+            TreeView ScriptContext = scriptContext;
+            TreeNode treeNode = ScriptContext.SelectedNode;
+            if (treeNode!=null) {
+                foreach (TreeNode node in treeNode.Nodes) {
+                    if (node is StageNode) {
+                        StageNode stageNode = (StageNode)node;
+                        pythonScript += stageNode.getInitScript();
+
+                        foreach (TreeNode taskNodeTemp in stageNode.Nodes) {
+                            if (taskNodeTemp is TaskNode) {
+                                TaskNode taskNode = (TaskNode)taskNodeTemp;
+                                pythonScript += taskNode.storageTask.GetInitScript();
+                            }
+                        }
+                    }
+                }
+            }
+            MessageBox.Show(pythonScript, "Generate script",MessageBoxButtons.OK ,MessageBoxIcon.Information);
         }
     }
 }

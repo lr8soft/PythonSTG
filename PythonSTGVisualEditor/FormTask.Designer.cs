@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("task1");
+            varNameNode = new System.Windows.Forms.TreeNode("task1");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Task变量名", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("-1");
+            varNameNode});
+            durationNode = new System.Windows.Forms.TreeNode("-1");
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("持续帧数(-1永久持续)", new System.Windows.Forms.TreeNode[] {
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("0");
+            durationNode});
+            intervalNode = new System.Windows.Forms.TreeNode("0");
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("间隔帧数", new System.Windows.Forms.TreeNode[] {
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("0");
+            intervalNode});
+            waitframeNode = new System.Windows.Forms.TreeNode("0");
             System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("等待帧数", new System.Windows.Forms.TreeNode[] {
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("等待目标变量");
+            waitframeNode});
+            targetNodeParent = new System.Windows.Forms.TreeNode("等待目标变量");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTask));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TaskAttributeTree = new System.Windows.Forms.TreeView();
@@ -75,30 +75,30 @@
             this.TaskAttributeTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TaskAttributeTree.Location = new System.Drawing.Point(0, 0);
             this.TaskAttributeTree.Name = "TaskAttributeTree";
-            treeNode1.Name = "varName";
-            treeNode1.Text = "task1";
+            varNameNode.Name = "varName";
+            varNameNode.Text = "task1";
             treeNode2.Name = "TaskName";
             treeNode2.Text = "Task变量名";
-            treeNode3.Name = "duration";
-            treeNode3.Text = "-1";
+            durationNode.Name = "duration";
+            durationNode.Text = "-1";
             treeNode4.Name = "TaskDuration";
             treeNode4.Text = "持续帧数(-1永久持续)";
-            treeNode5.Name = "interval";
-            treeNode5.Text = "0";
+            intervalNode.Name = "interval";
+            intervalNode.Text = "0";
             treeNode6.Name = "TaskInterval";
             treeNode6.Text = "间隔帧数";
-            treeNode7.Name = "waitFrame";
-            treeNode7.Text = "0";
+            waitframeNode.Name = "waitFrame";
+            waitframeNode.Text = "0";
             treeNode8.Name = "TaskWaitFrame";
             treeNode8.Text = "等待帧数";
-            treeNode9.Name = "TaskTarget";
-            treeNode9.Text = "等待目标变量";
+            targetNodeParent.Name = "TaskTarget";
+            targetNodeParent.Text = "等待目标变量";
             this.TaskAttributeTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode4,
             treeNode6,
             treeNode8,
-            treeNode9});
+            targetNodeParent});
             this.TaskAttributeTree.Size = new System.Drawing.Size(361, 403);
             this.TaskAttributeTree.TabIndex = 1;
             this.TaskAttributeTree.DoubleClick += new System.EventHandler(this.TaskAttributeTree_DoubleClick);
@@ -166,5 +166,11 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Button btnCancel;
+
+        private System.Windows.Forms.TreeNode varNameNode;
+        private System.Windows.Forms.TreeNode durationNode;
+        private System.Windows.Forms.TreeNode intervalNode;
+        private System.Windows.Forms.TreeNode waitframeNode;
+        private System.Windows.Forms.TreeNode targetNodeParent;
     }
 }
