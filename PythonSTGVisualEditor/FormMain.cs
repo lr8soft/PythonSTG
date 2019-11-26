@@ -214,7 +214,7 @@ namespace PythonSTGVisualEditor
                                         TaskUnitNode taskUnitNode = (TaskUnitNode)unitNodeTemp;
                                         pythonScript += taskUnitNode.storageUnit.GetInitScript();
 
-                                        foreach (TreeNode bulletNodeTemp in taskNode.Nodes)
+                                        foreach (TreeNode bulletNodeTemp in unitNodeTemp.Nodes)
                                         {
                                             if (bulletNodeTemp is BulletNode)
                                             {
