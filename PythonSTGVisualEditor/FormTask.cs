@@ -15,6 +15,7 @@ namespace PythonSTGVisualEditor
         public DialogResult Result { get; set; }
 
         private Task currentTask;
+        private static long taskCount = 0;
         public FormTask(Task task)
         {
             InitializeComponent();
@@ -39,7 +40,7 @@ namespace PythonSTGVisualEditor
             InitCustomizedComponent();
 
             currentTask = new Task();
-            currentTask.taskVarName = "task1";
+            currentTask.taskVarName = "task" + (taskCount++);
             currentTask.taskDuration = -1;
             currentTask.taskInterval = 0;
             currentTask.taskWaitFrame = 0;
@@ -146,7 +147,7 @@ namespace PythonSTGVisualEditor
         private TreeNode waitframeNode;
         private TreeNode targetNodeParent;
         private void InitCustomizedComponent() {
-            varNameNode = new TreeNode("task1");
+            varNameNode = new TreeNode("task0");
             TreeNode treeNode2 = new TreeNode("Task变量名", new TreeNode[] {
             varNameNode});
             durationNode = new TreeNode("-1");
@@ -161,7 +162,7 @@ namespace PythonSTGVisualEditor
             targetNodeParent = new TreeNode("等待目标变量");
 
             varNameNode.Name = "varName";
-            varNameNode.Text = "task1";
+            varNameNode.Text = "task0";
             treeNode2.Name = "TaskName";
             treeNode2.Text = "Task变量名";
             durationNode.Name = "duration";

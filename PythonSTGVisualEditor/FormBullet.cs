@@ -15,12 +15,14 @@ namespace PythonSTGVisualEditor
     {
         public DialogResult Result { get; set; }
         private Bullet currentBullet;
+
+        private static long bulletCount = 0;
         public FormBullet(string pythonClassName)
         {
             InitializeComponent();
             InitCustomizedComponent();
 
-            currentBullet = new Bullet("testBullet", pythonClassName);
+            currentBullet = new Bullet("testBullet" + (bulletCount++), pythonClassName);
             currentBullet.velocity = 1.0f;
             currentBullet.Acceleration = 0.0f;
             currentBullet.angle = 270.0f;
@@ -149,7 +151,7 @@ namespace PythonSTGVisualEditor
 
         private TreeNode varName, className, velocity, acceleration, angle, angleVelocity, aimToPlayer, color, reBound, posX, posY;
         private void InitCustomizedComponent() {
-            varName = new System.Windows.Forms.TreeNode("testBullet");
+            varName = new System.Windows.Forms.TreeNode("testBullet0");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("变量名称", new System.Windows.Forms.TreeNode[] {
             varName});
             className = new System.Windows.Forms.TreeNode("");
@@ -187,7 +189,7 @@ namespace PythonSTGVisualEditor
             posY});
 
             varName.Name = "varName";
-            varName.Text = "testBullet";
+            varName.Text = "testBullet0";
             treeNode2.Name = "节点1";
             treeNode2.Text = "变量名称";
             className.Name = "className";

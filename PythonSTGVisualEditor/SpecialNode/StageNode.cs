@@ -14,6 +14,9 @@ namespace PythonSTGVisualEditor.SpecialNode
             "{0}.setStageRank(StageRank.{3})\r\n";
         private const string stageAddTaskScript = "{0}.addTask({1})\r\n";
         private const string stageSetMusicScript = "{0}.setBackGroundMusic({1})\r\n";
+
+        private const string stageFuncDefine = "def setup{0}():\r\n";
+        private const string stageFuncEndDefine = "return {0}\r\n";
         public StageNode(string varName, string displayName) : base()
         {
             setNodeInfo(varName, displayName);
@@ -30,6 +33,15 @@ namespace PythonSTGVisualEditor.SpecialNode
 
         public void setBackground(string info) {
             stageBackground = info;
+        }
+
+
+        public string getFuncInitScript() {
+            return string.Format(stageFuncDefine, stageVarName);
+        }
+
+        public string getFuncEndInitScript() {
+            return string.Format(stageFuncEndDefine, stageVarName);
         }
 
         public string getInitScript() {

@@ -79,6 +79,7 @@
     <Compile Include="FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormatHelper.cs" />
     <Compile Include="FormBullet.cs">
       <SubType>Form</SubType>
     </Compile>

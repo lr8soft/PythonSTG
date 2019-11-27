@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using PythonSTGVisualEditor.Sturcture;
+using System.IO;
 
 namespace PythonSTGVisualEditor
 {
@@ -205,7 +206,7 @@ namespace PythonSTGVisualEditor
 
         }
 
-        private string generatePythonScript()
+        private string generatePythonScript(int tabCount)
         {
             string pythonScript = "";
 
@@ -215,37 +216,45 @@ namespace PythonSTGVisualEditor
                 foreach (TreeNode node in treeNode.Nodes) {
                     if (node is StageNode) {
                         StageNode stageNode = (StageNode)node;
-                        pythonScript += stageNode.getInitScript();
+                        if (tabCount == 0)
+                        {
+                            pythonScript += stageNode.getFuncInitScript();
+                        }
+                        else {
+                            pythonScript += FormatHelper.getFormatScript(stageNode.getFuncInitScript(), tabCount - 1);
+                        }
+                        pythonScript += FormatHelper.getFormatScript(stageNode.getInitScript(), tabCount);
 
                         foreach (TreeNode taskNodeTemp in stageNode.Nodes)
                         {
                             if (taskNodeTemp is TaskNode)
                             {
                                 TaskNode taskNode = (TaskNode)taskNodeTemp;
-                                pythonScript += taskNode.storageTask.GetInitScript();
+                                pythonScript += FormatHelper.getFormatScript(taskNode.storageTask.GetInitScript(), tabCount);
 
                                 foreach (TreeNode unitNodeTemp in taskNode.Nodes)
                                 {
                                     if (unitNodeTemp is TaskUnitNode) {
                                         TaskUnitNode taskUnitNode = (TaskUnitNode)unitNodeTemp;
-                                        pythonScript += taskUnitNode.storageUnit.GetInitScript();
+                                        pythonScript += FormatHelper.getFormatScript(taskUnitNode.storageUnit.GetInitScript(), tabCount);
 
                                         foreach (TreeNode bulletNodeTemp in unitNodeTemp.Nodes)
                                         {
                                             if (bulletNodeTemp is BulletNode)
                                             {
                                                 BulletNode bulletNode = (BulletNode)bulletNodeTemp;
-                                                pythonScript += bulletNode.currentBullet.GetInitScript();
-                                                pythonScript += taskUnitNode.storageUnit.GetAddBulletScript(bulletNode.currentBullet.getVarName());
+                                                pythonScript += FormatHelper.getFormatScript(bulletNode.currentBullet.GetInitScript(), tabCount);
+                                                pythonScript += FormatHelper.getFormatScript(taskUnitNode.storageUnit.GetAddBulletScript(bulletNode.currentBullet.getVarName()), tabCount);
                                             }
                                         }
-                                        pythonScript += taskNode.storageTask.GetAddUnitScript(taskUnitNode.storageUnit.unitVarName);
+                                        pythonScript += FormatHelper.getFormatScript(taskNode.storageTask.GetAddUnitScript(taskUnitNode.storageUnit.unitVarName), tabCount); ;
                                     }
                                 }
-                                pythonScript += stageNode.getAddTaskScript(taskNode.storageTask.taskVarName);
+                                pythonScript += FormatHelper.getFormatScript(stageNode.getAddTaskScript(taskNode.storageTask.taskVarName), tabCount);
                             }
                            
                         }
+                        pythonScript += FormatHelper.getFormatScript(stageNode.getFuncEndInitScript(), tabCount);
                     }
                 }
             }
@@ -303,7 +312,48 @@ namespace PythonSTGVisualEditor
 
         private void generatePythonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(generatePythonScript());
+            
+            if (pystgScriptPath == null)
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.Description = "选择PythonSTG下的Script文件夹";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (!string.IsNullOrEmpty(dialog.SelectedPath) && dialog.SelectedPath.IndexOf("script") != -1)
+                    {
+                        pystgScriptPath = dialog.SelectedPath;
+                        Console.WriteLine(pystgScriptPath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("请选择PythonSTG下的Script文件夹！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
+            if (pystgScriptPath != null)
+            {
+                string pythonScript = generatePythonScript(0);
+                FileStream fileStream = new FileStream(pystgScriptPath + "/CustomStage.py", FileMode.Create);
+                StreamWriter sr = new StreamWriter(fileStream, Encoding.Default);
+                string info = "import random\r\n" +
+                "from .Bullet.Bullet import BulletColor\r\n" +
+                "from .Bullet.CircleBullet import CircleBullet\r\n" +
+                "from .Bullet.HugeBullet import HugeBullet\r\n" +
+                "from .Bullet.RiceBullet import RiceBullet\r\n" +
+                "from .Bullet.OvalBullet import OvalBullet\r\n" +
+                "from .Bullet.CardBullet import CardBullet\r\n" +
+                "from .Stage.Task import Task, TaskUnit\r\n" +
+                "from .Stage.Enemy.FairyEnemy import FairyEnemy, EnemyColor, DropItem\r\n" +
+                "from .Stage.Enemy.DarkButterflyFairy import DarkButterflyFairyEnemy\r\n" +
+                "from .Stage.XCStage import XCStage, StageRank, StageBackGround\r\n" +
+                "from .Stage.Boss import Boss, SpellCard\r\n";
+
+                sr.WriteLine(info);
+                sr.WriteLine(pythonScript);
+
+                sr.Close();
+            }
         }
     }
 }

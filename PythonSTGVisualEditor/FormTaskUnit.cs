@@ -15,13 +15,15 @@ namespace PythonSTGVisualEditor
     {
         public DialogResult Result { get; set; }
         private TaskUnit currentUnit;
+
+        private static long unitCount = 0;
         public FormTaskUnit()
         {
             InitializeComponent();
             InitCustomizedComponent();
 
             currentUnit = new TaskUnit();
-            currentUnit.unitVarName = "unit1";
+            currentUnit.unitVarName = "unit" + (unitCount++);
             currentUnit.waitFrame = 0;
             currentUnit.repeatTime = 1;
         }

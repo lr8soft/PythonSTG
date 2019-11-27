@@ -55,7 +55,10 @@ namespace PythonSTGVisualEditor
             System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("EnemyType", new System.Windows.Forms.TreeNode[] {
             treeNode12,
             treeNode13});
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Stage Group");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("for语句");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("LogicalStruct", new System.Windows.Forms.TreeNode[] {
+            treeNode15});
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Stage Group");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.menuGroup = new System.Windows.Forms.MenuStrip();
             this.fileToolMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,32 +140,32 @@ namespace PythonSTGVisualEditor
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.openToolStripMenuItem.Text = "打开(&O)";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.saveToolStripMenuItem.Text = "保存(&S)";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.saveAsToolStripMenuItem.Text = "另存为(&A)";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(213, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.exitToolStripMenuItem.Text = "退出(&X)";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitProgramme);
             // 
@@ -183,43 +186,43 @@ namespace PythonSTGVisualEditor
             // cancelToolStripMenuItem
             // 
             this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
-            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.cancelToolStripMenuItem.Text = "撤销(&U)";
             // 
             // redoRToolStripMenuItem
             // 
             this.redoRToolStripMenuItem.Name = "redoRToolStripMenuItem";
-            this.redoRToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.redoRToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.redoRToolStripMenuItem.Text = "重做(&R)";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(213, 6);
             // 
             // cutToolStripMenuItem
             // 
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.cutToolStripMenuItem.Text = "剪切(&T)";
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.copyToolStripMenuItem.Text = "复制(&C)";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copy);
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.pasteToolStripMenuItem.Text = "粘贴(&P)";
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.deleteToolStripMenuItem.Text = "删除(&D)";
             // 
             // testToolMenu
@@ -234,14 +237,14 @@ namespace PythonSTGVisualEditor
             // runToolStripMenuItem
             // 
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.runToolStripMenuItem.Text = "运行(&R)";
             this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
             // 
             // runConsoleToolStripMenuItem
             // 
             this.runConsoleToolStripMenuItem.Name = "runConsoleToolStripMenuItem";
-            this.runConsoleToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
+            this.runConsoleToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.runConsoleToolStripMenuItem.Text = "带控制台运行(&C)";
             // 
             // buildToolMenu
@@ -271,13 +274,13 @@ namespace PythonSTGVisualEditor
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.updateToolStripMenuItem.Text = "检查更新(&U)";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.aboutToolStripMenuItem.Text = "关于(&A)";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -354,11 +357,16 @@ namespace PythonSTGVisualEditor
             treeNode13.Text = "ButterflyFairyEnemy";
             treeNode14.Name = "EnemyTypeRoot";
             treeNode14.Text = "EnemyType";
+            treeNode15.Name = "forNode";
+            treeNode15.Text = "for语句";
+            treeNode16.Name = "LogicalStructRoot";
+            treeNode16.Text = "LogicalStruct";
             this.ComponentTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode5,
             treeNode11,
-            treeNode14});
+            treeNode14,
+            treeNode16});
             this.ComponentTree.Size = new System.Drawing.Size(209, 281);
             this.ComponentTree.TabIndex = 0;
             this.ComponentTree.DoubleClick += new System.EventHandler(this.ToolTree_DoubleClickEvent);
@@ -396,10 +404,10 @@ namespace PythonSTGVisualEditor
             this.scriptContext.Location = new System.Drawing.Point(0, 0);
             this.scriptContext.Margin = new System.Windows.Forms.Padding(34, 40, 34, 40);
             this.scriptContext.Name = "scriptContext";
-            treeNode15.Name = "StageGroupRoot";
-            treeNode15.Text = "Stage Group";
+            treeNode17.Name = "StageGroupRoot";
+            treeNode17.Text = "Stage Group";
             this.scriptContext.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode15});
+            treeNode17});
             this.scriptContext.Size = new System.Drawing.Size(660, 532);
             this.scriptContext.TabIndex = 0;
             this.scriptContext.DoubleClick += new System.EventHandler(this.ScriptTree_DoubleClick);
