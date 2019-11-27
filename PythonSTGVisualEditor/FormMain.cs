@@ -15,6 +15,7 @@ namespace PythonSTGVisualEditor
     public partial class FormMain : Form
     {
         public static string fileSavePath = null;
+        public static string pystgScriptPath = null;
         public FormMain()
         {
             InitializeComponent();
@@ -204,7 +205,7 @@ namespace PythonSTGVisualEditor
 
         }
 
-        private void generatePythonScript(object sender, EventArgs e)
+        private string generatePythonScript()
         {
             string pythonScript = "";
 
@@ -216,13 +217,15 @@ namespace PythonSTGVisualEditor
                         StageNode stageNode = (StageNode)node;
                         pythonScript += stageNode.getInitScript();
 
-                        foreach (TreeNode taskNodeTemp in stageNode.Nodes) {
+                        foreach (TreeNode taskNodeTemp in stageNode.Nodes)
+                        {
                             if (taskNodeTemp is TaskNode)
                             {
                                 TaskNode taskNode = (TaskNode)taskNodeTemp;
                                 pythonScript += taskNode.storageTask.GetInitScript();
 
-                                foreach (TreeNode unitNodeTemp in taskNode.Nodes) {
+                                foreach (TreeNode unitNodeTemp in taskNode.Nodes)
+                                {
                                     if (unitNodeTemp is TaskUnitNode) {
                                         TaskUnitNode taskUnitNode = (TaskUnitNode)unitNodeTemp;
                                         pythonScript += taskUnitNode.storageUnit.GetInitScript();
@@ -233,16 +236,20 @@ namespace PythonSTGVisualEditor
                                             {
                                                 BulletNode bulletNode = (BulletNode)bulletNodeTemp;
                                                 pythonScript += bulletNode.currentBullet.GetInitScript();
+                                                pythonScript += taskUnitNode.storageUnit.GetAddBulletScript(bulletNode.currentBullet.getVarName());
                                             }
                                         }
+                                        pythonScript += taskNode.storageTask.GetAddUnitScript(taskUnitNode.storageUnit.unitVarName);
                                     }
                                 }
+                                pythonScript += stageNode.getAddTaskScript(taskNode.storageTask.taskVarName);
                             }
+                           
                         }
                     }
                 }
             }
-            MessageBox.Show(pythonScript, "Generate script",MessageBoxButtons.OK ,MessageBoxIcon.Information);
+            return pythonScript;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -260,6 +267,43 @@ namespace PythonSTGVisualEditor
         {
             FormAbout formAbout = new FormAbout();
             formAbout.Show();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fileSavePath == null) {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "PythonSTG工程文件(*.pstgproj)|*.pstgproj";
+                saveFileDialog.Title = "保存文件";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileSavePath = saveFileDialog.FileName;
+                    Console.WriteLine(fileSavePath);
+                }
+            }
+        }
+
+        private void runToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pystgScriptPath == null) {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.Description = "选择PythonSTG下的Script文件夹";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                    if (!string.IsNullOrEmpty(dialog.SelectedPath) && dialog.SelectedPath.IndexOf("script") != -1)
+                    {
+                        pystgScriptPath = dialog.SelectedPath;
+                        Console.WriteLine(pystgScriptPath);
+                    }
+                    else {
+                        MessageBox.Show("请选择PythonSTG下的Script文件夹！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void generatePythonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(generatePythonScript());
         }
     }
 }

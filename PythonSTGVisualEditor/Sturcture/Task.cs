@@ -15,7 +15,7 @@ namespace PythonSTGVisualEditor
 
         private const string initPythonScript = "{0}=Task(duration={1}, intervalFrame={2}, waitFrame={3})\r\n";
         private const string initDependScript = "{0}.addTargetUuid({1}.getUuid())\r\n";
-        private const string addUnitScript = "{0}.addUnit({1})";
+        private const string addUnitScript = "{0}.addUnit({1})\r\n";
 
         public override string ToString()
         {

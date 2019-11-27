@@ -13,7 +13,7 @@ namespace PythonSTGVisualEditor.Sturcture
         public int repeatTime { get; set; }
 
         private const string initPythonScript = "{0}=TaskUnit(waitFrame={1}, repeatTime={2})\r\n";
-        private const string addBulletScript = "{0}.addBullet({1})";
+        private const string addBulletScript = "{0}.addBullet({1})\r\n";
 
         public string GetInitScript()
         {

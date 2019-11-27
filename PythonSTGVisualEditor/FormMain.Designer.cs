@@ -146,6 +146,7 @@ namespace PythonSTGVisualEditor
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
             this.saveToolStripMenuItem.Text = "保存(&S)";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
@@ -235,6 +236,7 @@ namespace PythonSTGVisualEditor
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
             this.runToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
             this.runToolStripMenuItem.Text = "运行(&R)";
+            this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
             // 
             // runConsoleToolStripMenuItem
             // 
@@ -255,7 +257,7 @@ namespace PythonSTGVisualEditor
             this.generatePythonToolStripMenuItem.Name = "generatePythonToolStripMenuItem";
             this.generatePythonToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.generatePythonToolStripMenuItem.Text = "生成Python脚本(&G)";
-            this.generatePythonToolStripMenuItem.Click += new System.EventHandler(this.generatePythonScript);
+            this.generatePythonToolStripMenuItem.Click += new System.EventHandler(this.generatePythonToolStripMenuItem_Click);
             // 
             // helpToolMenu
             // 
@@ -269,13 +271,13 @@ namespace PythonSTGVisualEditor
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.updateToolStripMenuItem.Text = "检查更新(&U)";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.aboutToolStripMenuItem.Text = "关于(&A)";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 

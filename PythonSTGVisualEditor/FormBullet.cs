@@ -84,7 +84,7 @@ namespace PythonSTGVisualEditor
                 case "className":
                     currentBullet.setClassName(currentValue); break;
                 case "velocity":
-                    currentBullet.velocity = int.Parse(currentValue); break;
+                    currentBullet.velocity = float.Parse(currentValue); break;
                 case "acceleration":
                     currentBullet.Acceleration = float.Parse(currentValue); break;
                 case "angle":
