@@ -71,5 +71,9 @@ namespace PythonSTGVisualEditor.SpecialNode
         {
             return stageDisplayName;
         }
+
+        public string getSetupFuncName() {
+            return string.Format("setup{0}", stageVarName);
+        }
     }
 }

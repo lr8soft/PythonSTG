@@ -27,7 +27,7 @@
   <component name="ProjectId" id="1SYENKR21wCnbccQ6uFR95WhClq" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/PythonSTG/script" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/PySTG" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="PyConsoleOptionsProvider">
@@ -153,6 +153,8 @@
       <workItem from="1574735078155" duration="1476000" />
       <workItem from="1574752235273" duration="1237000" />
       <workItem from="1574842135105" duration="871000" />
+      <workItem from="1574860120850" duration="3306000" />
+      <workItem from="1574864141476" duration="22000" />
     </task>
     <servers />
   </component>

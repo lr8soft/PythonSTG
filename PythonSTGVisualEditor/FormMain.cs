@@ -10,11 +10,14 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using PythonSTGVisualEditor.Sturcture;
 using System.IO;
+using System.Diagnostics;
 
 namespace PythonSTGVisualEditor
 {
     public partial class FormMain : Form
     {
+        private List<string> stageFuncName = new List<string>();
+
         public static string fileSavePath = null;
         public static string pystgScriptPath = null;
         public FormMain()
@@ -209,6 +212,7 @@ namespace PythonSTGVisualEditor
         private string generatePythonScript(int tabCount)
         {
             string pythonScript = "";
+            stageFuncName.Clear();
 
             TreeView ScriptContext = scriptContext;
             TreeNode treeNode = ScriptContext.TopNode;
@@ -223,6 +227,7 @@ namespace PythonSTGVisualEditor
                         else {
                             pythonScript += FormatHelper.getFormatScript(stageNode.getFuncInitScript(), tabCount - 1);
                         }
+                        stageFuncName.Add(stageNode.getSetupFuncName());
                         pythonScript += FormatHelper.getFormatScript(stageNode.getInitScript(), tabCount);
 
                         foreach (TreeNode taskNodeTemp in stageNode.Nodes)
@@ -294,19 +299,22 @@ namespace PythonSTGVisualEditor
 
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (pystgScriptPath == null) {
-                FolderBrowserDialog dialog = new FolderBrowserDialog();
-                dialog.Description = "选择PythonSTG下的Script文件夹";
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                    if (!string.IsNullOrEmpty(dialog.SelectedPath) && dialog.SelectedPath.IndexOf("script") != -1)
-                    {
-                        pystgScriptPath = dialog.SelectedPath;
-                        Console.WriteLine(pystgScriptPath);
-                    }
-                    else {
-                        MessageBox.Show("请选择PythonSTG下的Script文件夹！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+            generatePythonToolStripMenuItem_Click(sender, e);
+            if (pystgScriptPath != null)
+            {
+                Process p = new Process();
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
+
+                p.StandardInput.WriteLine("cd /d " + pystgScriptPath.Replace("script", ""));
+                p.StandardInput.WriteLine("PythonSTG.exe");
+                p.StandardInput.AutoFlush = true;
+                p.Close();
             }
         }
 
@@ -334,25 +342,82 @@ namespace PythonSTGVisualEditor
             if (pystgScriptPath != null)
             {
                 string pythonScript = generatePythonScript(0);
-                FileStream fileStream = new FileStream(pystgScriptPath + "/CustomStage.py", FileMode.Create);
-                StreamWriter sr = new StreamWriter(fileStream, Encoding.Default);
-                string info = "import random\r\n" +
-                "from .Bullet.Bullet import BulletColor\r\n" +
-                "from .Bullet.CircleBullet import CircleBullet\r\n" +
-                "from .Bullet.HugeBullet import HugeBullet\r\n" +
-                "from .Bullet.RiceBullet import RiceBullet\r\n" +
-                "from .Bullet.OvalBullet import OvalBullet\r\n" +
-                "from .Bullet.CardBullet import CardBullet\r\n" +
-                "from .Stage.Task import Task, TaskUnit\r\n" +
-                "from .Stage.Enemy.FairyEnemy import FairyEnemy, EnemyColor, DropItem\r\n" +
-                "from .Stage.Enemy.DarkButterflyFairy import DarkButterflyFairyEnemy\r\n" +
-                "from .Stage.XCStage import XCStage, StageRank, StageBackGround\r\n" +
-                "from .Stage.Boss import Boss, SpellCard\r\n";
+                try
+                {
+                    FileStream fileStream = new FileStream(pystgScriptPath + "/CustomStage.py", FileMode.Create);
+                    StreamWriter sr = new StreamWriter(fileStream, Encoding.Default);
+                    string info = "import random\r\n" +
+                    "from .Bullet.Bullet import BulletColor\r\n" +
+                    "from .Bullet.CircleBullet import CircleBullet\r\n" +
+                    "from .Bullet.HugeBullet import HugeBullet\r\n" +
+                    "from .Bullet.RiceBullet import RiceBullet\r\n" +
+                    "from .Bullet.OvalBullet import OvalBullet\r\n" +
+                    "from .Bullet.CardBullet import CardBullet\r\n" +
+                    "from .Stage.Task import Task, TaskUnit\r\n" +
+                    "from .Stage.Enemy.FairyEnemy import FairyEnemy, EnemyColor, DropItem\r\n" +
+                    "from .Stage.Enemy.DarkButterflyFairy import DarkButterflyFairyEnemy\r\n" +
+                    "from .Stage.XCStage import XCStage, StageRank, StageBackGround\r\n" +
+                    "from .Stage.Boss import Boss, SpellCard\r\n";
 
-                sr.WriteLine(info);
-                sr.WriteLine(pythonScript);
+                    sr.WriteLine(info);
+                    sr.WriteLine(pythonScript);
 
-                sr.Close();
+                    sr.Close();
+                    fileStream.Close();
+
+
+                  }
+                  catch (Exception expt) {
+                       MessageBox.Show(expt.ToString(), "无法保存脚本文件CustomStage.py", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                  }
+
+                try
+                   {
+                    StreamReader coreReader = new StreamReader(pystgScriptPath + "/XCCore.py", Encoding.Default);
+                    string line, coreinfo = "";
+
+                    
+                    while ((line = coreReader.ReadLine()) != null)
+                    {
+                        coreinfo += line + "\r\n";
+                    }
+                    
+                    coreReader.Close();
+                    
+                    const string importStart = "# [PySTG-VE IMPORT Start]\r\n";// importEnd = "# [PySTG-VE IMPORT End]\r\n";
+                    string insertStr = "import script.CustomStage as CustomStage\r\n";
+
+                    if (coreinfo.IndexOf(insertStr) == -1) {
+                        int importStartIndex = coreinfo.IndexOf(importStart);
+                        coreinfo = coreinfo.Insert(importStartIndex + importStart.Length, insertStr);
+                        Console.WriteLine(coreinfo);
+                    }
+
+                    const string initStart = "# [PySTG-VE STAGE Start]\r\n";// initEnd = "# [PySTG-VE STAGE End]\r\n";
+                    string insertStageStr = "";
+                    bool needInset = false;
+
+                    int stageStartIndex = coreinfo.IndexOf(initStart);
+                    for(int i= 0; i < stageFuncName.Count; i++) {
+                        string insertStage = string.Format("    {0}=CustomStage.{1}()\r\n    XCInit.addStageItem({0})\r\n", "PYSTGVECustomStage" + i, stageFuncName[i]);
+                        if (coreinfo.IndexOf(insertStage) == -1) {
+                            insertStageStr += insertStage;
+                            needInset = true;
+                        }
+                    }
+                    if (needInset) {
+                        coreinfo = coreinfo.Insert(stageStartIndex + initStart.Length, insertStageStr);
+                    }
+
+                    FileStream writeStream = new FileStream(pystgScriptPath + "//XCCore.py", FileMode.Create);
+                    StreamWriter coreWriter = new StreamWriter(writeStream, Encoding.Default);
+                    coreWriter.WriteLine(coreinfo);
+                    coreWriter.Close();
+                }
+                catch (Exception expt) {
+                    MessageBox.Show(expt.ToString(), "无法修改脚本文件XCCore.py", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                MessageBox.Show("Python脚本导出完成", "导出完成",MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

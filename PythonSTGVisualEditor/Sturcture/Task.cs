@@ -13,7 +13,7 @@ namespace PythonSTGVisualEditor
         public int taskWaitFrame { get; set; }
         public List<string> targetVarName = new List<string>();
 
-        private const string initPythonScript = "{0}=Task(duration={1}, intervalFrame={2}, waitFrame={3})\r\n";
+        private const string initPythonScript = "{0}=Task(durationFrame={1}, intervalFrame={2}, waitFrame={3})\r\n";
         private const string initDependScript = "{0}.addTargetUuid({1}.getUuid())\r\n";
         private const string addUnitScript = "{0}.addUnit({1})\r\n";
 

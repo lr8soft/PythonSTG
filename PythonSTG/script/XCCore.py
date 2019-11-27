@@ -1,10 +1,14 @@
 import script.XCInit as XCInit
 from script.Object.Player import Player
-
-# demo stage 演示关卡
 import script.TestStage as TestStage
 
+# [PySTG-VE IMPORT Start]
+
+
+# [PySTG-VE IMPORT End]
+
 winTitle = "PySTG v0.36-release"
+
 
 # PySTG default function
 def coreInitializer():
@@ -17,6 +21,11 @@ def coreFinalizer():
 
 
 def StageInit():
+
+    # [PySTG-VE STAGE Start]
+
+    # [PySTG-VE STAGE End]
+
     stageTest = TestStage.setupMyStage()
     XCInit.addStageItem(stageTest)
     print("[XCCore]Stage info init.")
