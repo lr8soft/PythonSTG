@@ -108,9 +108,12 @@ namespace PythonSTGVisualEditor
                         {
                             if (scriptSelectNode is TaskUnitNode)
                             {
-                                BulletNode bulletNode = new BulletNode("testBullet", toolSelectNode.Text);
-                                scriptSelectNode.Nodes.AddRange(new TreeNode[] {
-                                bulletNode});
+                                Bullet bullet = FormBullet.Execute(toolSelectNode.Text);
+                                if (bullet != null) {
+                                    BulletNode bulletNode = new BulletNode(bullet);
+                                    scriptSelectNode.Nodes.AddRange(new TreeNode[] {
+                                    bulletNode});
+                                }
                             }
                             else {
                                 MessageBox.Show("只能在TaskUnit下添加Bullet节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -151,6 +154,16 @@ namespace PythonSTGVisualEditor
                     {
                         unitNode.storageUnit = newUnit;
                         unitNode.updateNodeInfo();
+                    }
+                }
+                else if (currentNode is BulletNode)
+                {
+                    BulletNode bulletNode = (BulletNode)currentNode;
+                    Bullet bullet = FormBullet.Execute(bulletNode.currentBullet);
+                    if (bullet != null)
+                    {
+                        bulletNode.currentBullet = bullet;
+                        bulletNode.updateNodeInfo();
                     }
                 }
             }
@@ -219,7 +232,7 @@ namespace PythonSTGVisualEditor
                                             if (bulletNodeTemp is BulletNode)
                                             {
                                                 BulletNode bulletNode = (BulletNode)bulletNodeTemp;
-                                                pythonScript += bulletNode.GetBullet().GetInitScript();
+                                                pythonScript += bulletNode.currentBullet.GetInitScript();
                                             }
                                         }
                                     }
@@ -241,6 +254,12 @@ namespace PythonSTGVisualEditor
             if (dialog.ShowDialog() == DialogResult.OK) {
                 fileSavePath = dialog.FileName;
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAbout formAbout = new FormAbout();
+            formAbout.Show();
         }
     }
 }

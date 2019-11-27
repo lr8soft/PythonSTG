@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PythonSTGVisualEditor.Sturcture
 {
-    public class Bullet : IPythonScript
+    public class Bullet : IPythonScript, ICloneable
     {
         public enum BulletColor {
             RED, PURPLE, BLUE, LIGHTBLUE, LIGHTGREEN, YELLOW, ORANGE, WHITE
@@ -42,9 +42,18 @@ namespace PythonSTGVisualEditor.Sturcture
             return bulletVarName;
         }
 
+        public void setVarName(string name) {
+            bulletVarName = name;
+        }
+
         public string getClassName()
         {
             return bulletClassName;
+        }
+
+        public void setClassName(string name)
+        {
+            bulletClassName = name;
         }
 
         public string GetInitScript() {
@@ -52,6 +61,21 @@ namespace PythonSTGVisualEditor.Sturcture
                 bulletVarName, bulletClassName, posX.ToString(), posY.ToString(),
                 reBound.ToString(), velocity.ToString(), bulletColor.ToString(), angle.ToString(), angleAcceleration.ToString(), 
                 aimToPlayer ? "True" : "False");
+        }
+
+        public object Clone()
+        {
+            Bullet bullet = new Bullet(bulletVarName, bulletClassName);
+            bullet.posX = posX;
+            bullet.posY = posY;
+            bullet.velocity = velocity;
+            bullet.Acceleration = Acceleration;
+            bullet.aimToPlayer = aimToPlayer;
+            bullet.angle = angle;
+            bullet.angleAcceleration = angleAcceleration;
+            bullet.reBound = reBound;
+            bullet.bulletColor = bulletColor;
+            return bullet;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace PythonSTGVisualEditor.SpecialNode
 {
     public class BulletNode:TreeNode
     {
-        private Bullet currentBullet;
+        public Bullet currentBullet { get; set; }
         public BulletNode(string varName, string className) : base() {
             currentBullet = new Bullet(varName, className);
             updateNodeInfo();
@@ -19,10 +19,6 @@ namespace PythonSTGVisualEditor.SpecialNode
         {
             currentBullet = bullet;
             updateNodeInfo();
-        }
-
-        public Bullet GetBullet() {
-            return currentBullet;
         }
 
         public void updateNodeInfo() {
