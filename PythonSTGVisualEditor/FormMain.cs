@@ -11,6 +11,9 @@ using Microsoft.VisualBasic;
 using PythonSTGVisualEditor.Sturcture;
 using System.IO;
 using System.Diagnostics;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 
 namespace PythonSTGVisualEditor
 {
@@ -249,7 +252,7 @@ namespace PythonSTGVisualEditor
                                             {
                                                 BulletNode bulletNode = (BulletNode)bulletNodeTemp;
                                                 pythonScript += FormatHelper.getFormatScript(bulletNode.currentBullet.GetInitScript(), tabCount);
-                                                pythonScript += FormatHelper.getFormatScript(taskUnitNode.storageUnit.GetAddBulletScript(bulletNode.currentBullet.getVarName()), tabCount);
+                                                pythonScript += FormatHelper.getFormatScript(taskUnitNode.storageUnit.GetAddBulletScript(bulletNode.currentBullet.bulletVarName), tabCount);
                                             }
                                         }
                                         pythonScript += FormatHelper.getFormatScript(taskNode.storageTask.GetAddUnitScript(taskUnitNode.storageUnit.unitVarName), tabCount); ;
@@ -273,8 +276,22 @@ namespace PythonSTGVisualEditor
             dialog.Title = "选择文件";
             dialog.Filter = "PythonSTG工程文件(*.pstgproj)|*.pstgproj";
             if (dialog.ShowDialog() == DialogResult.OK) {
-                fileSavePath = dialog.FileName;
+                if (dialog.FileName != null) {
+                    fileSavePath = dialog.FileName;
+
+
+                    IFormatter formatter = new BinaryFormatter();
+                    Stream stream = new FileStream(fileSavePath, FileMode.Open, FileAccess.Read, FileShare.None);
+
+                    TreeView ScriptContext = scriptContext;
+                  
+
+                    //scriptContext.Nodes.Add(stageNode);
+
+                    stream.Close();
+                }
             }
+
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -285,7 +302,8 @@ namespace PythonSTGVisualEditor
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (fileSavePath == null) {
+            if (fileSavePath == null)
+            {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "PythonSTG工程文件(*.pstgproj)|*.pstgproj";
                 saveFileDialog.Title = "保存文件";
@@ -294,6 +312,56 @@ namespace PythonSTGVisualEditor
                     fileSavePath = saveFileDialog.FileName;
                     Console.WriteLine(fileSavePath);
                 }
+            }
+
+            if (fileSavePath != null)
+            {
+                
+                Stream stream = new FileStream(fileSavePath, FileMode.Create, FileAccess.Write, FileShare.None);
+
+                TreeView ScriptContext = scriptContext;
+                TreeNode treeNode = ScriptContext.TopNode;
+                if (treeNode != null)
+                {
+                    foreach (TreeNode node in treeNode.Nodes)
+                    {
+                        if (node is StageNode)
+                        {
+                            XmlSerializer stageFormatter = new XmlSerializer(typeof(Stage));
+                            StageNode stageNode = (StageNode)node;
+                            stageFormatter.Serialize(stream, stageNode.storageStage);
+                            foreach (TreeNode taskNodeTemp in stageNode.Nodes)
+                            {
+                                if (taskNodeTemp is TaskNode)
+                                {
+                                    XmlSerializer taskFormatter = new XmlSerializer(typeof(Task));
+                                    TaskNode taskNode = (TaskNode)taskNodeTemp;
+                                    taskFormatter.Serialize(stream, taskNode.storageTask);
+                                    foreach (TreeNode unitNodeTemp in taskNode.Nodes)
+                                    {
+                                        if (unitNodeTemp is TaskUnitNode)
+                                        {
+                                            XmlSerializer unitFormatter = new XmlSerializer(typeof(TaskUnit));
+                                            TaskUnitNode taskUnitNode = (TaskUnitNode)unitNodeTemp;
+                                            unitFormatter.Serialize(stream, taskUnitNode.storageUnit);
+                                            foreach (TreeNode bulletNodeTemp in unitNodeTemp.Nodes)
+                                            {
+                                                if (bulletNodeTemp is BulletNode)
+                                                {
+                                                    XmlSerializer bulletFormatter = new XmlSerializer(typeof(Bullet));
+                                                    BulletNode bulletNode = (BulletNode)bulletNodeTemp;
+                                                    bulletFormatter.Serialize(stream, bulletNode.currentBullet);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+                stream.Close();
             }
         }
 
@@ -418,6 +486,31 @@ namespace PythonSTGVisualEditor
                     MessageBox.Show(expt.ToString(), "无法修改脚本文件XCCore.py", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 MessageBox.Show("Python脚本导出完成", "导出完成",MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void scriptContext_Click(object sender, EventArgs e)
+        {
+            AttributeView.Nodes.Clear();
+            TreeView scriptView = (TreeView)sender;
+            TreeNode currentNode = scriptView.SelectedNode;
+            if (currentNode != null) {
+                if (currentNode is StageNode)
+                {
+                   
+                }
+                else if (currentNode is TaskNode)
+                {
+              
+                }
+                else if (currentNode is TaskUnitNode)
+                {
+                 
+                }
+                else if (currentNode is BulletNode)
+                {
+                 
+                }
             }
         }
     }

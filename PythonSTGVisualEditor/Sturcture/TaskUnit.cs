@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Xml.Serialization;
 namespace PythonSTGVisualEditor.Sturcture
 {
+    [XmlRoot("TaskUnit")]
     public class TaskUnit : ICloneable, IPythonScript
     {
+        [XmlElement("unitVarName")]
         public string unitVarName { get; set; }
-
+        [XmlElement("waitFrame")]
         public int waitFrame { get; set; }
+        [XmlElement("repeatTime")]
         public int repeatTime { get; set; }
 
         private const string initPythonScript = "{0}=TaskUnit(waitFrame={1}, repeatTime={2})\r\n";

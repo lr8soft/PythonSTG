@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Xml.Serialization;
 namespace PythonSTGVisualEditor.SpecialNode
 {
     public class TaskUnitNode : TreeNode

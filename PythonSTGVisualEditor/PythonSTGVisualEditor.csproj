@@ -113,6 +113,7 @@
     <Compile Include="SpecialNode\TaskNode.cs" />
     <Compile Include="SpecialNode\TaskUnitNode.cs" />
     <Compile Include="Sturcture\Bullet.cs" />
+    <Compile Include="Sturcture\Stage.cs" />
     <Compile Include="Sturcture\Task.cs" />
     <Compile Include="Sturcture\TaskUnit.cs" />
     <EmbeddedResource Include="FormAbout.resx">

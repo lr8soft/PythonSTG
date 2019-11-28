@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Xml.Serialization;
 namespace PythonSTGVisualEditor
 {
+    [XmlRoot("Task")]
     public class Task : ICloneable, IPythonScript
     {
+        [XmlElement("taskVarName")]
         public string taskVarName { get; set; }
+        [XmlElement("taskDuration")]
         public int taskDuration { get; set; }
+        [XmlElement("taskInterval")]
         public int taskInterval { get; set; }
+        [XmlElement("taskWaitFrame")]
         public int taskWaitFrame { get; set; }
+        [XmlElement("targetVarName")]
         public List<string> targetVarName = new List<string>();
 
         private const string initPythonScript = "{0}=Task(durationFrame={1}, intervalFrame={2}, waitFrame={3})\r\n";

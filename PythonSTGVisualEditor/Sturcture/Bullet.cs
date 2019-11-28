@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Xml.Serialization;
 namespace PythonSTGVisualEditor.Sturcture
 {
+    [XmlRoot("Bullet")]
     public class Bullet : IPythonScript, ICloneable
     {
         public enum BulletColor {
@@ -19,42 +20,31 @@ namespace PythonSTGVisualEditor.Sturcture
             "{0}.setAngle({7})\r\n" +
             "{0}.setAngleAcceleration({8})\r\n" +
             "{0}.setAimToPlayer({9})\r\n";
-
+        [XmlElement("posX")]
         public float posX { get; set; }
+        [XmlElement("posY")]
         public float posY { get; set; }
+        [XmlElement("velocity")]
         public float velocity { get; set; }
+        [XmlElement("Acceleration")]
         public float Acceleration { get; set; }
+        [XmlElement("angle")]
         public float angle { get; set; }
+        [XmlElement("angleAcceleration")]
         public float angleAcceleration { get; set; }
 
+        [XmlElement("aimToPlayer")]
         public bool aimToPlayer { get; set; }
+        [XmlElement("reBound")]
         public int reBound { get; set; }
+        [XmlElement("bulletColor")]
         public BulletColor bulletColor { get; set; }
 
-        private string bulletVarName, bulletClassName;
+        [XmlElement("bulletVarName")]
+        public string bulletVarName { get; set; }
+        [XmlElement("bulletClassName")]
+        public string bulletClassName { get; set; }
 
-        public Bullet(string varName, string className) {
-            bulletVarName = varName;
-            bulletClassName = className;
-        }
-
-        public string getVarName() {
-            return bulletVarName;
-        }
-
-        public void setVarName(string name) {
-            bulletVarName = name;
-        }
-
-        public string getClassName()
-        {
-            return bulletClassName;
-        }
-
-        public void setClassName(string name)
-        {
-            bulletClassName = name;
-        }
 
         public string GetInitScript() {
             return string.Format(bulletInitScript, 
@@ -65,7 +55,11 @@ namespace PythonSTGVisualEditor.Sturcture
 
         public object Clone()
         {
-            Bullet bullet = new Bullet(bulletVarName, bulletClassName);
+            Bullet bullet = new Bullet();
+
+            bullet.bulletVarName = bulletVarName;
+            bullet.bulletClassName = bulletClassName;
+
             bullet.posX = posX;
             bullet.posY = posY;
             bullet.velocity = velocity;

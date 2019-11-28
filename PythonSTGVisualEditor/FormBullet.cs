@@ -22,7 +22,10 @@ namespace PythonSTGVisualEditor
             InitializeComponent();
             InitCustomizedComponent();
 
-            currentBullet = new Bullet("testBullet" + (bulletCount++), pythonClassName);
+            currentBullet = new Bullet();
+            currentBullet.bulletVarName = "testBullet" + (bulletCount++);
+            currentBullet.bulletClassName = pythonClassName;
+
             currentBullet.velocity = 1.0f;
             currentBullet.Acceleration = 0.0f;
             currentBullet.angle = 270.0f;
@@ -39,8 +42,8 @@ namespace PythonSTGVisualEditor
             InitCustomizedComponent();
 
             currentBullet = (Bullet)bullet.Clone();
-            varName.Text = currentBullet.getVarName();
-            className.Text = currentBullet.getClassName();
+            varName.Text = currentBullet.bulletVarName;
+            className.Text = currentBullet.bulletClassName;
             velocity.Text = currentBullet.velocity.ToString();
             acceleration.Text = currentBullet.Acceleration.ToString();
             angle.Text = currentBullet.angle.ToString();
@@ -82,9 +85,9 @@ namespace PythonSTGVisualEditor
         private void updateTaskInfo(string name, string lastValue, string currentValue) {
             switch (name) {
                 case "varName":
-                    currentBullet.setVarName(currentValue); break;
+                    currentBullet.bulletVarName = currentValue; break;
                 case "className":
-                    currentBullet.setClassName(currentValue); break;
+                    currentBullet.bulletClassName = currentValue; break;
                 case "velocity":
                     currentBullet.velocity = float.Parse(currentValue); break;
                 case "acceleration":
