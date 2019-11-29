@@ -26,12 +26,13 @@ namespace PythonSTGVisualEditor
             currentBullet.bulletVarName = "testBullet" + (bulletCount++);
             currentBullet.bulletClassName = pythonClassName;
 
-            currentBullet.velocity = 1.0f;
-            currentBullet.Acceleration = 0.0f;
-            currentBullet.angle = 270.0f;
-            currentBullet.posX = 0.0f;
-            currentBullet.posY = 0.5f;
-            currentBullet.angleAcceleration = 0.0f;
+            currentBullet.velocity = "1.0";
+            currentBullet.Acceleration = "0.0";
+            currentBullet.angle = "270.0";
+            currentBullet.posX = "0.0";
+            currentBullet.posY = "0.5";
+            currentBullet.angleAcceleration = "0.0";
+            currentBullet.reBound = "0";
             currentBullet.bulletColor = Bullet.BulletColor.BLUE;
             className.Text = pythonClassName;
         }
@@ -44,15 +45,15 @@ namespace PythonSTGVisualEditor
             currentBullet = (Bullet)bullet.Clone();
             varName.Text = currentBullet.bulletVarName;
             className.Text = currentBullet.bulletClassName;
-            velocity.Text = currentBullet.velocity.ToString();
-            acceleration.Text = currentBullet.Acceleration.ToString();
+            velocity.Text = currentBullet.velocity;
+            acceleration.Text = currentBullet.Acceleration;
             angle.Text = currentBullet.angle.ToString();
-            angleVelocity.Text = currentBullet.angleAcceleration.ToString();
+            angleVelocity.Text = currentBullet.angleAcceleration;
             aimToPlayer.Text = currentBullet.aimToPlayer.ToString();
             color.Text = currentBullet.bulletColor.ToString();
-            reBound.Text = currentBullet.reBound.ToString();
-            posX.Text = currentBullet.posX.ToString();
-            posY.Text = currentBullet.posY.ToString();
+            reBound.Text = currentBullet.reBound;
+            posX.Text = currentBullet.posX;
+            posY.Text = currentBullet.posY;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -89,13 +90,13 @@ namespace PythonSTGVisualEditor
                 case "className":
                     currentBullet.bulletClassName = currentValue; break;
                 case "velocity":
-                    currentBullet.velocity = float.Parse(currentValue); break;
+                    currentBullet.velocity = currentValue; break;
                 case "acceleration":
-                    currentBullet.Acceleration = float.Parse(currentValue); break;
+                    currentBullet.Acceleration = currentValue; break;
                 case "angle":
-                    currentBullet.angle = float.Parse(currentValue); break;
+                    currentBullet.angle = currentValue; break;
                 case "angleVelocity":
-                    currentBullet.angleAcceleration = float.Parse(currentValue); break;
+                    currentBullet.angleAcceleration = currentValue; break;
                 case "aimToPlayer":
                     currentBullet.aimToPlayer = currentValue == "True" ? true : false; break;
                 case "color":
@@ -111,11 +112,11 @@ namespace PythonSTGVisualEditor
                     }
                     break;
                 case "reBound":
-                    currentBullet.reBound = int.Parse(currentValue); break;
+                    currentBullet.reBound = currentValue; break;
                 case "posX":
-                    currentBullet.posX = float.Parse(currentValue); break;
+                    currentBullet.posX = currentValue; break;
                 case "posY":
-                    currentBullet.posY = float.Parse(currentValue); break;
+                    currentBullet.posY = currentValue; break;
 
             }
         }

@@ -21,22 +21,22 @@ namespace PythonSTGVisualEditor.Sturcture
             "{0}.setAngleAcceleration({8})\r\n" +
             "{0}.setAimToPlayer({9})\r\n";
         [XmlElement("posX")]
-        public float posX { get; set; }
+        public string posX { get; set; }
         [XmlElement("posY")]
-        public float posY { get; set; }
+        public string posY { get; set; }
         [XmlElement("velocity")]
-        public float velocity { get; set; }
+        public string velocity { get; set; }
         [XmlElement("Acceleration")]
-        public float Acceleration { get; set; }
+        public string Acceleration { get; set; }
         [XmlElement("angle")]
-        public float angle { get; set; }
+        public string angle { get; set; }
         [XmlElement("angleAcceleration")]
-        public float angleAcceleration { get; set; }
+        public string angleAcceleration { get; set; }
 
         [XmlElement("aimToPlayer")]
         public bool aimToPlayer { get; set; }
         [XmlElement("reBound")]
-        public int reBound { get; set; }
+        public string reBound { get; set; }
         [XmlElement("bulletColor")]
         public BulletColor bulletColor { get; set; }
 

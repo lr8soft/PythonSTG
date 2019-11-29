@@ -111,10 +111,23 @@ namespace PythonSTGVisualEditor
                             MessageBox.Show("只能在Task下添加TaskUnit节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         break;
+                    case "for":
+                        if (scriptSelectNode != null &&  scriptSelectNode is TaskUnitNode )
+                        {
+                            int count = int.Parse(Interaction.InputBox("输入循环次数:", "Input value", "1"));
+                            ForNode forNode = new ForNode(count);
+                            scriptSelectNode.Nodes.AddRange(new TreeNode[] {
+                                 forNode});
+                        }
+                        else
+                        {
+                            MessageBox.Show("只能在TaskUnit下添加For节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        break;
                     default:
                         if (toolSelectParent.Text == "BulletType")
                         {
-                            if (scriptSelectNode is TaskUnitNode)
+                            if (scriptSelectNode is TaskUnitNode || scriptSelectNode is ForNode)
                             {
                                 Bullet bullet = FormBullet.Execute(toolSelectNode.Text);
                                 if (bullet != null) {
@@ -124,7 +137,7 @@ namespace PythonSTGVisualEditor
                                 }
                             }
                             else {
-                                MessageBox.Show("只能在TaskUnit下添加Bullet节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("只能在TaskUnit、For下添加Bullet节点！", "无法在此处添加节点", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
                         }
@@ -173,6 +186,12 @@ namespace PythonSTGVisualEditor
                         bulletNode.currentBullet = bullet;
                         bulletNode.updateNodeInfo();
                     }
+                }
+                else if (currentNode is ForNode) {
+                    ForNode forNode = (ForNode)currentNode;
+                    int count = int.Parse(Interaction.InputBox("输入循环次数:", "Input value", forNode.repeatTime.ToString()));
+                    forNode.repeatTime = count;
+                    forNode.updateNodeInfo();
                 }
             }
         }
@@ -254,9 +273,23 @@ namespace PythonSTGVisualEditor
                                                 pythonScript += FormatHelper.getFormatScript(bulletNode.currentBullet.GetInitScript(), tabCount);
                                                 pythonScript += FormatHelper.getFormatScript(taskUnitNode.storageUnit.GetAddBulletScript(bulletNode.currentBullet.bulletVarName), tabCount);
                                             }
+                                            else if (bulletNodeTemp is ForNode)
+                                            {
+                                                ForNode forNode = (ForNode)bulletNodeTemp;
+                                                pythonScript += FormatHelper.getFormatScript(forNode.getInitScript(), tabCount);
+                                                foreach (TreeNode forbulletNodeTemp in forNode.Nodes)
+                                                {
+                                                    if (forbulletNodeTemp is BulletNode)
+                                                    {
+                                                        BulletNode forbulletNode = (BulletNode)forbulletNodeTemp;
+                                                        pythonScript += FormatHelper.getFormatScript(forbulletNode.currentBullet.GetInitScript(), tabCount + 1);
+                                                        pythonScript += FormatHelper.getFormatScript(taskUnitNode.storageUnit.GetAddBulletScript(forbulletNode.currentBullet.bulletVarName), tabCount + 1);
+                                                    }
+                                                }
+                                            }
                                         }
                                         pythonScript += FormatHelper.getFormatScript(taskNode.storageTask.GetAddUnitScript(taskUnitNode.storageUnit.unitVarName), tabCount); ;
-                                    }
+                                    } 
                                 }
                                 pythonScript += FormatHelper.getFormatScript(stageNode.getAddTaskScript(taskNode.storageTask.taskVarName), tabCount);
                             }
