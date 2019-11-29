@@ -5,7 +5,7 @@ class RectangleTypeBullet(Bullet):
     def __init__(self):
         super().__init__()
         super()._setCollideSize([0.055, 0.0275])
-        super()._setRenderSize([0.055, 0.055, 0.055])
+        super()._setRenderSize([0.055, 0.055])
         self.bulletType = "rectangleTypeBullet"
 
     @abstractmethod

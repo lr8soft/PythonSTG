@@ -27,7 +27,7 @@
   <component name="ProjectId" id="1SYENKR21wCnbccQ6uFR95WhClq" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/PythonSTG/script" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/PySTG" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="PyConsoleOptionsProvider">
@@ -140,7 +140,23 @@
       <workItem from="1572917734342" duration="625000" />
       <workItem from="1572926236818" duration="491000" />
       <workItem from="1572940683105" duration="878000" />
-      <workItem from="1573048321222" duration="1915000" />
+      <workItem from="1573048321222" duration="2272000" />
+      <workItem from="1573051858886" duration="480000" />
+      <workItem from="1574252702188" duration="404000" />
+      <workItem from="1574475037518" duration="1579000" />
+      <workItem from="1574483437796" duration="1744000" />
+      <workItem from="1574589779865" duration="635000" />
+      <workItem from="1574671077442" duration="1275000" />
+      <workItem from="1574672556863" duration="642000" />
+      <workItem from="1574679136588" duration="2288000" />
+      <workItem from="1574730807671" duration="1322000" />
+      <workItem from="1574735078155" duration="1476000" />
+      <workItem from="1574752235273" duration="1237000" />
+      <workItem from="1574842135105" duration="871000" />
+      <workItem from="1574860120850" duration="3306000" />
+      <workItem from="1574864141476" duration="22000" />
+      <workItem from="1574865477964" duration="47000" />
+      <workItem from="1574927970611" duration="11000" />
     </task>
     <servers />
   </component>

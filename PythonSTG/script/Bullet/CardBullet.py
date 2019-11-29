@@ -1,13 +1,14 @@
 from .RectangleTypeBullet import RectangleTypeBullet, BulletColor
 
+
 class CardBullet(RectangleTypeBullet):
     def __init__(self):
         super().__init__()
         self.isLight = False
         super()._setDivideInfo(divideType=[1, 16], divideOffset=[0.0, 0.0])
         super()._setSelectImage(coord=[1, 6])
-        super()._setCollideSize([0.0352, 0.02, 0.055])
-        super()._setRenderSize([0.0352, 0.044])
+        super()._setCollideSize([0.04, 0.02, 0.055])
+        super()._setRenderSize([0.04, 0.04])
         super().setBulletImage("assets/Bullet/cardBullet.png")
 
         super()._setReleaseParticleDensity(10)
