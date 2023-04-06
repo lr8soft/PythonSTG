@@ -4,3 +4,5 @@ Debug
 Release
 Python2D\Release
 *.pyc
+
+.idea
