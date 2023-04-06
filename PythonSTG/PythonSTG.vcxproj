@@ -55,7 +55,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x64\OpenAL32.lib;..\libs\x64\python36_d.lib;..\libs\x64\alut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\libs\freetype.lib;..\libs\glfw3.lib;..\libs\OpenAL32.lib;..\libs\python36.lib;..\libs\python36_d.lib;..\libs\python3.lib;..\libs\alut.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -75,7 +75,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;freetype.lib;..\libs\x64\OpenAL32.lib;..\libs\x64\python36.lib;..\libs\x64\python36_d.lib;..\libs\x64\python3.lib;..\libs\x64\alut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\libs\freetype.lib;..\libs\glfw3.lib;..\libs\OpenAL32.lib;..\libs\python36.lib;..\libs\python36_d.lib;..\libs\python3.lib;..\libs\alut.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
